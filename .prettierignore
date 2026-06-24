@@ -1,0 +1,13 @@
+node_modules/
+.agents/
+dist/
+build/
+.next/
+.wrangler/
+.turbo/
+coverage/
+*.min.js
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+CHANGELOG.md

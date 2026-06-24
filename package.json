@@ -1,0 +1,52 @@
+{
+  "name": "create-lean-agent-kit",
+  "version": "0.1.0",
+  "description": "Lightweight, tool-agnostic memory + stack-skill kit for AI coding agents. Scaffolds tiered Markdown memory and wires up framework skills.",
+  "type": "module",
+  "bin": {
+    "create-lean-agent-kit": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "template"
+  ],
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=24.16.0",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "test": "node --test",
+    "commit": "cz",
+    "format": "prettier --write \"**/*.{md}\" --ignore-path .prettierignore",
+    "format:check": "prettier --check \"**/*.{md}\" --ignore-path .prettierignore",
+    "release": "commit-and-tag-version"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "skills",
+    "memory",
+    "scaffold",
+    "claude",
+    "cursor",
+    "spec-kit",
+    "agents.md"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.1.0",
+    "commit-and-tag-version": "^12.7.3",
+    "commitizen": "^4.3.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
