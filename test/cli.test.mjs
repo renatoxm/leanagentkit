@@ -10,7 +10,7 @@ test("scaffolds kit files into a target dir", () => {
   try {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     assert.ok(existsSync(join(dir, "AGENTS.md")), "AGENTS.md copied");
-    assert.ok(existsSync(join(dir, ".agent/skills/bootstrap.md")), "bootstrap skill copied");
+    assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md")), "bootstrap skill copied");
     assert.ok(existsSync(join(dir, "docs/CODEBASE_MAP.md")), "codebase map copied");
     assert.ok(existsSync(join(dir, "LEAN_AGENT_KIT.md")), "README renamed on copy");
     assert.ok(!existsSync(join(dir, "README.md")), "did not write README.md");

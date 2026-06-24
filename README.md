@@ -20,7 +20,7 @@ npx create-lean-agent-kit .
 
 Then open your AI agent in the project and say:
 
-> Read `.agent/skills/bootstrap.md` and follow it.
+> Read `.agent/skills/leanagentkit-bootstrap.md` and follow it.
 
 That runs the interactive setup: choose memory tiers, map the codebase, detect
 your stack, and wire up matching framework skills.

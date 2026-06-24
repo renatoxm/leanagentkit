@@ -6,7 +6,8 @@ import { mkdtempSync, existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const SKILL_NAMES = [
+const SKILL_PREFIX = "leanagentkit-";
+const SKILL_BASE_NAMES = [
   "bootstrap",
   "match-stack",
   "map-codebase",
@@ -17,6 +18,7 @@ const SKILL_NAMES = [
   "end-session",
   "skill-artifact-template",
 ];
+const SKILL_NAMES = SKILL_BASE_NAMES.map((name) => `${SKILL_PREFIX}${name}`);
 
 const TEMPLATE_CURSOR = join(process.cwd(), "template", ".agent", "install", "cursor");
 
@@ -46,7 +48,7 @@ test("cursor install templates exist after scaffold", () => {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const installDir = join(dir, ".agent", "install", "cursor");
     assert.ok(existsSync(join(installDir, "rules", "memory.mdc")));
-    assert.ok(existsSync(join(installDir, "skills", "bootstrap", "SKILL.md")));
+    assert.ok(existsSync(join(installDir, "skills", "leanagentkit-bootstrap", "SKILL.md")));
     assert.ok(existsSync(join(installDir, "README.md")));
     assert.ok(!existsSync(join(dir, ".cursor")), "scaffold does not ship .cursor/");
   } finally {
@@ -82,7 +84,7 @@ test("wire-cursor copy lands files under .cursor/", async () => {
     await wireCursor(dir);
 
     const rulePath = join(dir, ".cursor", "rules", "memory.mdc");
-    const skillPath = join(dir, ".cursor", "skills", "bootstrap", "SKILL.md");
+    const skillPath = join(dir, ".cursor", "skills", "leanagentkit-bootstrap", "SKILL.md");
     assert.ok(existsSync(rulePath), "memory.mdc copied");
     assert.ok(existsSync(skillPath), "bootstrap SKILL.md copied");
 

@@ -80,7 +80,7 @@ async function main() {
 
 Next step — open your AI agent in this project and say:
 
-    Read .agent/skills/bootstrap.md and follow it.
+    Read .agent/skills/leanagentkit-bootstrap.md and follow it.
 
 That runs the interactive setup: pick memory tiers, map the codebase,
 detect your stack, and wire up matching skills. See LEAN_AGENT_KIT.md for details.

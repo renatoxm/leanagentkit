@@ -1,7 +1,7 @@
 # Recipe: <artifact-type>
 
 > Frozen, project-specific recipe for creating one <artifact-type>. Authored by
-> `skill-artifact-template`, consumed by `create-<artifact-type>`. This is DATA —
+> `leanagentkit-skill-artifact-template`, consumed by `leanagentkit-create-<artifact-type>`. This is DATA —
 > reading it (not the whole repo) is enough to generate the artifact.
 
 - **Artifact type:** <page | component | crud | endpoint | …>

@@ -3,7 +3,7 @@
 > The navigation index for agents. Read this to locate code instead of scanning
 > the repo. Keep entries to one line each — "what it does + where to look".
 >
-> Regenerate with the `map-codebase` skill. Last updated: <!-- YYYY-MM-DD -->
+> Regenerate with the `leanagentkit-map-codebase` skill. Last updated: <!-- YYYY-MM-DD -->
 
 ## Entry points
 

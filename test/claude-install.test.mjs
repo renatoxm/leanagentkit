@@ -6,7 +6,8 @@ import { mkdtempSync, existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const SKILL_NAMES = [
+const SKILL_PREFIX = "leanagentkit-";
+const SKILL_BASE_NAMES = [
   "bootstrap",
   "match-stack",
   "map-codebase",
@@ -17,6 +18,7 @@ const SKILL_NAMES = [
   "end-session",
   "skill-artifact-template",
 ];
+const SKILL_NAMES = SKILL_BASE_NAMES.map((name) => `${SKILL_PREFIX}${name}`);
 
 const TEMPLATE_CLAUDE = join(process.cwd(), "template", ".agent", "install", "claude");
 
@@ -44,7 +46,7 @@ test("claude install templates exist after scaffold", () => {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const installDir = join(dir, ".agent", "install", "claude");
     assert.ok(existsSync(join(installDir, "CLAUDE.md")));
-    assert.ok(existsSync(join(installDir, "skills", "bootstrap", "SKILL.md")));
+    assert.ok(existsSync(join(installDir, "skills", "leanagentkit-bootstrap", "SKILL.md")));
     assert.ok(existsSync(join(installDir, "README.md")));
     assert.ok(!existsSync(join(dir, "CLAUDE.md")), "scaffold does not ship CLAUDE.md");
     assert.ok(!existsSync(join(dir, ".claude")), "scaffold does not ship .claude/");
@@ -80,7 +82,7 @@ test("wire-claude copy lands CLAUDE.md and .claude/skills/", async () => {
     await wireClaude(dir);
 
     const claudePath = join(dir, "CLAUDE.md");
-    const skillPath = join(dir, ".claude", "skills", "bootstrap", "SKILL.md");
+    const skillPath = join(dir, ".claude", "skills", "leanagentkit-bootstrap", "SKILL.md");
     assert.ok(existsSync(claudePath), "CLAUDE.md copied to root");
     assert.ok(existsSync(skillPath), "bootstrap SKILL.md copied");
 

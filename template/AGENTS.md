@@ -2,7 +2,7 @@
 
 > Canonical instructions for any AI coding agent in this repo (Cursor, Claude,
 > Copilot, ChatGPT, Aider, Cline…). Tool-specific files just point here.
-> Run `.agent/skills/bootstrap.md` to fill this out. Last updated: <!-- YYYY-MM-DD -->
+> Run `.agent/skills/leanagentkit-bootstrap.md` to fill this out. Last updated: <!-- YYYY-MM-DD -->
 
 ## 1. What this project is
 <!-- One paragraph. -->
@@ -21,7 +21,7 @@
 | Deploy | `<...>` |
 
 ## 4. Conventions
-<!-- Evidence-based rules only. Filled by init-conventions + stack playbooks. -->
+<!-- Evidence-based rules only. Filled by leanagentkit-init-conventions + stack playbooks. -->
 
 ## 5. Never do
 <!-- Secrets, generated dirs, footguns. -->
@@ -45,8 +45,8 @@ Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when
 | Short | `docs/memory/SCRATCH.md` | this task |
 
 ## 7. Stack skills
-<!-- Auto-populated by match-stack: which external skills/MCPs to defer to and when.
+<!-- Auto-populated by leanagentkit-match-stack: which external skills/MCPs to defer to and when.
      Empty until bootstrap runs. -->
 
 ## 8. Setup / refresh
-Run `.agent/skills/bootstrap.md` to (re)generate memory and stack wiring.
+Run `.agent/skills/leanagentkit-bootstrap.md` to (re)generate memory and stack wiring.

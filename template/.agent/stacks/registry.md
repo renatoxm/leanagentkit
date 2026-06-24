@@ -2,7 +2,7 @@
 
 > Single source of truth mapping a detected technology → the external agent skill
 > for it, the correct install method, and the local integration playbook.
-> The `bootstrap` and `match-stack` skills read this. Edit here, not in skills.
+> The `leanagentkit-bootstrap` and `leanagentkit-match-stack` skills read this. Edit here, not in skills.
 >
 > Verified: 2026-06-23. Skill repos churn — re-check install commands if a year
 > has passed or a command fails.
@@ -147,5 +147,5 @@
 ## Adding your own rows
 
 To extend: add a section above with the same fields, then (optionally) create a
-matching `.agent/stacks/<name>.md` playbook. The `match-stack` skill auto-discovers
+matching `.agent/stacks/<name>.md` playbook. The `leanagentkit-match-stack` skill auto-discovers
 any row whose **Detect** condition is met.
