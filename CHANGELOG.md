@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.4](https://github.com/renatoxm/leanagentkit/compare/v0.1.3...v0.1.4) (2026-06-24)
+
+
+### Features
+
+* added cloude support ([9bd5d19](https://github.com/renatoxm/leanagentkit/commit/9bd5d195d4861857c86220e7c8f6e8209a5a1387))
+* added cursor ide installation support ([f07bac0](https://github.com/renatoxm/leanagentkit/commit/f07bac030a82c1f73f94aed53126dc64df663581))
+
 ## [0.1.3](https://github.com/renatoxm/leanagentkit/compare/v0.1.2...v0.1.3) (2026-06-24)
 
 ## [0.1.2](https://github.com/renatoxm/leanagentkit/compare/v0.1.1...v0.1.2) (2026-06-24)
