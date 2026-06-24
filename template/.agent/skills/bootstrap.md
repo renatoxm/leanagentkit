@@ -62,10 +62,43 @@ Ask whether the user wants to author any artifact generators now (page, componen
 crud, endpoint…). For each chosen type, run `skill-artifact-template`. These are
 optional and add zero footprint until authored.
 
-## Step 6 — Summarize
+## Step 6 — Document stack skills in LEAN_AGENT_KIT.md
+`LEAN_AGENT_KIT.md` is copied from the kit template at install time (`README.md` →
+`LEAN_AGENT_KIT.md` via `create-lean-agent-kit`). After Step 3, replace the
+placeholder under `### Stack skills (external, auto-installed)` with the skills
+actually installed for this project.
+
+1. Open `LEAN_AGENT_KIT.md` → `### Stack skills (external, auto-installed)`.
+2. Replace the placeholder table (`example-skill` row) with one row per stack
+   **detected and approved** in Step 3. Omit declined stacks and anything skipped
+   in Step 0.
+3. For each row, pull from `.agent/stacks/registry.md` (**Provides**) and the
+   matching `.agent/stacks/<name>.md` playbook (**Defer to the skill / MCP for**):
+   - **Skill** — primary skill or MCP name (e.g. `hono`, `tailwind-4-docs`,
+     `cloudflare`, `Svelte MCP`).
+   - **Use when** — one line: what to defer to it for, how to invoke, and any
+     REQUIRED post-install (e.g. Tailwind docs sync, `@hono/cli`).
+4. **Copy-in skills** (`Type: skill`) — note they live under `.agents/skills/`
+   (and may be mirrored in `.cursor/skills/` when Cursor was wired). Agents
+   auto-discover them for matching tech; or say explicitly: "use the `hono`
+   skill when …".
+5. **MCP rows** (`Type: mcp`, e.g. Svelte) — note there is no skills folder;
+   the agent must use the configured MCP server (`.cursor/mcp.json` or
+   `.mcp.json`). Say "use Svelte MCP tools before answering from memory."
+6. If **no** stack skills were installed, replace the table body with a single
+   line: _No external stack skills installed. Re-run `match-stack` after adding
+   dependencies._
+7. **Idempotent:** on re-run, replace the entire table under that heading — do
+   not append duplicate rows.
+
+Keep the intro paragraph above the table; only replace the table (and optional
+post-install bullets immediately below it).
+
+## Step 7 — Summarize
 Print: tiers enabled, files created, stacks detected + install status (with any
-REQUIRED post-install steps, e.g. Tailwind snapshot sync), and the daily loop
-(`start-session` / `end-session`). Clear bootstrap notes from SCRATCH.
+REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
+stack-skills section updated, and the daily loop (`start-session` /
+`end-session`). Clear bootstrap notes from SCRATCH.
 
 ## Re-running
 Safe to re-run. Re-detect stack, refresh the map, never clobber human-written ADRs
