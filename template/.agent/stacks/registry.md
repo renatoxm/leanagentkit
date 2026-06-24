@@ -27,7 +27,8 @@
 - **Type:** skill (+ optional MCP servers for docs/bindings/observability)
 - **Install:** `npx skills add https://github.com/cloudflare/skills`
   - Claude Code alt: `/plugin marketplace add cloudflare/skills` → `/plugin install cloudflare@cloudflare`
-  - Cursor alt: Settings → Rules → Add Rule → Remote Rule (GitHub) → `cloudflare/skills`
+  - Cursor alt: `npx skills add https://github.com/cloudflare/skills -a cursor --copy`
+  - Cursor alt (rules): Settings → Rules → Add Rule → Remote Rule (GitHub) → `cloudflare/skills`
 - **Provides:** `cloudflare`, `agents-sdk`, `durable-objects`, `wrangler`, `sandbox-sdk`, `web-perf`, MCP-server builders
 - **Optional MCP:** `cloudflare-docs`, `cloudflare-bindings`, `cloudflare-observability` (see upstream `.mcp.json`)
 - **Playbook:** `.agent/stacks/cloudflare.md`
@@ -40,6 +41,7 @@
 - **Type:** skill (+ optional `hono-docs` MCP)
 - **Install:** `npx skills add yusukebe/hono-skill`
   - Claude Code alt: `/plugin marketplace add yusukebe/hono-skill` → `/plugin install hono-skill@hono`
+  - Cursor alt: `npx skills add yusukebe/hono-skill -a cursor --copy`
 - **Provides:** `hono` (routing, context, middleware, JSX, validation, RPC, streaming) + `hono request` testing
 - **Requires:** Hono CLI as devDep → `npm install -D @hono/cli`
 - **Optional MCP:** `hono-docs` → `claude mcp add --transport http hono-docs https://hono-docs-mcp.yusukebe.workers.dev/mcp`
@@ -56,6 +58,10 @@
   { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
   ```
   - Claude Code / Cursor: install the plugin from the repo's `.claude-plugin` / `.cursor-plugin`.
+  - Cursor alt (MCP config): add to `.cursor/mcp.json`:
+    ```json
+    { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
+    ```
 - **Provides:** live Svelte 5 / SvelteKit docs retrieval, autofix, playground generation via MCP tools
 - **Playbook:** `.agent/stacks/svelte.md`
 - **Post-install:** confirm the agent lists the `svelte` MCP tools; verify `mcp.svelte.dev` reachable
@@ -72,6 +78,10 @@
   npx degit withastro/astro/.agents/skills .agent/skills/vendor/astro
   ```
   (or sparse-checkout `.agents/skills` and copy.) Point your agent at the copied folder.
+  - Cursor alt: copy into `.cursor/skills/` or `.agents/skills/`:
+    ```bash
+    npx degit withastro/astro/.agents/skills .cursor/skills/astro
+    ```
   - Pin to a tag for stability instead of `main`; re-pull to update (these track framework releases).
 - **Provides:** Astro authoring conventions — content collections, `.astro` components, islands/hydration directives, routing, integrations, server/SSR vs static
 - **Related (separate repos):** Starlight (`withastro/starlight`) for docs sites; Astro DB (`@astrojs/db`)
@@ -87,6 +97,12 @@
 - **Install:** curl-piped install script (NOT `npx skills add`):
   `curl -fsSL https://github.com/antstanley/shadcn-svelte-skill/releases/latest/download/install.sh | bash`
   - Installs to `~/.claude/skills/shadcn-svelte` (Claude Code layout).
+  - Cursor alt: clone and package into `.cursor/skills/shadcn-svelte/`:
+    ```bash
+    git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
+    cd /tmp/shadcn-svelte-skill && python scripts/package_skill.py shadcn-svelte dist
+    unzip -o dist/shadcn-svelte.zip -d .cursor/skills/
+    ```
   - Pin a version: swap `latest/download` for `download/vX.Y.Z` (latest verified: v1.0.3, 2026-02-03).
   - From source: clone, then `python scripts/package_skill.py shadcn-svelte dist` and unzip into your skills dir.
 - **Provides:** component recipes (Button, Dialog, Form, Data Table…), Bits UI integration, Superforms/Formsnap forms, dark mode via mode-watcher, Svelte 5 + Tailwind v4 migration notes
@@ -100,6 +116,7 @@
 - **Skill:** `Lombiq/Tailwind-Agent-Skills`
 - **Type:** skill (with a local docs-snapshot generator)
 - **Install:** `npx skills add Lombiq/Tailwind-Agent-Skills`
+  - Cursor alt: `npx skills add Lombiq/Tailwind-Agent-Skills -a cursor --copy`
   - Manual: copy `skills/tailwind-4-docs/` into your agent's skills dir
 - **Provides:** `tailwind-4-docs` — gotchas list, implementation playbook, local docs index
 - **Playbook:** `.agent/stacks/tailwind.md`

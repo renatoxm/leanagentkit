@@ -45,7 +45,8 @@ appends each stack's AGENTS.md snippet + applies its playbook to CODEBASE_MAP.
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
 duplicate rules):
-- Cursor → `.cursor/rules/memory.mdc`: "Always follow `AGENTS.md`, especially its Memory protocol."
+- Cursor → run `wire-cursor` (copies `.agent/install/cursor/` → `.cursor/rules/memory.mdc`
+  + `.cursor/skills/*` skill wrappers). On re-run, refreshes only kit-managed files.
 - Claude Code → `CLAUDE.md`: "Follow AGENTS.md."
 - Copilot → `.github/copilot-instructions.md`: "Follow AGENTS.md."
 - Aider → `CONVENTIONS.md`: "Follow AGENTS.md."

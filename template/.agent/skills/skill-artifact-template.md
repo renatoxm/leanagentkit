@@ -13,6 +13,10 @@ future generation is fast and needs no full-repo read.
 - `.agent/recipes/<artifact-type>.recipe.md` — the structured recipe (data).
 - `.agent/skills/generated/create-<artifact-type>.md` — the runtime generator skill.
 - A registry line appended to `.agent/skills/generated/README.md`.
+- If `.cursor/skills/` exists (Cursor wired via `wire-cursor`), also create
+  `.cursor/skills/create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
+  (`name`, `description`, `disable-model-invocation: true`) that delegates to
+  `.agent/skills/generated/create-<artifact-type>.md`.
 
 ---
 
@@ -72,7 +76,8 @@ generated skill must be self-contained: reading it + the recipe is enough to
 produce the artifact WITHOUT reading the whole codebase.
 
 ### 7. Register & report
-Append a row to `.agent/skills/generated/README.md`. Report: artifact type,
+Append a row to `.agent/skills/generated/README.md`. If `.cursor/skills/` exists,
+write the Cursor skill wrapper (see Outputs). Report: artifact type,
 reference example used, capabilities captured, per-generation prompts, and the
 invocation string (`Read .agent/skills/generated/create-<type>.md and follow it`).
 

@@ -18,9 +18,17 @@ config (`.mcp.json` entries), and runs install commands when approved.
    Respect their Step-0 choice (install / list-only / skip). Never install silently.
 
 3. **Install** (for each approved match), using the row's **Install** method:
-   - Prefer the portable `npx skills add <repo>` for copy-in skills.
+   - If Cursor is in Step-0 agent targets (or `.cursor/` exists from `wire-cursor`),
+     prefer for copy-in skills:
+     ```bash
+     npx skills add <repo> -a cursor --copy
+     ```
+     (`--copy` avoids symlink discovery bugs in Cursor.)
+   - Otherwise prefer the portable `npx skills add <repo>` for copy-in skills.
    - For MCP-type rows (e.g. Svelte), add the MCP server to the agent config
-     instead of copying files — they are NOT skill folders.
+     instead of copying files — they are NOT skill folders. When Cursor is a
+     target, write `.cursor/mcp.json` with the `mcpServers` entry (merge with
+     existing config; do not clobber unrelated servers).
    - If the host agent has a native plugin marketplace and the user prefers it,
      use the noted alternative command.
    - If you cannot run commands, OUTPUT the exact commands for the user to run.
