@@ -17,6 +17,10 @@ future generation is fast and needs no full-repo read.
   `.cursor/skills/create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
   (`name`, `description`, `disable-model-invocation: true`) that delegates to
   `.agent/skills/generated/create-<artifact-type>.md`.
+- If `.claude/skills/` exists (Claude wired via `wire-claude`), also create
+  `.claude/skills/create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
+  (`name`, `description`) that delegates to
+  `.agent/skills/generated/create-<artifact-type>.md`.
 
 ---
 
@@ -77,9 +81,10 @@ produce the artifact WITHOUT reading the whole codebase.
 
 ### 7. Register & report
 Append a row to `.agent/skills/generated/README.md`. If `.cursor/skills/` exists,
-write the Cursor skill wrapper (see Outputs). Report: artifact type,
-reference example used, capabilities captured, per-generation prompts, and the
-invocation string (`Read .agent/skills/generated/create-<type>.md and follow it`).
+write the Cursor skill wrapper (see Outputs). If `.claude/skills/` exists, write the
+Claude skill wrapper (see Outputs). Report: artifact type, reference example used,
+capabilities captured, per-generation prompts, and the invocation string
+(`Read .agent/skills/generated/create-<type>.md and follow it`).
 
 ---
 

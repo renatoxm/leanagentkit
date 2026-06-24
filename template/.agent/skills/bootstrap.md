@@ -47,7 +47,8 @@ For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
 duplicate rules):
 - Cursor → run `wire-cursor` (copies `.agent/install/cursor/` → `.cursor/rules/memory.mdc`
   + `.cursor/skills/*` skill wrappers). On re-run, refreshes only kit-managed files.
-- Claude Code → `CLAUDE.md`: "Follow AGENTS.md."
+- Claude Code → run `wire-claude` (copies `CLAUDE.md` to root + `.claude/skills/*`
+  skill wrappers). On re-run, refreshes only kit-managed files.
 - Copilot → `.github/copilot-instructions.md`: "Follow AGENTS.md."
 - Aider → `CONVENTIONS.md`: "Follow AGENTS.md."
 - ChatGPT/Other → note in README how to paste AGENTS.md.

@@ -24,11 +24,17 @@ config (`.mcp.json` entries), and runs install commands when approved.
      npx skills add <repo> -a cursor --copy
      ```
      (`--copy` avoids symlink discovery bugs in Cursor.)
+   - Else if Claude Code is in Step-0 agent targets (or `.claude/` exists from
+     `wire-claude`), prefer for copy-in skills:
+     ```bash
+     npx skills add <repo> -a claude-code
+     ```
    - Otherwise prefer the portable `npx skills add <repo>` for copy-in skills.
    - For MCP-type rows (e.g. Svelte), add the MCP server to the agent config
      instead of copying files — they are NOT skill folders. When Cursor is a
      target, write `.cursor/mcp.json` with the `mcpServers` entry (merge with
-     existing config; do not clobber unrelated servers).
+     existing config; do not clobber unrelated servers). When Claude Code is a
+     target, write the same entry to root `.mcp.json` (merge; do not clobber).
    - If the host agent has a native plugin marketplace and the user prefers it,
      use the noted alternative command.
    - If you cannot run commands, OUTPUT the exact commands for the user to run.

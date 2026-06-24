@@ -2,8 +2,8 @@
 
 Scaffold the **Lean Agent Kit** into any project — a lightweight, tool-agnostic
 memory + stack-skill system for AI coding agents (Cursor, Claude Code, Copilot,
-ChatGPT, Aider, Cline). A leaner alternative to GitHub Spec Kit. Cursor support is
-bootstrap-activated (not pre-shipped on scaffold).
+ChatGPT, Aider, Cline). A leaner alternative to GitHub Spec Kit. Cursor and Claude
+Code support are bootstrap-activated (not pre-shipped on scaffold).
 
 ## Usage
 

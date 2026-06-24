@@ -26,7 +26,8 @@
 - **Skill:** `cloudflare/skills`
 - **Type:** skill (+ optional MCP servers for docs/bindings/observability)
 - **Install:** `npx skills add https://github.com/cloudflare/skills`
-  - Claude Code alt: `/plugin marketplace add cloudflare/skills` → `/plugin install cloudflare@cloudflare`
+  - Claude Code alt: `npx skills add https://github.com/cloudflare/skills -a claude-code`
+  - Claude Code alt (plugin): `/plugin marketplace add cloudflare/skills` → `/plugin install cloudflare@cloudflare`
   - Cursor alt: `npx skills add https://github.com/cloudflare/skills -a cursor --copy`
   - Cursor alt (rules): Settings → Rules → Add Rule → Remote Rule (GitHub) → `cloudflare/skills`
 - **Provides:** `cloudflare`, `agents-sdk`, `durable-objects`, `wrangler`, `sandbox-sdk`, `web-perf`, MCP-server builders
@@ -40,7 +41,8 @@
 - **Skill:** `yusukebe/hono-skill`
 - **Type:** skill (+ optional `hono-docs` MCP)
 - **Install:** `npx skills add yusukebe/hono-skill`
-  - Claude Code alt: `/plugin marketplace add yusukebe/hono-skill` → `/plugin install hono-skill@hono`
+  - Claude Code alt: `npx skills add yusukebe/hono-skill -a claude-code`
+  - Claude Code alt (plugin): `/plugin marketplace add yusukebe/hono-skill` → `/plugin install hono-skill@hono`
   - Cursor alt: `npx skills add yusukebe/hono-skill -a cursor --copy`
 - **Provides:** `hono` (routing, context, middleware, JSX, validation, RPC, streaming) + `hono request` testing
 - **Requires:** Hono CLI as devDep → `npm install -D @hono/cli`
@@ -58,6 +60,10 @@
   { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
   ```
   - Claude Code / Cursor: install the plugin from the repo's `.claude-plugin` / `.cursor-plugin`.
+  - Claude Code alt (MCP config): add to root `.mcp.json`:
+    ```json
+    { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
+    ```
   - Cursor alt (MCP config): add to `.cursor/mcp.json`:
     ```json
     { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
@@ -78,6 +84,10 @@
   npx degit withastro/astro/.agents/skills .agent/skills/vendor/astro
   ```
   (or sparse-checkout `.agents/skills` and copy.) Point your agent at the copied folder.
+  - Claude Code alt: copy into `.claude/skills/`:
+    ```bash
+    npx degit withastro/astro/.agents/skills .claude/skills/astro
+    ```
   - Cursor alt: copy into `.cursor/skills/` or `.agents/skills/`:
     ```bash
     npx degit withastro/astro/.agents/skills .cursor/skills/astro
@@ -96,7 +106,13 @@
 - **Type:** skill (copy-in; 54 component references + setup/migration guides)
 - **Install:** curl-piped install script (NOT `npx skills add`):
   `curl -fsSL https://github.com/antstanley/shadcn-svelte-skill/releases/latest/download/install.sh | bash`
-  - Installs to `~/.claude/skills/shadcn-svelte` (Claude Code layout).
+  - Installs to `~/.claude/skills/shadcn-svelte` (Claude Code global layout).
+  - Claude Code alt (project): clone and package into `.claude/skills/shadcn-svelte/`:
+    ```bash
+    git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
+    cd /tmp/shadcn-svelte-skill && python scripts/package_skill.py shadcn-svelte dist
+    unzip -o dist/shadcn-svelte.zip -d .claude/skills/
+    ```
   - Cursor alt: clone and package into `.cursor/skills/shadcn-svelte/`:
     ```bash
     git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
@@ -116,6 +132,7 @@
 - **Skill:** `Lombiq/Tailwind-Agent-Skills`
 - **Type:** skill (with a local docs-snapshot generator)
 - **Install:** `npx skills add Lombiq/Tailwind-Agent-Skills`
+  - Claude Code alt: `npx skills add Lombiq/Tailwind-Agent-Skills -a claude-code`
   - Cursor alt: `npx skills add Lombiq/Tailwind-Agent-Skills -a cursor --copy`
   - Manual: copy `skills/tailwind-4-docs/` into your agent's skills dir
 - **Provides:** `tailwind-4-docs` — gotchas list, implementation playbook, local docs index

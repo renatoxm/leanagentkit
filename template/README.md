@@ -8,7 +8,9 @@ right external agent skills** automatically.
 Works with Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline — anything that can
 read files and (optionally) MCP/skills. **Cursor:** select Cursor during bootstrap
 to install `.cursor/rules/` and `.cursor/skills/` from kit templates; stack skills
-use `npx skills add -a cursor --copy`.
+use `npx skills add -a cursor --copy`. **Claude Code:** select Claude during
+bootstrap to install `CLAUDE.md` + `.claude/skills/`; stack skills use
+`npx skills add -a claude-code`.
 
 ## Why this instead of Spec Kit
 - **Smaller footprint.** No multi-command framework or boilerplate specs. A handful

@@ -11,6 +11,7 @@ memory and stack integration. Invoke any of them with:
 |-------|------|
 | `bootstrap.md` | **Run first.** Interactive setup: questionnaire → map → detect stack → wire skills. Calls the others. |
 | `wire-cursor.md` | Copy `.agent/install/cursor/` → `.cursor/` when Cursor is selected (rules + skill wrappers). |
+| `wire-claude.md` | Copy `.agent/install/claude/` → `CLAUDE.md` + `.claude/skills/` when Claude Code is selected. |
 | `match-stack.md` | Detect technologies from `.agent/stacks/registry.md`, install matching external skills, apply playbooks. |
 
 ## Artifact generators (meta-skill)
