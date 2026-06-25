@@ -1,40 +1,42 @@
 # Skills
 
-Tool-agnostic skills an AI agent runs to set up and maintain this project's
-memory and stack integration. Invoke any of them with:
+Tool-agnostic skills an AI agent runs to set up and maintain this project.
+Invoke any of them with:
 
 > "Read `.agent/skills/leanagentkit-<name>.md` and follow it."
+
+Memory protocol and tiers: see **`AGENTS.md` §6** (canonical — do not duplicate here).
 
 ## Orchestration (start here)
 
 | Skill | Does |
 |-------|------|
-| `leanagentkit-bootstrap.md` | **Run first.** Interactive setup: questionnaire → map → detect stack → wire skills. Calls the others. |
-| `leanagentkit-wire-cursor.md` | Copy `.agent/install/cursor/` → `.cursor/` when Cursor is selected (rules + skill wrappers). |
-| `leanagentkit-wire-claude.md` | Copy `.agent/install/claude/` → `CLAUDE.md` + `.claude/skills/` when Claude Code is selected. |
-| `leanagentkit-match-stack.md` | Detect technologies from `.agent/stacks/registry.md`, install matching external skills, apply playbooks. |
+| `leanagentkit-bootstrap.md` | **Run first.** Interactive setup: questionnaire → map → detect stack → wire agents. |
+| `leanagentkit-wire-agent.md` | Wire Cursor and/or Claude — copy memory pointers, generate skill wrappers from frontmatter. |
+| `leanagentkit-match-stack.md` | Detect technologies from `.agent/stacks/registry.md`, install external skills, apply playbooks. |
+| `leanagentkit-check.md` | Guardrail — validate changed files against `AGENTS.md`, playbooks, and active spec. |
 
 ## Artifact generators (meta-skill)
 
 | Skill | Does |
 |-------|------|
-| `leanagentkit-skill-artifact-template.md` | Authors a project-specific generator (e.g. `leanagentkit-create-new-page`). Infers the recipe from an existing example, asks only about gaps, freezes it into `generated/leanagentkit-create-<type>.md` + `recipes/<type>.recipe.md`. |
-| `generated/leanagentkit-create-<type>.md` | The authored generators. Plan-first, then create files / routes / middleware / roles / i18n — no full-repo read. See `generated/README.md`. |
+| `leanagentkit-skill-artifact-template.md` | Authors a project-specific generator. Infers recipe from an example → `generated/leanagentkit-create-<type>.md`. |
+| `generated/leanagentkit-create-<type>.md` | Authored generators (empty until created). See `generated/README.md`. |
 
-Recipes (the frozen wiring data) live in `.agent/recipes/`.
+Recipes live in `.agent/recipes/`.
 
-## Memory population (called by bootstrap, or run individually)
+## Memory (called by bootstrap, or run individually)
 
-| Skill | Writes to | Tier |
-|-------|-----------|------|
-| `leanagentkit-map-codebase.md` | `docs/CODEBASE_MAP.md` | long |
-| `leanagentkit-init-conventions.md` | `AGENTS.md` §1–5 | long |
-| `leanagentkit-seed-adrs.md` | `docs/adr/*` | long |
-| `leanagentkit-new-spec.md` | `docs/specs/<feature>.md` | medium |
-| `leanagentkit-start-session.md` | reads memory, primes context | — |
-| `leanagentkit-end-session.md` | updates active context, progress, map, ADRs | medium |
+| Skill | Writes to |
+|-------|-----------|
+| `leanagentkit-map-codebase.md` | `docs/CODEBASE_MAP.md` |
+| `leanagentkit-init-conventions.md` | `AGENTS.md` §1–5 |
+| `leanagentkit-seed-adrs.md` | `docs/adr/*` |
+| `leanagentkit-new-spec.md` | `docs/specs/<feature>.md` |
+| `leanagentkit-start-session.md` | reads memory, primes context |
+| `leanagentkit-end-session.md` | persists state (runs `leanagentkit-check` first if code changed) |
 
 ## Stack data
 
-External-skill mappings live in `.agent/stacks/registry.md`; per-stack conventions
-in `.agent/stacks/<name>.md`. Edit the registry to add support for new tech.
+External-skill mappings: `.agent/stacks/registry.md`. Per-stack conventions:
+`.agent/stacks/<name>.md`.

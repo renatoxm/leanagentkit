@@ -1,3 +1,8 @@
+---
+name: leanagentkit-bootstrap
+description: One-shot interactive Lean Agent Kit setup — map codebase, detect stack, wire skills. Run this first.
+---
+
 # Skill: leanagentkit-bootstrap
 
 **Goal:** One-shot, interactive setup. Drives the whole kit: asks a few questions,
@@ -45,10 +50,10 @@ appends each stack's AGENTS.md snippet + applies its playbook to CODEBASE_MAP.
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
 duplicate rules):
-- Cursor → run `leanagentkit-wire-cursor` (copies `.agent/install/cursor/` → `.cursor/rules/memory.mdc`
-  + `.cursor/skills/*` skill wrappers). On re-run, refreshes only kit-managed files.
-- Claude Code → run `leanagentkit-wire-claude` (copies `CLAUDE.md` to root + `.claude/skills/*`
-  skill wrappers). On re-run, refreshes only kit-managed files.
+- **Cursor and/or Claude Code** → run `leanagentkit-wire-agent` with the selected
+  target(s). Copies static templates (`.cursor/rules/memory.mdc`, `CLAUDE.md`) and
+  **generates** skill wrappers from `.agent/skills/*.md` frontmatter. On re-run,
+  refreshes only kit-managed files.
 - Copilot → `.github/copilot-instructions.md`: "Follow AGENTS.md."
 - Aider → `CONVENTIONS.md`: "Follow AGENTS.md."
 - ChatGPT/Other → note in README how to paste AGENTS.md.
@@ -69,7 +74,7 @@ placeholder under `### Stack skills (external, auto-installed)` with the skills
 actually installed for this project.
 
 1. Open `LEAN_AGENT_KIT.md` → `### Stack skills (external, auto-installed)`.
-2. Replace the placeholder table (`example-skill` row) with one row per stack
+2. Replace the placeholder table (`_(none yet)_` row) with one row per stack
    **detected and approved** in Step 3. Omit declined stacks and anything skipped
    in Step 0.
 3. For each row, pull from `.agent/stacks/registry.md` (**Provides**) and the
@@ -97,8 +102,14 @@ post-install bullets immediately below it).
 ## Step 7 — Summarize
 Print: tiers enabled, files created, stacks detected + install status (with any
 REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
-stack-skills section updated, and the daily loop (`leanagentkit-start-session` /
-`leanagentkit-end-session`). Clear bootstrap notes from SCRATCH.
+stack-skills section updated, and the daily loop (`leanagentkit-start-session` →
+`leanagentkit-check` → `leanagentkit-end-session`). Clear bootstrap notes from SCRATCH.
+
+## Step 8 — Stamp dates
+Set today's date anywhere still showing `<!-- YYYY-MM-DD -->` or unfilled placeholders:
+- `AGENTS.md` header `Last updated`
+- `docs/CODEBASE_MAP.md` `Last updated`
+- `docs/adr/0001-record-architecture-decisions.md` `Date` (if still a placeholder)
 
 ## Re-running
 Safe to re-run. Re-detect stack, refresh the map, never clobber human-written ADRs

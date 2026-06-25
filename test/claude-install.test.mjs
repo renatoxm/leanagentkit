@@ -1,44 +1,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { cp, readFile, readdir } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { mkdtempSync, existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-
-const SKILL_PREFIX = "leanagentkit-";
-const SKILL_BASE_NAMES = [
-  "bootstrap",
-  "match-stack",
-  "map-codebase",
-  "init-conventions",
-  "seed-adrs",
-  "new-spec",
-  "start-session",
-  "end-session",
-  "skill-artifact-template",
-];
-const SKILL_NAMES = SKILL_BASE_NAMES.map((name) => `${SKILL_PREFIX}${name}`);
+import {
+  listKitSkills,
+  parseFrontmatter,
+  wireClaude,
+} from "./helpers/skills.mjs";
 
 const TEMPLATE_CLAUDE = join(process.cwd(), "template", ".agent", "install", "claude");
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  assert.ok(match, "expected YAML frontmatter");
-  const fields = {};
-  for (const line of match[1].split("\n")) {
-    const kv = line.match(/^([\w-]+):\s*(.+)$/);
-    if (kv) fields[kv[1]] = kv[2].trim();
-  }
-  return fields;
-}
-
-async function wireClaude(targetDir) {
-  const claudeFrom = join(TEMPLATE_CLAUDE, "CLAUDE.md");
-  const skillsFrom = join(TEMPLATE_CLAUDE, "skills");
-  await cp(claudeFrom, join(targetDir, "CLAUDE.md"));
-  await cp(skillsFrom, join(targetDir, ".claude", "skills"), { recursive: true });
-}
 
 test("claude install templates exist after scaffold", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-claude-"));
@@ -46,8 +19,8 @@ test("claude install templates exist after scaffold", () => {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const installDir = join(dir, ".agent", "install", "claude");
     assert.ok(existsSync(join(installDir, "CLAUDE.md")));
-    assert.ok(existsSync(join(installDir, "skills", "leanagentkit-bootstrap", "SKILL.md")));
     assert.ok(existsSync(join(installDir, "README.md")));
+    assert.ok(!existsSync(join(installDir, "skills")), "no pre-shipped claude skill wrappers");
     assert.ok(!existsSync(join(dir, "CLAUDE.md")), "scaffold does not ship CLAUDE.md");
     assert.ok(!existsSync(join(dir, ".claude")), "scaffold does not ship .claude/");
   } finally {
@@ -62,35 +35,30 @@ test("CLAUDE.md template references AGENTS.md", async () => {
   assert.match(content, /CODEBASE_MAP\.md/);
 });
 
-test("all nine claude skill wrappers have name and description", async () => {
-  for (const name of SKILL_NAMES) {
-    const path = join(TEMPLATE_CLAUDE, "skills", name, "SKILL.md");
-    assert.ok(existsSync(path), `${name}/SKILL.md exists`);
-    const content = await readFile(path, "utf8");
-    const fm = parseFrontmatter(content);
-    assert.equal(fm.name, name, `${name}: name frontmatter`);
-    assert.ok(fm.description, `${name}: description frontmatter`);
-    assert.equal(fm["disable-model-invocation"], undefined, `${name}: no disable-model-invocation`);
-    assert.match(content, new RegExp(`\\.agent/skills/${name}\\.md`));
-  }
-});
-
-test("wire-claude copy lands CLAUDE.md and .claude/skills/", async () => {
+test("wire-agent generates claude wrappers under .claude/skills/", async () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-wire-claude-"));
   try {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
-    await wireClaude(dir);
+    const skills = await wireClaude(dir);
 
     const claudePath = join(dir, "CLAUDE.md");
-    const skillPath = join(dir, ".claude", "skills", "leanagentkit-bootstrap", "SKILL.md");
     assert.ok(existsSync(claudePath), "CLAUDE.md copied to root");
-    assert.ok(existsSync(skillPath), "bootstrap SKILL.md copied");
 
     const skillDirs = await readdir(join(dir, ".claude", "skills"), { withFileTypes: true });
     const dirs = skillDirs.filter((e) => e.isDirectory()).map((e) => e.name);
-    assert.equal(dirs.length, SKILL_NAMES.length, "all skill wrappers copied");
-    for (const name of SKILL_NAMES) {
-      assert.ok(dirs.includes(name), `copied ${name}`);
+    assert.equal(dirs.length, skills.length, "all skill wrappers generated");
+
+    for (const skill of skills) {
+      assert.ok(dirs.includes(skill.name), `generated ${skill.name}`);
+      const content = await readFile(
+        join(dir, ".claude", "skills", skill.name, "SKILL.md"),
+        "utf8",
+      );
+      const fm = parseFrontmatter(content);
+      assert.equal(fm.name, skill.name);
+      assert.equal(fm.description, skill.description);
+      assert.equal(fm["disable-model-invocation"], undefined, `${skill.name}: no disable-model-invocation`);
+      assert.match(content, new RegExp(`\\.agent/skills/${skill.file}`));
     }
   } finally {
     rmSync(dir, { recursive: true, force: true });

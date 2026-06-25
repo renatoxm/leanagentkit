@@ -1,3 +1,8 @@
+---
+name: leanagentkit-start-session
+description: Start a coding session — read memory files and prime context without globbing the repo.
+---
+
 # Skill: leanagentkit-start-session
 
 **Goal:** Prime context cheaply at the start of a work session.

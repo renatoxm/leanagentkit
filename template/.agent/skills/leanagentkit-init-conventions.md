@@ -1,3 +1,8 @@
+---
+name: leanagentkit-init-conventions
+description: Fill AGENTS.md sections 1–5 with evidence-based project conventions.
+---
+
 # Skill: leanagentkit-init-conventions
 
 **Goal:** Populate the factual sections of `AGENTS.md` from the actual repo so the

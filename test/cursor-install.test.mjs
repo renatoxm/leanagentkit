@@ -1,46 +1,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { cp, readFile, readdir } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { mkdtempSync, existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-
-const SKILL_PREFIX = "leanagentkit-";
-const SKILL_BASE_NAMES = [
-  "bootstrap",
-  "match-stack",
-  "map-codebase",
-  "init-conventions",
-  "seed-adrs",
-  "new-spec",
-  "start-session",
-  "end-session",
-  "skill-artifact-template",
-];
-const SKILL_NAMES = SKILL_BASE_NAMES.map((name) => `${SKILL_PREFIX}${name}`);
+import {
+  listKitSkills,
+  parseFrontmatter,
+  wireCursor,
+} from "./helpers/skills.mjs";
 
 const TEMPLATE_CURSOR = join(process.cwd(), "template", ".agent", "install", "cursor");
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  assert.ok(match, "expected YAML frontmatter");
-  const fields = {};
-  for (const line of match[1].split("\n")) {
-    const kv = line.match(/^([\w-]+):\s*(.+)$/);
-    if (kv) fields[kv[1]] = kv[2].trim();
-  }
-  return fields;
-}
-
-async function wireCursor(targetDir) {
-  const rulesFrom = join(TEMPLATE_CURSOR, "rules");
-  const skillsFrom = join(TEMPLATE_CURSOR, "skills");
-  const rulesTo = join(targetDir, ".cursor", "rules");
-  const skillsTo = join(targetDir, ".cursor", "skills");
-  await cp(rulesFrom, rulesTo, { recursive: true });
-  await cp(skillsFrom, skillsTo, { recursive: true });
-}
 
 test("cursor install templates exist after scaffold", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-cursor-"));
@@ -48,8 +19,8 @@ test("cursor install templates exist after scaffold", () => {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const installDir = join(dir, ".agent", "install", "cursor");
     assert.ok(existsSync(join(installDir, "rules", "memory.mdc")));
-    assert.ok(existsSync(join(installDir, "skills", "leanagentkit-bootstrap", "SKILL.md")));
     assert.ok(existsSync(join(installDir, "README.md")));
+    assert.ok(!existsSync(join(installDir, "skills")), "no pre-shipped cursor skill wrappers");
     assert.ok(!existsSync(join(dir, ".cursor")), "scaffold does not ship .cursor/");
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -64,35 +35,39 @@ test("memory.mdc has valid frontmatter", async () => {
   assert.match(content, /AGENTS\.md/);
 });
 
-test("all nine skill wrappers have name and description", async () => {
-  for (const name of SKILL_NAMES) {
-    const path = join(TEMPLATE_CURSOR, "skills", name, "SKILL.md");
-    assert.ok(existsSync(path), `${name}/SKILL.md exists`);
-    const content = await readFile(path, "utf8");
-    const fm = parseFrontmatter(content);
-    assert.equal(fm.name, name, `${name}: name frontmatter`);
-    assert.ok(fm.description, `${name}: description frontmatter`);
-    assert.equal(fm["disable-model-invocation"], "true");
-    assert.match(content, new RegExp(`\\.agent/skills/${name}\\.md`));
+test("all kit skills have name and description frontmatter", async () => {
+  const skills = await listKitSkills();
+  assert.ok(skills.length >= 11, "expected at least 11 kit skills");
+  for (const skill of skills) {
+    assert.equal(skill.name, skill.file.replace(/\.md$/, ""), `${skill.file}: name matches filename`);
+    assert.ok(skill.description, `${skill.name}: description required`);
   }
 });
 
-test("wire-cursor copy lands files under .cursor/", async () => {
+test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-wire-"));
   try {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
-    await wireCursor(dir);
+    const skills = await wireCursor(dir);
 
     const rulePath = join(dir, ".cursor", "rules", "memory.mdc");
-    const skillPath = join(dir, ".cursor", "skills", "leanagentkit-bootstrap", "SKILL.md");
     assert.ok(existsSync(rulePath), "memory.mdc copied");
-    assert.ok(existsSync(skillPath), "bootstrap SKILL.md copied");
 
     const skillDirs = await readdir(join(dir, ".cursor", "skills"), { withFileTypes: true });
     const dirs = skillDirs.filter((e) => e.isDirectory()).map((e) => e.name);
-    assert.equal(dirs.length, SKILL_NAMES.length, "all skill wrappers copied");
-    for (const name of SKILL_NAMES) {
-      assert.ok(dirs.includes(name), `copied ${name}`);
+    assert.equal(dirs.length, skills.length, "all skill wrappers generated");
+
+    for (const skill of skills) {
+      assert.ok(dirs.includes(skill.name), `generated ${skill.name}`);
+      const content = await readFile(
+        join(dir, ".cursor", "skills", skill.name, "SKILL.md"),
+        "utf8",
+      );
+      const fm = parseFrontmatter(content);
+      assert.equal(fm.name, skill.name);
+      assert.equal(fm.description, skill.description);
+      assert.equal(fm["disable-model-invocation"], "true");
+      assert.match(content, new RegExp(`\\.agent/skills/${skill.file}`));
     }
   } finally {
     rmSync(dir, { recursive: true, force: true });

@@ -1,3 +1,8 @@
+---
+name: leanagentkit-new-spec
+description: Create a feature spec in docs/specs/ for a new or in-progress feature.
+---
+
 # Skill: leanagentkit-new-spec
 
 **Goal:** Create a feature spec before coding, Spec-Kit style, grounded in the

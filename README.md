@@ -5,6 +5,8 @@ memory + stack-skill system for AI coding agents (Cursor, Claude Code, Copilot,
 ChatGPT, Aider, Cline). A leaner alternative to GitHub Spec Kit. Cursor and Claude
 Code support are bootstrap-activated (not pre-shipped on scaffold).
 
+**Lean Agent Kit** operates in a similar domain to Spec Kit, but it is intentionally designed to remain lean, pragmatic, and maintainable. The fundamental difference is that its not intended to bootstrap a project from scratch. Instead, it is designed to operate after the core application stack has already been established. It analyzes the existing architecture, codebase, workflows, and conventions, then acts as a guardrail system that enforces best practices, maintains consistency, reduces architectural drift, and helps generate higher-quality outputs while remaining aligned with the project's stack, standards, and development guidelines.
+
 ## Usage
 
 ```bash

@@ -1,3 +1,8 @@
+---
+name: leanagentkit-map-codebase
+description: Build docs/CODEBASE_MAP.md from the repository structure and entry points.
+---
+
 # Skill: leanagentkit-map-codebase
 
 **Goal:** Inspect the repository and (re)generate `docs/CODEBASE_MAP.md` so future

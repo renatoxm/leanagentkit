@@ -35,8 +35,11 @@ Memory lives in Markdown so you don't re-scan the repo.
 Then use the map to open just the relevant files — do not glob the repo.
 Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when making a decision.
 
-**After meaningful changes, update:** `ACTIVE_CONTEXT.md` (+ a "resume from here" note),
-`PROGRESS.md` (append), `CODEBASE_MAP.md` (if structure changed), `docs/adr/` (if a decision was made).
+**After meaningful changes:** run `leanagentkit-check` on changed files, then update
+`ACTIVE_CONTEXT.md` (+ a "resume from here" note), `PROGRESS.md` (append),
+`CODEBASE_MAP.md` (if structure changed), `docs/adr/` (if a decision was made).
+
+**Daily loop:** `leanagentkit-start-session` → work → `leanagentkit-check` → `leanagentkit-end-session`
 
 | Tier | Files | Lifespan |
 |------|-------|----------|
@@ -46,7 +49,8 @@ Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when
 
 ## 7. Stack skills
 <!-- Auto-populated by leanagentkit-match-stack: which external skills/MCPs to defer to and when.
-     Empty until bootstrap runs. -->
+     Empty until bootstrap runs.
+     `.agent/` (singular) = kit files. `.agents/skills/` (plural) = external skills from `npx skills add`. -->
 
 ## 8. Setup / refresh
 Run `.agent/skills/leanagentkit-bootstrap.md` to (re)generate memory and stack wiring.

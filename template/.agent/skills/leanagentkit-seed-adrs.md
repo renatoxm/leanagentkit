@@ -1,3 +1,8 @@
+---
+name: leanagentkit-seed-adrs
+description: Seed architecture decision records from existing codebase decisions.
+---
+
 # Skill: leanagentkit-seed-adrs
 
 **Goal:** Reverse-engineer the architectural decisions already embedded in the

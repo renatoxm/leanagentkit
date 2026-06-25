@@ -1,3 +1,8 @@
+---
+name: leanagentkit-match-stack
+description: Detect project technologies and install matching external agent skills.
+---
+
 # Skill: leanagentkit-match-stack
 
 **Goal:** Detect the project's technologies and wire up the matching external
@@ -17,15 +22,16 @@ config (`.mcp.json` entries), and runs install commands when approved.
    `Detected: Cloudflare, Hono, Tailwind v4. Install skills for these? [per-item yes/no]`
    Respect their Step-0 choice (install / list-only / skip). Never install silently.
 
-3. **Install** (for each approved match), using the row's **Install** method:
-   - If Cursor is in Step-0 agent targets (or `.cursor/` exists from `leanagentkit-wire-cursor`),
+3. **Install** (for each approved match), using the row's **Install** method.
+   Skip this step when **Type** is `playbook` (no external skill — apply playbook only).
+   - If Cursor is in Step-0 agent targets (or `.cursor/` exists from `leanagentkit-wire-agent`),
      prefer for copy-in skills:
      ```bash
      npx skills add <repo> -a cursor --copy
      ```
      (`--copy` avoids symlink discovery bugs in Cursor.)
    - Else if Claude Code is in Step-0 agent targets (or `.claude/` exists from
-     `leanagentkit-wire-claude`), prefer for copy-in skills:
+     `leanagentkit-wire-agent`), prefer for copy-in skills:
      ```bash
      npx skills add <repo> -a claude-code
      ```

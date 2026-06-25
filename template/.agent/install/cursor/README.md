@@ -3,13 +3,14 @@
 These files are **not** active Cursor config. They are canonical templates copied
 into `.cursor/` when bootstrap selects Cursor as an agent target.
 
-**Activation:** run `.agent/skills/leanagentkit-wire-cursor.md` (called from bootstrap Step 4).
+**Activation:** run `.agent/skills/leanagentkit-wire-agent.md` with target `cursor`
+(called from bootstrap Step 4).
 
 | Source | Destination |
 |--------|---------------|
 | `rules/memory.mdc` | `.cursor/rules/memory.mdc` |
-| `skills/<name>/SKILL.md` | `.cursor/skills/<name>/SKILL.md` |
+| _(generated)_ | `.cursor/skills/<name>/SKILL.md` |
 
-Each skill wrapper delegates to the tool-agnostic skill in `.agent/skills/`.
-Edit the source templates here to change what `leanagentkit-wire-cursor` installs; do not edit
-`.cursor/` by hand unless you intend to diverge from the kit.
+Skill wrappers are **generated** from `.agent/skills/leanagentkit-*.md` frontmatter —
+not shipped here. Edit skill frontmatter in `.agent/skills/`, then re-run
+`leanagentkit-wire-agent` to refresh wrappers.

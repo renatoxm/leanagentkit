@@ -1,3 +1,8 @@
+---
+name: leanagentkit-skill-artifact-template
+description: Author a project-specific artifact generator skill from an existing example in the codebase.
+---
+
 # Skill: leanagentkit-skill-artifact-template
 
 **Goal:** Author a new, project-specific **artifact generator skill** (e.g.
@@ -13,11 +18,11 @@ future generation is fast and needs no full-repo read.
 - `.agent/recipes/<artifact-type>.recipe.md` — the structured recipe (data).
 - `.agent/skills/generated/leanagentkit-create-<artifact-type>.md` — the runtime generator skill.
 - A registry line appended to `.agent/skills/generated/README.md`.
-- If `.cursor/skills/` exists (Cursor wired via `leanagentkit-wire-cursor`), also create
+- If `.cursor/skills/` exists (Cursor wired via `leanagentkit-wire-agent`), also create
   `.cursor/skills/leanagentkit-create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
   (`name: leanagentkit-create-<artifact-type>`, `description`, `disable-model-invocation: true`) that delegates to
   `.agent/skills/generated/leanagentkit-create-<artifact-type>.md`.
-- If `.claude/skills/` exists (Claude wired via `leanagentkit-wire-claude`), also create
+- If `.claude/skills/` exists (Claude wired via `leanagentkit-wire-agent`), also create
   `.claude/skills/leanagentkit-create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
   (`name: leanagentkit-create-<artifact-type>`, `description`) that delegates to
   `.agent/skills/generated/leanagentkit-create-<artifact-type>.md`.

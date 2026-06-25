@@ -4,8 +4,7 @@
 > for it, the correct install method, and the local integration playbook.
 > The `leanagentkit-bootstrap` and `leanagentkit-match-stack` skills read this. Edit here, not in skills.
 >
-> Verified: 2026-06-23. Skill repos churn — re-check install commands if a year
-> has passed or a command fails.
+> Re-check install commands if a command fails or a year has passed since bootstrap.
 
 ## How to read a row
 
@@ -141,6 +140,98 @@
   Initialize the snapshot:
   `python skills/tailwind-4-docs/scripts/sync_tailwind_docs.py --accept-docs-license`
   Re-run if `references/docs/` is missing or older than one week.
+
+---
+
+## Python
+
+- **Detect:** `pyproject.toml`, `requirements.txt`, `setup.py`, or `Pipfile`; `*.py` source files
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** project layout, venv, testing conventions
+- **Playbook:** `.agent/stacks/python.md`
+- **Post-install:** none
+
+## FastAPI
+
+- **Detect:** `fastapi` in deps, `from fastapi import`, `APIRouter` patterns
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** routing, dependency injection, Pydantic models, OpenAPI
+- **Playbook:** `.agent/stacks/fastapi.md`
+- **Post-install:** none
+
+## Django
+
+- **Detect:** `django` in deps, `manage.py`, `settings.py`, `INSTALLED_APPS`
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** apps, models, views, URL routing, migrations
+- **Playbook:** `.agent/stacks/django.md`
+- **Post-install:** none
+
+## Node / Express
+
+- **Detect:** `express` in deps, `require('express')` or `import express from 'express'`
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** routing, middleware, error handling
+- **Playbook:** `.agent/stacks/express.md`
+- **Post-install:** none
+
+## React
+
+- **Detect:** `react` in deps, `*.tsx`/`*.jsx` with React imports, `vite.config` + React plugin
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** components, hooks, state, testing
+- **Playbook:** `.agent/stacks/react.md`
+- **Post-install:** none
+
+## Next.js
+
+- **Detect:** `next` in deps, `next.config.{js,mjs,ts}`, `app/` or `pages/` directory
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** App Router, server components, API routes, metadata
+- **Playbook:** `.agent/stacks/nextjs.md`
+- **Post-install:** none
+
+## PostgreSQL + Prisma
+
+- **Detect:** `prisma` in deps, `prisma/schema.prisma`
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** schema, migrations, client usage
+- **Playbook:** `.agent/stacks/prisma.md`
+- **Post-install:** none
+
+## PostgreSQL + Drizzle
+
+- **Detect:** `drizzle-orm` in deps, `drizzle.config.ts`, `schema.ts` / `db/schema`
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** schema definitions, migrations, query patterns
+- **Playbook:** `.agent/stacks/drizzle.md`
+- **Post-install:** none
+
+## Go
+
+- **Detect:** `go.mod`, `*.go` files
+- **Skill:** _(none — local playbook)_
+- **Type:** playbook
+- **Install:** none
+- **Provides:** packages, modules, testing, error handling
+- **Playbook:** `.agent/stacks/go.md`
+- **Post-install:** none
 
 ---
 
