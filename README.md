@@ -1,4 +1,4 @@
-# create-lean-agent-kit
+# Lean Agent Kit
 
 Scaffold the **Lean Agent Kit** into any project — a lightweight, tool-agnostic
 memory + stack-skill system for AI coding agents (Cursor, Claude Code, Copilot,
