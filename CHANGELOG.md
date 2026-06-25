@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.0](https://github.com/renatoxm/leanagentkit/compare/v0.1.6...v0.2.0) (2026-06-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* complete kit evolution
+
+### Features
+
+* leanAgentKit Lean Evolution ([410ea61](https://github.com/renatoxm/leanagentkit/commit/410ea619caeeb166f584dbce487c0f65fa405a07))
+
 ## [0.1.6](https://github.com/renatoxm/leanagentkit/compare/v0.1.5...v0.1.6) (2026-06-24)
 
 ## [0.1.5](https://github.com/renatoxm/leanagentkit/compare/v0.1.4...v0.1.5) (2026-06-24)
