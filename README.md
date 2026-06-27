@@ -77,6 +77,14 @@ npm publish --access public
 Only `bin/` and `template/` ship (see the `files` whitelist in `package.json`);
 husky, configs, and tests stay in the repo.
 
+## Credits
+
+The engineering-practice skills (code review, simplification, git workflow,
+documentation, debugging, security, performance, deprecation, API design, CI/CD,
+and observability) were adapted from
+[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — thanks to
+Addy Osmani and contributors for the inspiration.
+
 ## License
 
 MIT

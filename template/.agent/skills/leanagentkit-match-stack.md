@@ -61,6 +61,17 @@ config (`.mcp.json` entries), and runs install commands when approved.
 6. **Report.** List: detected stacks, install status per stack, any pending
    REQUIRED post-install steps, and which playbooks were applied.
 
+7. **Detect practice skills.** Read `.agent/practice-skills/registry.md`.
+   For each **conditional** row, check its **Detect** condition. These skills
+   ship dormant (`invocation: conditional` → explicit-invoke wrappers), so they
+   only become active guidance once advertised here. For each row whose Detect
+   matches, add a line to the `AGENTS.md` §7 "Practice skills (guardrails)"
+   subsection — skill name + when to use. Omit rows that don't match (don't
+   advertise `leanagentkit-ci-cd` on a repo with no CI config). Always-on
+   guardrails (`invocation: auto`) need no detection — they auto-load when wired
+   and aren't listed here. Idempotent: rebuild the subsection on re-run, don't
+   duplicate rows.
+
 ## Rules
 - The registry is authoritative — don't hardcode install commands here.
 - Distinguish `skill` (copy-in) from `mcp` (server) rows; they install differently.

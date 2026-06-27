@@ -52,5 +52,9 @@ Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when
      Empty until bootstrap runs.
      `.agent/` (singular) = kit files. `.agents/skills/` (plural) = external skills from `npx skills add`. -->
 
+### Practice skills (guardrails)
+<!-- Auto-populated by leanagentkit-match-stack for conditional skills (CI/CD, observability).
+     Always-on guardrails (review, debug, security, etc.) ship with the kit — see .agent/skills/README.md -->
+
 ## 8. Setup / refresh
 Run `.agent/skills/leanagentkit-bootstrap.md` to (re)generate memory and stack wiring.

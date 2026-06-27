@@ -56,6 +56,9 @@ and the active feature spec. Reports violations with citations — does not auto
 
 5. **On FAIL**
    - List concrete fixes; recommend resolving before ending the session.
+   - For broader quality issues (architecture, security, readability), suggest
+     running `leanagentkit-review` (or `leanagentkit-security` /
+     `leanagentkit-performance` for deep passes).
    - Do not invent rules not present in `AGENTS.md`, playbooks, or the spec.
 
 ## Quality bar

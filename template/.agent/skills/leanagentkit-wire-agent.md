@@ -31,15 +31,23 @@ pointer files from kit templates and **generates** skill wrappers from
 For every file matching `.agent/skills/leanagentkit-*.md` (top-level only — not
 `generated/`):
 
-1. Read the file's YAML frontmatter (`name`, `description`).
+1. Read the file's YAML frontmatter (`name`, `description`, optional `invocation`).
 2. Write a wrapper `SKILL.md` for each selected target:
 
 **Cursor** → `.cursor/skills/<name>/SKILL.md`:
+- Only `invocation: auto` (always-on practice guardrails) **omits**
+  `disable-model-invocation`, so the agent can auto-load the skill when relevant.
+- Everything else includes `disable-model-invocation: true` so the agent only
+  runs it when explicitly asked. This covers orchestration skills (no
+  `invocation` field) **and** `invocation: conditional` practice skills (ci-cd,
+  observability), which ship dormant and are advertised in `AGENTS.md §7` only
+  when `leanagentkit-match-stack` detects them.
+
 ```markdown
 ---
 name: <name>
 description: <description>
-disable-model-invocation: true
+disable-model-invocation: true   ← omit this line ONLY when invocation: auto
 ---
 
 Read `.agent/skills/<name>.md` and follow it.
@@ -74,4 +82,6 @@ List every file created or updated per target.
 
 - `.agent/skills/*.md` is the single source of truth for skill content and metadata.
 - Edit skill frontmatter there; re-run this skill to refresh wrappers.
+- Practice guardrails use `invocation: auto` in frontmatter — Cursor wrappers omit
+  `disable-model-invocation` so agents can lazy-load them.
 - Stack skills from `leanagentkit-match-stack` land separately (`.agents/skills/` or via `npx skills add`).

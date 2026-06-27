@@ -31,12 +31,16 @@ export async function listKitSkills() {
   return skills.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function cursorWrapperContent(name, description, skillRelPath) {
+export function cursorWrapperContent(name, description, skillRelPath, invocation) {
+  // Only `invocation: auto` skills are model-invocable. Everything else
+  // (explicit orchestration skills and `invocation: conditional` practice
+  // skills) ships explicit-invoke so it never auto-fires on irrelevant projects.
+  const disableLine =
+    invocation === "auto" ? "" : "disable-model-invocation: true\n";
   return `---
 name: ${name}
 description: ${description}
-disable-model-invocation: true
----
+${disableLine}---
 
 Read \`${skillRelPath}\` and follow it.
 `;
@@ -67,7 +71,12 @@ export async function generateWrappers(targetDir, agent) {
     await mkdir(wrapperDir, { recursive: true });
     const content =
       agent === "cursor"
-        ? cursorWrapperContent(skill.name, skill.description, skillRelPath)
+        ? cursorWrapperContent(
+            skill.name,
+            skill.description,
+            skillRelPath,
+            skill.invocation,
+          )
         : claudeWrapperContent(skill.name, skill.description, skillRelPath);
     await writeFile(join(wrapperDir, "SKILL.md"), content, "utf8");
   }

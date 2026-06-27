@@ -46,6 +46,16 @@ Run `leanagentkit-init-conventions` → `AGENTS.md` sections 1–5.
 Run `leanagentkit-match-stack`. It reads `.agent/stacks/registry.md`, detects technologies,
 presents matches for confirmation, installs the ones approved in Step 0, and
 appends each stack's AGENTS.md snippet + applies its playbook to CODEBASE_MAP.
+It also detects conditional **practice skills** from `.agent/practice-skills/registry.md`
+(e.g. CI/CD when workflow files exist) and notes them in the summary.
+
+**Practice skills (guardrails):** Eleven cross-cutting skills ship in
+`.agent/skills/`. Nine are always-on with `invocation: auto` (review, simplify,
+git-workflow, docs, debug, security, performance, deprecation, api-design) —
+agents load them when relevant, not on every prompt. Two are `invocation:
+conditional` (ci-cd, observability): they ship dormant and are advertised in
+`AGENTS.md §7` only when `leanagentkit-match-stack` detects matching evidence.
+See `.agent/skills/README.md` § Engineering practice.
 
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't

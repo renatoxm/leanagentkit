@@ -37,7 +37,7 @@ test("memory.mdc has valid frontmatter", async () => {
 
 test("all kit skills have name and description frontmatter", async () => {
   const skills = await listKitSkills();
-  assert.ok(skills.length >= 11, "expected at least 11 kit skills");
+  assert.ok(skills.length >= 22, "expected at least 22 kit skills");
   for (const skill of skills) {
     assert.equal(skill.name, skill.file.replace(/\.md$/, ""), `${skill.file}: name matches filename`);
     assert.ok(skill.description, `${skill.name}: description required`);
@@ -57,6 +57,25 @@ test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
     const dirs = skillDirs.filter((e) => e.isDirectory()).map((e) => e.name);
     assert.equal(dirs.length, skills.length, "all skill wrappers generated");
 
+    // Guard: the auto-invocation mechanism is actually in use. Without this, a
+    // refactor that dropped every `invocation: auto` would still pass the
+    // per-skill branch below (it would just take the else branch every time).
+    assert.ok(
+      skills.some((s) => s.invocation === "auto"),
+      "at least one skill ships with invocation: auto",
+    );
+    // Guard: conditional practice skills must NOT auto-fire on every project —
+    // they ship explicit-invoke and are promoted via AGENTS.md §7 when detected.
+    for (const s of skills) {
+      if (s.invocation === "conditional") {
+        assert.notEqual(
+          s.invocation,
+          "auto",
+          `${s.name}: conditional skills are not auto-invocable`,
+        );
+      }
+    }
+
     for (const skill of skills) {
       assert.ok(dirs.includes(skill.name), `generated ${skill.name}`);
       const content = await readFile(
@@ -66,7 +85,17 @@ test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
       const fm = parseFrontmatter(content);
       assert.equal(fm.name, skill.name);
       assert.equal(fm.description, skill.description);
-      assert.equal(fm["disable-model-invocation"], "true");
+      if (skill.invocation === "auto") {
+        assert.equal(
+          fm["disable-model-invocation"],
+          undefined,
+          `${skill.name}: auto-invocation skills omit disable-model-invocation`,
+        );
+      } else {
+        // Explicit orchestration skills and conditional practice skills both
+        // ship with disable-model-invocation so they never auto-fire.
+        assert.equal(fm["disable-model-invocation"], "true");
+      }
       assert.match(content, new RegExp(`\\.agent/skills/${skill.file}`));
     }
   } finally {
