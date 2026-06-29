@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.2](https://github.com/renatoxm/leanagentkit/compare/v0.3.1...v0.3.2) (2026-06-29)
+
+
+### Features
+
+* added turborepo support ([eb1bcd5](https://github.com/renatoxm/leanagentkit/commit/eb1bcd505eb2f3fbb8a2f2e1af71cc4f4935ac18))
+
 ## [0.3.1](https://github.com/renatoxm/leanagentkit/compare/v0.3.0...v0.3.1) (2026-06-29)
 
 
