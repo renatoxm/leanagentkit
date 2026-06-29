@@ -179,3 +179,64 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 | ---------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `leanagentkit-ci-cd`         | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
+
+## Handoffs
+
+The `leanagentkit-handoff` skill is one half of a two-step baton pass. It only **writes** the document; a fresh agent **reads** it to resume.
+
+### Step 1 — The current agent writes the handoff (this skill)
+
+When you run `leanagentkit-handoff`, the agent produces a single file:
+
+```12:12:template/.agent/skills/leanagentkit-handoff.md
+**Output file:** `docs/memory/HANDOFF.md`
+```
+
+That `docs/memory/HANDOFF.md` captures the goal, what's done, what's left, where you are, open questions/gotchas, and — importantly — a **"Suggested skills"** section telling the next agent exactly what to invoke (per step 3 of the procedure).
+
+### Step 2 — The next agent picks it up
+
+To continue the work in a **new session, new context window, or a different tool** (Cursor → Claude → Codex, etc.), the next agent does the following:
+
+1. **Open `docs/memory/HANDOFF.md`** first. This is the in-flight baton — it's the entry point, not the normal session-start file.
+2. **Run `leanagentkit-start-session`** to prime durable memory. This reads `docs/memory/ACTIVE_CONTEXT.md` → `docs/CODEBASE_MAP.md` → the active `docs/specs/<feature>.md`, then opens just the source files listed in "Files in play" / "Resume from here".
+
+```12:18:template/.agent/skills/leanagentkit-start-session.md
+1. Read **only**: `docs/memory/ACTIVE_CONTEXT.md`, then `docs/CODEBASE_MAP.md`.
+2. Read the active feature's `docs/specs/<feature>.md` if one is named in
+   ACTIVE_CONTEXT.
+3. From the "Files in play" and "Resume from here" sections, open just those
+   source files. Do not scan the repo.
+```
+
+3. **Follow the "Suggested skills" list** from the handoff, then **resume the concrete next action**.
+4. Before wrapping up, run `leanagentkit-check`, and at a real stopping point run `leanagentkit-end-session`.
+
+## Practically, how do you trigger the pickup?
+
+Since the document lives **in the repo**, the next agent just needs to be pointed at it. In a fresh chat (any tool), start with something like:
+
+> Read `docs/memory/HANDOFF.md` and continue the work. Follow the suggested skills.
+
+The whole design goal is that this is self-sufficient:
+
+```41:43:template/.agent/skills/leanagentkit-handoff.md
+- A fresh agent could resume from `HANDOFF.md` alone plus the referenced files.
+- No secrets or PII in the document.
+- Nothing restated that already lives in a spec, ADR, or `PROGRESS.md`.
+```
+
+## Handoff vs. end-session — which to use
+
+These solve different problems (lines 21–24 of the skill):
+
+|                | `leanagentkit-handoff`                                                                                        | `leanagentkit-end-session`                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Purpose**    | Cross-window / cross-tool baton for an **in-flight** task                                                     | Persist **durable project memory** at a natural stopping point |
+| **When**       | You're _not done_ but the conversation can't continue in place (context full, switching tools, branching off) | You've reached a real stopping point                           |
+| **Writes**     | `docs/memory/HANDOFF.md`                                                                                      | `ACTIVE_CONTEXT.md`, `PROGRESS.md`, `CODEBASE_MAP.md`, ADRs    |
+| **Resumed by** | Reading `HANDOFF.md` + `start-session`                                                                        | `start-session` alone                                          |
+
+So: **handoff is for "pause mid-task and hand the baton to another agent right now"**, whereas end-session is for "this work is at a clean stopping point, save it for whenever."
+
+One thing worth noting: the skill writes `HANDOFF.md` but doesn't say to **delete or stale-mark it** once consumed. If you do multiple handoffs over time, the next agent should treat the file as the _latest_ baton and overwrite it, so an old handoff isn't mistaken for current state. If you'd like, I can suggest a small wording addition to the skill to cover that — but I'm in Ask mode, so I can't edit it without you switching to Agent mode.
