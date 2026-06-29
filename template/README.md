@@ -25,7 +25,7 @@ Memory protocol and tier definitions live in **`AGENTS.md` §6** — the single 
 
 ## The full guide
 
-This README is the *pitch*; **[`GUIDE.md`](./GUIDE.md) is the *playbook*.** It's the
+This README is the _pitch_; **[`LEAN_AGENT_KIT_GUIDE.md`](./LEAN_AGENT_KIT_GUIDE.md) is the _playbook_.** It's the
 end-to-end manual covering the mental model, memory tiers, the daily loop, workflows
 from simple to complex, stacks & external skills, artifact generators,
 engineering-practice guardrails, working across sessions/tools/teammates, pro tips &
