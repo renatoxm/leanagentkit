@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.1](https://github.com/renatoxm/leanagentkit/compare/v0.3.0...v0.3.1) (2026-06-29)
+
+
+### Features
+
+* added grill me skill and other smaller improvements ([91a8e90](https://github.com/renatoxm/leanagentkit/commit/91a8e90f323581e847b4de071dd8090eb92ff552))
+
 ## [0.3.0](https://github.com/renatoxm/leanagentkit/compare/v0.2.0...v0.3.0) (2026-06-27)
 
 
