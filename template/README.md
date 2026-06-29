@@ -72,6 +72,7 @@ Detected automatically from `.agent/stacks/registry.md` (see that file for insta
 | Svelte/Kit                  | mcp   | `mcp.svelte.dev` — not copy-in files      |
 | shadcn-svelte               | skill | needs Svelte 5 + Tailwind v4              |
 | Tailwind v4                 | skill | REQUIRED docs-snapshot sync after install |
+| Turborepo                   | skill | copy-in from framework monorepo           |
 | Python / FastAPI / Django   | skill | see registry                              |
 | Node / Express              | skill | see registry                              |
 | React / Next.js             | skill | see registry                              |

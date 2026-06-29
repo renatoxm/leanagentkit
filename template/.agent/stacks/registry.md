@@ -141,6 +141,30 @@
   `python skills/tailwind-4-docs/scripts/sync_tailwind_docs.py --accept-docs-license`
   Re-run if `references/docs/` is missing or older than one week.
 
+## Turborepo
+
+- **Detect:** `turbo.json` / `turbo.jsonc`, `turbo` in root `devDependencies`, monorepo workspace config (`pnpm-workspace.yaml` or `workspaces` in `package.json`) with `apps/` + `packages/`
+- **Skill:** `vercel/turborepo` — skill lives in the framework monorepo under `skills/turborepo/` (note: `skills`, alongside the repo's root `AGENTS.md`)
+- **Type:** skill (copy-in; maintained inside the official Turborepo repo, MIT)
+- **Install:** no `npx skills add` published — vendor the skill folder from the repo into your agent's skills dir:
+  ```bash
+  npx degit vercel/turborepo/skills/turborepo .agent/skills/vendor/turborepo
+  ```
+  - Claude Code alt: copy into `.claude/skills/`:
+    ```bash
+    npx degit vercel/turborepo/skills/turborepo .claude/skills/turborepo
+    ```
+  - Cursor alt: copy into `.cursor/skills/` or `.agents/skills/`:
+    ```bash
+    npx degit vercel/turborepo/skills/turborepo .cursor/skills/turborepo
+    ```
+  - Pin to a release tag instead of `main` for stability; re-pull to update (these track Turborepo releases).
+  - Verify whether `npx skills add vercel/turborepo` resolves the `skills/turborepo` subdir; prefer `degit` if it does not.
+- **Provides:** `turborepo` skill — `turbo.json` task config (`dependsOn`, `outputs`, `inputs`, `env`), local/remote caching, `--filter` / `--affected`, env modes, CI setup, package/monorepo best practices, boundaries; plus a `/turborepo` command
+- **Pairs with:** the framework rows for packages inside the monorepo (Next.js, React, Svelte, etc.)
+- **Playbook:** `.agent/stacks/turbo.md`
+- **Post-install:** confirm the agent lists the `turborepo` skill
+
 ---
 
 ## Python
