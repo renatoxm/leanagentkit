@@ -10,6 +10,9 @@ current codebase.
 
 **Output file:** `docs/specs/<kebab-feature-name>.md` (from `docs/specs/_TEMPLATE.md`)
 
+**Align first:** for fuzzy or non-trivial features, run `leanagentkit-grill` to
+reach a shared understanding before capturing it here.
+
 ## Procedure
 
 1. Confirm the feature name and one-line goal with the user if not given.

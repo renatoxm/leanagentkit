@@ -23,14 +23,27 @@ can read files and (optionally) MCP/skills.
 
 Memory protocol and tier definitions live in **`AGENTS.md` §6** — the single source of truth.
 
-## Daily loop
+## How it works: The daily loop workflow
+
+Day to day, you don't re-explain your project to the agent — the Markdown memory
+does it for you. Open your editor, tell the agent to **`leanagentkit-start-session`**,
+and it primes itself by reading `ACTIVE_CONTEXT.md` and `CODEBASE_MAP.md` (cheap,
+no repo scan), then picks up exactly where you left off. You describe what you
+want; for anything new or fuzzy, let it `leanagentkit-grill` you into a clear plan
+and freeze a spec with `leanagentkit-new-spec` before any code is written. Then you
+build together. When a chunk of work is done, run `leanagentkit-check` to validate
+it against your `AGENTS.md` conventions and stack rules, and close out with
+`leanagentkit-end-session` so the next session — yours or a fresh agent's — starts
+warm. Repeat each day; the memory files stay current as a side effect of working,
+not as extra paperwork.
 
 ```
-leanagentkit-start-session  →  work  →  leanagentkit-check  →  leanagentkit-end-session
+leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec for new work) → work  →  leanagentkit-check  →  leanagentkit-end-session
 ```
 
-- **New feature** → `leanagentkit-new-spec` (before coding)
+- **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding)
 - **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
+- **Switching session/tool** → `leanagentkit-handoff` (bridge context to a fresh agent)
 
 ## What's inside
 
@@ -112,55 +125,57 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 22 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 24 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
 
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
-| `leanagentkit-bootstrap` | One-shot interactive setup — runs the questionnaire, maps the codebase, detects the stack, and wires agents (calls the other skills in order) | Setting up the kit in a project (**run this first**) |
-| `leanagentkit-wire-agent` | Installs native agent config for Cursor and/or Claude — copies memory pointers and generates skill wrappers from `.agent/skills/` frontmatter | Wiring a new agent target, or after adding/renaming skills |
-| `leanagentkit-match-stack` | Detects project technologies from `.agent/stacks/registry.md` and installs only the confirmed matching external skills | Bootstrapping, or after adding new dependencies |
-| `leanagentkit-check` | Guardrail — validates changed files against `AGENTS.md`, stack playbooks, and the active spec; reports violations with citations | After meaningful changes, before ending a session |
+| Skill                      | What It Does                                                                                                                                  | Use When                                                   |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `leanagentkit-bootstrap`   | One-shot interactive setup — runs the questionnaire, maps the codebase, detects the stack, and wires agents (calls the other skills in order) | Setting up the kit in a project (**run this first**)       |
+| `leanagentkit-wire-agent`  | Installs native agent config for Cursor and/or Claude — copies memory pointers and generates skill wrappers from `.agent/skills/` frontmatter | Wiring a new agent target, or after adding/renaming skills |
+| `leanagentkit-match-stack` | Detects project technologies from `.agent/stacks/registry.md` and installs only the confirmed matching external skills                        | Bootstrapping, or after adding new dependencies            |
+| `leanagentkit-check`       | Guardrail — validates changed files against `AGENTS.md`, stack playbooks, and the active spec; reports violations with citations              | After meaningful changes, before ending a session          |
 
 ### Memory — build and persist tiered context
 
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
-| `leanagentkit-map-codebase` | (Re)generates `docs/CODEBASE_MAP.md` from repo structure and entry points so future sessions navigate by reading one file | Bootstrapping, or when the structure changes |
-| `leanagentkit-init-conventions` | Fills `AGENTS.md` §1–5 with evidence-based conventions drawn from the actual repo | Bootstrapping, or when conventions drift from reality |
-| `leanagentkit-seed-adrs` | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files | Capturing the rationale behind existing decisions |
-| `leanagentkit-new-spec` | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase | Starting a new or in-progress feature, before coding |
-| `leanagentkit-start-session` | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing | Starting a coding session |
-| `leanagentkit-end-session` | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed) | Ending a coding session |
+| Skill                           | What It Does                                                                                                                                                                    | Use When                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `leanagentkit-map-codebase`     | (Re)generates `docs/CODEBASE_MAP.md` from repo structure and entry points so future sessions navigate by reading one file                                                       | Bootstrapping, or when the structure changes                        |
+| `leanagentkit-init-conventions` | Fills `AGENTS.md` §1–5 with evidence-based conventions drawn from the actual repo                                                                                               | Bootstrapping, or when conventions drift from reality               |
+| `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                                                                           | Capturing the rationale behind existing decisions                   |
+| `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding; explores the repo for answers instead of asking, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
+| `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                                                                           | Starting a new or in-progress feature, before coding                |
+| `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
+| `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                                                                            | Ending a coding session                                             |
+| `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                                                                   | Context window fills, branching off, or switching tools mid-task    |
 
 ### Meta — author project-specific generators
 
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
+| Skill                                  | What It Does                                                                                                                               | Use When                                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
 
 ### Engineering practice — always-on guardrails
 
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
-| `leanagentkit-review` | Multi-axis review across correctness, readability, architecture, security, and performance; approves when overall code health improves | Reviewing PRs or agent-generated code, before merge |
-| `leanagentkit-simplify` | Reduces complexity while preserving exact behavior — faster comprehension, not fewer lines | Refactoring for readability, or when review flags complexity |
-| `leanagentkit-git-workflow` | Commits as save points, branches as sandboxes, history as documentation; atomic, reviewable changes | Committing, branching, resolving conflicts, parallel work |
-| `leanagentkit-docs` | Documents *why* and rejected alternatives, not what the code already says — inline comments, API docs, README sections | Writing comments, API docs, changelogs, or README onboarding |
-| `leanagentkit-debug` | Systematic root-cause triage — preserve evidence, localize, reduce, fix, guard against recurrence | Tests fail, builds break, or behavior is unexpected |
-| `leanagentkit-security` | Treats input as hostile, secrets as sacred, authz as mandatory — OWASP-aligned boundary hardening | Handling user input, auth, data storage, or integrations |
-| `leanagentkit-performance` | Measurement-first optimization — profile, fix the proven bottleneck, measure again | Performance requirements exist or regressions are suspected |
-| `leanagentkit-deprecation` | Removes code that no longer earns its keep; migrates users safely from old to new | Removing systems/APIs, consolidating duplicates, or sunsetting features |
-| `leanagentkit-api-design` | Designs stable interfaces that are hard to misuse — contracts, error semantics, boundary validation | Creating endpoints, type contracts, or frontend/backend boundaries |
+| Skill                       | What It Does                                                                                                                           | Use When                                                                |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `leanagentkit-review`       | Multi-axis review across correctness, readability, architecture, security, and performance; approves when overall code health improves | Reviewing PRs or agent-generated code, before merge                     |
+| `leanagentkit-simplify`     | Reduces complexity while preserving exact behavior — faster comprehension, not fewer lines                                             | Refactoring for readability, or when review flags complexity            |
+| `leanagentkit-git-workflow` | Commits as save points, branches as sandboxes, history as documentation; atomic, reviewable changes                                    | Committing, branching, resolving conflicts, parallel work               |
+| `leanagentkit-docs`         | Documents _why_ and rejected alternatives, not what the code already says — inline comments, API docs, README sections                 | Writing comments, API docs, changelogs, or README onboarding            |
+| `leanagentkit-debug`        | Systematic root-cause triage — preserve evidence, localize, reduce, fix, guard against recurrence                                      | Tests fail, builds break, or behavior is unexpected                     |
+| `leanagentkit-security`     | Treats input as hostile, secrets as sacred, authz as mandatory — OWASP-aligned boundary hardening                                      | Handling user input, auth, data storage, or integrations                |
+| `leanagentkit-performance`  | Measurement-first optimization — profile, fix the proven bottleneck, measure again                                                     | Performance requirements exist or regressions are suspected             |
+| `leanagentkit-deprecation`  | Removes code that no longer earns its keep; migrates users safely from old to new                                                      | Removing systems/APIs, consolidating duplicates, or sunsetting features |
+| `leanagentkit-api-design`   | Designs stable interfaces that are hard to misuse — contracts, error semantics, boundary validation                                    | Creating endpoints, type contracts, or frontend/backend boundaries      |
 
 ### Engineering practice — conditional guardrails
 
 Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 `leanagentkit-match-stack` detects matching evidence.
 
-| Skill | What It Does | Use When |
-|-------|-------------|----------|
-| `leanagentkit-ci-cd` | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
-| `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service |
+| Skill                        | What It Does                                                                                              | Use When                                                       |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `leanagentkit-ci-cd`         | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
+| `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |

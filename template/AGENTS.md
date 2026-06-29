@@ -39,7 +39,9 @@ Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when
 `ACTIVE_CONTEXT.md` (+ a "resume from here" note), `PROGRESS.md` (append),
 `CODEBASE_MAP.md` (if structure changed), `docs/adr/` (if a decision was made).
 
-**Daily loop:** `leanagentkit-start-session` → work → `leanagentkit-check` → `leanagentkit-end-session`
+**Daily loop:** `leanagentkit-start-session` → (`leanagentkit-grill` → `leanagentkit-new-spec` for new work) → work → `leanagentkit-check` → `leanagentkit-end-session`
+
+When the context window fills or you switch tools mid-task, run `leanagentkit-handoff` to bridge to a fresh session.
 
 | Tier | Files | Lifespan |
 |------|-------|----------|
