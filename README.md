@@ -54,6 +54,16 @@ That runs the **interactive setup**: choose memory tiers, map the codebase, dete
 
 ---
 
+## 📚 The full guide
+
+The README is the *pitch*; **[`GUIDE.md`](template/GUIDE.md) is the *playbook*.** 🏈
+
+It's the end-to-end manual that takes you from your very first `start-session` to authoring custom generators and orchestrating multiple agents in parallel — the mental model, memory tiers, the daily loop, workflows from simple to complex, stacks & external skills, engineering-practice guardrails, pro tips, troubleshooting, and a one-page cheat sheet.
+
+> 💡 Read it once front to back, then keep it open as a reference. (It ships in every scaffolded project as `GUIDE.md`.)
+
+---
+
 ## 📦 Installation (the no-npm way)
 
 The kit is *just files*, so you can also pull the template directly:

@@ -23,6 +23,15 @@ can read files and (optionally) MCP/skills.
 
 Memory protocol and tier definitions live in **`AGENTS.md` §6** — the single source of truth.
 
+## The full guide
+
+This README is the *pitch*; **[`GUIDE.md`](./GUIDE.md) is the *playbook*.** It's the
+end-to-end manual covering the mental model, memory tiers, the daily loop, workflows
+from simple to complex, stacks & external skills, artifact generators,
+engineering-practice guardrails, working across sessions/tools/teammates, pro tips &
+anti-patterns, troubleshooting, and a one-page cheat sheet. Read it once front to
+back, then keep it open as a reference.
+
 ## How it works: The daily loop workflow
 
 Day to day, you don't re-explain your project to the agent — the Markdown memory
