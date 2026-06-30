@@ -50,7 +50,29 @@ Then open your AI agent in the project and say:
 
 That runs the **interactive setup**: choose memory tiers, map the codebase, detect your stack, and wire up matching framework skills.
 
-🚩 **Flags:** `--force` overwrite existing kit files · `--help`.
+🚩 **Flags:** `--force` overwrite existing kit files · `--upgrade` refresh kit files safely · `--help`.
+
+### Upgrading an installed kit
+
+```bash
+# refresh kit-owned files; preserve your memory and conventions
+npm create lean-agent-kit . --upgrade
+
+# equivalently
+npx create-lean-agent-kit . --upgrade
+```
+
+**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
+
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), and `docs/adr/0001-*`.
+
+Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
+
+After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
+
+> Read `.agent/skills/leanagentkit-wire-agent.md` and follow it.
+
+> **Note:** Upgrade is additive — files removed from the kit in a newer release are not deleted from your project. Use `--force` only for a full re-scaffold (will clobber user data).
 
 ---
 

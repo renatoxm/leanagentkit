@@ -65,8 +65,24 @@ npx create-lean-agent-kit .
 
 This copies the *template* (files only, zero runtime deps) into your repo: `AGENTS.md`, `.agent/`, and `docs/`. Nothing runs yet — it's inert Markdown waiting for the bootstrap.
 
-> 🚩 **Flags:** `--force` overwrites existing kit files · `--help` shows usage.
+> 🚩 **Flags:** `--force` overwrites existing kit files · `--upgrade` refreshes kit files safely · `--help` shows usage.
 > 📦 **No‑npm option:** `npx degit YOUR_USER/create-lean-agent-kit/template` pulls the raw template.
+
+#### Upgrading an already-installed kit
+
+```bash
+npm create lean-agent-kit . --upgrade
+```
+
+Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, custom rows in `.agent/stacks/registry.md`, and edited ADRs.
+
+Differing files are backed up to `.leanagentkit-backup/<timestamp>/` before overwrite. The installed version is stamped in `.agent/.leanagentkit-version`.
+
+After upgrading, re-run:
+
+> Read `.agent/skills/leanagentkit-wire-agent.md` and follow it.
+
+Upgrade is additive — files removed from the kit in a newer release stay in your project. Avoid `--force` on brownfield projects; it overwrites everything including memory.
 
 ### Step 2 — Run the one‑shot bootstrap
 
