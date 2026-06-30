@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.6](https://github.com/renatoxm/leanagentkit/compare/v0.3.5...v0.3.6) (2026-06-30)
+
+
+### Features
+
+* numbered specs ([d7ee769](https://github.com/renatoxm/leanagentkit/commit/d7ee7697ba930ed1726810c98bbe4c6c8a901233))
+
 ## [0.3.5](https://github.com/renatoxm/leanagentkit/compare/v0.3.4...v0.3.5) (2026-06-30)
 
 
