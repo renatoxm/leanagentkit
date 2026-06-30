@@ -42,7 +42,7 @@ review — use `leanagentkit-review`.
 Once aligned:
 
 - Run `leanagentkit-new-spec` to capture the agreed scope into
-  `docs/specs/<feature>.md` and point `docs/memory/ACTIVE_CONTEXT.md` at it.
+  `docs/specs/NNN-<feature>.md` and point `docs/memory/ACTIVE_CONTEXT.md` at it.
 - For any decision that surfaced that is hard to reverse, surprising without
   context, and the result of a real trade-off, offer `leanagentkit-seed-adrs`.
 
