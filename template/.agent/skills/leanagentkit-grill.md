@@ -26,6 +26,8 @@ review — use `leanagentkit-review`.
    `docs/CODEBASE_MAP.md` first so questions are grounded in the real repo.
 2. **Interview one question at a time.** Ask a single question, give your
    *recommended* answer, then wait for the user's response before continuing.
+   Use the host's interactive multiple-choice UI when available (see AGENTS.md
+   §6 — Asking the user); fall back to inline text only when unsupported.
    Asking multiple questions at once is bewildering.
 3. **Walk the design tree.** Cover every branch of the change, resolving
    dependencies between decisions one-by-one — early answers narrow later ones.

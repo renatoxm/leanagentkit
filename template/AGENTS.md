@@ -49,6 +49,14 @@ When the context window fills or you switch tools mid-task, run `leanagentkit-ha
 | Medium | `docs/specs/*`, `docs/memory/ACTIVE_CONTEXT.md`, `docs/memory/PROGRESS.md` | days–weeks |
 | Short | `docs/memory/SCRATCH.md` | this task |
 
+### Asking the user
+When you need input from the user, prefer the host agent's interactive
+multiple-choice / questionnaire UI (e.g. Cursor, Claude) over plain inline text.
+Provide a recommended option. Fall back to inline questions only when the host
+has no interactive prompt support. Skills may still require one question at a
+time or a batched set — follow that cadence, but use the interactive UI for each
+prompt when available.
+
 ## 7. Stack skills
 <!-- Auto-populated by leanagentkit-match-stack: which external skills/MCPs to defer to and when.
      Empty until bootstrap runs.
