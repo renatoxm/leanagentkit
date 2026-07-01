@@ -43,6 +43,7 @@ Once aligned:
 
 - Run `leanagentkit-new-spec` to capture the agreed scope into
   `docs/specs/NNN-<feature>.md` and point `docs/memory/ACTIVE_CONTEXT.md` at it.
+- When the user is ready to code, they invoke `leanagentkit-implement-spec`.
 - For any decision that surfaced that is hard to reverse, surprising without
   context, and the result of a real trade-off, offer `leanagentkit-seed-adrs`.
 

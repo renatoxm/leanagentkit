@@ -42,14 +42,13 @@ After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 ## The daily loop
 
 ```
-leanagentkit-start-session → (grill → new-spec for new work) → work → check → end-session
+leanagentkit-start-session → (grill → new-spec → implement-spec for new work) → check → end-session
 ```
 
 1. **`leanagentkit-start-session`** — primes from `ACTIVE_CONTEXT.md` + `CODEBASE_MAP.md` (cheap, no repo scan).
-2. **`leanagentkit-grill` → `leanagentkit-new-spec`** — for new work, interrogates you into a clear plan and freezes a spec before coding.
-3. **Work together** — you build the feature.
-4. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
-5. **`leanagentkit-end-session`** — so the next session starts warm.
+2. **`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`** — for new work, align on a plan, freeze a spec, then implement it spec-driven.
+3. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
+4. **`leanagentkit-end-session`** — so the next session starts warm.
 
 ## What it scaffolds
 

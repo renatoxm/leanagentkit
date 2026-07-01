@@ -121,18 +121,17 @@ docs/specs/  docs/adr/    # 📋 feature specs, architecture decisions
 Day to day, you don't re-explain your project — the Markdown memory does it for you.
 
 ```
-leanagentkit-start-session → (grill → new-spec for new work) → work → check → end-session
+leanagentkit-start-session → (grill → new-spec → implement-spec for new work) → check → end-session
 ```
 
 1. ▶️ **`leanagentkit-start-session`** — primes itself from `ACTIVE_CONTEXT.md` + `CODEBASE_MAP.md` (cheap, no repo scan) and picks up where you left off.
-2. 🔥 **`leanagentkit-grill`** → ❄️ **`leanagentkit-new-spec`** — for anything new or fuzzy, it interrogates you into a clear plan and freezes a spec _before_ any code is written.
-3. 🛠️ **Work together** — you build the feature.
-4. ✅ **`leanagentkit-check`** — validates the work against your `AGENTS.md` conventions and stack rules.
-5. 💾 **`leanagentkit-end-session`** — so the next session (yours or a fresh agent's) starts warm.
+2. 🔥 **`leanagentkit-grill`** → ❄️ **`leanagentkit-new-spec`** → 🛠️ **`leanagentkit-implement-spec`** — for anything new or fuzzy, interrogate into a clear plan, freeze a spec, then implement it spec-driven and sequentially.
+3. ✅ **`leanagentkit-check`** — validates the work against your `AGENTS.md` conventions and stack rules.
+4. 💾 **`leanagentkit-end-session`** — so the next session (yours or a fresh agent's) starts warm.
 
 The memory files stay current as a **side effect of working**, not as extra paperwork. 🙌
 
-- 🆕 **New feature** → `leanagentkit-grill` → `leanagentkit-new-spec`
+- 🆕 **New feature** → `leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`
 - 🗺️ **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
 - 🤝 **Switching session/tool** → `leanagentkit-handoff` (bridge context to a fresh agent)
 
@@ -161,7 +160,7 @@ Detected automatically from `.agent/stacks/registry.md`.
 
 ---
 
-## 🎁 What's in the box — 24 tool-agnostic skills
+## 🎁 What's in the box — 25 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -183,6 +182,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                          | Capturing the rationale behind existing decisions                   |
 | `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
 | `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                          | Starting a new or in-progress feature, before coding                |
+| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff           | When a spec exists and the user is ready to code                    |
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                               | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                           | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                  | Context window fills, branching off, or switching tools mid-task    |

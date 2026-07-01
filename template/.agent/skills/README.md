@@ -34,6 +34,7 @@ Recipes live in `.agent/recipes/`.
 | `leanagentkit-seed-adrs.md` | `docs/adr/*` |
 | `leanagentkit-grill.md` | aligns on a plan (interview), then hands off to `leanagentkit-new-spec` |
 | `leanagentkit-new-spec.md` | `docs/specs/<feature>.md` |
+| `leanagentkit-implement-spec.md` | implements an active spec (spec-driven, sequential) |
 | `leanagentkit-start-session.md` | reads memory, primes context |
 | `leanagentkit-end-session.md` | persists state (runs `leanagentkit-check` first if code changed) |
 | `leanagentkit-handoff.md` | `docs/memory/HANDOFF.md` (cross-session/cross-tool baton) |

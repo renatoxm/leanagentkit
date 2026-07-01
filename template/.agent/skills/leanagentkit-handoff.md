@@ -30,8 +30,9 @@ when you are not done but the conversation can't continue in place.
 2. Write `docs/memory/HANDOFF.md` covering: the goal, what's been done, what's
    left, current state / where you are, and any open questions or gotchas.
 3. Add a **Suggested skills** section naming the kit skills the next agent should
-   invoke (e.g. `leanagentkit-start-session` to prime, the active
-   `docs/specs/<feature>.md`, then `leanagentkit-check` before wrapping up).
+   invoke (e.g. `leanagentkit-start-session` to prime, `leanagentkit-implement-spec`
+   when resuming spec work, the active `docs/specs/<feature>.md`, then
+   `leanagentkit-check` before wrapping up).
 4. **Do not duplicate** content already captured in other artifacts (specs,
    ADRs, `PROGRESS.md`, commits, diffs) — reference them by path instead.
 5. **Redact** any sensitive information — API keys, passwords, tokens, or PII.

@@ -35,3 +35,8 @@ reach a shared understanding before capturing it here.
 
 - Acceptance criteria are observable and checkable, not vague.
 - The Approach references actual files from the codebase map.
+
+## Handoff
+
+Do not start coding in this skill unless the user explicitly asks.
+When the spec is written, offer: "Ready to implement? Invoke `leanagentkit-implement-spec`."

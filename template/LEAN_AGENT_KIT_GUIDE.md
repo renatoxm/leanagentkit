@@ -34,7 +34,7 @@ It rests on three pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 24 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 25 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 
 ### 🪶 The golden rule: *lean by default*
 
@@ -162,19 +162,22 @@ This is *why* sessions stay cheap. The agent never burns 50k tokens re‑discove
 Day to day, you don't re‑explain your project. The loop does it for you:
 
 ```
-leanagentkit-start-session → (grill → new-spec for new work) → work → check → end-session
+leanagentkit-start-session → (grill → new-spec → implement-spec for new work) → check → end-session
 ```
 
 ```mermaid
 flowchart LR
-    A[▶️ start-session] --> B{New or fuzzy work?}
-    B -- yes --> C[🔥 grill]
-    C --> D[❄️ new-spec]
-    D --> E[🛠️ work]
-    B -- no --> E
-    E --> F[✅ check]
-    F --> G[💾 end-session]
-    G -. next session .-> A
+    A[start-session] --> B{NewOrFuzzy?}
+    B -- yes --> C[grill]
+    C --> D[new-spec]
+    D --> E[implement-spec]
+    E --> F[check]
+    B -- no --> G{ActiveSpec?}
+    G -- yes --> E
+    G -- no --> H[work]
+    H --> F
+    F --> I[end-session]
+    I -. next session .-> A
 ```
 
 ### ▶️ Start — `leanagentkit-start-session`
@@ -189,12 +192,15 @@ For anything new, broad, or fuzzy:
 
 - **`leanagentkit-grill`** interviews you **one question at a time**, each with a *recommended* answer, walking the whole design tree. It looks up anything answerable from the repo instead of asking. It stops when scope + acceptance criteria are crisp.
 - **`leanagentkit-new-spec`** freezes that agreement into `docs/specs/<feature>.md` — *before a line of code is written* — and points `ACTIVE_CONTEXT` at it.
+- When ready to code, invoke **`leanagentkit-implement-spec`** to work the spec sequentially.
 
 > ⛔ Skip grilling for routine/obvious changes. It's for closing the gap between "what you want" and "what the agent's about to build."
 
-### 🛠️ Work
+### 🛠️ Implement — `leanagentkit-implement-spec`
 
-Build the feature together. The agent already knows your conventions (`AGENTS.md`), the map, and the spec's acceptance criteria. Practice guardrails (debug, security…) auto‑load when relevant.
+For spec-backed work, implement acceptance criteria one at a time — no re-grilling,
+no subagents unless you ask. On Cursor, Plan mode is an optional accelerator (never
+required). Routine changes without a spec skip this and go straight to work.
 
 ### ✅ Check — `leanagentkit-check`
 
@@ -233,14 +239,14 @@ The map tells the agent where the table lives; conventions keep the change consi
 > *"Add team workspaces with role‑based access."*
 
 ```
-start-session → grill → new-spec → work → check → end-session
+start-session → grill → new-spec → implement-spec → check → end-session
 ```
 
 This is the loop in full bloom:
 
 1. **Grill** surfaces the hard questions one at a time: *"Owners vs members — who can invite? (Recommended: owners only.)"* … *"Soft‑delete workspaces or hard? (Recommended: soft.)"*
 2. **new-spec** freezes the answers as testable acceptance criteria.
-3. **Work** proceeds against the spec; `api-design` and `security` guardrails kick in for the new endpoints and access checks.
+3. **implement-spec** works the spec sequentially; `api-design` and `security` guardrails kick in for the new endpoints and access checks.
 4. **Check** confirms each acceptance criterion is being met.
 5. **end-session** marks the spec `done` and logs progress.
 
@@ -507,6 +513,7 @@ No — that's not its job. It's **brownfield‑first**: point it at an existing 
 🆕 NEW / FUZZY WORK
   → leanagentkit-grill                 # interview to align (one Q at a time)
   → leanagentkit-new-spec              # freeze the plan as a spec
+  → leanagentkit-implement-spec        # implement the spec sequentially
 
 🧠 MEMORY UPKEEP
   → leanagentkit-map-codebase          # refresh the map (structure changed)

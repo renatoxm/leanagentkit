@@ -39,18 +39,19 @@ does it for you. Open your editor, tell the agent to **`leanagentkit-start-sessi
 and it primes itself by reading `ACTIVE_CONTEXT.md` and `CODEBASE_MAP.md` (cheap,
 no repo scan), then picks up exactly where you left off. You describe what you
 want; for anything new or fuzzy, let it `leanagentkit-grill` you into a clear plan
-and freeze a spec with `leanagentkit-new-spec` before any code is written. Then you
-build together. When a chunk of work is done, run `leanagentkit-check` to validate
+and freeze a spec with `leanagentkit-new-spec` before any code is written. When ready
+to build, invoke `leanagentkit-implement-spec` to work the spec sequentially. When a
+chunk of work is done, run `leanagentkit-check` to validate
 it against your `AGENTS.md` conventions and stack rules, and close out with
 `leanagentkit-end-session` so the next session — yours or a fresh agent's — starts
 warm. Repeat each day; the memory files stay current as a side effect of working,
 not as extra paperwork.
 
 ```
-leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec for new work) → work  →  leanagentkit-check  →  leanagentkit-end-session
+leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec → leanagentkit-implement-spec for new work) → leanagentkit-check → leanagentkit-end-session
 ```
 
-- **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding)
+- **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding) → `leanagentkit-implement-spec` (when ready to build)
 - **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
 - **Switching session/tool** → `leanagentkit-handoff` (bridge context to a fresh agent)
 
@@ -135,7 +136,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 24 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 25 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -156,6 +157,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                                                                           | Capturing the rationale behind existing decisions                   |
 | `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding; explores the repo for answers instead of asking, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
 | `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                                                                           | Starting a new or in-progress feature, before coding                |
+| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff                                                            | When a spec exists and the user is ready to code                    |
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                                                                            | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                                                                   | Context window fills, branching off, or switching tools mid-task    |
