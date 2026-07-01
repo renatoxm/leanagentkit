@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Lean Agent Kit',
   description: 'Memory + stack-skill system for AI coding agents',
-  base: '/leanagentkit/',
+  base: '/',
   cleanUrls: true,
   ignoreDeadLinks: true,
   themeConfig: {
