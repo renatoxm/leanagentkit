@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.12](https://github.com/renatoxm/leanagentkit/compare/v0.3.11...v0.3.12) (2026-07-01)
+
+
+### Features
+
+* added ask and debug modes support into skills ([8a87ae7](https://github.com/renatoxm/leanagentkit/commit/8a87ae74408336aee225626735fd0394e9cad66b))
+
 ## [0.3.11](https://github.com/renatoxm/leanagentkit/compare/v0.3.10...v0.3.11) (2026-07-01)
 
 
