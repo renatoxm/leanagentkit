@@ -41,7 +41,7 @@ Read `docs/specs/<feature>.md` only for that feature; read `docs/adr/` only when
 
 **Daily loop:** `leanagentkit-start-session` → (`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec` for new work) → `leanagentkit-check` → `leanagentkit-end-session`
 
-When the context window fills or you switch tools mid-task, run `leanagentkit-handoff` to bridge to a fresh session.
+When the context window fills mid-task, run `leanagentkit-handoff` before starting a fresh chat — do not rely on `end-session` alone. At a natural stopping point, `end-session` is enough; the next `start-session` reads `ACTIVE_CONTEXT` (and `HANDOFF.md` when present).
 
 | Tier | Files | Lifespan |
 |------|-------|----------|

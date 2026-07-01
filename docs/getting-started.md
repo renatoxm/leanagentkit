@@ -50,6 +50,15 @@ leanagentkit-start-session → (grill → new-spec → implement-spec for new wo
 3. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
 4. **`leanagentkit-end-session`** — so the next session starts warm.
 
+## When the context window fills
+
+Starting a **new chat** when context is almost full is correct — the kit is designed for multi-session work.
+
+- **Mid-task, still continuing** → `leanagentkit-handoff` (writes `docs/memory/HANDOFF.md`) → new chat → `leanagentkit-start-session` → read `HANDOFF.md` and continue.
+- **Natural pause** (chunk done, end of day) → `leanagentkit-check` → `leanagentkit-end-session` → new chat later → `leanagentkit-start-session`.
+
+Do not use `end-session` alone when you're resetting only because context is full — it updates durable bookmarks but can miss in-flight conversational state. See [Resetting when the context window fills](/guide#resetting-when-the-context-window-fills) in the full guide.
+
 ## What it scaffolds
 
 ```

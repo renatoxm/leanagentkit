@@ -23,6 +23,15 @@ project memory* (`ACTIVE_CONTEXT`, `PROGRESS`, map) at a natural stopping point.
 Handoff is the *cross-window / cross-tool baton* for an in-flight task — use it
 when you are not done but the conversation can't continue in place.
 
+**Recommended workflow when context fills:**
+
+1. Run this skill (`handoff`) while the conversation still has full context.
+2. Optionally run `leanagentkit-end-session` if you also want `PROGRESS` updated.
+3. User opens a **new chat** in the same or a different tool.
+4. Next agent runs `leanagentkit-start-session`, reads `HANDOFF.md`, and continues.
+
+Each handoff **overwrites** `docs/memory/HANDOFF.md` — it is always the latest baton.
+
 ## Procedure
 
 1. If the user passed an argument, treat it as a description of what the next

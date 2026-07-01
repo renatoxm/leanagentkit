@@ -419,7 +419,35 @@ These two only become active guidance once `match-stack` finds evidence and list
 
 ### 🔁 Across sessions (same tool)
 
-That's the **daily loop** — `end-session` writes the bookmark, `start-session` reads it. Nothing more to do.
+That's the **daily loop** — `end-session` writes the bookmark, `start-session` reads it. Nothing more to do. A single feature can span many sessions over days; each morning (or each fresh chat) you run `start-session` and the agent resumes from the spec + `ACTIVE_CONTEXT` + `PROGRESS` — no re‑explaining required.
+
+### 🔄 Resetting when the context window fills
+
+**Yes — starting a new chat when context is almost full is the right move.** The kit is built for multi‑session work; you don't need to keep one conversation going until it breaks.
+
+The common mistake is running **`end-session` alone** when you're **mid‑task** and immediately opening a new session. `end-session` updates durable bookmarks (`ACTIVE_CONTEXT`, `PROGRESS`, map) — perfect at a natural pause — but it can miss in‑flight conversational state (what you just tried, dead ends, half‑formed decisions) that hasn't landed in memory files yet.
+
+| Situation | Before the new chat | In the new chat |
+|-----------|---------------------|-----------------|
+| Context full, **still mid‑task** | `handoff` (required); optionally `end-session` too | `start-session`, then read `HANDOFF.md` |
+| **Natural pause** — chunk done or end of day | `check` → `end-session` | `start-session` |
+| Long feature across many days | `end-session` daily; `handoff` only when context forces a reset | `start-session` each time |
+
+**Mid‑task reset (context full, work continues):**
+
+```
+handoff  →  new chat  →  start-session  →  read HANDOFF.md  →  continue
+```
+
+**Clean stopping point:**
+
+```
+check  →  end-session  →  (later) new chat  →  start-session
+```
+
+In a fresh chat, point the agent at the baton explicitly if needed:
+
+> *"Read `docs/memory/HANDOFF.md` and continue. Follow the suggested skills."*
 
 ### 🪂 Across context windows or tools — `leanagentkit-handoff`
 
@@ -427,7 +455,7 @@ When the context window fills mid‑task, you're spiking off, or you're switchin
 
 > *"Read `.agent/skills/leanagentkit-handoff.md` and follow it."*
 
-It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current state, gotchas, and a **"Suggested skills"** list for the next agent. It **references** specs/ADRs/commits by path instead of duplicating them, and **redacts** any secrets. A fresh agent resumes from `HANDOFF.md` + the referenced files alone.
+It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current state, gotchas, and a **"Suggested skills"** list for the next agent. It **references** specs/ADRs/commits by path instead of duplicating them, and **redacts** any secrets. A fresh agent resumes from `HANDOFF.md` + the referenced files alone. Each new handoff **overwrites** the file — treat it as the latest baton only.
 
 > 🆚 **handoff vs end-session:** `end-session` persists *durable project memory* at a natural stopping point. `handoff` is the *cross‑window / cross‑tool baton* for an in‑flight task you're not done with. Use handoff when the work can't continue *in place*. 🏃‍♂️➡️🏃‍♀️
 
@@ -459,6 +487,7 @@ It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current 
 - ❌ **Editing `PROGRESS.md` history.** It's append‑only; newest on top.
 - ❌ **Skipping post‑install steps.** Tailwind/Hono skills are unusable until you do them.
 - ❌ **Hand‑maintaining memory files as chores.** Let `end-session` do it; that's the design.
+- ❌ **Using `end-session` alone when context fills mid‑task.** Run `handoff` first so the next agent gets the in‑flight thread, not just the bookmark.
 - ❌ **Pushing past a failing test.** `debug`'s stop‑the‑line rule exists for a reason.
 - ❌ **Committing secrets.** `git-workflow` and `handoff` both guard this — back them up with `.gitignore`.
 
@@ -482,7 +511,10 @@ Check its **required post‑install** step in the playbook (`.agent/stacks/<name
 Not automatically. Re‑run `leanagentkit-match-stack` so the new tech gets detected, installed, and wired.
 
 **❓ My context window is full mid‑task.**
-`leanagentkit-handoff` → start a fresh session → `leanagentkit-start-session` reads the baton.
+`leanagentkit-handoff` → start a fresh chat → `leanagentkit-start-session` → read `docs/memory/HANDOFF.md` and continue. Do **not** rely on `end-session` alone — it may miss conversational state that never made it into `ACTIVE_CONTEXT`.
+
+**❓ I `end-session` and start a new session right away — is that correct?**
+Only if you reached a **natural stopping point**. If you're resetting **only because context is full** and the same task continues, run `handoff` before opening the new chat. You can run both `handoff` and `end-session` when you want the in‑flight baton *and* an updated `PROGRESS` entry.
 
 **❓ Can a non‑Cursor/Claude tool use this?**
 Yes. The kit is *just files*. Any tool that reads files works — point it at `AGENTS.md` and invoke skills by reading the `.md` files. Cursor & Claude just get nicer native ergonomics.

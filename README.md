@@ -133,7 +133,10 @@ The memory files stay current as a **side effect of working**, not as extra pape
 
 - 🆕 **New feature** → `leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`
 - 🗺️ **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
-- 🤝 **Switching session/tool** → `leanagentkit-handoff` (bridge context to a fresh agent)
+- 🤝 **Context full mid-task** → `leanagentkit-handoff` → new chat → `leanagentkit-start-session` (read `HANDOFF.md`)
+- 💾 **Natural pause** → `leanagentkit-check` → `leanagentkit-end-session` → `leanagentkit-start-session` next time
+
+Starting a new chat when context fills is fine — use **`handoff`** when the same task continues, **`end-session`** when you're at a clean stopping point. See the [full guide](template/LEAN_AGENT_KIT_GUIDE.md#-9-working-across-sessions-tools--teammates).
 
 ---
 

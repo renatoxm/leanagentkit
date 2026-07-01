@@ -53,7 +53,8 @@ leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec →
 
 - **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding) → `leanagentkit-implement-spec` (when ready to build)
 - **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
-- **Switching session/tool** → `leanagentkit-handoff` (bridge context to a fresh agent)
+- **Context full mid-task** → `leanagentkit-handoff` → new chat → `leanagentkit-start-session` (read `HANDOFF.md`)
+- **Natural pause** → `leanagentkit-check` → `leanagentkit-end-session` → `leanagentkit-start-session` next time
 
 ## What's inside
 
@@ -251,4 +252,6 @@ These solve different problems (lines 21–24 of the skill):
 
 So: **handoff is for "pause mid-task and hand the baton to another agent right now"**, whereas end-session is for "this work is at a clean stopping point, save it for whenever."
 
-One thing worth noting: the skill writes `HANDOFF.md` but doesn't say to **delete or stale-mark it** once consumed. If you do multiple handoffs over time, the next agent should treat the file as the _latest_ baton and overwrite it, so an old handoff isn't mistaken for current state. If you'd like, I can suggest a small wording addition to the skill to cover that — but I'm in Ask mode, so I can't edit it without you switching to Agent mode.
+**Common mistake:** running `end-session` alone when context fills and immediately starting a new chat while the same task continues. Use `handoff` first — optionally `end-session` too if you also want `PROGRESS` updated.
+
+Each new handoff **overwrites** `HANDOFF.md`. Treat it as the latest baton only; don't let a stale handoff linger after the work has moved on.

@@ -28,3 +28,10 @@ description: End a coding session — persist active context, progress, and map 
 
 - "Resume from here" is specific enough that a fresh agent could continue with
   no other context.
+
+## When context fills mid-task
+
+If the user is ending the session **only because the context window is full**
+and the same task continues in a new chat, run **`leanagentkit-handoff` first**
+(or tell the user to). `end-session` alone updates durable bookmarks but may
+miss in-flight conversational state. You may run both skills when useful.

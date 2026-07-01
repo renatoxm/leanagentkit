@@ -9,12 +9,14 @@ description: Start a coding session — read memory files and prime context with
 
 ## Procedure
 
-1. Read **only**: `docs/memory/ACTIVE_CONTEXT.md`, then `docs/CODEBASE_MAP.md`.
-2. Read the active feature's `docs/specs/<feature>.md` if one is named in
+1. If `docs/memory/HANDOFF.md` exists and describes in-flight work, read it
+   first — it is the cross-session baton from a context reset or tool switch.
+2. Read **only**: `docs/memory/ACTIVE_CONTEXT.md`, then `docs/CODEBASE_MAP.md`.
+3. Read the active feature's `docs/specs/<feature>.md` if one is named in
    ACTIVE_CONTEXT.
-3. From the "Files in play" and "Resume from here" sections, open just those
+4. From the "Files in play" and "Resume from here" sections, open just those
    source files. Do not scan the repo.
-4. State back, in 2–3 lines: what the current focus is, what was left open, and
+5. State back, in 2–3 lines: what the current focus is, what was left open, and
    the concrete next action — then begin.
 
 ## Do not
