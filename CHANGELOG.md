@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.9](https://github.com/renatoxm/leanagentkit/compare/v0.3.8...v0.3.9) (2026-07-01)
+
+
+### Bug Fixes
+
+* pnpm version in /docs ([cec6566](https://github.com/renatoxm/leanagentkit/commit/cec6566e66952de020922880961369dfa9541f56))
+
 ## [0.3.8](https://github.com/renatoxm/leanagentkit/compare/v0.3.7...v0.3.8) (2026-07-01)
 
 
