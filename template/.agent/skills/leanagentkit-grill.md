@@ -47,6 +47,23 @@ Once aligned:
 - For any decision that surfaced that is hard to reverse, surprising without
   context, and the result of a real trade-off, offer `leanagentkit-seed-adrs`.
 
+## Host enhancements (optional — never required)
+
+When beginning a grill session (this skill guides the workflow) and the host is
+Cursor:
+
+- Offer switching to **Ask mode** so the interview stays read-only and accidental
+  edits are avoided.
+- Ask: "Switch to Ask mode for this alignment?" with options: "Switch to Ask mode",
+  "Not yet", and "Something else (I will type it)".
+- On agreement: suggest Ask mode manually (Shift+Tab or the mode picker). If
+  `SwitchMode` later supports Ask, call it with user consent.
+- Suggested prompt after switch: "Grill me on [feature/change]. One question at a
+  time with a recommended answer. Do not write code."
+
+On other hosts (Claude, Aider, Cline, Copilot, etc.): continue the portable
+procedure; use "do not write code" in the prompt if the host might edit files.
+
 ## Quality bar
 
 - Questions are concrete and answered one at a time, each with a recommendation.

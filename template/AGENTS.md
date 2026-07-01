@@ -57,6 +57,20 @@ has no interactive prompt support. Skills may still require one question at a
 time or a batched set — follow that cadence, but use the interactive UI for each
 prompt when available.
 
+### Host enhancements (optional)
+
+Some kit skills include an optional **Host enhancements** section for Cursor and
+similar hosts. Rules:
+
+- The portable procedure in the skill always applies; mode switches are never required.
+- Offer a host mode only when it clearly helps (e.g. Ask for read-only alignment,
+  Debug for runtime investigation, Plan for spec implementation).
+- Ask for user consent before switching. Use the host's interactive UI when available.
+- On Cursor, `SwitchMode` currently supports only `plan`; suggest Ask or Debug
+  manually (Shift+Tab or the mode picker) when those modes fit.
+- Switching modes starts a fresh context — persist state in `ACTIVE_CONTEXT.md`,
+  specs, or `leanagentkit-handoff` before switching.
+
 ## 7. Stack skills
 <!-- Auto-populated by leanagentkit-match-stack: which external skills/MCPs to defer to and when.
      Empty until bootstrap runs.

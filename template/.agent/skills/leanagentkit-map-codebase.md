@@ -30,6 +30,27 @@ sessions can navigate by reading one file instead of scanning everything.
    to a single line. Do NOT paste code. Favor "where to look" over detail.
 4. Update the `Last updated` date.
 
+## Host enhancements (optional — never required)
+
+`map-codebase` must write `docs/CODEBASE_MAP.md` — Ask mode cannot complete the
+skill alone. On Cursor, use a two-phase handoff when the repo is large or unfamiliar:
+
+1. **Explore in Ask mode** (procedure steps 1–2): list structure, read entry
+   points, identify key modules — no writes.
+2. **Write in Agent mode** (steps 3–4): switch back, then generate the map from
+   what was learned.
+
+Offer this when mapping a large or unfamiliar repo:
+
+- Ask: "Explore in Ask mode first, then write the map in Agent mode?" with options:
+  "Yes, start in Ask mode", "No, map in current mode", and "Something else".
+- On "Yes": suggest Ask mode manually; after exploration, suggest switching back
+  to Agent before step 3.
+- Suggested Ask prompt: "Map this repo for `leanagentkit-map-codebase` steps 1–2
+  only. Read entry points and key dirs; do not write files."
+
+On other hosts or small familiar repos: continue the portable procedure in one pass.
+
 ## Quality bar
 
 - A new agent reading only this file should know which file to open for any

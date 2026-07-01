@@ -101,6 +101,20 @@ error boundaries, API error logging, key-flow metrics.
 - No regression test after bug fix
 - Multiple unrelated changes while debugging
 
+## Host enhancements (optional — never required)
+
+When this skill guides a debugging workflow and the host is Cursor:
+
+- Offer switching to **Debug mode** for runtime evidence and systematic triage.
+- Ask: "Switch to Debug mode for this investigation?" with options: "Switch to
+  Debug mode", "Not yet", and "Something else (I will type it)".
+- On agreement: suggest Debug mode manually (Shift+Tab or the mode picker). If
+  `SwitchMode` later supports Debug, call it with user consent.
+- Suggested prompt after switch: "Debug [failure/symptom]. Follow stop-the-line:
+  reproduce, localize, reduce, fix root cause, add regression test."
+
+On other hosts: continue the portable procedure above.
+
 ## Verification
 
 - [ ] Root cause identified

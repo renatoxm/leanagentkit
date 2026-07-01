@@ -55,6 +55,8 @@ criteria in order and stay within the spec's In/Out boundaries.
 
 ## Host enhancements (optional — never required)
 
+See also `AGENTS.md` §6 — Host enhancements.
+
 If the host is Cursor **and** the `SwitchMode` tool is available **and** the user
 agrees to use Plan mode:
 
