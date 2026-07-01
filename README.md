@@ -5,6 +5,8 @@
 
 ⚡ **A leaner alternative to GitHub Spec Kit.** Works with **Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline** — anything that can read files (and optionally MCP/skills).
 
+📖 **Documentation:** [renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/)
+
 ---
 
 ## 😩 The problem (you know this pain)

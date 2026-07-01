@@ -4,3 +4,9 @@ node_modules/
 dist/
 .env
 .env.*
+
+# VitePress docs (generated + build output)
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+docs/guide.md
+docs/stacks.md
