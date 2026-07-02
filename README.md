@@ -196,7 +196,28 @@ Full details: [Backlog.md integration guide](/backlog) · skill:
 
 ---
 
-## 🎁 What's in the box — 31 tool-agnostic skills
+## Git lifecycle (optional prompts)
+
+Optional integration for **branch, commit, and PR offers** at natural lifecycle
+boundaries — synced to specs, never forced on `new-spec`. Opt in during bootstrap
+(Step 3c); the agent copies `.leanagentkit/git-lifecycle.yml.example` to
+`.leanagentkit/git-lifecycle.yml`.
+
+Then run bootstrap (or re-run `leanagentkit-match-stack`) so `leanagentkit-git-lifecycle`
+is detected and wired into the daily loop:
+
+- **`implement-spec`** offers a feature branch at start; optional PR when spec is done
+- **`end-session`** offers a save-point commit when the working tree is dirty
+
+Specs (`docs/specs/`) own intent; the git branch is the execution sandbox.
+Every operation is prompt-only — never auto-commit, push, or open PR.
+
+Full details: [Git lifecycle integration guide](/git-lifecycle) · skill:
+`.agent/skills/leanagentkit-git-lifecycle.md`
+
+---
+
+## 🎁 What's in the box — 32 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -257,6 +278,7 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when `leanage
 | `leanagentkit-ci-cd`         | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
+| `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
 
 ---
 

@@ -4,7 +4,8 @@
 > Backlog: <task-id>   ·   Status: draft | active | done | abandoned   ·   Updated: <!-- YYYY-MM-DD -->
 >
 > _(Omit the `Backlog:` line until `leanagentkit-new-spec` creates a linked card
-> when Backlog.md integration is active.)_
+> when Backlog.md integration is active. Omit `Branch:` until
+> `leanagentkit-implement-spec` creates a branch via git lifecycle integration.)_
 
 ## Problem
 

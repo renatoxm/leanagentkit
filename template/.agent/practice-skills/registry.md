@@ -65,6 +65,14 @@ when Cursor/Claude is wired. No detection needed.
 - **Enable when:** user installed Backlog.md and ran `backlog init` in the project
 - **Note:** spec (`docs/specs/`) owns content; Backlog card owns status/Kanban visualization. Do not run `backlog agents --update-instructions` — kit owns `AGENTS.md §7`.
 
+## Git lifecycle (optional prompts)
+
+- **Detect:** `.git` exists **and** `.leanagentkit/git-lifecycle.yml` exists (copied from `.leanagentkit/git-lifecycle.yml.example` during bootstrap Step 3c or manually)
+- **Skill:** `leanagentkit-git-lifecycle`
+- **Default:** conditional
+- **Enable when:** user opted in during bootstrap or created the config file in the repo
+- **Note:** spec owns intent; git branch is the execution sandbox. Prompt-only — never auto-commit, push, or open PR. PR offers require `gh` on PATH.
+
 ---
 
 ## Adding rows

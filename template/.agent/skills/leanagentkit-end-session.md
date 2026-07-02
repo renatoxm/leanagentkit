@@ -11,6 +11,10 @@ description: End a coding session — persist active context, progress, and map 
 
 1. **Run guardrail check** (if code changed this session): `leanagentkit-check` on
    changed files. Address violations or note acknowledged exceptions.
+   - **Git lifecycle (optional).** If git lifecycle integration is active (see
+     `leanagentkit-git-lifecycle` detection contract), the working tree is dirty,
+     and `offer_commit_at_end_session: true`, offer a save-point commit per that
+     skill. Never commit without user confirmation.
 2. **`docs/memory/ACTIVE_CONTEXT.md`** — overwrite:
    - Current focus, Files in play, Decisions made this session, Open questions,
      and a concrete **Resume from here** note. Update the timestamp.

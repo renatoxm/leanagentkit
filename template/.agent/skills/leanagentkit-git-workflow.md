@@ -10,6 +10,10 @@ invocation: auto
 documentation. With agents generating code fast, disciplined version control
 keeps changes manageable and reversible.
 
+**Lifecycle prompts:** when git lifecycle integration is active (see
+`leanagentkit-git-lifecycle`), branch/commit/PR offers at `implement-spec` and
+`end-session` follow that skill — this file holds the principles and patterns.
+
 ## Core principles
 
 ### Trunk-based development (recommended)

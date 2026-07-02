@@ -70,7 +70,9 @@ config (`.mcp.json` entries), and runs install commands when approved.
    advertise `leanagentkit-ci-cd` on a repo with no CI config). The
    `leanagentkit-backlog` row activates when `backlog` is on PATH **and** a
    Backlog project folder/config exists — advertise it there; do not run
-   `backlog agents --update-instructions`. Always-on guardrails (`invocation: auto`)
+   `backlog agents --update-instructions`. The `leanagentkit-git-lifecycle` row
+   activates when `.git` exists **and** `.leanagentkit/git-lifecycle.yml` exists.
+   Always-on guardrails (`invocation: auto`)
    need no detection — they auto-load when wired and aren't listed here. Idempotent:
    rebuild the subsection on re-run, don't duplicate rows.
 

@@ -34,7 +34,7 @@ It rests on four pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 31 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 32 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 - 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default* — in two dimensions
@@ -241,6 +241,22 @@ source of truth**; the Backlog card is the status/visual layer. Cards move to
 `Done` only when the spec is finished — not merely because a session ended.
 
 Human views: `backlog board` (terminal) · `backlog browser` (web).
+
+### Optional — git lifecycle prompts
+
+For **branch, commit, and PR offers** synced to the spec workflow (without forcing
+git on `new-spec`), opt in during bootstrap (Step 3c):
+
+```bash
+# Created automatically when you answer Yes at Step 3c:
+# .leanagentkit/git-lifecycle.yml  (from .leanagentkit/git-lifecycle.yml.example)
+```
+
+Or read `.agent/skills/leanagentkit-git-lifecycle.md` and follow it. The **spec
+stays the source of truth**; the git branch is the execution sandbox. Prompts are
+offers only — never auto-commit, push, or open PR. PR offers require `gh`.
+
+Full details: see the [Git lifecycle integration guide](/git-lifecycle) in the docs site.
 
 ---
 

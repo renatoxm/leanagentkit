@@ -19,12 +19,14 @@ export default withMermaid(defineConfig({
       { text: 'Guide', link: '/guide' },
       { text: 'Stacks', link: '/stacks' },
       { text: 'Backlog.md', link: '/backlog' },
+      { text: 'Git lifecycle', link: '/git-lifecycle' },
     ],
     sidebar: [
       { text: 'Getting Started', link: '/getting-started' },
       { text: 'Full Guide', link: '/guide' },
       { text: 'Stacks', link: '/stacks' },
       { text: 'Backlog.md', link: '/backlog' },
+      { text: 'Git lifecycle', link: '/git-lifecycle' },
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/renatoxm/leanagentkit' },

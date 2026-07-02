@@ -35,6 +35,9 @@ criteria in order and stay within the spec's In/Out boundaries.
   backlog task edit <task-id> -s "In Progress" --plain
   ```
   If Backlog is not active or no card is linked, skip silently.
+- **Git lifecycle (optional).** If git lifecycle integration is active (see
+  `leanagentkit-git-lifecycle` detection contract), offer branch creation per
+  that skill. Record branch name in spec frontmatter when created.
 
 ### 2. Order work
 
@@ -58,7 +61,14 @@ criteria in order and stay within the spec's In/Out boundaries.
   backlog task edit <task-id> --check-ac <n> --plain
   ```
   (`n` is 1-based, matching creation order.) If Backlog is not active, skip silently.
+- **Git lifecycle (optional).** If active and `offer_commit_on_ac: true` in
+  `.leanagentkit/git-lifecycle.yml`, offer a save-point commit per
+  `leanagentkit-git-lifecycle` after each criterion is checked. Never commit
+  without user confirmation.
 - When all criteria pass and `leanagentkit-check` is clean, set `Status: done`.
+- **Git lifecycle (optional).** If active and spec is `Status: done`, offer push
+  + PR per `leanagentkit-git-lifecycle` before persisting. Never push or open a
+  PR without user confirmation.
 
 ### 5. Persist
 

@@ -1,0 +1,22 @@
+# Git lifecycle integration for Lean Agent Kit.
+# Copy to .leanagentkit/git-lifecycle.yml during bootstrap (Step 3c) or manually.
+# Commit this file so teammates share the same settings.
+
+enabled: true
+
+# Branch created at implement-spec start: {branch_prefix}/{spec-slug}
+# branch_prefix: feature | fix | chore | refactor
+branch_prefix: feature
+
+# Base branch when origin/HEAD cannot be detected
+default_base: main
+
+# Offer a save-point commit after each acceptance criterion is checked (noisy if true)
+offer_commit_on_ac: false
+
+# Offer a save-point commit at end-session when the working tree is dirty
+offer_commit_at_end_session: true
+
+# Offer push + gh pr create when spec Status: done and leanagentkit-check PASS
+# Requires GitHub CLI (gh) on PATH
+offer_pr_when_spec_done: true

@@ -56,13 +56,14 @@ presents matches for confirmation, installs the ones approved in Step 0, and
 appends each stack's AGENTS.md snippet + applies its playbook to CODEBASE_MAP.
 It also detects conditional **practice skills** from `.agent/practice-skills/registry.md`
 (e.g. CI/CD when workflow files exist; Backlog.md when `backlog` is installed and
-initialized) and notes them in the summary.
+initialized; git lifecycle when `.leanagentkit/git-lifecycle.yml` exists) and notes
+them in the summary.
 
 **Practice skills (guardrails):** Eleven cross-cutting skills ship in
 `.agent/skills/`. Nine are always-on with `invocation: auto` (review, simplify,
 git-workflow, docs, debug, security, performance, deprecation, api-design) —
-agents load them when relevant, not on every prompt. Three are `invocation:
-conditional` (ci-cd, observability, backlog): they ship dormant and are
+agents load them when relevant, not on every prompt. Four are `invocation:
+conditional` (ci-cd, observability, backlog, git-lifecycle): they ship dormant and are
 advertised in `AGENTS.md §7` only when `leanagentkit-match-stack` detects
 matching evidence. See `.agent/skills/README.md` § Engineering practice.
 
@@ -80,6 +81,22 @@ If the user wants a Kanban/web UI for tasks, offer (do not assume):
 - **No** → skip. The kit works fully without Backlog.md.
 
 Full integration details: `.agent/skills/leanagentkit-backlog.md`.
+
+## Step 3c — Optional git lifecycle
+
+If the repo has a `.git` directory and the user wants branch/commit/PR prompts
+synced to the spec workflow, offer (do not assume):
+
+> Enable git lifecycle prompts? (branch at implement-spec, commit/PR offers)
+
+- **Yes** → copy `.leanagentkit/git-lifecycle.yml.example` to
+  `.leanagentkit/git-lifecycle.yml` (adjust settings if the user wants). Re-run
+  the practice-skill detection in Step 3 so `leanagentkit-git-lifecycle` is
+  advertised in `AGENTS.md §7`. For PR offers, ensure GitHub CLI is installed
+  (`gh auth login`).
+- **No** → skip. The kit works fully without git lifecycle integration.
+
+Full integration details: `.agent/skills/leanagentkit-git-lifecycle.md`.
 
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
