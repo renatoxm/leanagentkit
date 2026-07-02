@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [Unreleased]
+## [0.4.9](https://github.com/renatoxm/leanagentkit/compare/v0.4.8...v0.4.9) (2026-07-02)
+
 
 ### Features
 
-* add `leanagentkit-git-lifecycle` skill for optional branch, commit, and PR prompts synced to spec workflow
+* add leanagentkit-git-lifecycle for optional git prompts at spec workflow boundaries ([d0391cd](https://github.com/renatoxm/leanagentkit/commit/d0391cd1c48729a955470ef1676fe3b28cd90428))
 
 ## [0.4.8](https://github.com/renatoxm/leanagentkit/compare/v0.4.7...v0.4.8) (2026-07-02)
 
