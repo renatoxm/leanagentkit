@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.5](https://github.com/renatoxm/leanagentkit/compare/v0.4.4...v0.4.5) (2026-07-02)
+
+
+### Features
+
+* add leanagentkit-backlog skill for optional Backlog.md integration ([3ec1659](https://github.com/renatoxm/leanagentkit/commit/3ec16599d9cb2f25b3fe874bb11bc129eaacfa70))
+
 ## [0.4.4](https://github.com/renatoxm/leanagentkit/compare/v0.4.3...v0.4.4) (2026-07-02)
 
 ## [0.4.3](https://github.com/renatoxm/leanagentkit/compare/v0.4.2...v0.4.3) (2026-07-02)
