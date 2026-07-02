@@ -145,7 +145,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 27 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 29 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -165,6 +165,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-init-conventions` | Fills `AGENTS.md` §1–5 with evidence-based conventions drawn from the actual repo                                                                                               | Bootstrapping, or when conventions drift from reality               |
 | `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                                                                           | Capturing the rationale behind existing decisions                   |
 | `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding; explores the repo for answers instead of asking, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
+| `leanagentkit-spike`            | Throwaway feasibility experiments under `spikes/` to validate an idea before committing to a build                                                                                | "Is this possible?", comparing approaches, or prototyping           |
 | `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                                                                           | Starting a new or in-progress feature, before coding                |
 | `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff                                                            | When a spec exists and the user is ready to code                    |
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
@@ -188,6 +189,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-git-workflow` | Commits as save points, branches as sandboxes, history as documentation; atomic, reviewable changes                                    | Committing, branching, resolving conflicts, parallel work               |
 | `leanagentkit-docs`         | Documents _why_ and rejected alternatives, not what the code already says — inline comments, API docs, README sections                 | Writing comments, API docs, changelogs, or README onboarding            |
 | `leanagentkit-debug`        | Systematic root-cause triage — preserve evidence, localize, reduce, fix, guard against recurrence                                      | Tests fail, builds break, or behavior is unexpected                     |
+| `leanagentkit-tdd`          | Test-first RED-GREEN-REFACTOR discipline — write failing test, minimal code, refactor after green                                    | Adding features, fixing bugs, or changing behavior                        |
 | `leanagentkit-security`     | Treats input as hostile, secrets as sacred, authz as mandatory — OWASP-aligned boundary hardening                                      | Handling user input, auth, data storage, or integrations                |
 | `leanagentkit-performance`  | Measurement-first optimization — profile, fix the proven bottleneck, measure again                                                     | Performance requirements exist or regressions are suspected             |
 | `leanagentkit-deprecation`  | Removes code that no longer earns its keep; migrates users safely from old to new                                                      | Removing systems/APIs, consolidating duplicates, or sunsetting features |

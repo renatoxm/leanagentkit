@@ -46,9 +46,11 @@ leanagentkit-start-session → (grill → new-spec → implement-spec for new wo
 ```
 
 1. **`leanagentkit-start-session`** — primes from `ACTIVE_CONTEXT.md` + `CODEBASE_MAP.md` (cheap, no repo scan).
-2. **`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`** — for new work, align on a plan, freeze a spec, then implement it spec-driven.
+2. **`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`** — for new work, align on a plan, freeze a spec, then implement it spec-driven (`leanagentkit-tdd` keeps it test-first).
 3. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
 4. **`leanagentkit-end-session`** — so the next session starts warm.
+
+When feasibility is unknown ("is this even possible?"), reach for **`leanagentkit-spike`** first — throwaway experiments under `spikes/` that return a VALIDATED / PARTIAL / INVALIDATED verdict before you commit to a real build.
 
 ## Learning loop
 

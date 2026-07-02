@@ -34,7 +34,7 @@ It rests on three pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 27 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 29 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 - 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default*
@@ -235,6 +235,20 @@ start-session → work → check → end-session
 
 The map tells the agent where the table lives; conventions keep the change consistent. Run `check` to confirm, `end-session` to record it. No spec needed — the scope is obvious.
 
+### 🟠 Level 2.5 — Feasibility unknown (spike first)
+
+> *"Can we stream LLM tokens over WebSockets under 100ms?"* or *"Which PDF parser handles our rotated tables?"*
+
+When the answer isn't in docs and you need to **feel it working** before committing:
+
+```
+start-session → spike → (grill → new-spec if validated) → …
+```
+
+**`leanagentkit-spike`** decomposes the question into 2–5 throwaway experiments under `spikes/`, each with a VALIDATED / PARTIAL / INVALIDATED verdict. Spikes are disposable — throw them away once they've paid their debt. A validated spike feeds into `grill` → `new-spec` with evidence, not guesswork.
+
+> ⛔ Skip spiking when docs or code already answer the question — just read. Skip when you're on the production path — go straight to `new-spec`.
+
 ### 🟣 Level 3 — A real feature (the full loop)
 
 > *"Add team workspaces with role‑based access."*
@@ -401,7 +415,7 @@ Generated skills in `.agent/skills/generated/` compound over time — no runtime
 
 ## 🛡️ 8. Engineering‑practice guardrails
 
-Eleven cross‑cutting skills enforce good engineering automatically. Two flavors:
+Twelve cross‑cutting skills enforce good engineering automatically. Two flavors:
 
 ### Always‑on (auto‑load when relevant)
 
@@ -414,6 +428,7 @@ These carry `invocation: auto` — the agent reaches for them when the moment ca
 | `leanagentkit-git-workflow` 🌿 | committing, branching, parallel work |
 | `leanagentkit-docs` 📝 | writing comments/API docs/changelog/README |
 | `leanagentkit-debug` 🐛 | facing failing tests/builds/unexpected errors |
+| `leanagentkit-tdd` ✅ | adding features, fixing bugs, or changing behavior |
 | `leanagentkit-security` 🔒 | touching auth/input/storage/integrations |
 | `leanagentkit-performance` ⚡ | hitting perf requirements or regressions |
 | `leanagentkit-deprecation` 🗑️ | removing systems/APIs/duplicates |
@@ -562,6 +577,7 @@ No — that's not its job. It's **brownfield‑first**: point it at an existing 
   → leanagentkit-end-session           # persist state for next time
 
 🆕 NEW / FUZZY WORK
+  → leanagentkit-spike                  # feasibility experiments (when "is this possible?")
   → leanagentkit-grill                 # interview to align (one Q at a time)
   → leanagentkit-new-spec              # freeze the plan as a spec
   → leanagentkit-implement-spec        # implement the spec sequentially

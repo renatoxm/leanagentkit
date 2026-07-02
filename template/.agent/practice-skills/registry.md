@@ -35,6 +35,7 @@ when Cursor/Claude is wired. No detection needed.
 | `leanagentkit-git-workflow` | Committing, branching, parallel work |
 | `leanagentkit-docs` | Comments, API docs, README, changelog |
 | `leanagentkit-debug` | Tests fail, builds break, unexpected errors |
+| `leanagentkit-tdd` | Adding features, fixing bugs, or changing behavior |
 | `leanagentkit-security` | Auth, input, external integrations, sensitive data |
 | `leanagentkit-performance` | Performance requirements or suspected regressions |
 | `leanagentkit-deprecation` | Removing systems, APIs, or consolidating duplicates |

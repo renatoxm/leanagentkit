@@ -35,6 +35,7 @@ Recipes live in `.agent/recipes/`. Authoring standards: `references/skill-author
 | `leanagentkit-init-conventions.md` | `AGENTS.md` §1–5 |
 | `leanagentkit-seed-adrs.md` | `docs/adr/*` |
 | `leanagentkit-grill.md` | aligns on a plan (interview), then hands off to `leanagentkit-new-spec` |
+| `leanagentkit-spike.md` | throwaway feasibility experiments under `spikes/` before committing to a build |
 | `leanagentkit-new-spec.md` | `docs/specs/<feature>.md` |
 | `leanagentkit-implement-spec.md` | implements an active spec (spec-driven, sequential) |
 | `leanagentkit-start-session.md` | reads memory, primes context |
@@ -51,7 +52,7 @@ External-skill mappings: `.agent/stacks/registry.md`. Per-stack conventions:
 ## Engineering practice (guardrails)
 
 Cross-cutting skills for review, debugging, security, etc. Shipped in
-`.agent/skills/`. The nine always-on skills use `invocation: auto` (lazy-loaded
+`.agent/skills/`. The ten always-on skills use `invocation: auto` (lazy-loaded
 when relevant). The two conditional skills (CI/CD, observability) ship dormant
 (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 `leanagentkit-match-stack` detects matching evidence — see
@@ -64,6 +65,7 @@ when relevant). The two conditional skills (CI/CD, observability) ship dormant
 | `leanagentkit-git-workflow.md` | Committing, branching, parallel work |
 | `leanagentkit-docs.md` | Comments, API docs, README (ADRs → `leanagentkit-seed-adrs`) |
 | `leanagentkit-debug.md` | Tests fail, builds break, unexpected errors |
+| `leanagentkit-tdd.md` | Adding features, fixing bugs, or changing behavior |
 | `leanagentkit-security.md` | Auth, input, external integrations |
 | `leanagentkit-performance.md` | Performance requirements or regressions |
 | `leanagentkit-deprecation.md` | Removing systems, APIs, legacy code |
