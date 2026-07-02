@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.6](https://github.com/renatoxm/leanagentkit/compare/v0.4.5...v0.4.6) (2026-07-02)
+
+
+### Bug Fixes
+
+* **docs:** render mermaid diagrams in VitePress site ([5f474e3](https://github.com/renatoxm/leanagentkit/commit/5f474e399fee067b27aa75acb4933df38ebf49af))
+* **docs:** replace ladder emoji with merge symbol for workflows section ([1c3a827](https://github.com/renatoxm/leanagentkit/commit/1c3a827ea25819c3e7992f8e1c5188cd1ce5bec7))
+
 ## [0.4.5](https://github.com/renatoxm/leanagentkit/compare/v0.4.4...v0.4.5) (2026-07-02)
 
 
