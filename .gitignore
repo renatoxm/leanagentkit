@@ -4,6 +4,7 @@ node_modules/
 dist/
 .env
 .env.*
+.pnpm-store/
 
 # VitePress docs (generated + build output)
 docs/.vitepress/dist/
