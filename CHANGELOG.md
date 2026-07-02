@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.1](https://github.com/renatoxm/leanagentkit/compare/v0.3.13...v0.4.1) (2026-07-02)
+
+
+### Features
+
+* add self-improving skill loop (distill, curate, agentskills.io standards) ([206820f](https://github.com/renatoxm/leanagentkit/commit/206820fb28cb68444ea5ca722778663080f3d56a))
+
 ## [0.3.13](https://github.com/renatoxm/leanagentkit/compare/v0.3.12...v0.3.13) (2026-07-01)
 
 
