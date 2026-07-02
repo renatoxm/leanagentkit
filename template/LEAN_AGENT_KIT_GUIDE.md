@@ -244,7 +244,7 @@ Human views: `backlog board` (terminal) · `backlog browser` (web).
 
 ---
 
-## 🪜 5. Workflows from simple to complex
+## 🔀 5. Workflows from simple to complex
 
 Real work, ordered from the 30‑second task to the multi‑day epic. Pick the smallest workflow that fits — **don't over‑process a one‑liner.**
 

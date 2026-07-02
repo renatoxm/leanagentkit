@@ -130,7 +130,7 @@ const GUIDE_ANCHOR_REWRITES = {
   '#-4-the-daily-loop--your-everyday-rhythm':
     '#🔄-4-the-daily-loop-—-your-everyday-rhythm',
   '#-5-workflows-from-simple-to-complex':
-    '#🪜-5-workflows-from-simple-to-complex',
+    '#🔀-5-workflows-from-simple-to-complex',
   '#-6-stacks--external-skills': '#🧰-6-stacks-external-skills',
   '#-7-artifact-generators--teach-the-kit-to-scaffold':
     '#🏭-7-artifact-generators-—-teach-the-kit-to-scaffold',
