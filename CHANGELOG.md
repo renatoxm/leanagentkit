@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.3](https://github.com/renatoxm/leanagentkit/compare/v0.4.2...v0.4.3) (2026-07-02)
+
+
+### Features
+
+* add leanagentkit-scaffold for greenfield and additive project setup ([6c60d26](https://github.com/renatoxm/leanagentkit/commit/6c60d26940516d269b7f5d2b529681a4159ea0bf))
+
 ## [0.4.2](https://github.com/renatoxm/leanagentkit/compare/v0.4.1...v0.4.2) (2026-07-02)
 
 
