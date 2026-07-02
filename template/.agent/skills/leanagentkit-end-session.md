@@ -23,6 +23,11 @@ description: End a coding session — persist active context, progress, and map 
 6. **`docs/memory/SCRATCH.md`** — clear it; promote anything still relevant into
    the files above.
 7. If a spec was completed, set its `Status: done`.
+8. **Learning-loop nudges** (mention to the user when applicable):
+   - Repeated the same workflow 2+ times this session → suggest
+     `leanagentkit-distill-skill` to freeze it.
+   - Generated skills registry has grown or nothing was curated recently → suggest
+     `leanagentkit-curate-skills`.
 
 ## Quality bar
 

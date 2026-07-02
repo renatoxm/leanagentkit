@@ -49,6 +49,18 @@ When the context window fills mid-task, run `leanagentkit-handoff` before starti
 | Medium | `docs/specs/*`, `docs/memory/ACTIVE_CONTEXT.md`, `docs/memory/PROGRESS.md` | days–weeks |
 | Short | `docs/memory/SCRATCH.md` | this task |
 
+### Learning loop (generated skills)
+
+Project-specific skills live in `.agent/skills/generated/` and compound over time:
+
+- **Distill** — if you repeated a workflow 2+ times or walked through a reusable
+  procedure this session, nudge the user toward `leanagentkit-distill-skill`.
+- **Curate** — periodically (or when the registry grows), nudge toward
+  `leanagentkit-curate-skills` to review stale/duplicate generators.
+- **Learned notes** — append gotchas under `## Learned notes` in generated skills
+  only (kit-owned skills are overwritten on upgrade).
+- Authoring standards: `.agent/skills/references/skill-authoring-standards.md`.
+
 ### Asking the user
 When you need input from the user, prefer the host agent's interactive
 multiple-choice / questionnaire UI (e.g. Cursor, Claude) over plain inline text.

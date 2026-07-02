@@ -105,6 +105,14 @@ The meta-skill infers wiring from an existing example, asks only about gaps, and
 freezes a `leanagentkit-create-<type>` skill + recipe under `.agent/skills/generated/`
 and `.agent/recipes/`. See `generated/README.md` for authored generators (empty until you create one).
 
+## Learning loop
+
+Project-specific skills compound over time — no runtime required:
+
+- **`leanagentkit-distill-skill`** — freeze a session workflow into `generated/`.
+- **`leanagentkit-curate-skills`** — review stale/duplicate generators; archive, never delete.
+- **`references/skill-authoring-standards.md`** — agentskills.io-compliant authoring rules.
+
 ## Stack skills (external, auto-installed)
 
 _Filled by bootstrap Step 6. Re-run `leanagentkit-match-stack` after adding dependencies._
@@ -137,7 +145,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 25 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 27 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -162,12 +170,14 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                                                                            | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                                                                   | Context window fills, branching off, or switching tools mid-task    |
+| `leanagentkit-distill-skill`    | Distills a session workflow into a reusable `generated/` skill following agentskills.io standards                                                                                | After repeating a workflow 2+ times or when a procedure should persist |
 
 ### Meta — author project-specific generators
 
 | Skill                                  | What It Does                                                                                                                               | Use When                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
+| `leanagentkit-curate-skills`         | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows          |
 
 ### Engineering practice — always-on guardrails
 

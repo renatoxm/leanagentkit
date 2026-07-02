@@ -75,6 +75,7 @@ const PRESERVE_ON_UPGRADE = new Set([
   "docs/memory/SCRATCH.md",
   ".agent/stacks/registry.md",
   "docs/adr/0001-record-architecture-decisions.md",
+  ".agent/skills/generated/README.md",
 ]);
 
 function destRelFromTemplate(templateRel) {

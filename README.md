@@ -30,6 +30,7 @@ It's **not** here to bootstrap a project from scratch. It's built for the real w
 - 🧮 **Context-frugal.** Agents read `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md` and open only the files they need.
 - 🛡️ **Guardrails built in.** `leanagentkit-check` enforces `AGENTS.md` conventions and stack playbooks.
 - 🔌 **Tool-agnostic.** No lock-in. Cursor & Claude Code get native wiring; everyone else just reads the files.
+- 🔄 **Closed learning loop.** Distill session workflows into reusable skills; curate stale generators — skills compound over time.
 
 ---
 
@@ -66,7 +67,7 @@ npx create-lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), and `docs/adr/0001-*`.
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, and `docs/adr/0001-*`.
 
 Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
 
@@ -163,7 +164,7 @@ Detected automatically from `.agent/stacks/registry.md`.
 
 ---
 
-## 🎁 What's in the box — 25 tool-agnostic skills
+## 🎁 What's in the box — 27 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -189,12 +190,14 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                               | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                           | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                  | Context window fills, branching off, or switching tools mid-task    |
+| `leanagentkit-distill-skill`    | Distills a session workflow (or named source) into a reusable `generated/` skill following agentskills.io standards            | After repeating a workflow 2+ times or when a procedure should persist |
 
 ### 🏭 Meta — author project-specific generators
 
 | Skill                                  | What It Does                                                                                                                               | Use When                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
+| `leanagentkit-curate-skills`         | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows          |
 
 ### 🛡️ Engineering practice — always-on guardrails
 
@@ -264,6 +267,8 @@ Only `bin/` and `template/` ship (see the `files` whitelist in `package.json`); 
 The engineering-practice skills (code review, simplification, git workflow, documentation, debugging, security, performance, deprecation, API design, CI/CD, and observability) were adapted from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — thanks to **Addy Osmani** and contributors for the inspiration. 💛
 
 The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) were adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — thanks to **Matt Pocock** for the `grilling` and `handoff` skills. 💛
+
+The learning-loop skills (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`) and agentskills.io-compliant authoring standards were inspired by [Hermes Agent](https://github.com/NousResearch/hermes-agent) from **Nous Research** and the [agentskills.io](https://agentskills.io) open standard. 💛
 
 ---
 

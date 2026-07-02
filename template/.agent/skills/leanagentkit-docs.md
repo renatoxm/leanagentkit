@@ -76,6 +76,14 @@ Every project README should cover:
 - `docs/adr/` — decision rationale (prevents re-deciding)
 - Inline gotchas — prevent known traps
 
+## Authoring project skills
+
+When writing or updating a **generated** skill (`.agent/skills/generated/`) or
+distilling a workflow into one, read
+`.agent/skills/references/skill-authoring-standards.md` first. Follow agentskills.io
+frontmatter, keep `description` <=60 chars, and append discovered gotchas under
+`## Learned notes` (generated skills only — kit-owned skills are overwritten on upgrade).
+
 ## Red flags
 
 - Public APIs with no types or docs

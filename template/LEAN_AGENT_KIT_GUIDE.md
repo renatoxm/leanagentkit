@@ -34,7 +34,8 @@ It rests on three pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 25 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 27 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default*
 
@@ -380,6 +381,22 @@ This is the kit's secret weapon for repetitive scaffolding. Instead of re‑deri
 
 > 💡 **Maya teaches it once:** she points it at `src/routes/dashboard/+page.svelte`. It learns her page = a `+page.svelte`, a `+page.server.ts` loader, a nav entry, and i18n keys in `en`/`pt`. Now every new page is one command, perfectly consistent with the dashboard — roles asked per‑page, everything else automatic. 🏗️
 
+### The learning loop — distill, curate, improve
+
+Generated skills in `.agent/skills/generated/` compound over time — no runtime required.
+
+| Skill | What it does |
+|-------|--------------|
+| `leanagentkit-distill-skill` | Freezes *what you just did this session* (or a named dir/URL) into a reusable skill — the file-based `/learn`. |
+| `leanagentkit-curate-skills` | Reviews generated skills; proposes archive for stale/duplicate; **never deletes**; `pinned` bypasses all suggestions. |
+| `references/skill-authoring-standards.md` | agentskills.io-compliant HARDLINE rules (`description` <=60 chars, frontmatter, section order). |
+
+**Self-improving skills:** append gotchas under `## Learned notes` in generated skills only (kit-owned skills are overwritten on upgrade).
+
+**When to distill:** repeated a workflow 2+ times, or walked through a reusable procedure — `end-session` nudges you.
+
+**When to curate:** registry has grown, or nothing was reviewed in a while — archive moves files to `generated/archived/`.
+
 ---
 
 ## 🛡️ 8. Engineering‑practice guardrails
@@ -479,6 +496,8 @@ It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current 
 - 🔄 **Re‑map after structural changes.** `leanagentkit-map-codebase` keeps navigation accurate.
 - 📌 **Make "Resume from here" concrete.** "Add expiry check in `auth.ts:42`," not "continue auth work."
 - 🏭 **Author a generator** for anything you scaffold 3+ times.
+- 🔄 **Distill repeated workflows** into skills with `leanagentkit-distill-skill`.
+- 🧹 **Curate generated skills** periodically with `leanagentkit-curate-skills`.
 
 ### 🚫 Avoid this
 
@@ -556,8 +575,10 @@ No — that's not its job. It's **brownfield‑first**: point it at an existing 
   → leanagentkit-wire-agent            # (re)wire Cursor/Claude
   → leanagentkit-match-stack           # detect + install stack skills
 
-🏭 GENERATORS
+🏭 GENERATORS & LEARNING LOOP
   → leanagentkit-skill-artifact-template   # teach a scaffolder once
+  → leanagentkit-distill-skill             # freeze a session workflow
+  → leanagentkit-curate-skills             # review stale generators
   → generated/leanagentkit-create-<type>   # run it forever
 
 🛡️ GUARDRAILS (auto or explicit)

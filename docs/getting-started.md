@@ -33,7 +33,7 @@ npm create lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), and `docs/adr/0001-*`.
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, and `docs/adr/0001-*`.
 
 After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 
@@ -49,6 +49,15 @@ leanagentkit-start-session → (grill → new-spec → implement-spec for new wo
 2. **`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`** — for new work, align on a plan, freeze a spec, then implement it spec-driven.
 3. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
 4. **`leanagentkit-end-session`** — so the next session starts warm.
+
+## Learning loop
+
+Generated skills in `.agent/skills/generated/` compound over time:
+
+- **`leanagentkit-distill-skill`** — freeze a repeated session workflow into a reusable skill.
+- **`leanagentkit-curate-skills`** — review stale generators; archive, never delete.
+
+See the [Full Guide](/guide#the-learning-loop--distill-curate-improve) for details.
 
 ## When the context window fills
 

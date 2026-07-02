@@ -29,4 +29,6 @@ features:
     details: Works with Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline — anything that can read files.
   - title: Guardrails built in
     details: leanagentkit-check enforces AGENTS.md conventions and stack playbooks on every change.
+  - title: Self-improving skills
+    details: Distill session workflows into reusable skills; curate stale generators — skills compound via Learned notes.
 ---

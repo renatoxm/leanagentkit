@@ -21,9 +21,11 @@ Memory protocol and tiers: see **`AGENTS.md` §6** (canonical — do not duplica
 | Skill | Does |
 |-------|------|
 | `leanagentkit-skill-artifact-template.md` | Authors a project-specific generator. Infers recipe from an example → `generated/leanagentkit-create-<type>.md`. |
+| `leanagentkit-distill-skill.md` | Distills a session workflow (or named source) into a reusable `generated/` skill. |
+| `leanagentkit-curate-skills.md` | Reviews generated skills — archive stale/duplicate; never delete; respect `pinned`. |
 | `generated/leanagentkit-create-<type>.md` | Authored generators (empty until created). See `generated/README.md`. |
 
-Recipes live in `.agent/recipes/`.
+Recipes live in `.agent/recipes/`. Authoring standards: `references/skill-authoring-standards.md`.
 
 ## Memory (called by bootstrap, or run individually)
 
@@ -38,6 +40,8 @@ Recipes live in `.agent/recipes/`.
 | `leanagentkit-start-session.md` | reads memory, primes context |
 | `leanagentkit-end-session.md` | persists state (runs `leanagentkit-check` first if code changed) |
 | `leanagentkit-handoff.md` | `docs/memory/HANDOFF.md` (cross-session/cross-tool baton) |
+| `leanagentkit-distill-skill.md` | `generated/` skill + optional recipe (session → reusable procedure) |
+| `leanagentkit-curate-skills.md` | reviews `generated/` skills; archives stale; updates `PROGRESS.md` |
 
 ## Stack data
 

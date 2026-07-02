@@ -31,6 +31,12 @@ future generation is fast and needs no full-repo read.
 
 ## Authoring procedure (infer first, ask only for gaps)
 
+### 0. Read authoring standards
+Read `.agent/skills/references/skill-authoring-standards.md` before writing any
+skill. Every generated skill must comply: `description` <=60 chars, agentskills.io
+frontmatter (`version`, `related`, `metadata.tags`, `source`, `status: active`),
+fixed section order, and a trailing `## Learned notes` section.
+
 ### 1. Orient cheaply
 Read `docs/CODEBASE_MAP.md` and relevant `.agent/stacks/*.md` playbooks. Do NOT
 scan the whole repo — the map tells you where things live.
@@ -85,11 +91,15 @@ generated skill must be self-contained: reading it + the recipe is enough to
 produce the artifact WITHOUT reading the whole codebase.
 
 ### 7. Register & report
-Append a row to `.agent/skills/generated/README.md`. If `.cursor/skills/` exists,
+Append a row to `.agent/skills/generated/README.md` with **Tags**, **Related**,
+**Status** (`active`), and **Last used** (today's date). If `.cursor/skills/` exists,
 write the Cursor skill wrapper (see Outputs). If `.claude/skills/` exists, write the
 Claude skill wrapper (see Outputs). Report: artifact type, reference example used,
 capabilities captured, per-generation prompts, and the invocation string
 (`Read .agent/skills/generated/leanagentkit-create-<type>.md and follow it`).
+
+When a gotcha is discovered later during use, append it under `## Learned notes`
+in the generated skill (user-owned file only — never edit kit-owned skills).
 
 ---
 

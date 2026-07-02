@@ -64,8 +64,12 @@ Read `.agent/skills/<name>.md` and follow it.
 ```
 
 Also generate wrappers for any authored generators in
-`.agent/skills/generated/leanagentkit-create-*.md` (exclude `_GENERATOR_TEMPLATE.md`),
-using the same pattern but pointing at `.agent/skills/generated/<name>.md`.
+`.agent/skills/generated/leanagentkit-create-*.md` (exclude `_GENERATOR_TEMPLATE.md`
+and anything under `generated/archived/`), using the same pattern but pointing at
+`.agent/skills/generated/<name>.md`.
+
+**Skip archived generators:** do not generate wrappers for skills whose frontmatter
+has `status: archived` or whose file lives under `.agent/skills/generated/archived/`.
 
 ### 3. Idempotency
 

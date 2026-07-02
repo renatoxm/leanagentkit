@@ -18,9 +18,11 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
     runCli(dir);
     const userAgents = "# MY CUSTOM AGENTS CONTENT";
     const userContext = "# MY ACTIVE CONTEXT";
+    const userRegistry = "# MY GENERATED REGISTRY";
     const staleSkill = "# STALE SKILL CONTENT";
     writeFileSync(join(dir, "AGENTS.md"), userAgents);
     writeFileSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md"), userContext);
+    writeFileSync(join(dir, ".agent/skills/generated/README.md"), userRegistry);
     writeFileSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md"), staleSkill);
 
     const out = runCli(dir, "--upgrade");
@@ -32,6 +34,11 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
       readFileSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md"), "utf8"),
       userContext,
       "ACTIVE_CONTEXT preserved",
+    );
+    assert.equal(
+      readFileSync(join(dir, ".agent/skills/generated/README.md"), "utf8"),
+      userRegistry,
+      "generated README preserved",
     );
     assert.doesNotMatch(
       readFileSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md"), "utf8"),

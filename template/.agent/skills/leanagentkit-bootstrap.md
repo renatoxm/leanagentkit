@@ -77,6 +77,10 @@ Ask whether the user wants to author any artifact generators now (page, componen
 crud, endpoint…). For each chosen type, run `leanagentkit-skill-artifact-template`. These are
 optional and add zero footprint until authored.
 
+Mention the **learning loop**: `leanagentkit-distill-skill` freezes session workflows;
+`leanagentkit-curate-skills` reviews generated skills periodically (archive, never delete).
+Standards live in `.agent/skills/references/skill-authoring-standards.md`.
+
 ## Step 6 — Document stack skills in LEAN_AGENT_KIT.md
 `LEAN_AGENT_KIT.md` is copied from the kit template at install time (`README.md` →
 `LEAN_AGENT_KIT.md` via `create-lean-agent-kit`). After Step 3, replace the
@@ -112,8 +116,9 @@ post-install bullets immediately below it).
 ## Step 7 — Summarize
 Print: tiers enabled, files created, stacks detected + install status (with any
 REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
-stack-skills section updated, and the daily loop (`leanagentkit-start-session` →
-`leanagentkit-check` → `leanagentkit-end-session`). Clear bootstrap notes from SCRATCH.
+stack-skills section updated, the daily loop (`leanagentkit-start-session` →
+`leanagentkit-check` → `leanagentkit-end-session`), and the learning loop
+(`leanagentkit-distill-skill`, `leanagentkit-curate-skills`). Clear bootstrap notes from SCRATCH.
 
 ## Step 8 — Stamp dates
 Set today's date anywhere still showing `<!-- YYYY-MM-DD -->` or unfilled placeholders:
