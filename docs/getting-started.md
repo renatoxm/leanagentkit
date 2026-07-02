@@ -1,6 +1,11 @@
 # Getting Started
 
-Lean Agent Kit is a lightweight, tool-agnostic memory and stack-skill system that drops into **any existing project** and turns chaotic AI sessions into a disciplined, repeatable workflow.
+Lean Agent Kit is a tool-agnostic memory + guardrail system that keeps your agent's **context lean**: instead of re-scanning the repo every session, the agent navigates by a Markdown map and pulls only the files each task needs. It drops into any existing project and turns chaotic AI sessions into a disciplined, repeatable workflow.
+
+**Lean means context economics, in two reinforcing dimensions:**
+
+- **Lean context (runtime)** — the agent reads `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md`, then opens only the files a task needs. No globbing, no drift.
+- **Lean footprint (setup)** — only what your project actually uses gets scaffolded. A small footprint is what keeps context lean.
 
 ## Install
 
@@ -76,6 +81,7 @@ Do not use `end-session` alone when you're resetting only because context is ful
 AGENTS.md                 # canonical rulebook + memory protocol
 .agent/skills/            # kit skills (source of truth)
 .agent/stacks/registry.md # tech → external skill mapping
+.agent/scaffolders/       # greenfield scaffold recipes (registry-backed)
 docs/CODEBASE_MAP.md      # navigation index
 docs/memory/              # ACTIVE_CONTEXT, PROGRESS, SCRATCH
 docs/specs/  docs/adr/    # feature specs, architecture decisions

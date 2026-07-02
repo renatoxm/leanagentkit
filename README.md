@@ -1,9 +1,9 @@
 # 🧠 Lean Agent Kit
 
 > **Give your AI coding agent a memory — and a backbone.**
-> A lightweight, tool-agnostic memory + stack-skill system that drops into **any existing project** and turns chaotic AI sessions into a disciplined, repeatable workflow.
+> A tool-agnostic memory + guardrail system that keeps your agent's **context lean**: it navigates by a Markdown _map_ and pulls only the files each task needs — instead of re-scanning your whole repo every session.
 
-⚡ **A leaner alternative to GitHub Spec Kit.** Works with **Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline** — anything that can read files (and optionally MCP/skills).
+⚡ Works with **Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline** — anything that can read files (and optionally MCP/skills). Far leaner on your context window than letting the agent glob the repo (or than GitHub Spec Kit).
 
 📖 **Documentation:** [renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/)
 
@@ -15,19 +15,24 @@ Every new AI session starts from zero. You re-explain the architecture. The agen
 
 ## 🚀 The fix
 
-**Lean Agent Kit** gives your agent a persistent, tiered Markdown **memory** so it navigates by reading a _map_ instead of re-scanning the repo — plus **guardrails** that enforce your conventions on every change.
+**Lean Agent Kit** gives your agent a persistent, tiered Markdown **memory** so it navigates by reading a _map_ instead of re-scanning the repo — plus **guardrails** that enforce your conventions on every change. The payoff is a **lean context window**: the agent loads a small, curated map and pulls only the files each task needs, no more, no less.
 
-It's **not** here to bootstrap a project from scratch. It's built for the real world: you point it at your **existing** codebase, it learns your architecture, workflows, and conventions, then acts as a guardrail system that keeps consistency high, architectural drift low, and output quality aligned with _your_ stack and standards.
+It works from **any starting point**. Point it at an existing codebase and it learns your architecture, workflows, and conventions; start from zero and `leanagentkit-scaffold` stands up a new app first (registry-backed, non-interactive). Either way, the *same* memory + guardrail loop keeps consistency high and architectural drift low.
 
 > 💡 The visitor's reaction we're going for: _"OMG, this is exactly what I needed."_ 😄
 
 ---
 
-## ✨ Why this instead of Spec Kit
+## ✨ Why it's *lean*: two dimensions of one idea
 
-- 🏗️ **Brownfield-first.** Maps and learns from the code already in your repo — not a greenfield spec factory.
-- 🪶 **Smaller footprint.** Markdown files + prompt skills; tiers you don't use are never scaffolded.
-- 🧮 **Context-frugal.** Agents read `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md` and open only the files they need.
+"Lean" isn't about being tidier than the next tool — it's about **context economics**. The kit is lean in two reinforcing ways:
+
+- 🧮 **Lean context (runtime).** Every session the agent reads a small, curated memory — `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md` — then opens _only_ the files a task needs. Context is demand-paged, never dumped. No globbing, no 40-message warm-up, no drift.
+- 🪶 **Lean footprint (setup).** The kit only scaffolds what your project actually uses — tiers you don't enable and stacks you don't have are never created. A small, high-signal footprint is _what makes_ lean context possible.
+
+Everything else follows from those two:
+
+- 🏗️ **Green- or brownfield.** Scaffold a fresh app with `leanagentkit-scaffold`, or map and learn from the code already in your repo — the same lean loop runs either way.
 - 🛡️ **Guardrails built in.** `leanagentkit-check` enforces `AGENTS.md` conventions and stack playbooks.
 - 🔌 **Tool-agnostic.** No lock-in. Cursor & Claude Code get native wiring; everyone else just reads the files.
 - 🔄 **Closed learning loop.** Distill session workflows into reusable skills; curate stale generators — skills compound over time.

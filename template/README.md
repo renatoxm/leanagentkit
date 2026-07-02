@@ -1,19 +1,22 @@
 # Lean Agent Kit
 
-A lightweight, tool-agnostic alternative to GitHub Spec Kit for **existing**
-projects. Tiered Markdown memory helps agents navigate by reading a map instead
-of re-scanning the repo; stack detection wires up matching external skills;
-`leanagentkit-check` validates work against captured conventions.
+A tool-agnostic memory + guardrail system that keeps your agent's **context
+lean**. Instead of re-scanning the repo every session, the agent navigates by a
+tiered Markdown map and opens only the files each task needs. Stack detection
+wires up matching external skills; `leanagentkit-check` validates work against
+captured conventions.
 
 Works with Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline — anything that
 can read files and (optionally) MCP/skills.
 
-## Why this instead of Spec Kit
+## Why it's lean — two dimensions of one idea
 
-- **Brownfield-first.** Maps and learns from code already in the repo — not a greenfield spec factory.
-- **Smaller footprint.** Markdown files + prompt skills; tiers you don't use are never scaffolded.
-- **Context-frugal.** Agents read `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md` and open only named files.
-- **Guardrails.** `leanagentkit-check` enforces `AGENTS.md` conventions and stack playbooks.
+"Lean" means **context economics**, and it shows up in two reinforcing ways:
+
+- **Lean context (runtime).** The agent reads `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md`, then opens only the named files a task needs — context is demand-paged, never dumped.
+- **Lean footprint (setup).** Only what your project actually uses is scaffolded; unused tiers and stacks are never created. A small footprint is what keeps context lean.
+
+Everything else follows: works from **any starting point** (scaffold a new app with `leanagentkit-scaffold`, or map an existing one), **guardrails** through `leanagentkit-check`, and full **tool-agnosticism**.
 
 ## Quick start
 

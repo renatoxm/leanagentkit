@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Lean Agent Kit',
-  description: 'Memory + stack-skill system for AI coding agents',
+  description: "Keep your AI agent's context lean — memory + guardrails that navigate by a map instead of re-scanning your repo.",
   base: '/',
   cleanUrls: true,
   ignoreDeadLinks: true,
