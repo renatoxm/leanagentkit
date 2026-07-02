@@ -34,7 +34,7 @@ It rests on three pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 29 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 30 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 - 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default*
@@ -64,7 +64,13 @@ npm create lean-agent-kit my-app
 npx create-lean-agent-kit .
 ```
 
-This copies the *template* (files only, zero runtime deps) into your repo: `AGENTS.md`, `.agent/`, and `docs/`. Nothing runs yet — it's inert Markdown waiting for the bootstrap.
+This copies the *template* (files only, zero runtime deps) into your repo: `AGENTS.md`, `.agent/`, `.agent/scaffolders/`, and `docs/`. Nothing runs yet — it's inert Markdown waiting for the bootstrap.
+
+> 🌱 **Greenfield?** After dropping the kit into an empty directory, you can scaffold a base app before bootstrap:
+>
+> Read `.agent/skills/leanagentkit-scaffold.md` and follow it.
+>
+> It asks what to create (only registry-backed stacks), runs non-interactive generators, then hands off to `leanagentkit-match-stack` for skill wiring. Bootstrap Step 0 also offers this when the repo looks empty.
 
 > 🚩 **Flags:** `--force` overwrites existing kit files · `--upgrade` refreshes kit files safely · `--help` shows usage.
 > 📦 **No‑npm option:** `npx degit YOUR_USER/create-lean-agent-kit/template` pulls the raw template.
@@ -75,7 +81,7 @@ This copies the *template* (files only, zero runtime deps) into your repo: `AGEN
 npm create lean-agent-kit . --upgrade
 ```
 
-Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, custom rows in `.agent/stacks/registry.md`, and edited ADRs.
+Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, scaffolder recipes, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, custom rows in `.agent/stacks/registry.md`, and edited ADRs.
 
 Differing files are backed up to `.leanagentkit-backup/<timestamp>/` before overwrite. The installed version is stamped in `.agent/.leanagentkit-version`.
 
@@ -557,7 +563,7 @@ Yes. The kit is *just files*. Any tool that reads files works — point it at `A
 Yes. It refreshes kit‑managed files but never clobbers human‑written ADRs or `PROGRESS` history.
 
 **❓ Will it bootstrap a project from scratch?**
-No — that's not its job. It's **brownfield‑first**: point it at an existing codebase and it learns your architecture, then guards consistency.
+Bootstrap itself is **brownfield-first** — it maps and learns from code already in the repo. For **greenfield**, drop the kit into an empty directory, run `leanagentkit-scaffold` to create a base app (framework, backend, monorepo) or add stack pieces (ORM, UI, platform), then run `leanagentkit-bootstrap` to wire memory and skills. Bootstrap Step 0 offers scaffold automatically when the repo looks empty.
 
 ---
 
@@ -568,7 +574,8 @@ No — that's not its job. It's **brownfield‑first**: point it at an existing 
 ```
 🚀 SETUP (once)
   npm create lean-agent-kit            # drop in the files
-  → leanagentkit-bootstrap             # interactive setup (RUN FIRST)
+  → leanagentkit-scaffold              # greenfield: create base app (optional)
+  → leanagentkit-bootstrap             # interactive setup (RUN FIRST for brownfield)
 
 🔄 EVERY SESSION
   → leanagentkit-start-session         # prime context cheaply

@@ -65,7 +65,7 @@ npm create lean-agent-kit . --upgrade
 npx create-lean-agent-kit . --upgrade
 ```
 
-**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
+**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/`, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
 **Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, and `docs/adr/0001-*`.
 
@@ -101,12 +101,13 @@ npx degit YOUR_USER/create-lean-agent-kit/template
 
 ## 📥 What it scaffolds
 
-Tiered Markdown memory (long / medium / short), the `.agent/` skills and stack registry, and `docs/` for the codebase map, ADRs, specs, and session memory.
+Tiered Markdown memory (long / medium / short), the `.agent/` skills and stack registry, `.agent/scaffolders/` greenfield recipes, and `docs/` for the codebase map, ADRs, specs, and session memory.
 
 ```
 AGENTS.md                 # 📜 canonical rulebook + memory protocol (§6)
 .agent/skills/            # 🧩 kit skills (source of truth; frontmatter drives wrappers)
 .agent/stacks/registry.md # 🔍 tech → external skill mapping
+.agent/scaffolders/       # 🌱 greenfield scaffold recipes (registry-backed)
 .agent/recipes/           # ❄️ frozen wiring for authored artifact generators
 docs/CODEBASE_MAP.md      # 🗺️ navigation index
 docs/memory/              # 🧠 ACTIVE_CONTEXT, PROGRESS, SCRATCH
@@ -164,7 +165,7 @@ Detected automatically from `.agent/stacks/registry.md`.
 
 ---
 
-## 🎁 What's in the box — 29 tool-agnostic skills
+## 🎁 What's in the box — 30 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -175,6 +176,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-bootstrap`   | One-shot interactive setup — questionnaire, maps the codebase, detects the stack, wires agents (calls the other skills in order)              | Setting up the kit in a project (**run this first**)       |
 | `leanagentkit-wire-agent`  | Installs native agent config for Cursor and/or Claude — copies memory pointers and generates skill wrappers from `.agent/skills/` frontmatter | Wiring a new agent target, or after adding/renaming skills |
 | `leanagentkit-match-stack` | Detects project technologies from `.agent/stacks/registry.md` and installs only the confirmed matching external skills                        | Bootstrapping, or after adding new dependencies            |
+| `leanagentkit-scaffold`    | Memory-aware greenfield/additive scaffolding — questionnaire, non-interactive generators, handoff to match-stack                               | Empty repo or adding ORM/UI/platform to an existing app    |
 | `leanagentkit-check`       | Guardrail — validates changed files against `AGENTS.md`, stack playbooks, and the active spec; reports violations with citations              | After meaningful changes, before ending a session          |
 
 ### 🧠 Memory — build and persist tiered context

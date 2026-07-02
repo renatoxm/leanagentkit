@@ -14,6 +14,7 @@ Memory protocol and tiers: see **`AGENTS.md` §6** (canonical — do not duplica
 | `leanagentkit-bootstrap.md` | **Run first.** Interactive setup: questionnaire → map → detect stack → wire agents. |
 | `leanagentkit-wire-agent.md` | Wire Cursor and/or Claude — copy memory pointers, generate skill wrappers from frontmatter. |
 | `leanagentkit-match-stack.md` | Detect technologies from `.agent/stacks/registry.md`, install external skills, apply playbooks. |
+| `leanagentkit-scaffold.md` | Greenfield/additive scaffolding — memory-aware questionnaire, non-interactive generators, handoff to match-stack. |
 | `leanagentkit-check.md` | Guardrail — validate changed files against `AGENTS.md`, playbooks, and active spec. |
 
 ## Artifact generators (meta-skill)
@@ -47,7 +48,8 @@ Recipes live in `.agent/recipes/`. Authoring standards: `references/skill-author
 ## Stack data
 
 External-skill mappings: `.agent/stacks/registry.md`. Per-stack conventions:
-`.agent/stacks/<name>.md`.
+`.agent/stacks/<name>.md`. Greenfield scaffold recipes: `.agent/scaffolders/registry.md`
+and `.agent/scaffolders/<name>.scaffold.md`.
 
 ## Engineering practice (guardrails)
 

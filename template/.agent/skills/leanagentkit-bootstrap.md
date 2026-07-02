@@ -20,6 +20,14 @@ Ask these as a short interactive set. If the host agent supports interactive
 multiple-choice prompts (e.g. Cursor, Claude), use them; otherwise ask inline and
 wait. Keep to one screen. Skip any question already answered by the repo.
 
+**Greenfield offer:** If the repo looks empty (no app manifest, no meaningful
+`src/`/`app/`/`manage.py`/`go.mod` with code), ask before mapping:
+
+> Scaffold a base app first? (framework, backend, monorepo — via `leanagentkit-scaffold`)
+
+- **Yes** → run `leanagentkit-scaffold`, then continue bootstrap from Step 1.
+- **No / already scaffolded** → continue below.
+
 1. **Memory tiers** — which to enable?
    - [x] Long (map + conventions + ADRs)  ← recommended always on
    - [ ] Medium (specs + active context + progress)
