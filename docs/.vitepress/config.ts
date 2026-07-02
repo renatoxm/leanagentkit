@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'Lean Agent Kit',
   description: "Keep your AI agent's context lean — memory + guardrails that navigate by a map instead of re-scanning your repo.",
   base: '/',
@@ -29,4 +30,4 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/renatoxm/leanagentkit' },
     ],
   },
-})
+}))
