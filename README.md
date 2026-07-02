@@ -142,6 +142,7 @@ The memory files stay current as a **side effect of working**, not as extra pape
 - 🗺️ **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
 - 🤝 **Context full mid-task** → `leanagentkit-handoff` → new chat → `leanagentkit-start-session` (read `HANDOFF.md`)
 - 💾 **Natural pause** → `leanagentkit-check` → `leanagentkit-end-session` → `leanagentkit-start-session` next time
+- 🤖 **Ask Trevor** → `leanagentkit-ask-trevor` — optional concierge for teaching, reminders, checklists, and Backlog UX ([docs](/trevor))
 
 Starting a new chat when context fills is fine — use **`handoff`** when the same task continues, **`end-session`** when you're at a clean stopping point. See the [full guide](template/LEAN_AGENT_KIT_GUIDE.md#-9-working-across-sessions-tools--teammates).
 
@@ -245,6 +246,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                               | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                           | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                  | Context window fills, branching off, or switching tools mid-task    |
+| `leanagentkit-ask-trevor`       | Trevor concierge — teach the kit, answer from memory, reminders, checklists, Backlog UX, workflows (opt-in via `trevor.yml`)   | "How do I…", reminders, checklists, "what should I do next?"        |
 | `leanagentkit-distill-skill`    | Distills a session workflow (or named source) into a reusable `generated/` skill following agentskills.io standards            | After repeating a workflow 2+ times or when a procedure should persist |
 
 ### 🏭 Meta — author project-specific generators

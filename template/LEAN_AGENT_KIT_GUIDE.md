@@ -198,6 +198,18 @@ Primes context cheaply: reads `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md` (no rep
 
 > 💡 **Maya, Tuesday 9am:** "Read `leanagentkit-start-session` and follow it." Agent replies: *"Focus: password‑reset flow. Open: `auth.ts`, `reset.svelte`. Left off: token expiry not yet validated. Next: add expiry check in `auth.ts`."* She didn't explain a thing. ☕
 
+If Trevor is enabled (`.leanagentkit/trevor.yml`), pending personal reminders may
+surface after priming — see the [Trevor docs](/trevor) or invoke
+`leanagentkit-ask-trevor` anytime ("Ask Trevor how to run a spec").
+
+### 🤖 Trevor — optional concierge (`leanagentkit-ask-trevor`)
+
+Trevor teaches the kit, answers from memory, manages personal reminders and
+checklists, wraps Backlog UX, and suggests what to do next. Opt in during
+bootstrap (Step 3d) or copy `.leanagentkit/trevor.yml.example` → `trevor.yml`.
+Storage: `docs/memory/REMINDERS.md`, `CHECKLISTS/`, `WORKFLOWS/`. Full details:
+[Trevor assistant](/trevor).
+
 ### 🔥❄️ Align — `grill` then `new-spec` (for new/fuzzy work)
 
 For anything new, broad, or fuzzy:
@@ -618,6 +630,7 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
 
 🔄 EVERY SESSION
   → leanagentkit-start-session         # prime context cheaply
+  → leanagentkit-ask-trevor            # optional — Trevor concierge (reminders, teach, checklists)
   …work…
   → leanagentkit-check                 # validate vs conventions + spec
   → leanagentkit-end-session           # persist state for next time

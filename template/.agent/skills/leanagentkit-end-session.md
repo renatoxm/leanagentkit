@@ -45,6 +45,15 @@ description: End a coding session — persist active context, progress, and map 
    - Generated skills registry has grown or nothing was curated recently → suggest
      `leanagentkit-curate-skills`.
 
+10. **Trevor reminder capture (optional).** If `.leanagentkit/trevor.yml` exists
+    with `enabled: true` and `end_session_capture: true`:
+    - Ask once: `[🤖 Trevor] Anything I should remind you about next session?`
+    - **Yes** → append new `R-NNN` to `docs/memory/REMINDERS.md` with
+      `status: pending`, `created: today`, `show_after: tomorrow` (or user's
+      date), and the user's note.
+    - **No** → skip. One question only — do not turn end-session into a
+      questionnaire. If config missing or disabled, skip silently.
+
 ## Quality bar
 
 - "Resume from here" is specific enough that a fresh agent could continue with

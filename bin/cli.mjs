@@ -73,6 +73,7 @@ const PRESERVE_ON_UPGRADE = new Set([
   "docs/memory/ACTIVE_CONTEXT.md",
   "docs/memory/PROGRESS.md",
   "docs/memory/SCRATCH.md",
+  "docs/memory/REMINDERS.md",
   ".agent/stacks/registry.md",
   "docs/adr/0001-record-architecture-decisions.md",
   ".agent/skills/generated/README.md",

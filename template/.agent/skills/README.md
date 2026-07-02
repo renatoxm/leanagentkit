@@ -17,6 +17,12 @@ Memory protocol and tiers: see **`AGENTS.md` §6** (canonical — do not duplica
 | `leanagentkit-scaffold.md` | Greenfield/additive scaffolding — memory-aware questionnaire, non-interactive generators, handoff to match-stack. |
 | `leanagentkit-check.md` | Guardrail — validate changed files against `AGENTS.md`, playbooks, and active spec. |
 
+## Assistant (optional)
+
+| Skill | Does |
+|-------|------|
+| `leanagentkit-ask-trevor.md` | Trevor — teach the kit, answer from memory, reminders, checklists, Backlog UX, workflows. Opt in via `.leanagentkit/trevor.yml`. |
+
 ## Artifact generators (meta-skill)
 
 | Skill | Does |

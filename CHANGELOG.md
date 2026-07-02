@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+* add `leanagentkit-ask-trevor` — optional Trevor concierge for teaching, reminders, checklists, Backlog UX, workflows, and session hooks (opt-in via `.leanagentkit/trevor.yml`)
+
 ## [0.4.9](https://github.com/renatoxm/leanagentkit/compare/v0.4.8...v0.4.9) (2026-07-02)
 
 

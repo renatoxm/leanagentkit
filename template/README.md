@@ -186,6 +186,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                                                                            | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                                                                   | Context window fills, branching off, or switching tools mid-task    |
+| `leanagentkit-ask-trevor`       | Trevor concierge — teach the kit, answer from memory, reminders, checklists, Backlog UX (opt-in via `trevor.yml`)                                                               | "How do I…", reminders, checklists, "what should I do next?"        |
 | `leanagentkit-distill-skill`    | Distills a session workflow into a reusable `generated/` skill following agentskills.io standards                                                                                | After repeating a workflow 2+ times or when a procedure should persist |
 
 ### Meta — author project-specific generators

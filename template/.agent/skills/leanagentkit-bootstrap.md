@@ -98,6 +98,24 @@ synced to the spec workflow, offer (do not assume):
 
 Full integration details: `.agent/skills/leanagentkit-git-lifecycle.md`.
 
+## Step 3d — Optional Trevor assistant
+
+Offer (do not assume):
+
+> Enable Trevor — the kit concierge for teaching, reminders, checklists, and
+> Backlog UX? (requires copying `.leanagentkit/trevor.yml`)
+
+- **Yes** → copy `.leanagentkit/trevor.yml.example` to
+  `.leanagentkit/trevor.yml`. Confirm or adjust: `enabled: true`,
+  `session_preamble`, `max_reminders_per_session`, `end_session_capture`,
+  `checklist_default_mode`. Ensure `docs/memory/REMINDERS.md` exists (kit
+  template). Mention: invoke anytime with `leanagentkit-ask-trevor` or "Ask
+  Trevor".
+- **No** → skip. The kit works fully without Trevor; explicit invoke of
+  `leanagentkit-ask-trevor` still works if the user enables later.
+
+Full details: project docs Trevor page and `.agent/skills/leanagentkit-ask-trevor.md`.
+
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
 duplicate rules):
@@ -157,7 +175,7 @@ post-install bullets immediately below it).
 ## Step 7 — Summarize
 Print: tiers enabled, files created, stacks detected + install status (with any
 REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
-stack-skills section updated, the daily loop (`leanagentkit-start-session` →
+stack-skills section updated, Trevor status if Step 3d enabled, the daily loop (`leanagentkit-start-session` →
 `leanagentkit-check` → `leanagentkit-end-session`), and the learning loop
 (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`). Clear bootstrap notes from SCRATCH.
 

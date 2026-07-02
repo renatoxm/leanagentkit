@@ -48,6 +48,11 @@ When the context window fills mid-task, run `leanagentkit-handoff` before starti
 | Long | `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/adr/*` | months |
 | Medium | `docs/specs/*`, `docs/memory/ACTIVE_CONTEXT.md`, `docs/memory/PROGRESS.md` | days–weeks |
 | Short | `docs/memory/SCRATCH.md` | this task |
+| Personal | `docs/memory/REMINDERS.md`, `docs/memory/CHECKLISTS/*`, `docs/memory/WORKFLOWS/*` | until done / curated |
+
+**Trevor assistant:** optional personal tier via `leanagentkit-ask-trevor`. Opt in
+with `.leanagentkit/trevor.yml` (copy from `trevor.yml.example`). Reminders are
+personal nudges — not project blockers (those stay in `ACTIVE_CONTEXT`).
 
 ### Learning loop (generated skills)
 

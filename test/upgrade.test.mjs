@@ -18,10 +18,12 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
     runCli(dir);
     const userAgents = "# MY CUSTOM AGENTS CONTENT";
     const userContext = "# MY ACTIVE CONTEXT";
+    const userReminders = "# MY CUSTOM REMINDERS";
     const userRegistry = "# MY GENERATED REGISTRY";
     const staleSkill = "# STALE SKILL CONTENT";
     writeFileSync(join(dir, "AGENTS.md"), userAgents);
     writeFileSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md"), userContext);
+    writeFileSync(join(dir, "docs/memory/REMINDERS.md"), userReminders);
     writeFileSync(join(dir, ".agent/skills/generated/README.md"), userRegistry);
     writeFileSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md"), staleSkill);
 
@@ -34,6 +36,11 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
       readFileSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md"), "utf8"),
       userContext,
       "ACTIVE_CONTEXT preserved",
+    );
+    assert.equal(
+      readFileSync(join(dir, "docs/memory/REMINDERS.md"), "utf8"),
+      userReminders,
+      "REMINDERS preserved",
     );
     assert.equal(
       readFileSync(join(dir, ".agent/skills/generated/README.md"), "utf8"),
@@ -95,4 +102,13 @@ test("scaffold writes version stamp", () => {
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("bootstrap offers Trevor assistant in Step 3d", () => {
+  const bootstrap = readFileSync(
+    join(process.cwd(), "template", ".agent", "skills", "leanagentkit-bootstrap.md"),
+    "utf8",
+  );
+  assert.match(bootstrap, /Step 3d — Optional Trevor assistant/);
+  assert.match(bootstrap, /trevor\.yml\.example/);
 });

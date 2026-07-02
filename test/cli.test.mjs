@@ -13,6 +13,9 @@ test("scaffolds kit files into a target dir", () => {
     assert.ok(existsSync(join(dir, ".agent/scaffolders/registry.md")), "scaffolders registry copied");
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-scaffold.md")), "scaffold skill copied");
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md")), "bootstrap skill copied");
+    assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-ask-trevor.md")), "trevor skill copied");
+    assert.ok(existsSync(join(dir, "docs/memory/REMINDERS.md")), "reminders template copied");
+    assert.ok(existsSync(join(dir, ".leanagentkit/trevor.yml.example")), "trevor config example copied");
     assert.ok(existsSync(join(dir, "docs/CODEBASE_MAP.md")), "codebase map copied");
     assert.ok(existsSync(join(dir, "LEAN_AGENT_KIT.md")), "README renamed on copy");
     assert.ok(!existsSync(join(dir, "README.md")), "did not write README.md");

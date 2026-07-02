@@ -1,0 +1,17 @@
+# Trevor assistant integration for Lean Agent Kit.
+# Copy to .leanagentkit/trevor.yml during bootstrap (Step 3d) or manually.
+# Commit this file so teammates share the same Trevor settings.
+
+enabled: true
+
+# Show pending reminders during leanagentkit-start-session
+session_preamble: true
+
+# Max reminders surfaced per session (cap context bloat)
+max_reminders_per_session: 3
+
+# Offer to save a reminder at leanagentkit-end-session
+end_session_capture: true
+
+# Default checklist runner mode: guided (one item at a time) | batch
+checklist_default_mode: guided

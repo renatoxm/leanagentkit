@@ -115,4 +115,5 @@ setup. Same status rules apply regardless of CLI vs MCP.
 - [Backlog.md repository](https://github.com/MrLesk/Backlog.md)
 - Kit skill: `template/.agent/skills/leanagentkit-backlog.md` (in your project:
   `.agent/skills/leanagentkit-backlog.md`)
+- [Trevor assistant](/trevor) — optional Backlog UX wrapper via `leanagentkit-ask-trevor`
 - [Full guide](/guide) — daily loop section includes Backlog.md overview

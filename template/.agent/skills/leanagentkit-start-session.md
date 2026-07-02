@@ -29,6 +29,21 @@ description: Start a coding session — read memory files and prime context with
    Cross-reference open cards with `ACTIVE_CONTEXT` and any linked spec. If
    Backlog is not active, skip silently.
 
+7. **Trevor preamble (optional).** If `.leanagentkit/trevor.yml` exists with
+   `enabled: true` and `session_preamble: true` (default true when enabled):
+   - Read `docs/memory/REMINDERS.md`.
+   - Select entries where `status: pending` and `show_after <= today` (or no
+     `show_after` field).
+   - Surface at most `max_reminders_per_session` (default 3).
+   - For each reminder, one at a time, prefix `[🤖 Trevor]` and use interactive
+     UI: **Acknowledge** (set `status: acknowledged`, `acknowledged: today`) ·
+     **Not now** (skip) · **Snooze 3 days** (set `show_after` to today + 3, keep
+     `status: pending`).
+   - If entry has `backlog:` and Backlog is active, offer to append a note on
+     acknowledge (see `leanagentkit-ask-trevor` Reminders mode).
+   - Do not block the session — after reminders (or skip), continue normally.
+   If config missing or `enabled: false`, skip silently.
+
 ## Do not
 
 - Do not read `docs/adr/*` unless about to make/change a decision.
