@@ -67,10 +67,12 @@ config (`.mcp.json` entries), and runs install commands when approved.
    only become active guidance once advertised here. For each row whose Detect
    matches, add a line to the `AGENTS.md` §7 "Practice skills (guardrails)"
    subsection — skill name + when to use. Omit rows that don't match (don't
-   advertise `leanagentkit-ci-cd` on a repo with no CI config). Always-on
-   guardrails (`invocation: auto`) need no detection — they auto-load when wired
-   and aren't listed here. Idempotent: rebuild the subsection on re-run, don't
-   duplicate rows.
+   advertise `leanagentkit-ci-cd` on a repo with no CI config). The
+   `leanagentkit-backlog` row activates when `backlog` is on PATH **and** a
+   Backlog project folder/config exists — advertise it there; do not run
+   `backlog agents --update-instructions`. Always-on guardrails (`invocation: auto`)
+   need no detection — they auto-load when wired and aren't listed here. Idempotent:
+   rebuild the subsection on re-run, don't duplicate rows.
 
 ## Rules
 - The registry is authoritative — don't hardcode install commands here.

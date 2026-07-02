@@ -59,6 +59,11 @@ leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec →
 - **Context full mid-task** → `leanagentkit-handoff` → new chat → `leanagentkit-start-session` (read `HANDOFF.md`)
 - **Natural pause** → `leanagentkit-check` → `leanagentkit-end-session` → `leanagentkit-start-session` next time
 
+**Optional visual board:** install [Backlog.md](https://github.com/MrLesk/Backlog.md) for a
+Kanban terminal board or web UI synced to your specs. Say yes during bootstrap (Step 3b)
+or read `.agent/skills/leanagentkit-backlog.md`. Specs remain the source of truth;
+Backlog cards track status only.
+
 ## What's inside
 
 ```
@@ -150,7 +155,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 30 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 31 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -210,6 +215,7 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 | ---------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `leanagentkit-ci-cd`         | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
+| `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 
 ## Handoffs
 

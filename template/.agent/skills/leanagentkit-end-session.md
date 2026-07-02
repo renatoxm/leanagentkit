@@ -23,7 +23,19 @@ description: End a coding session — persist active context, progress, and map 
 6. **`docs/memory/SCRATCH.md`** — clear it; promote anything still relevant into
    the files above.
 7. If a spec was completed, set its `Status: done`.
-8. **Learning-loop nudges** (mention to the user when applicable):
+8. **Backlog.md (optional).** If Backlog integration is active and the completed
+   spec has a `Backlog:` id:
+   - **Only when** the spec is `Status: done`, move the card to Done:
+     ```bash
+     backlog task edit <task-id> -s "Done" --append-final-summary "<brief note>" --plain
+     ```
+   - If the spec is **not** done, sync progress only — never auto-complete:
+     ```bash
+     backlog task edit <task-id> --append-notes "<from Resume from here>" --plain
+     ```
+   Ending a session alone does **not** complete a card. If Backlog is not active,
+   skip silently.
+9. **Learning-loop nudges** (mention to the user when applicable):
    - Repeated the same workflow 2+ times this session → suggest
      `leanagentkit-distill-skill` to freeze it.
    - Generated skills registry has grown or nothing was curated recently → suggest

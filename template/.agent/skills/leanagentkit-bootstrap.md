@@ -55,15 +55,31 @@ Run `leanagentkit-match-stack`. It reads `.agent/stacks/registry.md`, detects te
 presents matches for confirmation, installs the ones approved in Step 0, and
 appends each stack's AGENTS.md snippet + applies its playbook to CODEBASE_MAP.
 It also detects conditional **practice skills** from `.agent/practice-skills/registry.md`
-(e.g. CI/CD when workflow files exist) and notes them in the summary.
+(e.g. CI/CD when workflow files exist; Backlog.md when `backlog` is installed and
+initialized) and notes them in the summary.
 
 **Practice skills (guardrails):** Eleven cross-cutting skills ship in
 `.agent/skills/`. Nine are always-on with `invocation: auto` (review, simplify,
 git-workflow, docs, debug, security, performance, deprecation, api-design) —
-agents load them when relevant, not on every prompt. Two are `invocation:
-conditional` (ci-cd, observability): they ship dormant and are advertised in
-`AGENTS.md §7` only when `leanagentkit-match-stack` detects matching evidence.
-See `.agent/skills/README.md` § Engineering practice.
+agents load them when relevant, not on every prompt. Three are `invocation:
+conditional` (ci-cd, observability, backlog): they ship dormant and are
+advertised in `AGENTS.md §7` only when `leanagentkit-match-stack` detects
+matching evidence. See `.agent/skills/README.md` § Engineering practice.
+
+## Step 3b — Optional visual board (Backlog.md)
+
+If the user wants a Kanban/web UI for tasks, offer (do not assume):
+
+> Use Backlog.md for a visual task board? (requires installing `backlog` globally)
+
+- **Yes** → guide install (`npm i -g backlog.md` or `brew install backlog-md`),
+  then `backlog init "<project-name>"` (or `--no-git` when no Git repo). During
+  init, choose **Skip** for AI instructions — the kit owns `AGENTS.md`. **Never**
+  run `backlog agents --update-instructions`. Re-run the practice-skill detection
+  in Step 3 so `leanagentkit-backlog` is advertised in `AGENTS.md §7`.
+- **No** → skip. The kit works fully without Backlog.md.
+
+Full integration details: `.agent/skills/leanagentkit-backlog.md`.
 
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't

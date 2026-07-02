@@ -1,7 +1,10 @@
 # Spec: <feature name>
 
 > Medium-term memory. One file per feature. Intent + acceptance criteria.
-> Status: draft | active | done | abandoned   ·   Updated: <!-- YYYY-MM-DD -->
+> Backlog: <task-id>   ·   Status: draft | active | done | abandoned   ·   Updated: <!-- YYYY-MM-DD -->
+>
+> _(Omit the `Backlog:` line until `leanagentkit-new-spec` creates a linked card
+> when Backlog.md integration is active.)_
 
 ## Problem
 

@@ -31,6 +31,20 @@ reach a shared understanding before capturing it here.
 6. Set `docs/memory/ACTIVE_CONTEXT.md` → Current focus to this feature and link
    the spec (use the full numbered filename).
 
+7. **Backlog.md (optional).** If Backlog integration is active (see
+   `leanagentkit-backlog` detection contract), create a linked card:
+   ```bash
+   backlog task create "<feature name>" \
+     -d "<one-line goal>" \
+     --ac "<each acceptance criterion>" \
+     -s "To Do" \
+     --ref "docs/specs/NNN-<feature>.md" \
+     --plain
+   ```
+   Record the returned task id in the spec frontmatter (`> Backlog: <task-id>`).
+   Mirror ACs once at creation; the spec remains the source of truth. If Backlog
+   is not active, skip silently.
+
 ## Quality bar
 
 - Acceptance criteria are observable and checkable, not vague.

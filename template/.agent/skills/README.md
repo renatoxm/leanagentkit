@@ -55,8 +55,8 @@ and `.agent/scaffolders/<name>.scaffold.md`.
 
 Cross-cutting skills for review, debugging, security, etc. Shipped in
 `.agent/skills/`. The ten always-on skills use `invocation: auto` (lazy-loaded
-when relevant). The two conditional skills (CI/CD, observability) ship dormant
-(explicit-invoke) and are advertised in `AGENTS.md §7` only when
+when relevant). Three conditional skills (CI/CD, observability, Backlog.md) ship
+dormant (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 `leanagentkit-match-stack` detects matching evidence — see
 `.agent/practice-skills/registry.md`.
 
@@ -74,6 +74,7 @@ when relevant). The two conditional skills (CI/CD, observability) ship dormant
 | `leanagentkit-api-design.md` | Designing APIs and module boundaries |
 | `leanagentkit-ci-cd.md` | CI pipeline setup or failures *(conditional)* |
 | `leanagentkit-observability.md` | Logging, metrics, tracing for services *(conditional)* |
+| `leanagentkit-backlog.md` | Visual Kanban board synced to specs *(conditional — Backlog.md)* |
 
 Shared audit report format: `.agent/skills/frame/findings-report.md`.
 Checklists: `.agent/skills/references/`.

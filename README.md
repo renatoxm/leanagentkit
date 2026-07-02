@@ -170,7 +170,33 @@ Detected automatically from `.agent/stacks/registry.md`.
 
 ---
 
-## 🎁 What's in the box — 30 tool-agnostic skills
+## Visual task board (Backlog.md)
+
+Optional integration for a **Kanban terminal board** or **web UI** synced to your
+Lean Agent Kit specs. The kit stays files-only and zero-deps — Backlog.md is a
+separate install the agent guides you through during bootstrap.
+
+```bash
+npm i -g backlog.md          # or: brew install backlog-md
+backlog init "<project-name>"   # use --no-git if no Git repo
+```
+
+Then run bootstrap (or re-run `leanagentkit-match-stack`) so `leanagentkit-backlog`
+is detected and wired into the daily loop:
+
+- **`new-spec`** creates a linked Backlog card (`To Do`)
+- **`implement-spec`** moves it to `In Progress` and checks off acceptance criteria
+- **`end-session`** moves to `Done` only when the spec is finished
+
+Specs (`docs/specs/`) own content; Backlog cards own status visualization.
+Human views: `backlog board` · `backlog browser`.
+
+Full details: [Backlog.md integration guide](/backlog) · skill:
+`.agent/skills/leanagentkit-backlog.md`
+
+---
+
+## 🎁 What's in the box — 31 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -230,6 +256,7 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when `leanage
 | ---------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `leanagentkit-ci-cd`         | Automates quality gates so no change reaches production without passing tests, lint, typecheck, and build | Setting up/modifying build pipelines, or debugging CI failures |
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
+| `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 
 ---
 

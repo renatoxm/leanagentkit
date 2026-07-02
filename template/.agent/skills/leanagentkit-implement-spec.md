@@ -29,6 +29,12 @@ criteria in order and stay within the spec's In/Out boundaries.
   `docs/specs/NNN-*.md` + Approach files named in `docs/CODEBASE_MAP.md`.
 - If spec `Status: draft`, confirm the user wants to proceed; set `Status: active`
   and update the date.
+- **Backlog.md (optional).** If Backlog integration is active and the spec has a
+  `Backlog:` id, move the card to In Progress:
+  ```bash
+  backlog task edit <task-id> -s "In Progress" --plain
+  ```
+  If Backlog is not active or no card is linked, skip silently.
 
 ### 2. Order work
 
@@ -46,6 +52,12 @@ criteria in order and stay within the spec's In/Out boundaries.
 ### 4. Track progress
 
 - Check off criteria in the spec as each is met (`- [x]`).
+- **Backlog.md (optional).** If Backlog integration is active and the spec has a
+  `Backlog:` id, check the matching Backlog AC when each spec criterion is met:
+  ```bash
+  backlog task edit <task-id> --check-ac <n> --plain
+  ```
+  (`n` is 1-based, matching creation order.) If Backlog is not active, skip silently.
 - When all criteria pass and `leanagentkit-check` is clean, set `Status: done`.
 
 ### 5. Persist

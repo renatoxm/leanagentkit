@@ -57,6 +57,14 @@ when Cursor/Claude is wired. No detection needed.
 - **Default:** conditional
 - **Enable when:** project runs as a deployable service (not a pure library/CLI with no runtime)
 
+## Visual task board (Backlog.md)
+
+- **Detect:** `backlog` on PATH (`command -v backlog`) **and** a Backlog project in the repo (`backlog/`, `.backlog/`, or `backlog.config.yml`)
+- **Skill:** `leanagentkit-backlog`
+- **Default:** conditional
+- **Enable when:** user installed Backlog.md and ran `backlog init` in the project
+- **Note:** spec (`docs/specs/`) owns content; Backlog card owns status/Kanban visualization. Do not run `backlog agents --update-instructions` — kit owns `AGENTS.md §7`.
+
 ---
 
 ## Adding rows

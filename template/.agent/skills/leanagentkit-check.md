@@ -40,6 +40,7 @@ and the active feature spec. Reports violations with citations — does not auto
 
    **Scope:** <files checked>
    **Active spec:** <name or none>
+   **Backlog card:** <task-id or none — from spec frontmatter when Backlog active>
 
    ### Pass
    - <file>: <what aligns>

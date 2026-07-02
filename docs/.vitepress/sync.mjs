@@ -116,12 +116,40 @@ function transformMarkdown(content, linkRewrites = {}) {
     .join('')
 }
 
+// The source guide's table-of-contents uses GitHub-flavored heading anchors so
+// it works when rendered on GitHub and in users' repos. VitePress slugifies
+// headings differently (it keeps emoji/em-dashes and collapses repeated
+// hyphens), so rewrite the TOC targets to the ids VitePress actually emits.
+const GUIDE_ANCHOR_REWRITES = {
+  '#-1-the-mental-model-read-this-first':
+    '#🧠-1-the-mental-model-read-this-first',
+  '#-2-install--bootstrap--your-first-10-minutes':
+    '#🚀-2-install-bootstrap-—-your-first-10-minutes',
+  '#-3-memory-tiers--how-the-kit-remembers':
+    '#🧠-3-memory-tiers-—-how-the-kit-remembers',
+  '#-4-the-daily-loop--your-everyday-rhythm':
+    '#🔄-4-the-daily-loop-—-your-everyday-rhythm',
+  '#-5-workflows-from-simple-to-complex':
+    '#🪜-5-workflows-from-simple-to-complex',
+  '#-6-stacks--external-skills': '#🧰-6-stacks-external-skills',
+  '#-7-artifact-generators--teach-the-kit-to-scaffold':
+    '#🏭-7-artifact-generators-—-teach-the-kit-to-scaffold',
+  '#-8-engineeringpractice-guardrails':
+    '#🛡️-8-engineering‐practice-guardrails',
+  '#-9-working-across-sessions-tools--teammates':
+    '#🤝-9-working-across-sessions-tools-teammates',
+  '#-10-pro-tips--antipatterns': '#💡-10-pro-tips-anti‐patterns',
+  '#-11-troubleshooting--faq': '#🧯-11-troubleshooting-faq',
+  '#-12-the-onepage-cheat-sheet': '#📋-12-the-one‐page-cheat-sheet',
+}
+
 function syncGuide() {
   const sourcePath = join(repoRoot, 'template/LEAN_AGENT_KIT_GUIDE.md')
   const raw = readFileSync(sourcePath, 'utf8')
   const transformed = transformMarkdown(raw, {
     './README.md': '/getting-started',
     'LEAN_AGENT_KIT_GUIDE.md': '/guide',
+    ...GUIDE_ANCHOR_REWRITES,
   })
   writeFileSync(join(docsDir, 'guide.md'), `${GENERATED_BANNER}${transformed}`)
   console.log('sync: wrote docs/guide.md')

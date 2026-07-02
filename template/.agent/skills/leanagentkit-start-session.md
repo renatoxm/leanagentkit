@@ -19,6 +19,16 @@ description: Start a coding session — read memory files and prime context with
 5. State back, in 2–3 lines: what the current focus is, what was left open, and
    the concrete next action — then begin.
 
+6. **Backlog.md (optional).** If Backlog integration is active (see
+   `leanagentkit-backlog` detection contract: `backlog` on PATH **and**
+   `backlog/`, `.backlog/`, or `backlog.config.yml` exists), run:
+   ```bash
+   backlog task list -s "In Progress" --plain
+   backlog task list -s "To Do" --plain
+   ```
+   Cross-reference open cards with `ACTIVE_CONTEXT` and any linked spec. If
+   Backlog is not active, skip silently.
+
 ## Do not
 
 - Do not read `docs/adr/*` unless about to make/change a decision.

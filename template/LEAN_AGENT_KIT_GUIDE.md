@@ -34,7 +34,7 @@ It rests on four pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 30 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 31 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 - 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default* — in two dimensions
@@ -223,6 +223,24 @@ Validates changed files against `AGENTS.md` §4–5, the matching stack playbook
 Persists state so the next session starts warm: runs `check` first (if code changed), overwrites `ACTIVE_CONTEXT` with a concrete **"Resume from here,"** prepends a dated `PROGRESS` entry, updates the map if structure changed, adds an ADR if a decision was made, clears `SCRATCH`, and marks completed specs `done`.
 
 > 🎯 **The quality bar:** "Resume from here" must be specific enough that a *fresh agent* could continue with no other context. That's the whole game.
+
+### Optional — visual board with Backlog.md
+
+The kit tracks work in Markdown (`docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`).
+For a **Kanban board or web UI**, optionally install
+[Backlog.md](https://github.com/MrLesk/Backlog.md):
+
+```bash
+npm i -g backlog.md    # or: brew install backlog-md
+backlog init "<project-name>"    # use --no-git if no Git repo
+```
+
+During bootstrap, answer **Yes** to the Backlog.md offer (Step 3b), or read
+`.agent/skills/leanagentkit-backlog.md` and follow it. The **spec stays the
+source of truth**; the Backlog card is the status/visual layer. Cards move to
+`Done` only when the spec is finished — not merely because a session ended.
+
+Human views: `backlog board` (terminal) · `backlog browser` (web).
 
 ---
 
