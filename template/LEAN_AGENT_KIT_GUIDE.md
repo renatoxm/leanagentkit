@@ -1,7 +1,14 @@
 # 📚 The Full LeanAgentKit Guide
 
+<div class="guide-hero">
+<div class="guide-hero-text">
+
 > **How to use LeanAgentKit to boost your productivity, build solid apps, and deploy with confidence.**
 > From your very first `start-session` to authoring custom generators and orchestrating multiple agents in parallel — this is the end‑to‑end manual.
+
+</div>
+<!-- @docs-hero-image /assets/images/GuideLeanAgentKit.png -->
+</div>
 
 If the [README](./README.md) is the *pitch*, this is the *playbook*. 🏈 Read it once front to back, then keep it open as a reference.
 

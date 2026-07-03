@@ -1,11 +1,20 @@
 # Trevor — kit concierge
 
+<div class="guide-hero">
+<div class="guide-hero-text">
+
 Trevor is Lean Agent Kit's optional **concierge assistant**: teach how to use the
 kit, answer from memory, manage personal reminders and checklists, wrap Backlog UX,
 run workflows, and suggest what to do next.
 
 Trevor is a **thin orchestrator** — it routes to existing skills; it does not
 replace `start-session`, specs, or the Backlog integration rules.
+
+</div>
+<div class="guide-hero-image">
+<img src="/assets/images/TrevorLeanAgentKit.png" alt="Trevor — Lean Agent Kit concierge" />
+</div>
+</div>
 
 ## What Trevor is / is not
 

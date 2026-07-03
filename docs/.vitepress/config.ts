@@ -7,6 +7,7 @@ export default withMermaid(defineConfig({
   base: '/',
   cleanUrls: true,
   ignoreDeadLinks: true,
+  head: [['link', { rel: 'icon', href: '/assets/images/HeroLeanRobot.png', type: 'image/png' }]],
   themeConfig: {
     // logo: {
     //   light: '/assets/images/lean-agent-kit-logo2.png',
@@ -33,5 +34,11 @@ export default withMermaid(defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/renatoxm/leanagentkit' },
     ],
+    notFound: {
+      title: 'PAGE NOT FOUND',
+      quote:
+        "This path isn't on the map — the agent couldn't find it. Head back home and try another route.",
+      linkText: 'Take me home',
+    },
   },
 }))

@@ -143,14 +143,23 @@ const GUIDE_ANCHOR_REWRITES = {
   '#-12-the-onepage-cheat-sheet': '#📋-12-the-one‐page-cheat-sheet',
 }
 
+function injectGuideHeroImage(text) {
+  return text.replace(
+    /<!-- @docs-hero-image ([^\s]+) -->/g,
+    '<div class="guide-hero-image">\n<img src="$1" alt="Lean Agent Kit guide" />\n</div>',
+  )
+}
+
 function syncGuide() {
   const sourcePath = join(repoRoot, 'template/LEAN_AGENT_KIT_GUIDE.md')
   const raw = readFileSync(sourcePath, 'utf8')
-  const transformed = transformMarkdown(raw, {
-    './README.md': '/getting-started',
-    'LEAN_AGENT_KIT_GUIDE.md': '/guide',
-    ...GUIDE_ANCHOR_REWRITES,
-  })
+  const transformed = injectGuideHeroImage(
+    transformMarkdown(raw, {
+      './README.md': '/getting-started',
+      'LEAN_AGENT_KIT_GUIDE.md': '/guide',
+      ...GUIDE_ANCHOR_REWRITES,
+    }),
+  )
   writeFileSync(join(docsDir, 'guide.md'), `${GENERATED_BANNER}${transformed}`)
   console.log('sync: wrote docs/guide.md')
 }

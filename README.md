@@ -17,13 +17,13 @@ Every new AI session starts from zero. You re-explain the architecture. The agen
 
 **Lean Agent Kit** gives your agent a persistent, tiered Markdown **memory** so it navigates by reading a _map_ instead of re-scanning the repo — plus **guardrails** that enforce your conventions on every change. The payoff is a **lean context window**: the agent loads a small, curated map and pulls only the files each task needs, no more, no less.
 
-It works from **any starting point**. Point it at an existing codebase and it learns your architecture, workflows, and conventions; start from zero and `leanagentkit-scaffold` stands up a new app first (registry-backed, non-interactive). Either way, the *same* memory + guardrail loop keeps consistency high and architectural drift low.
+It works from **any starting point**. Point it at an existing codebase and it learns your architecture, workflows, and conventions; start from zero and `leanagentkit-scaffold` stands up a new app first (registry-backed, non-interactive). Either way, the _same_ memory + guardrail loop keeps consistency high and architectural drift low.
 
 > 💡 The visitor's reaction we're going for: _"OMG, this is exactly what I needed."_ 😄
 
 ---
 
-## ✨ Why it's *lean*: two dimensions of one idea
+## ✨ Why it's _lean_: two dimensions of one idea
 
 "Lean" isn't about being tidier than the next tool — it's about **context economics**. The kit is lean in two reinforcing ways:
 
@@ -229,24 +229,24 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-bootstrap`   | One-shot interactive setup — questionnaire, maps the codebase, detects the stack, wires agents (calls the other skills in order)              | Setting up the kit in a project (**run this first**)       |
 | `leanagentkit-wire-agent`  | Installs native agent config for Cursor and/or Claude — copies memory pointers and generates skill wrappers from `.agent/skills/` frontmatter | Wiring a new agent target, or after adding/renaming skills |
 | `leanagentkit-match-stack` | Detects project technologies from `.agent/stacks/registry.md` and installs only the confirmed matching external skills                        | Bootstrapping, or after adding new dependencies            |
-| `leanagentkit-scaffold`    | Memory-aware greenfield/additive scaffolding — questionnaire, non-interactive generators, handoff to match-stack                               | Empty repo or adding ORM/UI/platform to an existing app    |
+| `leanagentkit-scaffold`    | Memory-aware greenfield/additive scaffolding — questionnaire, non-interactive generators, handoff to match-stack                              | Empty repo or adding ORM/UI/platform to an existing app    |
 | `leanagentkit-check`       | Guardrail — validates changed files against `AGENTS.md`, stack playbooks, and the active spec; reports violations with citations              | After meaningful changes, before ending a session          |
 
 ### 🧠 Memory — build and persist tiered context
 
-| Skill                           | What It Does                                                                                                                   | Use When                                                            |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| `leanagentkit-map-codebase`     | (Re)generates `docs/CODEBASE_MAP.md` from repo structure and entry points so future sessions navigate by reading one file      | Bootstrapping, or when the structure changes                        |
-| `leanagentkit-init-conventions` | Fills `AGENTS.md` §1–5 with evidence-based conventions drawn from the actual repo                                              | Bootstrapping, or when conventions drift from reality               |
-| `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                          | Capturing the rationale behind existing decisions                   |
-| `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
-| `leanagentkit-spike`            | Throwaway feasibility experiments under `spikes/` to validate an idea before committing to a build                            | "Is this possible?", comparing approaches, or prototyping           |
-| `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                          | Starting a new or in-progress feature, before coding                |
-| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff           | When a spec exists and the user is ready to code                    |
-| `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                               | Starting a coding session                                           |
-| `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                           | Ending a coding session                                             |
-| `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                  | Context window fills, branching off, or switching tools mid-task    |
-| `leanagentkit-ask-trevor`       | Trevor concierge — teach the kit, answer from memory, reminders, checklists, Backlog UX, workflows (opt-in via `trevor.yml`)   | "How do I…", reminders, checklists, "what should I do next?"        |
+| Skill                           | What It Does                                                                                                                   | Use When                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| `leanagentkit-map-codebase`     | (Re)generates `docs/CODEBASE_MAP.md` from repo structure and entry points so future sessions navigate by reading one file      | Bootstrapping, or when the structure changes                           |
+| `leanagentkit-init-conventions` | Fills `AGENTS.md` §1–5 with evidence-based conventions drawn from the actual repo                                              | Bootstrapping, or when conventions drift from reality                  |
+| `leanagentkit-seed-adrs`        | Reverse-engineers architectural decisions already in the code into `docs/adr/*` files                                          | Capturing the rationale behind existing decisions                      |
+| `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy    |
+| `leanagentkit-spike`            | Throwaway feasibility experiments under `spikes/` to validate an idea before committing to a build                             | "Is this possible?", comparing approaches, or prototyping              |
+| `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                          | Starting a new or in-progress feature, before coding                   |
+| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff           | When a spec exists and the user is ready to code                       |
+| `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                               | Starting a coding session                                              |
+| `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                           | Ending a coding session                                                |
+| `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                  | Context window fills, branching off, or switching tools mid-task       |
+| `leanagentkit-ask-trevor`       | Trevor concierge — teach the kit, answer from memory, reminders, checklists, Backlog UX, workflows (opt-in via `trevor.yml`)   | "How do I…", reminders, checklists, "what should I do next?"           |
 | `leanagentkit-distill-skill`    | Distills a session workflow (or named source) into a reusable `generated/` skill following agentskills.io standards            | After repeating a workflow 2+ times or when a procedure should persist |
 
 ### 🏭 Meta — author project-specific generators
@@ -254,7 +254,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | Skill                                  | What It Does                                                                                                                               | Use When                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
-| `leanagentkit-curate-skills`         | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows          |
+| `leanagentkit-curate-skills`           | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows        |
 
 ### 🛡️ Engineering practice — always-on guardrails
 
@@ -265,7 +265,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-git-workflow` | Commits as save points, branches as sandboxes, history as documentation; atomic, reviewable changes                                    | Committing, branching, resolving conflicts, parallel work               |
 | `leanagentkit-docs`         | Documents _why_ and rejected alternatives, not what the code already says                                                              | Writing comments, API docs, changelogs, or README onboarding            |
 | `leanagentkit-debug`        | Systematic root-cause triage — preserve evidence, localize, reduce, fix, guard against recurrence                                      | Tests fail, builds break, or behavior is unexpected                     |
-| `leanagentkit-tdd`          | Test-first RED-GREEN-REFACTOR discipline — write failing test, minimal code, refactor after green                                    | Adding features, fixing bugs, or changing behavior                        |
+| `leanagentkit-tdd`          | Test-first RED-GREEN-REFACTOR discipline — write failing test, minimal code, refactor after green                                      | Adding features, fixing bugs, or changing behavior                      |
 | `leanagentkit-security`     | Treats input as hostile, secrets as sacred, authz as mandatory — OWASP-aligned boundary hardening                                      | Handling user input, auth, data storage, or integrations                |
 | `leanagentkit-performance`  | Measurement-first optimization — profile, fix the proven bottleneck, measure again                                                     | Performance requirements exist or regressions are suspected             |
 | `leanagentkit-deprecation`  | Removes code that no longer earns its keep; migrates users safely from old to new                                                      | Removing systems/APIs, consolidating duplicates, or sunsetting features |
@@ -331,6 +331,8 @@ The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) 
 The learning-loop skills (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`) and agentskills.io-compliant authoring standards were inspired by [Hermes Agent](https://github.com/NousResearch/hermes-agent) from **Nous Research** and the [agentskills.io](https://agentskills.io) open standard. 💛
 
 `leanagentkit-tdd` was adapted from [obra/superpowers](https://github.com/obra/superpowers) (MIT) via Hermes Agent. `leanagentkit-spike` was adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) (MIT) by Lex Christopherson, via Hermes Agent. 💛
+
+Robot Illustrations - designed by upklyak - [Magnific.com](https://magnific.com)
 
 ---
 
