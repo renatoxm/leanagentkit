@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.13](https://github.com/renatoxm/leanagentkit/compare/v0.4.12...v0.4.13) (2026-07-05)
+
+
+### Features
+
+* add leanagentkit-create-skill for authoring and refactoring skills ([a41eba6](https://github.com/renatoxm/leanagentkit/commit/a41eba64b289dd9176dec8a31e109d6c92cfc1e6))
+
 ## [0.4.12](https://github.com/renatoxm/leanagentkit/compare/v0.4.11...v0.4.12) (2026-07-05)
 
 
