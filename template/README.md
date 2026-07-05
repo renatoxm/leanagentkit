@@ -126,9 +126,13 @@ and `.agent/recipes/`. See `generated/README.md` for authored generators (empty 
 
 Project-specific skills compound over time — no runtime required:
 
+- **`leanagentkit-create-skill`** — create or refactor generated skills to LAK standards.
 - **`leanagentkit-distill-skill`** — freeze a session workflow into `generated/`.
 - **`leanagentkit-curate-skills`** — review stale/duplicate generators; archive, never delete.
 - **`references/skill-authoring-standards.md`** — agentskills.io-compliant authoring rules.
+- **`references/skill-craft-glossary.md`** — predictability and refactor diagnosis.
+
+See the [Create skill guide](https://renatoxm.github.io/leanagentkit/create-skill) on the docs site.
 
 ## Stack skills (external, auto-installed)
 
@@ -164,7 +168,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 35 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 37 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -198,6 +202,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 | Skill                                  | What It Does                                                                                                                               | Use When                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `leanagentkit-create-skill`            | Create or refactor generated skills — LAK standards + predictability craft (orchestrator)                                                  | Authoring a new skill or improving an existing generated skill   |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
 | `leanagentkit-curate-skills`         | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows          |
 

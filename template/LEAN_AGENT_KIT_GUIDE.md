@@ -459,15 +459,35 @@ This is the kit's secret weapon for repetitive scaffolding. Instead of re‑deri
 
 > 💡 **Maya teaches it once:** she points it at `src/routes/dashboard/+page.svelte`. It learns her page = a `+page.svelte`, a `+page.server.ts` loader, a nav entry, and i18n keys in `en`/`pt`. Now every new page is one command, perfectly consistent with the dashboard — roles asked per‑page, everything else automatic. 🏗️
 
+<a id="skill-craft-create-refactor"></a>
+
+### Skill craft — create & refactor
+
+> *"Read `.agent/skills/leanagentkit-create-skill.md` and follow it."*
+
+Use when authoring a new generated skill from requirements, or refactoring an existing
+one for predictability (completion criteria, pruning, progressive disclosure). It is
+the **orchestrator** — format rules from `skill-authoring-standards.md`, craft
+vocabulary from `skill-craft-glossary.md` (adapted from Matt Pocock's
+`writing-great-skills`, MIT).
+
+**Delegate first when:**
+
+- Session workflow → `leanagentkit-distill-skill`, then craft pass here
+- Artifact generator from example → `leanagentkit-skill-artifact-template`, then craft pass here
+- Stale registry cleanup → `leanagentkit-curate-skills` (archive, never delete)
+
 ### The learning loop — distill, curate, improve
 
 Generated skills in `.agent/skills/generated/` compound over time — no runtime required.
 
 | Skill | What it does |
 |-------|--------------|
+| `leanagentkit-create-skill` | Create or refactor generated skills — LAK standards + predictability craft. |
 | `leanagentkit-distill-skill` | Freezes *what you just did this session* (or a named dir/URL) into a reusable skill — the file-based `/learn`. |
 | `leanagentkit-curate-skills` | Reviews generated skills; proposes archive for stale/duplicate; **never deletes**; `pinned` bypasses all suggestions. |
 | `references/skill-authoring-standards.md` | agentskills.io-compliant HARDLINE rules (`description` <=60 chars, frontmatter, section order). |
+| `references/skill-craft-glossary.md` | Predictability, failure modes, progressive disclosure — craft layer for create/refactor. |
 
 **Self-improving skills:** append gotchas under `## Learned notes` in generated skills only (kit-owned skills are overwritten on upgrade).
 
@@ -588,6 +608,7 @@ It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current 
 - 📌 **Make "Resume from here" concrete.** "Add expiry check in `auth.ts:42`," not "continue auth work."
 - 🏭 **Author a generator** for anything you scaffold 3+ times.
 - 🔄 **Distill repeated workflows** into skills with `leanagentkit-distill-skill`.
+- ✍️ **Create or refactor skills** for predictability with `leanagentkit-create-skill`.
 - 🧹 **Curate generated skills** periodically with `leanagentkit-curate-skills`.
 
 ### 🚫 Avoid this
@@ -670,6 +691,7 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
   → leanagentkit-match-stack           # detect + install stack skills
 
 🏭 GENERATORS & LEARNING LOOP
+  → leanagentkit-create-skill              # create/refactor generated skills
   → leanagentkit-skill-artifact-template   # teach a scaffolder once
   → leanagentkit-distill-skill             # freeze a session workflow
   → leanagentkit-curate-skills             # review stale generators

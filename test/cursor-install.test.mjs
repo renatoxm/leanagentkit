@@ -56,6 +56,17 @@ test("caveman skills have routing-safe descriptions (<=60 chars)", async () => {
   }
 });
 
+test("create-skill has routing-safe description (<=60 chars)", async () => {
+  const skills = await listKitSkills();
+  const createSkill = skills.find((s) => s.name === "leanagentkit-create-skill");
+  assert.ok(createSkill, "leanagentkit-create-skill must exist");
+  const desc = createSkill.description.replace(/^"|"$/g, "");
+  assert.ok(
+    desc.length <= 60,
+    `leanagentkit-create-skill: description must be <=60 chars (got ${desc.length})`,
+  );
+});
+
 test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-wire-"));
   try {

@@ -18,14 +18,8 @@ future generation is fast and needs no full-repo read.
 - `.agent/recipes/<artifact-type>.recipe.md` — the structured recipe (data).
 - `.agent/skills/generated/leanagentkit-create-<artifact-type>.md` — the runtime generator skill.
 - A registry line appended to `.agent/skills/generated/README.md`.
-- If `.cursor/skills/` exists (Cursor wired via `leanagentkit-wire-agent`), also create
-  `.cursor/skills/leanagentkit-create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
-  (`name: leanagentkit-create-<artifact-type>`, `description`, `disable-model-invocation: true`) that delegates to
-  `.agent/skills/generated/leanagentkit-create-<artifact-type>.md`.
-- If `.claude/skills/` exists (Claude wired via `leanagentkit-wire-agent`), also create
-  `.claude/skills/leanagentkit-create-<artifact-type>/SKILL.md` — a wrapper with frontmatter
-  (`name: leanagentkit-create-<artifact-type>`, `description`) that delegates to
-  `.agent/skills/generated/leanagentkit-create-<artifact-type>.md`.
+- Cursor/Claude wrappers via `leanagentkit-wire-agent` when `.cursor/skills/` or
+  `.claude/skills/` exist — do not hand-write individual wrapper files.
 
 ---
 
@@ -90,11 +84,15 @@ Write `.agent/skills/generated/leanagentkit-create-<artifact-type>.md` from
 generated skill must be self-contained: reading it + the recipe is enough to
 produce the artifact WITHOUT reading the whole codebase.
 
+### 6b. Craft pass
+Run `.agent/skills/leanagentkit-create-skill.md` — **craft pass only** — on the
+draft generator skill. Do not register or wire here; step 7 handles that.
+
 ### 7. Register & report
 Append a row to `.agent/skills/generated/README.md` with **Tags**, **Related**,
-**Status** (`active`), and **Last used** (today's date). If `.cursor/skills/` exists,
-write the Cursor skill wrapper (see Outputs). If `.claude/skills/` exists, write the
-Claude skill wrapper (see Outputs). Report: artifact type, reference example used,
+**Status** (`active`), and **Last used** (today's date). If `.cursor/skills/` or
+`.claude/skills/` exist, offer `leanagentkit-wire-agent` to generate wrappers
+(do not hand-write individual wrapper files). Report: artifact type, reference example used,
 capabilities captured, per-generation prompts, and the invocation string
 (`Read .agent/skills/generated/leanagentkit-create-<type>.md and follow it`).
 

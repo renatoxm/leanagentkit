@@ -61,10 +61,11 @@ When feasibility is unknown ("is this even possible?"), reach for **`leanagentki
 
 Generated skills in `.agent/skills/generated/` compound over time:
 
+- **`leanagentkit-create-skill`** — create or refactor generated skills to LAK standards.
 - **`leanagentkit-distill-skill`** — freeze a repeated session workflow into a reusable skill.
 - **`leanagentkit-curate-skills`** — review stale generators; archive, never delete.
 
-See the [Full Guide](/guide#the-learning-loop--distill-curate-improve) for details.
+See the [Create skill guide](/create-skill) and [Full Guide](/guide#skill-craft-create-refactor) for details.
 
 ## Optional: Caveman token efficiency
 

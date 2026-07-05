@@ -26,9 +26,13 @@ or "what we just did in this conversation".
 ## Procedure
 
 ### 1. Read authoring standards
-Read `.agent/skills/references/skill-authoring-standards.md`. Every output must
-comply: `description` <=60 chars, agentskills.io frontmatter, fixed section order,
+Read `.agent/skills/references/skill-authoring-standards.md` and
+`.agent/skills/references/skill-craft-glossary.md`. Every output must comply:
+`description` <=60 chars, agentskills.io frontmatter, fixed section order,
 `## Learned notes` at the end.
+
+To **refactor an existing generated skill** (not distill from a session), use
+`leanagentkit-create-skill` directly instead of this skill.
 
 ### 2. Parse the request
 The request may mix **sources** (dirs, paths, URLs, "what we just did", pasted
@@ -63,10 +67,15 @@ standards. Include:
 If the workflow needs parameterized steps (name, roles, paths), also write
 `.agent/recipes/<name>.recipe.md` using `.agent/recipes/_TEMPLATE.recipe.md`.
 
+### 5b. Craft pass
+Run `.agent/skills/leanagentkit-create-skill.md` — **craft pass only** — on the
+draft file. Do not register or wire here; step 6 handles that.
+
 ### 6. Register & wire
 Append a row to `.agent/skills/generated/README.md` with Tags, Related, Status
 (`active`), and Last used (today). If `.cursor/skills/` or `.claude/skills/` exist,
-offer to run `leanagentkit-wire-agent` to generate wrappers.
+offer to run `leanagentkit-wire-agent` to generate wrappers (do not hand-write
+individual wrapper files).
 
 ### 7. Report
 Tell the user: skill name, what it captured, invocation string, and whether a

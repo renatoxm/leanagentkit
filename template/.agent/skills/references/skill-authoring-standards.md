@@ -1,8 +1,10 @@
 # Skill authoring standards
 
-> Shared reference for `leanagentkit-skill-artifact-template`, `leanagentkit-distill-skill`,
-> and any agent authoring a project skill. Aligned with the [agentskills.io](https://agentskills.io)
-> open standard. Adapted from Hermes Agent skill-authoring HARDLINE rules.
+> Shared reference for `leanagentkit-create-skill`, `leanagentkit-skill-artifact-template`,
+> `leanagentkit-distill-skill`, and any agent authoring a project skill. Aligned with the
+> [agentskills.io](https://agentskills.io) open standard. Adapted from Hermes Agent
+> skill-authoring HARDLINE rules. For predictability, pruning, and refactor diagnosis,
+> see `leanagentkit-create-skill` + `skill-craft-glossary.md`.
 
 ## Frontmatter (required)
 

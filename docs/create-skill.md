@@ -1,0 +1,93 @@
+# Create skill — authoring & refactor craft
+
+Meta skill for **creating and refactoring** project-specific skills under
+`.agent/skills/generated/`. Adapted from [Matt Pocock's
+`writing-great-skills`](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
+(MIT). It applies LAK format rules plus predictability craft — without replacing
+distill, artifact generators, or curation.
+
+## What it is / is not
+
+| Create skill is | Create skill is not |
+|-----------------|---------------------|
+| Orchestrator for LAK-compliant skill authoring | A replacement for `leanagentkit-distill-skill` |
+| Refactor lens (pruning, hierarchy, failure modes) | A replacement for `leanagentkit-skill-artifact-template` |
+| Craft pass after distill or artifact-template drafts | Registry maintenance — use `leanagentkit-curate-skills` |
+| Explicit-invoke meta skill | A modifier of kit-owned `leanagentkit-*.md` in user projects |
+
+## Quick start
+
+Create or refactor a generated skill:
+
+> Read `.agent/skills/leanagentkit-create-skill.md` and follow it.
+
+Refactor an existing file:
+
+> Read `.agent/skills/leanagentkit-create-skill.md` and refactor
+> `.agent/skills/generated/leanagentkit-<name>.md`.
+
+## When to use which skill
+
+| Goal | Skill |
+|------|-------|
+| Session workflow → reusable skill | `leanagentkit-distill-skill` → craft pass via create-skill |
+| Code example → artifact generator | `leanagentkit-skill-artifact-template` → craft pass via create-skill |
+| Requirements → new skill (greenfield) | `leanagentkit-create-skill` (create branch) |
+| Fix sprawl, duplication, skipped steps | `leanagentkit-create-skill` (refactor branch) |
+| Archive stale generators | `leanagentkit-curate-skills` |
+
+## References (read with create-skill)
+
+| File | Role |
+|------|------|
+| `references/skill-authoring-standards.md` | Frontmatter, ≤60 char descriptions, section order, output paths |
+| `references/skill-craft-glossary.md` | Predictability, information hierarchy, failure modes, LAK overrides |
+
+## LAK hard rules vs craft principles
+
+**Hard rules (always):**
+
+- Generated skills live at `.agent/skills/generated/leanagentkit-<name>.md`
+- `description` — one sentence, **≤60 characters**
+- Never delete — archive to `generated/archived/` with `status: archived`
+- Never modify kit-owned `leanagentkit-*.md` in user projects (overwritten on upgrade)
+- No router/index-only skills
+
+**Craft principles (refactor levers):**
+
+- **Predictability** — same process every run, not identical output
+- **Completion criteria** — checkable, exhaustive where it matters
+- **Progressive disclosure** — push reference to sibling files with sharp pointers
+- **Leading words** — collapse verbose triads into pretrained tokens
+- **Failure modes** — premature completion, duplication, sediment, sprawl, no-op
+
+Matt's upstream skill allows richer model-invoked descriptions; LAK generated
+skills cannot exceed 60 characters — state capability in frontmatter, craft in the body.
+
+## Pairing with the learning loop
+
+```
+leanagentkit-distill-skill          →  capture session workflow
+leanagentkit-skill-artifact-template →  infer generator from example
+leanagentkit-create-skill           →  standards + craft pass
+leanagentkit-curate-skills          →  archive stale; never delete
+generated/leanagentkit-<name>.md      →  run the skill in daily work
+```
+
+## Invocation examples
+
+**New skill from requirements:**
+
+> Read `.agent/skills/leanagentkit-create-skill.md` and create a skill for running our E2E smoke tests.
+
+**Refactor after distill:**
+
+> Read `.agent/skills/leanagentkit-create-skill.md` — craft pass only — on the skill we just distilled.
+
+## Attribution
+
+Adapted from [Matt Pocock's
+`writing-great-skills`](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
+(MIT). LAK format rules and output paths are Lean Agent Kit constraints.
+
+See also: [Full Guide — §7 Artifact generators](/guide#skill-craft-create-refactor).

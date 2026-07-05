@@ -155,3 +155,38 @@ test("upgrade preserves user-created .leanagentkit/caveman.yml", () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("upgrade refreshes create-skill and craft glossary", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-create-skill-"));
+  try {
+    runCli(dir);
+    const createSkillPath = join(dir, ".agent", "skills", "leanagentkit-create-skill.md");
+    const glossaryPath = join(
+      dir,
+      ".agent",
+      "skills",
+      "references",
+      "skill-craft-glossary.md",
+    );
+    assert.ok(existsSync(createSkillPath), "create-skill present after scaffold");
+    assert.ok(existsSync(glossaryPath), "glossary present after scaffold");
+
+    writeFileSync(createSkillPath, "# STALE CREATE SKILL");
+    writeFileSync(glossaryPath, "# STALE GLOSSARY");
+
+    runCli(dir, "--upgrade");
+
+    assert.match(
+      readFileSync(createSkillPath, "utf8"),
+      /craft pass only/i,
+      "create-skill refreshed on upgrade",
+    );
+    assert.match(
+      readFileSync(glossaryPath, "utf8"),
+      /LAK overrides/i,
+      "glossary refreshed on upgrade",
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

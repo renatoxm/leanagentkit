@@ -27,12 +27,14 @@ Memory protocol and tiers: see **`AGENTS.md` §6** (canonical — do not duplica
 
 | Skill | Does |
 |-------|------|
+| `leanagentkit-create-skill.md` | Create or refactor generated skills — LAK standards + predictability craft (orchestrator). |
 | `leanagentkit-skill-artifact-template.md` | Authors a project-specific generator. Infers recipe from an example → `generated/leanagentkit-create-<type>.md`. |
 | `leanagentkit-distill-skill.md` | Distills a session workflow (or named source) into a reusable `generated/` skill. |
 | `leanagentkit-curate-skills.md` | Reviews generated skills — archive stale/duplicate; never delete; respect `pinned`. |
 | `generated/leanagentkit-create-<type>.md` | Authored generators (empty until created). See `generated/README.md`. |
 
 Recipes live in `.agent/recipes/`. Authoring standards: `references/skill-authoring-standards.md`.
+Craft glossary: `references/skill-craft-glossary.md`.
 
 ## Memory (called by bootstrap, or run individually)
 

@@ -17,6 +17,11 @@ test("scaffolds kit files into a target dir", () => {
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-caveman.md")), "caveman skill copied");
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-caveman-commit.md")), "caveman-commit skill copied");
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-caveman-review.md")), "caveman-review skill copied");
+    assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-create-skill.md")), "create-skill copied");
+    assert.ok(
+      existsSync(join(dir, ".agent/skills/references/skill-craft-glossary.md")),
+      "skill-craft-glossary copied",
+    );
     assert.ok(existsSync(join(dir, "docs/memory/REMINDERS.md")), "reminders template copied");
     assert.ok(existsSync(join(dir, ".leanagentkit/trevor.yml.example")), "trevor config example copied");
     assert.ok(existsSync(join(dir, ".leanagentkit/caveman.yml.example")), "caveman config example copied");

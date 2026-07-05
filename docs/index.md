@@ -32,7 +32,9 @@ features:
   - title: Tool-agnostic
     details: Works with Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline — anything that can read files.
   - title: Self-improving skills
-    details: Distill session workflows into reusable skills; curate stale generators — skills compound via Learned notes.
+    details: Create, distill, and refactor generated skills with predictable process; curate stale generators — skills compound via Learned notes.
+  - title: Skill authoring craft
+    details: leanagentkit-create-skill — create and refactor project skills to LAK standards; adapted from Matt Pocock's writing-great-skills (MIT).
   - title: Optional Caveman skills
     details: Terse commit messages, PR comments, and agent replies — opt in via caveman.yml; adapted from Julius Brussee's Caveman (MIT).
 ---

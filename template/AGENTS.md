@@ -58,6 +58,8 @@ personal nudges — not project blockers (those stay in `ACTIVE_CONTEXT`).
 
 Project-specific skills live in `.agent/skills/generated/` and compound over time:
 
+- **Author/refactor** — create or improve generated skills with predictable process
+  via `leanagentkit-create-skill`.
 - **Distill** — if you repeated a workflow 2+ times or walked through a reusable
   procedure this session, nudge the user toward `leanagentkit-distill-skill`.
 - **Curate** — periodically (or when the registry grows), nudge toward
@@ -65,6 +67,7 @@ Project-specific skills live in `.agent/skills/generated/` and compound over tim
 - **Learned notes** — append gotchas under `## Learned notes` in generated skills
   only (kit-owned skills are overwritten on upgrade).
 - Authoring standards: `.agent/skills/references/skill-authoring-standards.md`.
+  Craft glossary: `.agent/skills/references/skill-craft-glossary.md`.
 
 ### Asking the user
 When you need input from the user, prefer the host agent's interactive

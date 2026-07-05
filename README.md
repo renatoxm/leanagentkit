@@ -231,7 +231,7 @@ Full details: [Caveman guide](/caveman) · skills: `.agent/skills/leanagentkit-c
 
 ---
 
-## 🎁 What's in the box — 35 tool-agnostic skills
+## 🎁 What's in the box — 37 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -266,6 +266,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 
 | Skill                                  | What It Does                                                                                                                               | Use When                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `leanagentkit-create-skill`            | Create or refactor generated skills — LAK standards + predictability craft (orchestrator)                                                  | Authoring a new skill or improving an existing generated skill   |
 | `leanagentkit-skill-artifact-template` | Learns this codebase's recipe for an artifact once (from a real example) and freezes a standalone `create-<type>` generator skill + recipe | Creating a reusable generator (page, component, CRUD, endpoint…) |
 | `leanagentkit-curate-skills`           | Reviews generated skills — flags stale/duplicate generators, archives (never deletes), respects `pinned` status                            | Periodically, or when the generated skills registry grows        |
 
@@ -349,7 +350,7 @@ Only `bin/` and `template/` ship (see the `files` whitelist in `package.json`); 
 
 The engineering-practice skills (code review, simplification, git workflow, documentation, debugging, TDD, security, performance, deprecation, API design, CI/CD, and observability) were adapted from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — thanks to **Addy Osmani** and contributors for the inspiration. 💛
 
-The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) were adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — thanks to **Matt Pocock** for the `grilling` and `handoff` skills. 💛
+The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) and skill-authoring craft (`leanagentkit-create-skill`, adapted from `writing-great-skills`) were adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — thanks to **Matt Pocock**. 💛
 
 The learning-loop skills (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`) and agentskills.io-compliant authoring standards were inspired by [Hermes Agent](https://github.com/NousResearch/hermes-agent) from **Nous Research** and the [agentskills.io](https://agentskills.io) open standard. 💛
 
