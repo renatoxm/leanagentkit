@@ -5,7 +5,11 @@
 >
 > _(Omit the `Backlog:` line until `leanagentkit-new-spec` creates a linked card
 > when Backlog.md integration is active. Omit `Branch:` until
-> `leanagentkit-implement-spec` creates a branch via git lifecycle integration.)_
+> `leanagentkit-implement-spec` creates a branch via git lifecycle integration.
+> Omit `Slices:` until `leanagentkit-decompose-spec` creates a companion slices file
+> when architecture integration is active.)_
+>
+> _(When decomposed: `> Slices: docs/specs/NNN-<feature>-slices.md`)_
 
 ## Problem
 

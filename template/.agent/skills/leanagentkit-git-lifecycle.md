@@ -73,8 +73,16 @@ Full branch name: `{branch_prefix}/{slug}`.
 
 ## Branch offer (implement-spec start)
 
+**Skip this offer** when `implement-spec` is in **parallel slice mode** (slices
+file + user chose parallel + architecture integration active). Slice branches
+are created per `leanagentkit-git-workflow` Parallel slices subsection instead.
+Resume parent-branch offers for sequential-by-AC or sequential-by-slice modes.
+
+### Standard branch (sequential-by-AC or sequential-by-slice)
+
 1. Resolve active spec path (`docs/specs/NNN-*.md`).
-2. Derive slug from filename (strip `NNN-` prefix and `.md`).
+2. Derive slug from filename (strip `NNN-` prefix and `.md`; ignore `-slices`
+   suffix if ever present on a misnamed file).
 3. Compute branch name: `{branch_prefix}/{slug}` from config.
 4. If spec frontmatter already has `Branch:` matching the computed name, or
    `git branch --show-current` is already that branch, skip the offer.
@@ -90,6 +98,17 @@ Full branch name: `{branch_prefix}/{slug}`.
    Mention the branch in `ACTIVE_CONTEXT` under Current focus.
 
 **Base branch:** prefer `origin/HEAD` symbolic ref, else config `default_base`.
+
+### Parallel slice mode (implement-spec Phase B)
+
+- Do **not** offer the standard `{branch_prefix}/{slug}` branch at implement start.
+- Each parallel slice gets its own branch:
+  `{branch_prefix}/{slug}-{slice-id}` (e.g. `feature/team-workspaces-S3`).
+- Record slice branches in the slices file (add optional **Branch** column or
+  notes under each slice row) — not in the parent spec `Branch:` line.
+- **Phase C integration:** merge slice branches into one integration branch
+  (`{branch_prefix}/{slug}` or `{branch_prefix}/{slug}-integration`) before PR.
+  Record the integration branch in parent spec frontmatter when created.
 
 ## Commit offer (AC or end-session)
 

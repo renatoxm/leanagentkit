@@ -38,7 +38,7 @@ npm create lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml` — not in the kit template, so upgrade never overwrites them).
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml` — not in the kit template, so upgrade never overwrites them).
 
 After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 

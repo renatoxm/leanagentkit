@@ -277,6 +277,24 @@ offers only — never auto-commit, push, or open PR. PR offers require `gh`.
 
 Full details: see the [Git lifecycle integration guide](/git-lifecycle) in the docs site.
 
+### Optional — architecture decomposition
+
+For **Clean Architecture + DDD-guided slice decomposition** and optional parallel
+implementation, opt in during bootstrap (Step 3g):
+
+```bash
+# Created automatically when you answer Yes at Step 3g:
+# .leanagentkit/architecture.yml  (from .leanagentkit/architecture.yml.example)
+```
+
+Or read `.agent/skills/leanagentkit-architecture.md` and follow it. The **spec
+stays the source of truth**; the **slices file** (`docs/specs/NNN-*-slices.md`)
+owns work packages and parallel eligibility. Embedded CA/DDD references ship in
+`.agent/skills/references/` — no external install. Parallel agents require explicit
+user consent; integration slice runs last.
+
+Full details: see the [Architecture decomposition guide](/architecture-decomposition) in the docs site.
+
 ---
 
 ## 🔀 5. Workflows from simple to complex
@@ -318,16 +336,17 @@ start-session → spike → (grill → new-spec if validated) → …
 > *"Add team workspaces with role‑based access."*
 
 ```
-start-session → grill → new-spec → implement-spec → check → end-session
+start-session → grill → new-spec → decompose-spec (optional) → implement-spec → check → end-session
 ```
 
 This is the loop in full bloom:
 
 1. **Grill** surfaces the hard questions one at a time: *"Owners vs members — who can invite? (Recommended: owners only.)"* … *"Soft‑delete workspaces or hard? (Recommended: soft.)"*
 2. **new-spec** freezes the answers as testable acceptance criteria.
-3. **implement-spec** works the spec sequentially; `api-design` and `security` guardrails kick in for the new endpoints and access checks.
-4. **Check** confirms each acceptance criterion is being met.
-5. **end-session** marks the spec `done` and logs progress.
+3. **decompose-spec** (optional, when architecture integration is enabled) breaks the spec into parallel-safe work slices with integration contracts.
+4. **implement-spec** works the spec sequentially or parallel slices where safe; `api-design` and `security` guardrails kick in for the new endpoints and access checks.
+5. **Check** confirms each acceptance criterion is being met.
+6. **end-session** marks the spec `done` and logs progress.
 
 > 💡 **Maya's epic:** the workspaces feature spans 4 sessions. Each morning she just runs `start-session` and the agent resumes exactly where it stopped — the spec is the contract, `PROGRESS` is the diary, `ACTIVE_CONTEXT` is the bookmark. No re‑explaining across 4 days. 📅
 
@@ -386,8 +405,10 @@ Compose everything:
 ```
 grill (scope the migration, one decision at a time)
   → new-spec (freeze it; maybe split into multiple specs)
+  → decompose-spec (optional — parallel-safe slices + contracts)
   → seed-adrs (record the irreversible decisions)
   → api-design / security as boundaries are designed
+  → implement-spec (sequential or parallel slices)
   → work in small commits (git-workflow)
   → check + review per slice
   → handoff when a context window fills
@@ -591,6 +612,7 @@ It writes `docs/memory/HANDOFF.md`: the goal, what's done, what's left, current 
 
 - **Commit the kit files.** `AGENTS.md`, `docs/`, and `.agent/` are shared memory — your teammates' agents inherit the same map, rules, and specs. 🎁
 - **Parallel work** → `git-workflow` covers worktrees: each agent gets its own directory + branch (`git worktree add ../proj-feature-a feature/x`). Run multiple agents on multiple features without collisions.
+- **Parallel slices (same feature)** → when architecture decomposition is enabled, `decompose-spec` produces a slices file; `implement-spec` can fan out adapter/context slices to separate worktrees (user consent required). Integration slice merges last.
 - **Switching tools per task** is fine — every tool reads the same `AGENTS.md`. Cursor & Claude have native wrappers; others paste/point to it.
 
 ---
@@ -679,7 +701,8 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
   → leanagentkit-spike                  # feasibility experiments (when "is this possible?")
   → leanagentkit-grill                 # interview to align (one Q at a time)
   → leanagentkit-new-spec              # freeze the plan as a spec
-  → leanagentkit-implement-spec        # implement the spec sequentially
+  → leanagentkit-decompose-spec        # optional — parallel-safe slices (architecture opt-in)
+  → leanagentkit-implement-spec        # implement the spec (sequential or parallel slices)
 
 🧠 MEMORY UPKEEP
   → leanagentkit-map-codebase          # refresh the map (structure changed)

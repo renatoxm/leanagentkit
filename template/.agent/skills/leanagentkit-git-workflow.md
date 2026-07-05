@@ -113,6 +113,41 @@ git worktree add ../project-feature-a feature/my-feature
 git worktree remove ../project-feature-a  # when done
 ```
 
+### Parallel slices (architecture decomposition)
+
+When implementing parallel slices from `docs/specs/NNN-*-slices.md`:
+
+```bash
+# From repo root; spec slug = kebab-case feature name from parent spec filename
+git worktree add ../<repo>-<spec-slug>-<slice-id> feature/<spec-slug>-<slice-id>
+# Example: ../myapp-team-workspaces-S3 feature/team-workspaces-S3
+```
+
+- One worktree per parallel slice; branch naming: `feature/<spec-slug>-<slice-id>`
+- Work only files listed in that slice's **FilesInPlay** column
+- Remove worktree after integration slice merges: `git worktree remove ../<path>`
+- Never force-push shared branches; integration agent merges via normal PR/merge flow
+
+### Merge slices (integration phase)
+
+After parallel slice branches complete (Phase C in `leanagentkit-implement-spec`):
+
+1. Create or checkout the integration branch from base:
+   `git checkout -b feature/<spec-slug> [<base>]`
+2. Merge each slice branch in DependsOn order (foundation slices first if they
+   lived on separate branches, then adapters):
+   ```bash
+   git merge --no-ff feature/<spec-slug>-S3 -m "feat(<slug>): integrate slice S3"
+   ```
+3. Resolve conflicts in the integration slice — prefer the contract-defined interfaces.
+4. Run tests and `leanagentkit-check` before checking off parent spec ACs.
+5. Remove worktrees when merges are complete:
+   `git worktree remove ../<repo>-<spec-slug>-<slice-id>`
+6. Push integration branch and open one PR (via `leanagentkit-git-lifecycle` when active).
+
+Use `--no-ff` merges to preserve slice history. Rebase only when the user explicitly
+requests a linear history.
+
 ## Red flags
 
 - Large uncommitted changes accumulating

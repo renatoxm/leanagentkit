@@ -72,7 +72,7 @@ npx create-lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/`, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs under `.leanagentkit/` you created (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`).
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs under `.leanagentkit/` you created (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml`).
 
 Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
 

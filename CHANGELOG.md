@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [Unreleased]
+
+### Features
+
+* **Architecture decomposition** — opt-in `.leanagentkit/architecture.yml` integration with embedded Clean Architecture and Domain-Driven Design references (adapted from [wondelai/skills](https://github.com/wondelai/skills), MIT), new `leanagentkit-decompose-spec` skill for parallel-safe work slices, and parallel slice mode in `leanagentkit-implement-spec` (user consent required). Docs: `/architecture-decomposition`.
+
+### Fixes
+
+* **Architecture workflow hardening** — sequential-by-slice mode, parallel AC gating until integration, git-lifecycle coordination with slice branches, merge recipe, new-spec excludes `*-slices.md` from numbering, bootstrap conditional skill count, routing-safe skill descriptions, vendored reference frontmatter attribution placement.
+
 ## [0.4.13](https://github.com/renatoxm/leanagentkit/compare/v0.4.12...v0.4.13) (2026-07-05)
 
 

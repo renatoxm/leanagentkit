@@ -73,6 +73,14 @@ when Cursor/Claude is wired. No detection needed.
 - **Enable when:** user opted in during bootstrap or created the config file in the repo
 - **Note:** spec owns intent; git branch is the execution sandbox. Prompt-only — never auto-commit, push, or open PR. PR offers require `gh` on PATH.
 
+## Architecture decomposition (optional)
+
+- **Detect:** `.leanagentkit/architecture.yml` exists with `enabled: true`
+- **Skills:** `leanagentkit-architecture` (`invocation: conditional`); `leanagentkit-decompose-spec` (explicit-invoke orchestration — advertise alongside architecture when active)
+- **Default:** conditional (architecture integration skill only)
+- **Enable when:** user opted in during bootstrap (Step 3g) or created the config file manually
+- **Note:** spec owns intent; slices file (`docs/specs/NNN-*-slices.md`) owns work packages and parallel eligibility. Embedded CA/DDD references live in `.agent/skills/references/`. Parallel mode requires architecture config; sequential-by-slice does not. Never auto-spawn parallel agents.
+
 ## Token efficiency (Caveman, optional) — `match-stack` step 8 only
 
 > **Do not process this row in step 7.** Caveman skills are never listed under

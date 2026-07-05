@@ -42,8 +42,10 @@ does it for you. Open your editor, tell the agent to **`leanagentkit-start-sessi
 and it primes itself by reading `ACTIVE_CONTEXT.md` and `CODEBASE_MAP.md` (cheap,
 no repo scan), then picks up exactly where you left off. You describe what you
 want; for anything new or fuzzy, let it `leanagentkit-grill` you into a clear plan
-and freeze a spec with `leanagentkit-new-spec` before any code is written. When ready
-to build, invoke `leanagentkit-implement-spec` to work the spec sequentially. When a
+and freeze a spec with `leanagentkit-new-spec` before any code is written. Optionally
+decompose into parallel-safe slices with `leanagentkit-decompose-spec` when architecture
+integration is enabled. When ready to build, invoke `leanagentkit-implement-spec` to
+work the spec sequentially or in parallel slices. When a
 chunk of work is done, run `leanagentkit-check` to validate
 it against your `AGENTS.md` conventions and stack rules, and close out with
 `leanagentkit-end-session` so the next session — yours or a fresh agent's — starts
@@ -51,10 +53,10 @@ warm. Repeat each day; the memory files stay current as a side effect of working
 not as extra paperwork.
 
 ```
-leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec → leanagentkit-implement-spec for new work) → leanagentkit-check → leanagentkit-end-session
+leanagentkit-start-session → (leanagentkit-grill → leanagentkit-new-spec → leanagentkit-decompose-spec (optional) → leanagentkit-implement-spec for new work) → leanagentkit-check → leanagentkit-end-session
 ```
 
-- **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding) → `leanagentkit-implement-spec` (when ready to build)
+- **New feature** → `leanagentkit-grill` (align first) → `leanagentkit-new-spec` (before coding) → `leanagentkit-decompose-spec` (optional) → `leanagentkit-implement-spec` (when ready to build)
 - **Refresh map** → `leanagentkit-map-codebase` (when structure changes)
 - **Context full mid-task** → `leanagentkit-handoff` → new chat → `leanagentkit-start-session` (read `HANDOFF.md`)
 - **Natural pause** → `leanagentkit-check` → `leanagentkit-end-session` → `leanagentkit-start-session` next time
@@ -191,7 +193,8 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-grill`            | Relentlessly interviews you one question at a time to align on a plan before coding; explores the repo for answers instead of asking, then hands off to `leanagentkit-new-spec` | Before a feature or non-trivial change, when requirements are fuzzy |
 | `leanagentkit-spike`            | Throwaway feasibility experiments under `spikes/` to validate an idea before committing to a build                                                                                | "Is this possible?", comparing approaches, or prototyping           |
 | `leanagentkit-new-spec`         | Creates a feature spec in `docs/specs/<feature>.md`, Spec-Kit style, grounded in the current codebase                                                                           | Starting a new or in-progress feature, before coding                |
-| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — spec-driven, sequential work with optional Cursor Plan mode handoff                                                            | When a spec exists and the user is ready to code                    |
+| `leanagentkit-decompose-spec`   | Decomposes a spec into parallel-safe work slices using embedded Clean Architecture and DDD references                                                                         | After new-spec, when architecture integration is enabled            |
+| `leanagentkit-implement-spec`   | Implements an approved spec from `docs/specs/` — sequential or parallel slices with optional Cursor Plan mode handoff                                                          | When a spec exists and the user is ready to code                    |
 | `leanagentkit-start-session`    | Primes context cheaply — reads only `ACTIVE_CONTEXT.md` then `CODEBASE_MAP.md`, no repo globbing                                                                                | Starting a coding session                                           |
 | `leanagentkit-end-session`      | Persists active context, progress, and map updates (runs `leanagentkit-check` first if code changed)                                                                            | Ending a coding session                                             |
 | `leanagentkit-handoff`          | Compacts the current conversation into `docs/memory/HANDOFF.md` so a fresh agent or another tool can continue                                                                   | Context window fills, branching off, or switching tools mid-task    |
@@ -232,6 +235,8 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 | `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
+| `leanagentkit-architecture`    | Embedded CA/DDD references, parallel slice safety rules, optional boundary checks                           | `.leanagentkit/architecture.yml` with `enabled: true`          |
+| `leanagentkit-decompose-spec`  | Decomposes specs into parallel-safe work slices with integration contracts                                  | After new-spec when architecture integration is active         |
 
 ### Optional token efficiency (Caveman)
 

@@ -72,7 +72,10 @@ config (`.mcp.json` entries), and runs install commands when approved.
    row activates when `backlog` is on PATH **and** a Backlog project folder/config
    exists — advertise it there; do not run `backlog agents --update-instructions`.
    The `leanagentkit-git-lifecycle` row activates when `.git` exists **and**
-   `.leanagentkit/git-lifecycle.yml` exists. Always-on guardrails (`invocation: auto`)
+   `.leanagentkit/git-lifecycle.yml` exists. The `leanagentkit-architecture` row
+   activates when `.leanagentkit/architecture.yml` exists with `enabled: true` —
+   advertise `leanagentkit-architecture` and `leanagentkit-decompose-spec` there.
+   Always-on guardrails (`invocation: auto`)
    need no detection — they auto-load when wired and aren't listed here.
    **Idempotent:** replace the entire Practice skills subsection body on re-run
    (remove stale lines when Detect no longer matches); don't append duplicates.

@@ -122,6 +122,16 @@ test("bootstrap offers Caveman token efficiency in Step 3e", () => {
   assert.match(bootstrap, /caveman\.yml\.example/);
 });
 
+test("bootstrap offers architecture decomposition in Step 3g", () => {
+  const bootstrap = readFileSync(
+    join(process.cwd(), "template", ".agent", "skills", "leanagentkit-bootstrap.md"),
+    "utf8",
+  );
+  assert.match(bootstrap, /Step 3g — Optional architecture decomposition/);
+  assert.match(bootstrap, /architecture\.yml\.example/);
+  assert.match(bootstrap, /Five are `invocation:\s*\nconditional`/);
+});
+
 test("bootstrap refreshes AGENTS.md section 7 after optional integrations", () => {
   const bootstrap = readFileSync(
     join(process.cwd(), "template", ".agent", "skills", "leanagentkit-bootstrap.md"),

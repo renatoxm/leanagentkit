@@ -32,6 +32,11 @@ and the active feature spec. Reports violations with citations — does not auto
    - Forbidden patterns from §5
    - Stack-specific conventions from playbooks
    - If a spec is active: does the change move toward acceptance criteria?
+   - **Architecture (optional).** If architecture integration is active (see
+     `leanagentkit-architecture` detection contract), run optional boundary
+     checks from that skill (import direction, framework in domain paths, technical
+     naming in domain modules). Report as Violations or Warnings with citations
+     to embedded CA/DDD references — do not auto-fix.
 
 4. **Report** (structured, not verbose)
 

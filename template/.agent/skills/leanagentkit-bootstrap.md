@@ -62,8 +62,8 @@ them in the summary.
 **Practice skills (guardrails):** Eleven cross-cutting skills ship in
 `.agent/skills/`. Nine are always-on with `invocation: auto` (review, simplify,
 git-workflow, docs, debug, security, performance, deprecation, api-design) —
-agents load them when relevant, not on every prompt. Four are `invocation:
-conditional` (ci-cd, observability, backlog, git-lifecycle): they ship dormant and are
+agents load them when relevant, not on every prompt. Five are `invocation:
+conditional` (ci-cd, observability, backlog, git-lifecycle, architecture): they ship dormant and are
 advertised in `AGENTS.md §7` only when `leanagentkit-match-stack` detects
 matching evidence. See `.agent/skills/README.md` § Engineering practice.
 
@@ -134,14 +134,30 @@ Full details: `LEAN_AGENT_KIT_GUIDE.md` (§8 optional token efficiency),
 [docs site — Caveman](https://renatoxm.github.io/leanagentkit/caveman), and
 `.agent/skills/leanagentkit-caveman*.md`.
 
+## Step 3g — Optional architecture decomposition
+
+Offer (do not assume):
+
+> Enable architecture-guided decomposition? (embedded Clean Architecture + DDD
+> references, parallel-safe work slices when possible)
+
+- **Yes** → copy `.leanagentkit/architecture.yml.example` to
+  `.leanagentkit/architecture.yml` (adjust settings if the user wants). Step 3f
+  wires `leanagentkit-architecture` and `leanagentkit-decompose-spec` into
+  `AGENTS.md §7`.
+- **No** → skip. The kit works fully without architecture decomposition.
+
+Full integration details: `.agent/skills/leanagentkit-architecture.md` and
+`.agent/skills/leanagentkit-decompose-spec.md`.
+
 ## Step 3f — Refresh AGENTS.md §7 (optional integrations)
 
-Step 3 runs `leanagentkit-match-stack` **before** optional configs in 3b–3e exist.
-After Steps 3b–3e (whether the user opted in or skipped each), run **only** steps
+Step 3 runs `leanagentkit-match-stack` **before** optional configs in 3b–3g exist.
+After Steps 3b–3g (whether the user opted in or skipped each), run **only** steps
 7 and 8 of `leanagentkit-match-stack`:
 
 1. Rebuild **Practice skills (guardrails)** — CI/CD, observability, backlog,
-   git-lifecycle (per registry Detect conditions).
+   git-lifecycle, architecture (per registry Detect conditions).
 2. Rebuild **Token efficiency (optional)** — Caveman toggles from
    `.leanagentkit/caveman.yml` (step 8 only; never under Practice skills).
 
@@ -208,7 +224,8 @@ post-install bullets immediately below it).
 Print: tiers enabled, files created, stacks detected + install status (with any
 REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
 stack-skills section updated, Trevor status if Step 3d enabled, Caveman status if
-Step 3e enabled (list which toggles are on), the daily loop (`leanagentkit-start-session` →
+Step 3e enabled (list which toggles are on), architecture decomposition status if
+Step 3g enabled, the daily loop (`leanagentkit-start-session` →
 `leanagentkit-check` → `leanagentkit-end-session`), and the learning loop
 (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`). Clear bootstrap notes from SCRATCH.
 

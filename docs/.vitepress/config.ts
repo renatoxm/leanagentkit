@@ -24,6 +24,7 @@ export default withMermaid(defineConfig({
       { text: 'Caveman', link: '/caveman' },
       { text: 'Create skill', link: '/create-skill' },
       { text: 'Git lifecycle', link: '/git-lifecycle' },
+      { text: 'Architecture', link: '/architecture-decomposition' },
     ],
     sidebar: [
       { text: 'Getting Started', link: '/getting-started' },
@@ -34,6 +35,7 @@ export default withMermaid(defineConfig({
       { text: 'Caveman', link: '/caveman' },
       { text: 'Create skill', link: '/create-skill' },
       { text: 'Git lifecycle', link: '/git-lifecycle' },
+      { text: 'Architecture', link: '/architecture-decomposition' },
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/renatoxm/leanagentkit' },

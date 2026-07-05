@@ -42,6 +42,8 @@ Each handoff **overwrites** `docs/memory/HANDOFF.md` — it is always the latest
    invoke (e.g. `leanagentkit-start-session` to prime, `leanagentkit-implement-spec`
    when resuming spec work, the active `docs/specs/<feature>.md`, then
    `leanagentkit-check` before wrapping up).
+   When resuming parallel slice work, include the slices file path, active slice ID,
+   and worktree path if applicable.
 4. **Do not duplicate** content already captured in other artifacts (specs,
    ADRs, `PROGRESS.md`, commits, diffs) — reference them by path instead.
 5. **Redact** any sensitive information — API keys, passwords, tokens, or PII.

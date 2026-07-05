@@ -1,0 +1,14 @@
+# Architecture decomposition integration for Lean Agent Kit.
+# Copy to .leanagentkit/architecture.yml during bootstrap (Step 3g) or manually.
+# Commit this file so teammates share the same settings.
+
+enabled: true
+
+# Offer decomposition after new-spec for non-trivial specs
+offer_decompose_after_spec: true
+
+parallel_work:
+  enabled: true
+  max_parallel: 3
+  require_contracts: true   # block parallel until Integration contracts filled
+  use_worktrees: true       # git worktree per slice (see leanagentkit-git-workflow)

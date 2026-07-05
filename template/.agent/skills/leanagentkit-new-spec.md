@@ -19,10 +19,11 @@ reach a shared understanding before capturing it here.
 
 1. Confirm the feature name and one-line goal with the user if not given.
 2. **Allocate the next spec number.** List `docs/specs/` and find the highest
-   existing three-digit prefix on files matching `^\d{3}-.*\.md$` (ignore
-   `_TEMPLATE.md`). Increment by 1; if none exist, start at `001`. Example: if
-   the latest is `004-my-spec-name.md`, the next file is
-   `005-my-new-spec-name.md`.
+   existing three-digit prefix on **parent spec** files matching
+   `^\d{3}-(?!.*-slices\.md$).*\.md$` (ignore `_TEMPLATE.md`, `_SLICES_TEMPLATE.md`,
+   and companion `NNN-*-slices.md` files). Increment by 1; if none exist, start
+   at `001`. Example: if the latest parent spec is `004-my-spec-name.md`, the
+   next file is `005-my-new-spec-name.md`.
 3. Read `docs/CODEBASE_MAP.md` to find which existing modules the feature touches.
 4. Fill the template: Problem, Goal, Scope (explicit in/out), **testable**
    Acceptance criteria, Approach (name the real files/modules it will touch and
@@ -53,4 +54,11 @@ reach a shared understanding before capturing it here.
 ## Handoff
 
 Do not start coding in this skill unless the user explicitly asks.
-When the spec is written, offer: "Ready to implement? Invoke `leanagentkit-implement-spec`."
+
+When the spec is written:
+
+- If architecture integration is active (see `leanagentkit-architecture` detection
+  contract) and the spec is non-trivial (3+ acceptance criteria or Approach touches
+  3+ modules), offer: "Decompose into parallel-safe slices? Invoke
+  `leanagentkit-decompose-spec`."
+- Otherwise offer: "Ready to implement? Invoke `leanagentkit-implement-spec`."

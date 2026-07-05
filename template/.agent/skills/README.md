@@ -46,7 +46,9 @@ Craft glossary: `references/skill-craft-glossary.md`.
 | `leanagentkit-grill.md` | aligns on a plan (interview), then hands off to `leanagentkit-new-spec` |
 | `leanagentkit-spike.md` | throwaway feasibility experiments under `spikes/` before committing to a build |
 | `leanagentkit-new-spec.md` | `docs/specs/<feature>.md` |
-| `leanagentkit-implement-spec.md` | implements an active spec (spec-driven, sequential) |
+| `leanagentkit-decompose-spec.md` | `docs/specs/<feature>-slices.md` (optional parallel-safe work packages) |
+| `leanagentkit-implement-spec.md` | implements an active spec (spec-driven, sequential or parallel slices) |
+| `leanagentkit-architecture.md` | optional CA/DDD decomposition integration (conditional) |
 | `leanagentkit-start-session.md` | reads memory, primes context |
 | `leanagentkit-end-session.md` | persists state (runs `leanagentkit-check` first if code changed) |
 | `leanagentkit-handoff.md` | `docs/memory/HANDOFF.md` (cross-session/cross-tool baton) |
