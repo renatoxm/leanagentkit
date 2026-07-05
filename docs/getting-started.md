@@ -38,7 +38,7 @@ npm create lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, and `docs/adr/0001-*`.
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml` — not in the kit template, so upgrade never overwrites them).
 
 After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 
@@ -65,6 +65,12 @@ Generated skills in `.agent/skills/generated/` compound over time:
 - **`leanagentkit-curate-skills`** — review stale generators; archive, never delete.
 
 See the [Full Guide](/guide#the-learning-loop--distill-curate-improve) for details.
+
+## Optional: Caveman token efficiency
+
+Terse commit messages, PR comments, and (optionally) agent replies — opt in via
+`.leanagentkit/caveman.yml`. Say **Yes** during bootstrap Step 3e, or see the
+[Caveman guide](/caveman).
 
 ## When the context window fills
 

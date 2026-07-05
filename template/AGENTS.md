@@ -97,5 +97,10 @@ similar hosts. Rules:
 <!-- Auto-populated by leanagentkit-match-stack for conditional skills (CI/CD, observability).
      Always-on guardrails (review, debug, security, etc.) ship with the kit — see .agent/skills/README.md -->
 
+### Token efficiency (optional)
+<!-- Auto-populated by leanagentkit-match-stack when .leanagentkit/caveman.yml exists
+     with enabled: true — one line per enabled toggle (terse_communication, terse_commits,
+     terse_reviews). See .agent/skills/leanagentkit-caveman*.md and project docs. -->
+
 ## 8. Setup / refresh
 Run `.agent/skills/leanagentkit-bootstrap.md` to (re)generate memory and stack wiring.

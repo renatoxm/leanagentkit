@@ -68,6 +68,11 @@ Backlog cards track status only.
 offers at `implement-spec` and `end-session`. Read `.agent/skills/leanagentkit-git-lifecycle.md`.
 Specs remain the source of truth; git branch is the execution sandbox. Prompt-only — never automatic.
 
+**Optional Caveman token efficiency:** answer **Yes** at bootstrap Step 3e to enable terse
+commit messages and PR review comments (terse agent replies off by default). Read
+`.agent/skills/leanagentkit-caveman*.md`, `LEAN_AGENT_KIT_GUIDE.md` §8, or
+[Caveman on the docs site](https://renatoxm.github.io/leanagentkit/caveman).
+
 ## What's inside
 
 ```
@@ -159,7 +164,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 32 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 35 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -222,6 +227,16 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 | `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
+
+### Optional token efficiency (Caveman)
+
+Opt in via `.leanagentkit/caveman.yml` (bootstrap Step 3e). Advertised in `AGENTS.md §7` when enabled.
+
+| Skill                          | What It Does                                                          | Use When                                                       |
+| ------------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `leanagentkit-caveman`         | Terse agent chat replies; optional per-turn skill overhead            | `terse_communication: true` in caveman.yml                     |
+| `leanagentkit-caveman-commit`  | Terse Conventional Commit messages; why over what                     | Writing commit messages when `terse_commits: true`             |
+| `leanagentkit-caveman-review`  | One-line PR review comments: location, problem, fix                   | Paste-ready PR feedback when `terse_reviews: true`             |
 
 ## Handoffs
 

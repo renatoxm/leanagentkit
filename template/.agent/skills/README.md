@@ -83,5 +83,17 @@ dormant (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 | `leanagentkit-backlog.md` | Visual Kanban board synced to specs *(conditional — Backlog.md)* |
 | `leanagentkit-git-lifecycle.md` | Branch, commit, PR offers synced to spec workflow *(conditional — git config)* |
 
+## Optional token efficiency (Caveman)
+
+Adapted from [Caveman](https://github.com/JuliusBrussee/caveman) (MIT). Opt in via
+`.leanagentkit/caveman.yml` (bootstrap Step 3e). Advertised in `AGENTS.md §7` when
+`enabled: true`; each toggle enables one skill.
+
+| Skill | Use when |
+|-------|----------|
+| `leanagentkit-caveman.md` | Terse agent replies (`terse_communication: true`; off by default) |
+| `leanagentkit-caveman-commit.md` | Terse Conventional Commit messages (`terse_commits: true`) |
+| `leanagentkit-caveman-review.md` | One-line PR review comments (`terse_reviews: true`) |
+
 Shared audit report format: `.agent/skills/frame/findings-report.md`.
 Checklists: `.agent/skills/references/`.

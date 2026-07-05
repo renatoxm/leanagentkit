@@ -73,6 +73,18 @@ when Cursor/Claude is wired. No detection needed.
 - **Enable when:** user opted in during bootstrap or created the config file in the repo
 - **Note:** spec owns intent; git branch is the execution sandbox. Prompt-only — never auto-commit, push, or open PR. PR offers require `gh` on PATH.
 
+## Token efficiency (Caveman, optional) — `match-stack` step 8 only
+
+> **Do not process this row in step 7.** Caveman skills are never listed under
+> Practice skills (guardrails). Step 8 reads `caveman.yml` toggles and writes
+> `AGENTS.md §7` **Token efficiency (optional)** only.
+
+- **Detect:** `.leanagentkit/caveman.yml` exists with `enabled: true`
+- **Skills:** `leanagentkit-caveman`, `leanagentkit-caveman-commit`, `leanagentkit-caveman-review` (one AGENTS.md line per enabled toggle)
+- **Default:** conditional
+- **Enable when:** user opted in during bootstrap (Step 3e) or created the config file manually
+- **Note:** `terse_communication` is off by default (per-turn skill overhead). Adapted from [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (MIT).
+
 ---
 
 ## Adding rows

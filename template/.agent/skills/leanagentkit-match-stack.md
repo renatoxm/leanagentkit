@@ -62,19 +62,32 @@ config (`.mcp.json` entries), and runs install commands when approved.
    REQUIRED post-install steps, and which playbooks were applied.
 
 7. **Detect practice skills.** Read `.agent/practice-skills/registry.md`.
-   For each **conditional** row, check its **Detect** condition. These skills
+   For each **conditional** row, check its **Detect** condition — **except** the
+   Caveman row (Token efficiency), which is handled only in step 8. These skills
    ship dormant (`invocation: conditional` → explicit-invoke wrappers), so they
-   only become active guidance once advertised here. For each row whose Detect
-   matches, add a line to the `AGENTS.md` §7 "Practice skills (guardrails)"
-   subsection — skill name + when to use. Omit rows that don't match (don't
-   advertise `leanagentkit-ci-cd` on a repo with no CI config). The
-   `leanagentkit-backlog` row activates when `backlog` is on PATH **and** a
-   Backlog project folder/config exists — advertise it there; do not run
-   `backlog agents --update-instructions`. The `leanagentkit-git-lifecycle` row
-   activates when `.git` exists **and** `.leanagentkit/git-lifecycle.yml` exists.
-   Always-on guardrails (`invocation: auto`)
-   need no detection — they auto-load when wired and aren't listed here. Idempotent:
-   rebuild the subsection on re-run, don't duplicate rows.
+   only become active guidance once advertised here. For each matching row, add
+   one line to the `AGENTS.md` §7 **Practice skills (guardrails)** subsection —
+   skill name + when to use. Omit rows that don't match (don't advertise
+   `leanagentkit-ci-cd` on a repo with no CI config). The `leanagentkit-backlog`
+   row activates when `backlog` is on PATH **and** a Backlog project folder/config
+   exists — advertise it there; do not run `backlog agents --update-instructions`.
+   The `leanagentkit-git-lifecycle` row activates when `.git` exists **and**
+   `.leanagentkit/git-lifecycle.yml` exists. Always-on guardrails (`invocation: auto`)
+   need no detection — they auto-load when wired and aren't listed here.
+   **Idempotent:** replace the entire Practice skills subsection body on re-run
+   (remove stale lines when Detect no longer matches); don't append duplicates.
+
+8. **Detect Caveman token-efficiency skills.** If `.leanagentkit/caveman.yml` exists
+   with `enabled: true`, read its toggles and add matching lines to the `AGENTS.md`
+   §7 **Token efficiency (optional)** subsection (create once under §7):
+   - `terse_communication: true` → `leanagentkit-caveman` — terse agent replies
+   - `terse_commits: true` → `leanagentkit-caveman-commit` — terse commit messages
+   - `terse_reviews: true` → `leanagentkit-caveman-review` — one-line PR comments
+   Omit toggles that are `false` or missing. If `enabled` is not `true`, or the
+   file is absent, **clear** the Token efficiency subsection (leave the heading
+   with a blank body or remove generated lines). **Idempotent:** replace the entire
+   Token efficiency subsection body on re-run; never list Caveman skills under
+   Practice skills (step 7).
 
 ## Rules
 - The registry is authoritative — don't hardcode install commands here.

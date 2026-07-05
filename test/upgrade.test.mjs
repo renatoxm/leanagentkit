@@ -112,3 +112,46 @@ test("bootstrap offers Trevor assistant in Step 3d", () => {
   assert.match(bootstrap, /Step 3d — Optional Trevor assistant/);
   assert.match(bootstrap, /trevor\.yml\.example/);
 });
+
+test("bootstrap offers Caveman token efficiency in Step 3e", () => {
+  const bootstrap = readFileSync(
+    join(process.cwd(), "template", ".agent", "skills", "leanagentkit-bootstrap.md"),
+    "utf8",
+  );
+  assert.match(bootstrap, /Step 3e — Optional Caveman token efficiency/);
+  assert.match(bootstrap, /caveman\.yml\.example/);
+});
+
+test("bootstrap refreshes AGENTS.md section 7 after optional integrations", () => {
+  const bootstrap = readFileSync(
+    join(process.cwd(), "template", ".agent", "skills", "leanagentkit-bootstrap.md"),
+    "utf8",
+  );
+  assert.match(bootstrap, /Step 3f — Refresh AGENTS\.md §7/);
+  assert.match(bootstrap, /steps\s+7 and 8 of `leanagentkit-match-stack`/);
+});
+
+test("match-stack skips Caveman in practice-skill step 7", () => {
+  const matchStack = readFileSync(
+    join(process.cwd(), "template", ".agent", "skills", "leanagentkit-match-stack.md"),
+    "utf8",
+  );
+  assert.match(matchStack, /except.*Caveman row.*step 8/is);
+  assert.match(matchStack, /never list Caveman skills under\s+Practice skills/i);
+});
+
+test("upgrade preserves user-created .leanagentkit/caveman.yml", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-caveman-"));
+  try {
+    runCli(dir);
+    const userCaveman = "enabled: true\nterse_commits: false\nterse_reviews: true\n";
+    const cavemanPath = join(dir, ".leanagentkit", "caveman.yml");
+    writeFileSync(cavemanPath, userCaveman);
+
+    runCli(dir, "--upgrade");
+
+    assert.equal(readFileSync(cavemanPath, "utf8"), userCaveman, "caveman.yml preserved");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -72,7 +72,7 @@ npx create-lean-agent-kit . --upgrade
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/`, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, and `docs/adr/0001-*`.
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs under `.leanagentkit/` you created (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`).
 
 Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
 
@@ -216,9 +216,22 @@ Every operation is prompt-only — never auto-commit, push, or open PR.
 Full details: [Git lifecycle integration guide](/git-lifecycle) · skill:
 `.agent/skills/leanagentkit-git-lifecycle.md`
 
+## Caveman token efficiency (optional)
+
+Optional terse **commit messages**, **PR review comments**, and (optionally) **agent
+replies** — adapted from [Caveman](https://github.com/JuliusBrussee/caveman) (MIT).
+Opt in during bootstrap (Step 3e); the agent copies `.leanagentkit/caveman.yml.example`
+to `.leanagentkit/caveman.yml`.
+
+Defaults: `terse_commits` and `terse_reviews` on; `terse_communication` off (adds
+per-turn skill overhead). Re-run `leanagentkit-match-stack` so enabled skills appear
+in `AGENTS.md §7`.
+
+Full details: [Caveman guide](/caveman) · skills: `.agent/skills/leanagentkit-caveman*.md`
+
 ---
 
-## 🎁 What's in the box — 32 tool-agnostic skills
+## 🎁 What's in the box — 35 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -282,6 +295,16 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when `leanage
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 | `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
 
+### Optional token efficiency (Caveman)
+
+Opt in via `.leanagentkit/caveman.yml` (bootstrap Step 3e). Advertised in `AGENTS.md §7` when enabled.
+
+| Skill                          | What It Does                                                          | Use When                                                       |
+| ------------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `leanagentkit-caveman`         | Terse agent chat replies; optional per-turn skill overhead            | `terse_communication: true` in caveman.yml                     |
+| `leanagentkit-caveman-commit`  | Terse Conventional Commit messages; why over what                     | Writing commit messages when `terse_commits: true`             |
+| `leanagentkit-caveman-review`  | One-line PR review comments: location, problem, fix                   | Paste-ready PR feedback when `terse_reviews: true`             |
+
 ---
 
 ## 🗂️ Repo layout
@@ -331,6 +354,8 @@ The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) 
 The learning-loop skills (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`) and agentskills.io-compliant authoring standards were inspired by [Hermes Agent](https://github.com/NousResearch/hermes-agent) from **Nous Research** and the [agentskills.io](https://agentskills.io) open standard. 💛
 
 `leanagentkit-tdd` was adapted from [obra/superpowers](https://github.com/obra/superpowers) (MIT) via Hermes Agent. `leanagentkit-spike` was adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) (MIT) by Lex Christopherson, via Hermes Agent. 💛
+
+The optional token-efficiency skills (`leanagentkit-caveman`, `leanagentkit-caveman-commit`, `leanagentkit-caveman-review`) were adapted from [Caveman](https://github.com/JuliusBrussee/caveman) (MIT) by **Julius Brussee** — terse agent output, commit messages, and PR review comments. 💛
 
 Robot Illustrations - designed by upklyak - [Magnific.com](https://magnific.com)
 

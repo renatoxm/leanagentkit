@@ -1,0 +1,15 @@
+# Caveman token-efficiency skills for Lean Agent Kit.
+# Copy to .leanagentkit/caveman.yml during bootstrap (Step 3e) or manually.
+# Commit this file so teammates share the same settings.
+# Adapted from https://github.com/JuliusBrussee/caveman (MIT).
+
+enabled: true
+
+# Terse agent replies (leanagentkit-caveman) — off by default; adds ~1–1.5k input tokens/turn.
+terse_communication: false
+
+# Terse Conventional Commit messages (leanagentkit-caveman-commit)
+terse_commits: true
+
+# One-line PR review comments (leanagentkit-caveman-review)
+terse_reviews: true

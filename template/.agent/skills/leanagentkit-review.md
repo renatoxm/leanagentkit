@@ -20,7 +20,9 @@ the report.
 
 **Not for:** Convention-only guardrails against `AGENTS.md` — use
 `leanagentkit-check` instead. Deep security or performance passes — defer to
-`leanagentkit-security` and `leanagentkit-performance`.
+`leanagentkit-security` and `leanagentkit-performance`. Paste-ready one-line PR
+thread comments — when Caveman is enabled (`terse_reviews: true`), use
+`leanagentkit-caveman-review` instead of the findings report format.
 
 ## Five-axis review
 

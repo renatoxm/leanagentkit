@@ -507,6 +507,18 @@ These carry `invocation: auto` — the agent reaches for them when the moment ca
 
 These two only become active guidance once `match-stack` finds evidence and lists them in `AGENTS.md §7` — so they never nag a project that can't use them.
 
+### Optional token efficiency (Caveman)
+
+Three skills adapted from [Caveman](https://github.com/JuliusBrussee/caveman) (MIT) — opt in via `.leanagentkit/caveman.yml` (bootstrap Step 3e). Advertised in `AGENTS.md §7` only when `enabled: true`; each toggle controls one skill:
+
+| Toggle | Skill | Default | Use when |
+|--------|-------|---------|----------|
+| `terse_communication` | `leanagentkit-caveman` | off | Terse agent chat replies (adds per-turn overhead) |
+| `terse_commits` | `leanagentkit-caveman-commit` | on | Terse Conventional Commit messages |
+| `terse_reviews` | `leanagentkit-caveman-review` | on | One-line PR review comments |
+
+Pair with `leanagentkit-git-workflow` / `leanagentkit-review` — Caveman formats output; LAK guardrails own the workflow. Full details: `LEAN_AGENT_KIT_GUIDE.md` (this section) and [Caveman on the docs site](https://renatoxm.github.io/leanagentkit/caveman).
+
 > 💡 You can always invoke any guardrail **explicitly** by name, even a conditional one: *"Read `.agent/skills/leanagentkit-observability.md` and follow it."*
 
 ---

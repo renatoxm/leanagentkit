@@ -44,6 +44,18 @@ test("all kit skills have name and description frontmatter", async () => {
   }
 });
 
+test("caveman skills have routing-safe descriptions (<=60 chars)", async () => {
+  const skills = await listKitSkills();
+  const caveman = skills.filter((s) => s.name.startsWith("leanagentkit-caveman"));
+  assert.equal(caveman.length, 3, "expected three caveman skills");
+  for (const skill of caveman) {
+    assert.ok(
+      skill.description.length <= 60,
+      `${skill.name}: description must be <=60 chars (got ${skill.description.length})`,
+    );
+  }
+});
+
 test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-wire-"));
   try {

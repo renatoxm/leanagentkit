@@ -76,8 +76,8 @@ If the user wants a Kanban/web UI for tasks, offer (do not assume):
 - **Yes** → guide install (`npm i -g backlog.md` or `brew install backlog-md`),
   then `backlog init "<project-name>"` (or `--no-git` when no Git repo). During
   init, choose **Skip** for AI instructions — the kit owns `AGENTS.md`. **Never**
-  run `backlog agents --update-instructions`. Re-run the practice-skill detection
-  in Step 3 so `leanagentkit-backlog` is advertised in `AGENTS.md §7`.
+  run `backlog agents --update-instructions`. Step 3f wires `leanagentkit-backlog`
+  into `AGENTS.md §7` when evidence matches.
 - **No** → skip. The kit works fully without Backlog.md.
 
 Full integration details: `.agent/skills/leanagentkit-backlog.md`.
@@ -90,9 +90,8 @@ synced to the spec workflow, offer (do not assume):
 > Enable git lifecycle prompts? (branch at implement-spec, commit/PR offers)
 
 - **Yes** → copy `.leanagentkit/git-lifecycle.yml.example` to
-  `.leanagentkit/git-lifecycle.yml` (adjust settings if the user wants). Re-run
-  the practice-skill detection in Step 3 so `leanagentkit-git-lifecycle` is
-  advertised in `AGENTS.md §7`. For PR offers, ensure GitHub CLI is installed
+  `.leanagentkit/git-lifecycle.yml` (adjust settings if the user wants). Step 3f
+  wires `leanagentkit-git-lifecycle` into `AGENTS.md §7`. For PR offers, ensure GitHub CLI is installed
   (`gh auth login`).
 - **No** → skip. The kit works fully without git lifecycle integration.
 
@@ -114,7 +113,40 @@ Offer (do not assume):
 - **No** → skip. The kit works fully without Trevor; explicit invoke of
   `leanagentkit-ask-trevor` still works if the user enables later.
 
-Full details: project docs Trevor page and `.agent/skills/leanagentkit-ask-trevor.md`.
+Full details: [docs site — Trevor](https://renatoxm.github.io/leanagentkit/trevor) and
+`.agent/skills/leanagentkit-ask-trevor.md`.
+
+## Step 3e — Optional Caveman token efficiency
+
+Offer (do not assume):
+
+> Enable Caveman token-efficiency skills? (terse commit messages and PR review comments;
+> terse agent replies are off by default — they add skill overhead each turn)
+
+- **Yes** → copy `.leanagentkit/caveman.yml.example` to
+  `.leanagentkit/caveman.yml`. Defaults: `terse_commits: true`, `terse_reviews: true`,
+  `terse_communication: false`. Adjust toggles with the user if they want terse replies.
+  Step 3f wires enabled Caveman skills into `AGENTS.md §7`.
+- **No** → skip. The kit works fully without Caveman; skills remain in `.agent/skills/`
+  for explicit invoke later.
+
+Full details: `LEAN_AGENT_KIT_GUIDE.md` (§8 optional token efficiency),
+[docs site — Caveman](https://renatoxm.github.io/leanagentkit/caveman), and
+`.agent/skills/leanagentkit-caveman*.md`.
+
+## Step 3f — Refresh AGENTS.md §7 (optional integrations)
+
+Step 3 runs `leanagentkit-match-stack` **before** optional configs in 3b–3e exist.
+After Steps 3b–3e (whether the user opted in or skipped each), run **only** steps
+7 and 8 of `leanagentkit-match-stack`:
+
+1. Rebuild **Practice skills (guardrails)** — CI/CD, observability, backlog,
+   git-lifecycle (per registry Detect conditions).
+2. Rebuild **Token efficiency (optional)** — Caveman toggles from
+   `.leanagentkit/caveman.yml` (step 8 only; never under Practice skills).
+
+Replace each subsection body idempotently — remove stale lines when configs are
+absent or disabled.
 
 ## Step 4 — Wire agent pointer files (only for chosen targets)
 For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
@@ -175,7 +207,8 @@ post-install bullets immediately below it).
 ## Step 7 — Summarize
 Print: tiers enabled, files created, stacks detected + install status (with any
 REQUIRED post-install steps, e.g. Tailwind snapshot sync), `LEAN_AGENT_KIT.md`
-stack-skills section updated, Trevor status if Step 3d enabled, the daily loop (`leanagentkit-start-session` →
+stack-skills section updated, Trevor status if Step 3d enabled, Caveman status if
+Step 3e enabled (list which toggles are on), the daily loop (`leanagentkit-start-session` →
 `leanagentkit-check` → `leanagentkit-end-session`), and the learning loop
 (`leanagentkit-distill-skill`, `leanagentkit-curate-skills`). Clear bootstrap notes from SCRATCH.
 

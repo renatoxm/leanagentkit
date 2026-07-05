@@ -21,6 +21,7 @@ export default withMermaid(defineConfig({
       { text: 'Stacks', link: '/stacks' },
       { text: 'Backlog.md', link: '/backlog' },
       { text: 'Trevor', link: '/trevor' },
+      { text: 'Caveman', link: '/caveman' },
       { text: 'Git lifecycle', link: '/git-lifecycle' },
     ],
     sidebar: [
@@ -29,6 +30,7 @@ export default withMermaid(defineConfig({
       { text: 'Stacks', link: '/stacks' },
       { text: 'Backlog.md', link: '/backlog' },
       { text: 'Trevor', link: '/trevor' },
+      { text: 'Caveman', link: '/caveman' },
       { text: 'Git lifecycle', link: '/git-lifecycle' },
     ],
     socialLinks: [
