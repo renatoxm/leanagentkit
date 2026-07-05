@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.12](https://github.com/renatoxm/leanagentkit/compare/v0.4.11...v0.4.12) (2026-07-05)
+
+
+### Features
+
+* add optional Caveman token-efficiency skills ([d417bca](https://github.com/renatoxm/leanagentkit/commit/d417bcad1cd6f3bb77d825484789d05314c0cd7d))
+
 ## [0.4.11](https://github.com/renatoxm/leanagentkit/compare/v0.4.10...v0.4.11) (2026-07-03)
 
 ## [0.4.10](https://github.com/renatoxm/leanagentkit/compare/v0.4.9...v0.4.10) (2026-07-02)
