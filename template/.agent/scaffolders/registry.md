@@ -17,6 +17,8 @@
 - **Depends-on** — prerequisites (existing stack or prior scaffold).
 - **Chains-to** — optional follow-on scaffolds after this one.
 - **Gate** — `base` (greenfield only) or `additive` (any occupied repo).
+- **Optional tooling** — lint/format and VS Code options live in each recipe's
+  `## Questions` table; only offered when the recipe declares them.
 
 ---
 

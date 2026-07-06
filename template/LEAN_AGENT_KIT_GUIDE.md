@@ -78,11 +78,14 @@ npx create-lean-agent-kit .
 
 This copies the *template* (files only, zero runtime deps) into your repo: `AGENTS.md`, `.agent/`, `.agent/scaffolders/`, and `docs/`. Nothing runs yet — it's inert Markdown waiting for the bootstrap.
 
-> 🌱 **Greenfield?** After dropping the kit into an empty directory, you can scaffold a base app before bootstrap:
+> 🌱 **Greenfield?** After dropping the kit into a directory (empty or kit-only after
+> `npm create lean-agent-kit .`), scaffold a base app before bootstrap:
 >
 > Read `.agent/skills/leanagentkit-scaffold.md` and follow it.
 >
-> It asks what to create (only registry-backed stacks), runs non-interactive generators, then hands off to `leanagentkit-match-stack` for skill wiring. Bootstrap Step 0 also offers this when the repo looks empty.
+> It classifies empty vs kit-only vs occupied, applies preflight for non-interactive
+> generators, then hands off to `leanagentkit-match-stack`. Bootstrap Step 0 offers
+> this when the repo has no app yet (including kit-only).
 
 > 🚩 **Flags:** `--force` overwrites existing kit files · `--upgrade` refreshes kit files safely · `--help` shows usage.
 > 📦 **No‑npm option:** `npx degit YOUR_USER/create-lean-agent-kit/template` pulls the raw template.
