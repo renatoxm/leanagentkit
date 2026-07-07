@@ -89,12 +89,18 @@ Cite `.agent/skills/references/clean-architecture/` or
 
 ### After new-spec
 
-If `offer_decompose_after_spec: true` and the spec is non-trivial (3+ acceptance
-criteria or Approach touches 3+ modules), offer:
+Delegated to `leanagentkit-new-spec` § Handoff. When architecture integration is
+active, that skill offers an interactive questionnaire (or inline fallback):
 
-> "Decompose into parallel-safe slices? Invoke `leanagentkit-decompose-spec`."
+- **Both paths** — `offer_decompose_after_spec: true` in
+  `.leanagentkit/architecture.yml` and the spec is non-trivial (3+ acceptance
+  criteria or Approach touches 3+ modules): Decompose, Implement, or Not yet.
+- **Implement only** — architecture inactive, `offer_decompose_after_spec: false`,
+  or trivial spec.
 
-Skip for trivial specs (Level 1–2 work).
+On user choice, `new-spec` chains into `leanagentkit-decompose-spec` or
+`leanagentkit-implement-spec` (after Agent-mode gate when the host is read-only).
+Skip decomposition for trivial specs (Level 1–2 work).
 
 ### During implement-spec
 

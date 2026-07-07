@@ -99,11 +99,27 @@ Set `docs/memory/ACTIVE_CONTEXT.md` → Current focus to include the slices file
 
 Do not implement in this skill unless the user explicitly asks.
 
-When slices are written, offer:
+When slices are written:
 
-> "Ready to implement? Invoke `leanagentkit-implement-spec` — sequential-by-slice
-> (default when slices exist), or parallel slices if architecture integration is
-> active (`.leanagentkit/architecture.yml` with `enabled: true` and contracts filled)."
+1. **Summarize** slice count and parallel-safe groups in 1–2 lines.
+2. **Ask** (interactive UI when available — e.g. Cursor `AskQuestion`; see
+   `AGENTS.md` §6 — Asking the user). Fall back to inline text when unsupported.
+
+   - Recommended: "Implement using slices" (sequential-by-slice default; parallel
+     where `Parallel=yes` when architecture integration is active)
+   - Also: "Not yet — stop after slices"
+
+3. **On choice** — if the user chose Implement and the host is in a read-only mode
+   (e.g. Cursor Ask mode), ask to switch to Agent mode before chaining (Shift+Tab
+   or the mode picker). Do not invoke write skills until the host allows edits.
+
+4. **Chain** — continue in this session without re-asking **this** implement vs
+   not-yet choice (downstream skill prompts still apply):
+   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it.
+   - Not yet → stop; do not invoke another skill.
+
+Choosing Implement counts as explicit consent to leave decomposition.
+`leanagentkit-implement-spec` step 2 handles sequential vs parallel slice mode.
 
 ## Quality bar
 

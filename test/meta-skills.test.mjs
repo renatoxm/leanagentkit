@@ -65,6 +65,30 @@ test("new-spec excludes slices files from spec numbering", () => {
   assert.match(content, /leanagentkit-decompose-spec/);
 });
 
+test("new-spec handoff uses interactive UI and honors offer_decompose_after_spec", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-new-spec.md"), "utf8");
+  assert.match(content, /AskQuestion/);
+  assert.match(content, /offer_decompose_after_spec/);
+  assert.match(content, /without re-asking \*\*this\*\*/);
+  assert.match(content, /read-only mode/i);
+  assert.match(content, /leanagentkit-implement-spec\.md/);
+});
+
+test("decompose-spec handoff chains to implement-spec with mode gate", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-decompose-spec.md"), "utf8");
+  assert.match(content, /AskQuestion/);
+  assert.match(content, /without re-asking \*\*this\*\*/);
+  assert.match(content, /read-only mode/i);
+  assert.match(content, /leanagentkit-implement-spec\.md/);
+});
+
+test("architecture lifecycle hooks delegate new-spec handoff", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-architecture.md"), "utf8");
+  assert.match(content, /leanagentkit-new-spec.*Handoff/s);
+  assert.match(content, /offer_decompose_after_spec/);
+  assert.doesNotMatch(content, /Invoke `leanagentkit-decompose-spec`/);
+});
+
 test("practice-skills registry includes architecture decomposition row", () => {
   const registry = readFileSync(
     join(process.cwd(), "template", ".agent", "practice-skills", "registry.md"),

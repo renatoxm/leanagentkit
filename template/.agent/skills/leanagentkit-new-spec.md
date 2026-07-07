@@ -57,8 +57,34 @@ Do not start coding in this skill unless the user explicitly asks.
 
 When the spec is written:
 
-- If architecture integration is active (see `leanagentkit-architecture` detection
-  contract) and the spec is non-trivial (3+ acceptance criteria or Approach touches
-  3+ modules), offer: "Decompose into parallel-safe slices? Invoke
-  `leanagentkit-decompose-spec`."
-- Otherwise offer: "Ready to implement? Invoke `leanagentkit-implement-spec`."
+1. **Summarize** in 1–2 lines which modules the spec touches (from Approach).
+2. **Ask** (interactive UI when available — e.g. Cursor `AskQuestion`; see
+   `AGENTS.md` §6 — Asking the user). Fall back to inline text when unsupported.
+
+   **Both paths** — when architecture integration is active (see
+   `leanagentkit-architecture` detection contract), `offer_decompose_after_spec:
+   true` in `.leanagentkit/architecture.yml`, and the spec is non-trivial (3+
+   acceptance criteria or Approach touches 3+ modules):
+
+   - Recommended: "Decompose into parallel-safe slices" (e.g. API vs web)
+   - Also: "Implement end-to-end on one branch"
+   - Also: "Not yet — stop after spec"
+
+   **Implement only** — when architecture integration is inactive,
+   `offer_decompose_after_spec: false`, or the spec is trivial:
+
+   - Recommended: "Implement end-to-end"
+   - Also: "Not yet — stop after spec"
+
+3. **On choice** — if the user chose Decompose or Implement and the host is in a
+   read-only mode (e.g. Cursor Ask mode), ask to switch to Agent mode before
+   chaining (Shift+Tab or the mode picker). Do not invoke write skills until the
+   host allows edits.
+
+4. **Chain** — continue in this session without re-asking **this** decompose vs
+   implement choice (downstream skill prompts still apply):
+   - Decompose → read `.agent/skills/leanagentkit-decompose-spec.md` and follow it.
+   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it.
+   - Not yet → stop; do not invoke another skill.
+
+Choosing Decompose or Implement counts as explicit consent to leave spec authoring.

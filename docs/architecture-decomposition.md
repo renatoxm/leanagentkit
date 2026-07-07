@@ -145,6 +145,7 @@ git worktree remove ../<repo>-<spec-slug>-<slice-id>   # when done
 **Decompose not offered after new-spec**
 
 - Confirm `.leanagentkit/architecture.yml` exists with `enabled: true`
+- Confirm `offer_decompose_after_spec: true` (when `false`, only Implement is offered)
 - Spec may be too trivial (< 3 ACs and < 3 modules) — invoke `decompose-spec` manually if needed
 
 **Parallel mode blocked**
