@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.15](https://github.com/renatoxm/leanagentkit/compare/v0.4.14...v0.4.15) (2026-07-07)
+
+
+### Features
+
+* **skills:** add interactive handoff after spec authoring ([a967395](https://github.com/renatoxm/leanagentkit/commit/a9673958bf9f83abfcfb6994ee7539cf7e17dd58))
+
+
+### Bug Fixes
+
+* **scaffold:** abort kit-only in-place CLI scaffolds that block in agent shells ([496ef07](https://github.com/renatoxm/leanagentkit/commit/496ef07a2e4f709967a1c48ae3fa2ad16df1994d))
+
 ## [0.4.14](https://github.com/renatoxm/leanagentkit/compare/v0.4.13...v0.4.14) (2026-07-05)
 
 
