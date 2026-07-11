@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.16](https://github.com/renatoxm/leanagentkit/compare/v0.4.15...v0.4.16) (2026-07-11)
+
+
+### Features
+
+* **scaffold:** add commit-helpers snippets for commitlint and husky ([767890f](https://github.com/renatoxm/leanagentkit/commit/767890f2886dc9ff7df2e1de5870625246fb2e86))
+* **scaffold:** offer optional commitlint and husky during scaffold ([b010a58](https://github.com/renatoxm/leanagentkit/commit/b010a588300ad78563eb8ab57dadc0d1d5d688d8))
+* **skills:** add leanagentkit-frontend-design always-on guardrail ([b462b21](https://github.com/renatoxm/leanagentkit/commit/b462b213f6b876f618b60d8a516decef0e1db85d))
+
 ## [0.4.15](https://github.com/renatoxm/leanagentkit/compare/v0.4.14...v0.4.15) (2026-07-07)
 
 
