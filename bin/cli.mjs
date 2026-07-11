@@ -22,6 +22,13 @@ const force = flags.has("--force") || flags.has("-f");
 const upgrade = flags.has("--upgrade") || flags.has("-u");
 const showHelp = flags.has("--help") || flags.has("-h");
 
+if (upgrade && force) {
+  console.error(
+    "✗ --force is for scaffold mode only. Use --upgrade to refresh kit files while preserving your memory.",
+  );
+  process.exit(1);
+}
+
 if (showHelp) {
   console.log(`
 create-lean-agent-kit — scaffold the Lean Agent Kit
@@ -75,9 +82,19 @@ const PRESERVE_ON_UPGRADE = new Set([
   "docs/memory/SCRATCH.md",
   "docs/memory/REMINDERS.md",
   ".agent/stacks/registry.md",
+  ".agent/scaffolders/registry.md",
+  "LEAN_AGENT_KIT.md",
   "docs/adr/0001-record-architecture-decisions.md",
   ".agent/skills/generated/README.md",
 ]);
+
+const PRESERVE_PREFIXES_ON_UPGRADE = ["docs/memory/"];
+
+function shouldPreserveOnUpgrade(destRel, destExists) {
+  if (!destExists) return false;
+  if (PRESERVE_ON_UPGRADE.has(destRel)) return true;
+  return PRESERVE_PREFIXES_ON_UPGRADE.some((prefix) => destRel.startsWith(prefix));
+}
 
 function destRelFromTemplate(templateRel) {
   const parts = templateRel.split("/");
@@ -105,7 +122,7 @@ async function* walkTemplateFiles(dir, rel = "") {
 function backupTimestamp() {
   const d = new Date();
   const pad = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}-${process.pid}`;
 }
 
 async function readInstalledVersion(targetDir) {
@@ -136,6 +153,17 @@ async function readCliVersion() {
 
 // ---- scaffold (top-level copy, unchanged behavior) ---------------------
 async function scaffold() {
+  const kitPresent =
+    (await exists(join(target, ".agent", ".leanagentkit-version"))) ||
+    (await exists(join(target, ".agent", "skills", "leanagentkit-bootstrap.md")));
+
+  if (kitPresent && !force) {
+    console.warn(
+      "⚠ Lean Agent Kit is already installed. Re-scaffold skips whole top-level folders that exist.\n" +
+        "  Use --upgrade to refresh kit files while preserving your memory, or --force to overwrite.",
+    );
+  }
+
   const entries = await readdir(templateDir, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -186,7 +214,7 @@ async function runUpgrade() {
     const to = join(target, destRel);
     const display = destRel;
 
-    if (PRESERVE_ON_UPGRADE.has(destRel) && (await exists(to))) {
+    if (shouldPreserveOnUpgrade(destRel, await exists(to))) {
       console.log(`  keep  ${display}`);
       counts.preserved++;
       continue;

@@ -35,6 +35,23 @@ test("memory.mdc has valid frontmatter", async () => {
   assert.match(content, /AGENTS\.md/);
 });
 
+test("cursor hooks template has sessionStart and sessionEnd", async () => {
+  const content = await readFile(join(TEMPLATE_CURSOR, "hooks.json"), "utf8");
+  const hooks = JSON.parse(content);
+  assert.equal(hooks.version, 1);
+  assert.ok(Array.isArray(hooks.hooks.sessionStart));
+  assert.ok(Array.isArray(hooks.hooks.sessionEnd));
+  assert.match(hooks.hooks.sessionStart[0].prompt, /Lean Agent Kit session/);
+  assert.match(hooks.hooks.sessionEnd[0].prompt, /leanagentkit-end-session/);
+});
+
+test("cursor hooks template uses 30s timeout", async () => {
+  const content = await readFile(join(TEMPLATE_CURSOR, "hooks.json"), "utf8");
+  const hooks = JSON.parse(content);
+  assert.equal(hooks.hooks.sessionStart[0].timeout, 30);
+  assert.equal(hooks.hooks.sessionEnd[0].timeout, 30);
+});
+
 test("all kit skills have name and description frontmatter", async () => {
   const skills = await listKitSkills();
   assert.ok(skills.length >= 22, "expected at least 22 kit skills");
@@ -44,26 +61,26 @@ test("all kit skills have name and description frontmatter", async () => {
   }
 });
 
-test("caveman skills have routing-safe descriptions (<=60 chars)", async () => {
+test("caveman skills have discovery-safe descriptions (<=1024 chars)", async () => {
   const skills = await listKitSkills();
   const caveman = skills.filter((s) => s.name.startsWith("leanagentkit-caveman"));
   assert.equal(caveman.length, 3, "expected three caveman skills");
   for (const skill of caveman) {
     assert.ok(
-      skill.description.length <= 60,
-      `${skill.name}: description must be <=60 chars (got ${skill.description.length})`,
+      skill.description.length <= 1024,
+      `${skill.name}: description must be <=1024 chars (got ${skill.description.length})`,
     );
   }
 });
 
-test("create-skill has routing-safe description (<=60 chars)", async () => {
+test("create-skill has discovery-safe description (<=1024 chars)", async () => {
   const skills = await listKitSkills();
   const createSkill = skills.find((s) => s.name === "leanagentkit-create-skill");
   assert.ok(createSkill, "leanagentkit-create-skill must exist");
   const desc = createSkill.description.replace(/^"|"$/g, "");
   assert.ok(
-    desc.length <= 60,
-    `leanagentkit-create-skill: description must be <=60 chars (got ${desc.length})`,
+    desc.length <= 1024,
+    `leanagentkit-create-skill: description must be <=1024 chars (got ${desc.length})`,
   );
 });
 
@@ -87,17 +104,9 @@ test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
       skills.some((s) => s.invocation === "auto"),
       "at least one skill ships with invocation: auto",
     );
-    // Guard: conditional practice skills must NOT auto-fire on every project —
-    // they ship explicit-invoke and are promoted via AGENTS.md §7 when detected.
-    for (const s of skills) {
-      if (s.invocation === "conditional") {
-        assert.notEqual(
-          s.invocation,
-          "auto",
-          `${s.name}: conditional skills are not auto-invocable`,
-        );
-      }
-    }
+
+    const conditionalSkills = skills.filter((s) => s.invocation === "conditional");
+    assert.ok(conditionalSkills.length >= 1, "expected at least one conditional skill");
 
     for (const skill of skills) {
       assert.ok(dirs.includes(skill.name), `generated ${skill.name}`);
@@ -113,6 +122,12 @@ test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
           fm["disable-model-invocation"],
           undefined,
           `${skill.name}: auto-invocation skills omit disable-model-invocation`,
+        );
+      } else if (skill.invocation === "conditional") {
+        assert.equal(
+          fm["disable-model-invocation"],
+          "true",
+          `${skill.name}: conditional skills require disable-model-invocation`,
         );
       } else {
         // Explicit orchestration skills and conditional practice skills both

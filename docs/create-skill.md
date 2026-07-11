@@ -3,8 +3,8 @@
 Meta skill for **creating and refactoring** project-specific skills under
 `.agent/skills/generated/`. Adapted from [Matt Pocock's
 `writing-great-skills`](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
-(MIT). It applies LAK format rules plus predictability craft — without replacing
-distill, artifact generators, or curation.
+(MIT) and Cursor `create-skill` discovery patterns. It applies LAK format rules
+plus predictability craft — without replacing distill, artifact generators, or curation.
 
 ## What it is / is not
 
@@ -40,7 +40,7 @@ Refactor an existing file:
 
 | File | Role |
 |------|------|
-| `references/skill-authoring-standards.md` | Frontmatter, ≤60 char descriptions, section order, output paths |
+| `references/skill-authoring-standards.md` | Frontmatter, WHAT+WHEN descriptions, section order, output paths |
 | `references/skill-craft-glossary.md` | Predictability, information hierarchy, failure modes, LAK overrides |
 
 ## LAK hard rules vs craft principles
@@ -48,7 +48,7 @@ Refactor an existing file:
 **Hard rules (always):**
 
 - Generated skills live at `.agent/skills/generated/leanagentkit-<name>.md`
-- `description` — one sentence, **≤60 characters**
+- `description` — third person, **WHAT + WHEN**, trigger terms; soft target **≤200** chars; hard max **1024**
 - Never delete — archive to `generated/archived/` with `status: archived`
 - Never modify kit-owned `leanagentkit-*.md` in user projects (overwritten on upgrade)
 - No router/index-only skills
@@ -61,8 +61,8 @@ Refactor an existing file:
 - **Leading words** — collapse verbose triads into pretrained tokens
 - **Failure modes** — premature completion, duplication, sediment, sprawl, no-op
 
-Matt's upstream skill allows richer model-invoked descriptions; LAK generated
-skills cannot exceed 60 characters — state capability in frontmatter, craft in the body.
+Cursor and agentskills allow richer discovery descriptions; LAK generated skills
+should stay concise unless extra trigger terms materially improve routing.
 
 ## Pairing with the learning loop
 
@@ -78,16 +78,9 @@ generated/leanagentkit-<name>.md      →  run the skill in daily work
 
 **New skill from requirements:**
 
-> Read `.agent/skills/leanagentkit-create-skill.md` and create a skill for running our E2E smoke tests.
+> Read `.agent/skills/leanagentkit-create-skill.md` and follow it. I need a skill for …
 
-**Refactor after distill:**
+**Craft pass on a distill draft:**
 
-> Read `.agent/skills/leanagentkit-create-skill.md` — craft pass only — on the skill we just distilled.
-
-## Attribution
-
-Adapted from [Matt Pocock's
-`writing-great-skills`](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
-(MIT). LAK format rules and output paths are Lean Agent Kit constraints.
-
-See also: [Full Guide — §7 Artifact generators](/guide#skill-craft-create-refactor).
+> Read `.agent/skills/leanagentkit-create-skill.md` — craft pass only on
+> `.agent/skills/generated/leanagentkit-<name>.md`.

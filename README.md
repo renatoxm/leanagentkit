@@ -70,11 +70,11 @@ npm create lean-agent-kit . --upgrade
 npx create-lean-agent-kit . --upgrade
 ```
 
-**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/`, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
+**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs under `.leanagentkit/` you created (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml`).
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md` (your custom rows), `LEAN_AGENT_KIT.md`, `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs under `.leanagentkit/` you created (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml`).
 
-Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
+Before overwriting any differing file, the CLI backs it up under `.leanagentkit-backup/<timestamp>-<pid>/`. The installed version is recorded in `.agent/.leanagentkit-version`.
 
 After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 
@@ -231,7 +231,7 @@ Full details: [Caveman guide](/caveman) · skills: `.agent/skills/leanagentkit-c
 
 ---
 
-## 🎁 What's in the box — 37 tool-agnostic skills
+## 🎁 What's in the box — 38 tool-agnostic skills
 
 Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
@@ -296,6 +296,7 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when `leanage
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 | `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
+| `leanagentkit-babysit-pr`    | Triage PR comments, conflicts, and in-scope CI until merge-ready (never auto-merge)                       | `offer_babysit_after_pr: true` in git-lifecycle config + `gh`  |
 
 ### Optional token efficiency (Caveman)
 

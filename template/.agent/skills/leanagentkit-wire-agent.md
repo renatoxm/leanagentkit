@@ -12,7 +12,7 @@ pointer files from kit templates and **generates** skill wrappers from
 **Input:** agent target(s) from bootstrap Step 0: `cursor`, `claude`, or both.
 
 **Reads:** `.agent/install/<target>/`, `.agent/skills/leanagentkit-*.md`
-**Writes:** `.cursor/rules/`, `.cursor/skills/`, `CLAUDE.md`, `.claude/skills/`
+**Writes:** `.cursor/rules/`, `.cursor/hooks.json` *(opt-in)*, `.cursor/skills/`, `CLAUDE.md`, `.claude/skills/`
 
 ## Procedure
 
@@ -21,6 +21,16 @@ pointer files from kit templates and **generates** skill wrappers from
 **Cursor** (`cursor` selected):
 - Copy `.agent/install/cursor/rules/*` → `.cursor/rules/` (create dirs as needed).
 - Do **not** copy anything from `.agent/install/cursor/skills/` — wrappers are generated in step 2.
+- **Session hooks (opt-in):** ask whether to install Cursor session hooks that nudge
+  `leanagentkit-start-session` / `leanagentkit-end-session`:
+  - Recommended **Yes** on first wire when `.cursor/hooks.json` does not exist.
+  - Recommended **No** when hooks already exist unless the user wants to refresh LAK entries.
+  - On **Yes**:
+    - If `.cursor/hooks.json` is missing → copy `.agent/install/cursor/hooks.json` → `.cursor/hooks.json`.
+    - If present → merge only LAK entries: for `sessionStart` and `sessionEnd`, replace
+      hook definitions whose `prompt` contains `Lean Agent Kit session`; preserve all
+      other hooks and events unchanged. Never wipe user hooks.
+  - On **No** → skip hooks; continue with wrappers.
 
 **Claude Code** (`claude` selected):
 - Copy `.agent/install/claude/CLAUDE.md` → project root `CLAUDE.md`.
@@ -74,7 +84,8 @@ has `status: archived` or whose file lives under `.agent/skills/generated/archiv
 ### 3. Idempotency
 
 - Re-run (bootstrap refresh): overwrite only kit-managed files — static templates
-  from `.agent/install/` and wrappers for skills listed above.
+  from `.agent/install/` (rules; hooks only when user opted in during this run)
+  and wrappers for skills listed above.
 - Do not delete or modify user-added rules/skills under `.cursor/` or `.claude/`.
 - If the user explicitly asks to skip existing files, skip instead of overwrite.
 

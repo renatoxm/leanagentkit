@@ -100,7 +100,7 @@ Matt's craft vocabulary applies to LAK generated skills with these hard constrai
 
 | Craft concept | LAK rule |
 |---------------|----------|
-| Rich model-invoked **description** | Generated skills: **one sentence, ≤60 chars**, capability not implementation. Count before save. |
+| Rich model-invoked **description** | Generated skills: third person, **WHAT + WHEN**, trigger terms. Soft target ≤200 chars; hard max 1024. Count before save. |
 | **Router skill** | Forbidden — do not write index-only skills that only point at others. |
 | Write target | Project skills → `.agent/skills/generated/leanagentkit-<name>.md` only |
 | Kit-owned skills | Never modify `leanagentkit-*.md` in user projects — overwritten on `--upgrade` |

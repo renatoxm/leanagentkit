@@ -3,18 +3,32 @@
 - **Category:** backend
 - **Kind:** template
 - **Stacks row:** FastAPI
-- **Depends-on:** python
+- **Depends-on:** none
 - **Chains-to:** none
 - **Verified:** 2026-07-06
+
+> Requires a Python 3.12+ runtime. Does **not** require running the Python base
+> scaffolder first — this recipe writes a standalone app at the repo root (or
+> target directory).
 
 ## Questions
 
 | id | prompt | options | default | → flag / param | when |
 |----|--------|---------|---------|----------------|------|
+| name | Project name | `<name>` | `api` | `{{name}}` | |
 | layout | Project layout | flat · src package | src package | `{{layout}}` | |
 | pm | Python env tool | uv · pip/venv | uv | `{{pm}}` | |
 | ruff | Ruff (lint + format)? | yes · no | yes | add `[tool.ruff]` config | |
 | vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `ruff=yes` |
+
+**Parameter derivation:** `name_snake` = lowercase `{{name}}` with non-alphanumeric
+characters replaced by `_` (e.g. `my-api` → `my_api`).
+
+## If chaining after Python base
+
+When the user ran the Python base scaffolder first (`uv init {{name}}` creates
+`./{{name}}/`), run all FastAPI file steps **inside that subdirectory** (`cd
+{{name}}` before install-deps and file writes). Do not write at repo root.
 
 ## Files (template kind only)
 

@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** Astro
 - **Depends-on:** none
-- **Chains-to:** tailwind, cloudflare
+- **Chains-to:** Tailwind CSS v4, Cloudflare
 - **Verified:** 2026-07-06
 
 ## Questions

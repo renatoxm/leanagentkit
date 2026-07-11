@@ -48,6 +48,7 @@ default_base: main
 offer_commit_on_ac: false       # off by default (noisy)
 offer_commit_at_end_session: true
 offer_pr_when_spec_done: true   # requires gh on PATH
+offer_babysit_after_pr: false  # offer merge-ready loop after PR is opened
 ```
 
 ## How it maps to the daily loop
@@ -96,6 +97,17 @@ gh auth login
 ```
 
 Without `gh`, branch and commit offers still work; only the PR step is skipped.
+
+## PR babysit (optional)
+
+When `offer_babysit_after_pr: true` in `.leanagentkit/git-lifecycle.yml`, the
+lifecycle skill offers to run `leanagentkit-babysit-pr` after a PR is created.
+That skill triages review comments, resolves merge conflicts, and fixes in-scope
+CI failures in a loop until the PR is merge-ready — without auto-merging or
+weakening CI.
+
+Enable during bootstrap (Step 3c follow-up) or set the flag manually, then
+re-run `leanagentkit-match-stack` so `AGENTS.md §7` advertises the skill.
 
 ## Principles
 

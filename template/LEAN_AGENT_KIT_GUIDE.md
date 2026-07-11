@@ -41,7 +41,7 @@ It rests on four pillars:
 
 - 🗺️ **Memory** — tiered Markdown files (`CODEBASE_MAP.md`, `ACTIVE_CONTEXT.md`, specs, ADRs…) the agent reads *instead of* re-scanning your repo. Cheap context, no drift.
 - 🛡️ **Guardrails** — `AGENTS.md` conventions + stack playbooks + always‑on practice skills (review, debug, security…) that keep every change consistent with *your* standards.
-- 🧩 **Skills** — 32 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
+- 🧩 **Skills** — 38 tool‑agnostic Markdown "skills" you invoke by saying *"Read `.agent/skills/leanagentkit-<name>.md` and follow it."* Each one is a focused, repeatable procedure.
 - 🔄 **Learning loop** — distill session workflows into reusable skills; curate stale generators; skills compound via `## Learned notes`.
 
 ### 🪶 The golden rule: *lean by default* — in two dimensions
@@ -96,9 +96,9 @@ This copies the *template* (files only, zero runtime deps) into your repo: `AGEN
 npm create lean-agent-kit . --upgrade
 ```
 
-Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, scaffolder recipes, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, custom rows in `.agent/stacks/registry.md`, and edited ADRs.
+Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, scaffolder recipes, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), custom rows in `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md`, `LEAN_AGENT_KIT.md`, and edited ADRs.
 
-Differing files are backed up to `.leanagentkit-backup/<timestamp>/` before overwrite. The installed version is stamped in `.agent/.leanagentkit-version`.
+Differing files are backed up to `.leanagentkit-backup/<timestamp>-<pid>/` before overwrite. The installed version is stamped in `.agent/.leanagentkit-version`.
 
 After upgrading, re-run:
 
@@ -120,7 +120,7 @@ This is the **single most important command you'll ever run.** It interviews you
 | **1. Map** 🗺️ | Scans structure + entry points → writes `docs/CODEBASE_MAP.md` | `leanagentkit-map-codebase` |
 | **2. Conventions** 📜 | Fills `AGENTS.md` §1–5 with **evidence‑based** rules from your real code | `leanagentkit-init-conventions` |
 | **3. Stack** 🧰 | Detects tech from `registry.md`, confirms with you, installs matched skills, applies playbooks | `leanagentkit-match-stack` |
-| **4. Wire agents** 🔌 | Generates native config + skill wrappers for Cursor/Claude (one‑line pointers for others) | `leanagentkit-wire-agent` |
+| **4. Wire agents** 🔌 | Generates native config + skill wrappers for Cursor/Claude (one‑line pointers for others); Cursor may opt into session hooks | `leanagentkit-wire-agent` |
 | **5. Seed ADRs** 🏛️ | *(Optional, asks)* reverse‑engineers existing decisions into `docs/adr/*` | `leanagentkit-seed-adrs` |
 | **5b. Generators** 🏭 | *(Optional, asks)* authors artifact generators (page, component…) | `leanagentkit-skill-artifact-template` |
 | **6–8. Finish** ✅ | Documents installed stack skills, summarizes, stamps today's date | *(bootstrap)* |
@@ -279,6 +279,10 @@ stays the source of truth**; the git branch is the execution sandbox. Prompts ar
 offers only — never auto-commit, push, or open PR. PR offers require `gh`.
 
 Full details: see the [Git lifecycle integration guide](/git-lifecycle) in the docs site.
+
+Optional **PR babysit**: set `offer_babysit_after_pr: true` in git-lifecycle config
+(or answer Yes at bootstrap Step 3c follow-up) to advertise `leanagentkit-babysit-pr`
+— triages comments, conflicts, and in-scope CI until merge-ready.
 
 ### Optional — architecture decomposition
 
@@ -733,7 +737,7 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
 🛡️ GUARDRAILS (auto or explicit)
   review · simplify · git-workflow · docs · debug · tdd
   security · performance · deprecation · api-design · frontend-design
-  ci-cd · observability        (conditional)
+  ci-cd · observability · git-lifecycle · babysit-pr   (conditional)
 
 🤝 HANDOFF
   → leanagentkit-handoff               # cross-window / cross-tool baton

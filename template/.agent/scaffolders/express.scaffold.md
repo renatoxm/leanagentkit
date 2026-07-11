@@ -4,13 +4,14 @@
 - **Kind:** template
 - **Stacks row:** Node / Express
 - **Depends-on:** none
-- **Chains-to:** prisma, drizzle
+- **Chains-to:** PostgreSQL + Prisma, PostgreSQL + Drizzle
 - **Verified:** 2026-07-06
 
 ## Questions
 
 | id | prompt | options | default | → flag / param | when |
 |----|--------|---------|---------|----------------|------|
+| name | Package name | `<name>` | `api` | `{{name}}` | |
 | ts | TypeScript? | yes · no | yes | `{{use_ts}}` | |
 | eslint | ESLint? | yes · no | yes | add lint deps | |
 | prettier | Prettier? | yes · no | yes | add format deps | |

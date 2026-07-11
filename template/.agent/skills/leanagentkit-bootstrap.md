@@ -64,8 +64,8 @@ them in the summary.
 **Practice skills (guardrails):** Cross-cutting skills ship in `.agent/skills/`.
 Eleven are always-on with `invocation: auto` (review, simplify, git-workflow,
 docs, debug, tdd, security, performance, deprecation, api-design,
-frontend-design) — agents load them when relevant, not on every prompt. Five are
-`invocation: conditional` (ci-cd, observability, backlog, git-lifecycle,
+frontend-design) — agents load them when relevant, not on every prompt. Six are
+`invocation: conditional` (ci-cd, observability, backlog, git-lifecycle, babysit-pr,
 architecture): they ship dormant and are advertised in `AGENTS.md §7` only when
 `leanagentkit-match-stack` detects matching evidence. See
 `.agent/skills/README.md` § Engineering practice.
@@ -95,7 +95,9 @@ synced to the spec workflow, offer (do not assume):
 - **Yes** → copy `.leanagentkit/git-lifecycle.yml.example` to
   `.leanagentkit/git-lifecycle.yml` (adjust settings if the user wants). Step 3f
   wires `leanagentkit-git-lifecycle` into `AGENTS.md §7`. For PR offers, ensure GitHub CLI is installed
-  (`gh auth login`).
+  (`gh auth login`). Then ask (default **No**): offer PR babysit after PR creation?
+  If Yes, set `offer_babysit_after_pr: true` in the config so Step 3f also
+  advertises `leanagentkit-babysit-pr`.
 - **No** → skip. The kit works fully without git lifecycle integration.
 
 Full integration details: `.agent/skills/leanagentkit-git-lifecycle.md`.
@@ -160,7 +162,7 @@ After Steps 3b–3g (whether the user opted in or skipped each), run **only** st
 7 and 8 of `leanagentkit-match-stack`:
 
 1. Rebuild **Practice skills (guardrails)** — CI/CD, observability, backlog,
-   git-lifecycle, architecture (per registry Detect conditions).
+   git-lifecycle, babysit-pr, architecture (per registry Detect conditions).
 2. Rebuild **Token efficiency (optional)** — Caveman toggles from
    `.leanagentkit/caveman.yml` (step 8 only; never under Practice skills).
 
@@ -172,7 +174,8 @@ For each tool selected in Step 0, create a ONE-LINE pointer to AGENTS.md (don't
 duplicate rules):
 - **Cursor and/or Claude Code** → run `leanagentkit-wire-agent` with the selected
   target(s). Copies static templates (`.cursor/rules/memory.mdc`, `CLAUDE.md`) and
-  **generates** skill wrappers from `.agent/skills/*.md` frontmatter. On re-run,
+  **generates** skill wrappers from `.agent/skills/*.md` frontmatter. For Cursor,
+  wire-agent may also offer optional session hooks (`.cursor/hooks.json`). On re-run,
   refreshes only kit-managed files.
 - Copilot → `.github/copilot-instructions.md`: "Follow AGENTS.md."
 - Aider → `CONVENTIONS.md`: "Follow AGENTS.md."

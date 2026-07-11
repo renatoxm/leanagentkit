@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** Next.js
 - **Depends-on:** none
-- **Chains-to:** prisma, drizzle, tailwind
+- **Chains-to:** PostgreSQL + Prisma, PostgreSQL + Drizzle, Tailwind CSS v4
 - **Verified:** 2026-07-06
 
 ## Questions

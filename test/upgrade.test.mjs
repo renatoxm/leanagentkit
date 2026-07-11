@@ -57,6 +57,7 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
     assert.ok(existsSync(backupRoot), "backup dir created");
     const stampDirs = readdirSync(backupRoot);
     assert.ok(stampDirs.length >= 1, "timestamped backup subdir exists");
+    assert.match(stampDirs[0], /-\d+$/, "backup dir includes pid suffix");
     const backupSkill = join(backupRoot, stampDirs[0], ".agent/skills/leanagentkit-bootstrap.md");
     assert.ok(existsSync(backupSkill), "overwritten skill backed up");
     assert.equal(readFileSync(backupSkill, "utf8"), staleSkill);
@@ -129,7 +130,8 @@ test("bootstrap offers architecture decomposition in Step 3g", () => {
   );
   assert.match(bootstrap, /Step 3g — Optional architecture decomposition/);
   assert.match(bootstrap, /architecture\.yml\.example/);
-  assert.match(bootstrap, /Five are `invocation:\s*\nconditional`/);
+  assert.match(bootstrap, /Six are[\s\S]*`invocation: conditional`/);
+  assert.match(bootstrap, /babysit-pr/);
 });
 
 test("bootstrap refreshes AGENTS.md section 7 after optional integrations", () => {
@@ -150,7 +152,54 @@ test("match-stack skips Caveman in practice-skill step 7", () => {
   assert.match(matchStack, /never list Caveman skills under\s+Practice skills/i);
 });
 
-test("upgrade preserves user-created .leanagentkit/caveman.yml", () => {
+test("upgrade preserves memory checklists, workflows, scaffolder registry, and LEAN_AGENT_KIT.md", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-preserve-"));
+  try {
+    runCli(dir);
+    const userChecklist = "# MY CUSTOM CHECKLIST";
+    const userWorkflow = "# MY CUSTOM WORKFLOW";
+    const userScaffolderRegistry = "# MY CUSTOM SCAFFOLDER REGISTRY";
+    const userKitReadme = "# MY CUSTOM LEAN_AGENT_KIT";
+    const staleExpress = "# STALE EXPRESS RECIPE";
+    writeFileSync(join(dir, "docs/memory/CHECKLISTS/weekly-review.md"), userChecklist);
+    writeFileSync(join(dir, "docs/memory/WORKFLOWS/weekly-review.md"), userWorkflow);
+    writeFileSync(join(dir, ".agent/scaffolders/registry.md"), userScaffolderRegistry);
+    writeFileSync(join(dir, "LEAN_AGENT_KIT.md"), userKitReadme);
+    writeFileSync(join(dir, ".agent/scaffolders/express.scaffold.md"), staleExpress);
+
+    runCli(dir, "--upgrade");
+
+    assert.equal(
+      readFileSync(join(dir, "docs/memory/CHECKLISTS/weekly-review.md"), "utf8"),
+      userChecklist,
+      "CHECKLISTS preserved",
+    );
+    assert.equal(
+      readFileSync(join(dir, "docs/memory/WORKFLOWS/weekly-review.md"), "utf8"),
+      userWorkflow,
+      "WORKFLOWS preserved",
+    );
+    assert.equal(
+      readFileSync(join(dir, ".agent/scaffolders/registry.md"), "utf8"),
+      userScaffolderRegistry,
+      "scaffolder registry preserved",
+    );
+    assert.equal(
+      readFileSync(join(dir, "LEAN_AGENT_KIT.md"), "utf8"),
+      userKitReadme,
+      "LEAN_AGENT_KIT.md preserved",
+    );
+    assert.doesNotMatch(
+      readFileSync(join(dir, ".agent/scaffolders/express.scaffold.md"), "utf8"),
+      /STALE EXPRESS/,
+      "scaffolder recipe refreshed",
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("upgrade leaves user-created .leanagentkit/caveman.yml untouched (not in template)", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-caveman-"));
   try {
     runCli(dir);

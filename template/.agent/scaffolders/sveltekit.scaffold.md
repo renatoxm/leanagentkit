@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** Svelte / SvelteKit
 - **Depends-on:** none
-- **Chains-to:** tailwind, shadcn-svelte
+- **Chains-to:** Tailwind CSS v4, shadcn-svelte
 - **Verified:** 2026-07-06
 
 ## Questions

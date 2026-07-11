@@ -72,7 +72,9 @@ config (`.mcp.json` entries), and runs install commands when approved.
    row activates when `backlog` is on PATH **and** a Backlog project folder/config
    exists — advertise it there; do not run `backlog agents --update-instructions`.
    The `leanagentkit-git-lifecycle` row activates when `.git` exists **and**
-   `.leanagentkit/git-lifecycle.yml` exists. The `leanagentkit-architecture` row
+   `.leanagentkit/git-lifecycle.yml` exists. The `leanagentkit-babysit-pr` row
+   activates when `.git` exists, `.leanagentkit/git-lifecycle.yml` exists, **and**
+   that file has `offer_babysit_after_pr: true`. The `leanagentkit-architecture` row
    activates when `.leanagentkit/architecture.yml` exists with `enabled: true` —
    advertise `leanagentkit-architecture` and `leanagentkit-decompose-spec` there.
    Always-on guardrails (`invocation: auto`)

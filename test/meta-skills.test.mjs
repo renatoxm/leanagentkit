@@ -89,6 +89,22 @@ test("architecture lifecycle hooks delegate new-spec handoff", () => {
   assert.doesNotMatch(content, /Invoke `leanagentkit-decompose-spec`/);
 });
 
+test("practice-skills registry includes PR babysit row", () => {
+  const registry = readFileSync(
+    join(process.cwd(), "template", ".agent", "practice-skills", "registry.md"),
+    "utf8",
+  );
+  assert.match(registry, /PR babysit/);
+  assert.match(registry, /offer_babysit_after_pr/);
+  assert.match(registry, /leanagentkit-babysit-pr/);
+});
+
+test("git-lifecycle offers babysit after PR when configured", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-git-lifecycle.md"), "utf8");
+  assert.match(content, /offer_babysit_after_pr/);
+  assert.match(content, /leanagentkit-babysit-pr/);
+});
+
 test("practice-skills registry includes architecture decomposition row", () => {
   const registry = readFileSync(
     join(process.cwd(), "template", ".agent", "practice-skills", "registry.md"),
@@ -99,13 +115,13 @@ test("practice-skills registry includes architecture decomposition row", () => {
   assert.match(registry, /leanagentkit-decompose-spec/);
 });
 
-test("architecture and decompose-spec have routing-safe descriptions", () => {
+test("architecture and decompose-spec have discovery-safe descriptions", () => {
   for (const file of ["leanagentkit-architecture.md", "leanagentkit-decompose-spec.md", "leanagentkit-implement-spec.md"]) {
     const content = readFileSync(join(SKILLS, file), "utf8");
     const m = content.match(/^description:\s*(.+)$/m);
     assert.ok(m, `${file}: description required`);
     const desc = m[1].replace(/^["']|["']$/g, "");
-    assert.ok(desc.length <= 60, `${file}: description must be <=60 chars (got ${desc.length})`);
+    assert.ok(desc.length <= 1024, `${file}: description must be <=1024 chars (got ${desc.length})`);
   }
 });
 
@@ -151,4 +167,18 @@ test("slices template includes required work slices table columns", () => {
   assert.match(content, /Parallel/);
   assert.match(content, /FilesInPlay/);
   assert.match(content, /Integration contracts/);
+});
+
+test("end-session gates spec done on check PASS and user confirmation", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-end-session.md"), "utf8");
+  assert.match(content, /leanagentkit-check[\s\S]*PASS/i);
+  assert.match(content, /user confirms the feature is complete/i);
+  assert.match(content, /leave status[\s\S]*unchanged/i);
+});
+
+test("babysit-pr honors explicit user ask without config flag", () => {
+  const content = readFileSync(join(SKILLS, "leanagentkit-babysit-pr.md"), "utf8");
+  assert.match(content, /Explicit user ask/i);
+  assert.match(content, /do not\*\* require `offer_babysit_after_pr`/i);
+  assert.match(content, /Auto-offer path/i);
 });

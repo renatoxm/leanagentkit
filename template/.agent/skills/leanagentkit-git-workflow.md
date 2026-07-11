@@ -49,8 +49,64 @@ Small cleanups (rename one variable) may ride with feature at reviewer discretio
 ```
 ~100 lines  → Easy to review and revert
 ~300 lines  → OK for single logical change
-~1000 lines → Split (see leanagentkit-review change-sizing)
+~1000 lines → Split (see leanagentkit-review change-sizing and Split oversized work below)
 ```
+
+## Split oversized work into PRs
+
+When a branch or working tree grows beyond reviewable size (~1000 lines or mixed
+concerns), split into small PRs before review. Adapted from Cursor `split-to-prs`.
+
+### Hard rules
+
+- Do not create branches, commit, push, or open PRs until the user approves the split plan.
+- Never discard user work. No destructive git commands (`reset --hard`, `clean -fdx`,
+  branch deletion, force-push, history rewrite) without explicit approval.
+- Always save a recoverable snapshot before moving work around:
+  ```bash
+  SHA=$(git stash create "pre-split")
+  if [ -n "$SHA" ]; then
+    git update-ref "refs/backup/pre-split-$(date +%s)" "$SHA"
+  fi
+  ```
+- Stage only named files or hunks. No `git add .` / `git add -A`.
+
+### 1. Check the state
+
+Compare current work to the repo's default branch, including committed and
+uncommitted changes. Summarize the real slices you see; use chat history and
+`ACTIVE_CONTEXT` to recover intent.
+
+Before proposing slices, find ownership signals for touched paths (`CODEOWNERS`,
+nested ownership files, `tools/ownership/PRODUCTOWNERS`, or repo equivalents) and
+use them for natural reviewer boundaries.
+
+### 2. Propose the split
+
+Usually PR titles are enough. Add a one-line scope note only when a title is unclear.
+Show a Mermaid diagram when there are multiple slices.
+
+Optimize for reviewer-aligned PRs with minimal unrelated diff: split independent
+owners or concerns; keep tightly coupled changes together; when stacking is
+necessary, order foundations before consumers.
+
+Default to independent PRs off the default branch. Stack PRs only when the
+dependency is real.
+
+Ask for approval before starting.
+
+### 3. Execute the split
+
+For each approved slice:
+
+1. Create a branch from the right base.
+2. Stage and commit only the planned files or hunks.
+3. Push and open a PR (`gh pr create` when `gh` is available).
+
+### 4. Report back
+
+Keep it short: PR titles and URLs, plus anything left on the starting branch or
+working tree. Do not delete the backup ref unless the user asks.
 
 ## Branch naming
 

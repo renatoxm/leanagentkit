@@ -44,6 +44,7 @@ See `.leanagentkit/git-lifecycle.yml.example` for the schema. Key fields:
 | `offer_commit_on_ac` | `false` | Offer commit after each acceptance criterion |
 | `offer_commit_at_end_session` | `true` | Offer save-point commit at session end |
 | `offer_pr_when_spec_done` | `true` | Offer push + PR when spec completes |
+| `offer_babysit_after_pr` | `false` | Offer PR babysit loop after PR is created |
 
 ## Source of truth
 
@@ -159,6 +160,10 @@ Only when spec `Status: done` and `leanagentkit-check` is PASS.
    )"
    ```
 5. Return the PR URL to the user when created.
+6. If `offer_babysit_after_pr` is true, ask (interactive UI when available):
+   - Recommended: "Babysit this PR until merge-ready?"
+   - Also: "Skip", "Something else (I will type it)"
+7. On confirm only: run `leanagentkit-babysit-pr` with the PR URL from step 5.
 
 ## Install and enable (agent-driven — never via `create-lean-agent-kit`)
 

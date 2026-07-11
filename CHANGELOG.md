@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [Unreleased](https://github.com/renatoxm/leanagentkit/compare/v0.4.16...HEAD)
+
+### Bug Fixes
+
+* **cli:** preserve all existing `docs/memory/*` files, scaffolder registry, and `LEAN_AGENT_KIT.md` on `--upgrade`; reject `--upgrade --force`; warn on re-scaffold when kit is present; backup dirs include pid suffix
+* **scaffolders:** add missing `name` questions to Express and FastAPI recipes; make FastAPI standalone (`Depends-on: none`); per-provider Drizzle templates; Django subdirectory Ruff/verify paths; registry Item names in `Chains-to`
+* **skills:** gate `end-session` spec `done` on check PASS; honor explicit babysit-pr requests without config flag
+* **cursor:** increase session hook timeout to 30s
+* **stacks:** prefer clone+package install for shadcn-svelte; pin curl fallback to v1.0.3
+
+### Features
+
+* **ci:** run `pnpm test` on pull requests and pushes to `main`
+
 ## [0.4.16](https://github.com/renatoxm/leanagentkit/compare/v0.4.15...v0.4.16) (2026-07-11)
 
 

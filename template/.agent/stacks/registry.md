@@ -103,22 +103,22 @@
 - **Detect:** `components.json` with a svelte/shadcn config, `bits-ui` / `mode-watcher` / `formsnap` in deps, `$lib/components/ui/` directory, shadcn-svelte imports
 - **Skill:** `antstanley/shadcn-svelte-skill`
 - **Type:** skill (copy-in; 54 component references + setup/migration guides)
-- **Install:** curl-piped install script (NOT `npx skills add`):
-  `curl -fsSL https://github.com/antstanley/shadcn-svelte-skill/releases/latest/download/install.sh | bash`
-  - Installs to `~/.claude/skills/shadcn-svelte` (Claude Code global layout).
-  - Claude Code alt (project): clone and package into `.claude/skills/shadcn-svelte/`:
-    ```bash
-    git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
-    cd /tmp/shadcn-svelte-skill && python scripts/package_skill.py shadcn-svelte dist
-    unzip -o dist/shadcn-svelte.zip -d .claude/skills/
-    ```
-  - Cursor alt: clone and package into `.cursor/skills/shadcn-svelte/`:
+- **Install:** clone and package into the project skills dir (preferred):
+  - **Cursor:**
     ```bash
     git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
     cd /tmp/shadcn-svelte-skill && python scripts/package_skill.py shadcn-svelte dist
     unzip -o dist/shadcn-svelte.zip -d .cursor/skills/
     ```
-  - Pin a version: swap `latest/download` for `download/vX.Y.Z` (latest verified: v1.0.3, 2026-02-03).
+  - **Claude Code (project):**
+    ```bash
+    git clone --depth 1 https://github.com/antstanley/shadcn-svelte-skill /tmp/shadcn-svelte-skill
+    cd /tmp/shadcn-svelte-skill && python scripts/package_skill.py shadcn-svelte dist
+    unzip -o dist/shadcn-svelte.zip -d .claude/skills/
+    ```
+  - **Claude Code (global):** curl-piped install (secondary; pinned v1.0.3):
+    `curl -fsSL https://github.com/antstanley/shadcn-svelte-skill/releases/download/v1.0.3/install.sh | bash`
+    - Installs to `~/.claude/skills/shadcn-svelte`.
   - From source: clone, then `python scripts/package_skill.py shadcn-svelte dist` and unzip into your skills dir.
 - **Provides:** component recipes (Button, Dialog, Form, Data Table…), Bits UI integration, Superforms/Formsnap forms, dark mode via mode-watcher, Svelte 5 + Tailwind v4 migration notes
 - **Depends on:** Svelte 5 (see svelte row) **and** Tailwind v4 (see tailwind row) — enable those rows too

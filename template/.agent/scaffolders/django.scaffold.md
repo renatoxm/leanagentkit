@@ -35,7 +35,12 @@ django-admin startproject {{name}} {{layout}}
 
 ## Optional — ruff (if ruff=yes)
 
-Create `pyproject.toml` at project root (if not present):
+**When `layout=subdirectory`:** create `pyproject.toml`, venv, and run Ruff from
+`{{name}}/` (the Django project directory).
+
+**When `layout=current directory`:** use repo root paths below.
+
+Create `pyproject.toml` at the Django project root (if not present):
 
 ```toml
 [project]
@@ -60,11 +65,13 @@ quote-style = "double"
 Install into the project venv (never system-wide):
 
 ```bash
-python -m venv .venv
+cd {{name}} && python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install ruff
 # or: uv venv && uv pip install ruff
 ```
+
+> For `layout=current directory`, omit `cd {{name}} &&` and use `.` as the project root.
 
 Add to `Makefile` or document:
 
@@ -78,12 +85,24 @@ Add to `Makefile` or document:
 Copy `.agent/scaffolders/snippets/vscode/ruff.settings.json.tpl` → `.vscode/settings.json`
 Copy `.agent/scaffolders/snippets/vscode/ruff.extensions.json` → `.vscode/extensions.json`
 
+> VS Code config stays at repo `.vscode/` (workspace-level).
+
 ## Verify
+
+**When `layout=subdirectory`:**
+
+- [ ] `{{name}}/manage.py` exists
+- [ ] `{{name}}/{{name}}/settings.py` exists
+- [ ] `cd {{name}} && python manage.py check` succeeds
+- [ ] When `ruff=yes`: `{{name}}/pyproject.toml` has `[tool.ruff]` and `{{name}}/.venv/bin/ruff check .` succeeds
+
+**When `layout=current directory`:**
 
 - [ ] `manage.py` exists
 - [ ] `{{name}}/settings.py` exists
 - [ ] `python manage.py check` succeeds
 - [ ] When `ruff=yes`: `pyproject.toml` has `[tool.ruff]` and `.venv/bin/ruff check .` succeeds
+
 - [ ] When `vscode=yes`: `.vscode/settings.json` and `extensions.json` exist
 
 ## Handoff

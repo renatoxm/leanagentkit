@@ -170,7 +170,7 @@ Or: `leanagentkit-map-codebase`, `leanagentkit-init-conventions`, `leanagentkit-
 
 ## All Skills
 
-The kit ships 37 tool-agnostic skills grouped by lifecycle phase. Invoke any of
+The kit ships 38 tool-agnostic skills grouped by lifecycle phase. Invoke any of
 them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 
 ### Orchestration — set up and maintain the kit
@@ -236,6 +236,7 @@ Ship dormant (explicit-invoke); advertised in `AGENTS.md §7` only when
 | `leanagentkit-observability` | Instruments code for production visibility — structured logging, metrics, tracing, symptom-based alerting | Adding telemetry, or shipping a deployable service             |
 | `leanagentkit-backlog`       | Syncs Backlog.md Kanban cards to kit specs and session lifecycle (status layer only)                      | Visual task board when Backlog.md is installed and initialized |
 | `leanagentkit-git-lifecycle` | Branch, commit, and PR offers synced to spec workflow (prompt-only; never automatic)                      | Git repo with `.leanagentkit/git-lifecycle.yml` config         |
+| `leanagentkit-babysit-pr`    | Triage PR comments, conflicts, and in-scope CI until merge-ready (never auto-merge)                       | `offer_babysit_after_pr: true` in git-lifecycle config + `gh`  |
 | `leanagentkit-architecture`    | Embedded CA/DDD references, parallel slice safety rules, optional boundary checks                           | `.leanagentkit/architecture.yml` with `enabled: true`          |
 | `leanagentkit-decompose-spec`  | Decomposes specs into parallel-safe work slices with integration contracts                                  | After new-spec when architecture integration is active         |
 

@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** Turborepo
 - **Depends-on:** none
-- **Chains-to:** next, react-vite, hono
+- **Chains-to:** Next.js, React (Vite), Hono
 - **Verified:** 2026-07-06
 
 ## Questions

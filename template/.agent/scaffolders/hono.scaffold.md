@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** Hono
 - **Depends-on:** none
-- **Chains-to:** cloudflare, prisma, drizzle
+- **Chains-to:** Cloudflare, PostgreSQL + Prisma, PostgreSQL + Drizzle
 - **Verified:** 2026-07-06
 
 ## Questions

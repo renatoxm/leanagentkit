@@ -4,7 +4,7 @@
 - **Kind:** template
 - **Stacks row:** Python
 - **Depends-on:** none
-- **Chains-to:** fastapi, django
+- **Chains-to:** FastAPI, Django
 - **Verified:** 2026-07-06
 
 ## Questions

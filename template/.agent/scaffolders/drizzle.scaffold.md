@@ -17,16 +17,26 @@
 
 ## Files (template kind only)
 
-### 1. install-deps
+### 1. install-deps (if provider=postgresql)
 
 ```bash
-{{pm}} add drizzle-orm
-{{pm}} add -D drizzle-kit
-{{pm}} add -D @types/node
-{{pm}} add postgres
+{{pm}} add drizzle-orm postgres
+{{pm}} add -D drizzle-kit @types/node
 ```
 
-> For `mysql` use `mysql2`; for `sqlite` use `better-sqlite3` instead of `postgres`.
+### 1b. install-deps (if provider=mysql)
+
+```bash
+{{pm}} add drizzle-orm mysql2
+{{pm}} add -D drizzle-kit @types/node
+```
+
+### 1c. install-deps (if provider=sqlite)
+
+```bash
+{{pm}} add drizzle-orm better-sqlite3
+{{pm}} add -D drizzle-kit @types/node @types/better-sqlite3
+```
 
 ### 2. create-file — `drizzle.config.ts`
 
@@ -43,7 +53,7 @@ export default defineConfig({
 });
 ```
 
-### 3. create-file — `{{schema_path}}`
+### 3a. create-file — `{{schema_path}}` (if provider=postgresql)
 
 ```tpl
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
@@ -55,9 +65,31 @@ export const users = pgTable("users", {
 });
 ```
 
-> Adjust imports for `mysql` (`drizzle-orm/mysql-core`) or `sqlite` (`drizzle-orm/sqlite-core`).
+### 3b. create-file — `{{schema_path}}` (if provider=mysql)
 
-### 4. create-file — `src/db/index.ts` (or `db/index.ts` matching schema dir)
+```tpl
+import { mysqlTable, serial, varchar, timestamp } from "drizzle-orm/mysql-core";
+
+export const users = mysqlTable("users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+```
+
+### 3c. create-file — `{{schema_path}}` (if provider=sqlite)
+
+```tpl
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+```
+
+### 4a. create-file — `src/db/index.ts` (if provider=postgresql)
 
 ```tpl
 import { drizzle } from "drizzle-orm/postgres-js";
@@ -68,10 +100,46 @@ const client = postgres(process.env.DATABASE_URL!);
 export const db = drizzle(client, { schema });
 ```
 
-### 5. create-file — `.env.example`
+> Use `db/index.ts` when `schema_path` is `db/schema.ts`.
+
+### 4b. create-file — `src/db/index.ts` (if provider=mysql)
+
+```tpl
+import { drizzle } from "drizzle-orm/mysql2";
+import mysql from "mysql2/promise";
+import * as schema from "./schema";
+
+const pool = mysql.createPool(process.env.DATABASE_URL!);
+export const db = drizzle(pool, { schema });
+```
+
+### 4c. create-file — `src/db/index.ts` (if provider=sqlite)
+
+```tpl
+import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
+import * as schema from "./schema";
+
+const sqlite = new Database(process.env.DATABASE_URL!);
+export const db = drizzle(sqlite, { schema });
+```
+
+### 5a. create-file — `.env.example` (if provider=postgresql)
 
 ```tpl
 DATABASE_URL=postgresql://user:password@localhost:5432/mydb
+```
+
+### 5b. create-file — `.env.example` (if provider=mysql)
+
+```tpl
+DATABASE_URL=mysql://user:password@localhost:3306/mydb
+```
+
+### 5c. create-file — `.env.example` (if provider=sqlite)
+
+```tpl
+DATABASE_URL=./local.db
 ```
 
 ### 6. patch — edit `package.json` scripts
@@ -87,6 +155,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/mydb
 - [ ] `drizzle.config.ts` exists
 - [ ] `{{schema_path}}` exists with at least one table
 - [ ] `drizzle-orm` and `drizzle-kit` in `package.json`
+- [ ] Driver package matches provider (`postgres`, `mysql2`, or `better-sqlite3`)
 - [ ] `{{pm}} run db:generate` succeeds (or reports no pending changes)
 
 ## Handoff

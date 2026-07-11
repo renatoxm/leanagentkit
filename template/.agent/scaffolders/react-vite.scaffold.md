@@ -4,7 +4,7 @@
 - **Kind:** cli
 - **Stacks row:** React
 - **Depends-on:** none
-- **Chains-to:** tailwind
+- **Chains-to:** Tailwind CSS v4
 - **Verified:** 2026-07-06
 
 ## Questions

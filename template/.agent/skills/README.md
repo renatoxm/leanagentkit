@@ -87,6 +87,7 @@ dormant (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 | `leanagentkit-observability.md` | Logging, metrics, tracing for services *(conditional)* |
 | `leanagentkit-backlog.md` | Visual Kanban board synced to specs *(conditional — Backlog.md)* |
 | `leanagentkit-git-lifecycle.md` | Branch, commit, PR offers synced to spec workflow *(conditional — git config)* |
+| `leanagentkit-babysit-pr.md` | PR babysit loop — comments, conflicts, CI until merge-ready *(conditional — git config + flag)* |
 
 ## Optional token efficiency (Caveman)
 

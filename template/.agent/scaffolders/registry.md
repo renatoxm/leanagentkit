@@ -26,20 +26,20 @@
 
 | Item | Kind | Stacks row | Recipe | Depends-on | Chains-to | Gate |
 |------|------|------------|--------|------------|-----------|------|
-| Astro | cli | Astro | `astro.scaffold.md` | none | tailwind, cloudflare | base |
-| Next.js | cli | Next.js | `next.scaffold.md` | none | prisma, drizzle, tailwind | base |
-| React (Vite) | cli | React | `react-vite.scaffold.md` | none | tailwind | base |
-| SvelteKit | cli | Svelte / SvelteKit | `sveltekit.scaffold.md` | none | tailwind, shadcn-svelte | base |
+| Astro | cli | Astro | `astro.scaffold.md` | none | Tailwind CSS v4, Cloudflare | base |
+| Next.js | cli | Next.js | `next.scaffold.md` | none | PostgreSQL + Prisma, PostgreSQL + Drizzle, Tailwind CSS v4 | base |
+| React (Vite) | cli | React | `react-vite.scaffold.md` | none | Tailwind CSS v4 | base |
+| SvelteKit | cli | Svelte / SvelteKit | `sveltekit.scaffold.md` | none | Tailwind CSS v4, shadcn-svelte | base |
 
 ## Backend
 
 | Item | Kind | Stacks row | Recipe | Depends-on | Chains-to | Gate |
 |------|------|------------|--------|------------|-----------|------|
 | Django | cli | Django | `django.scaffold.md` | none | none | base |
-| Express | template | Node / Express | `express.scaffold.md` | none | prisma, drizzle | base |
-| FastAPI | template | FastAPI | `fastapi.scaffold.md` | python | none | base |
-| Hono | cli | Hono | `hono.scaffold.md` | none | cloudflare, prisma, drizzle | base |
-| Python (base) | template | Python | `python.scaffold.md` | none | fastapi, django | base |
+| Express | template | Node / Express | `express.scaffold.md` | none | PostgreSQL + Prisma, PostgreSQL + Drizzle | base |
+| FastAPI | template | FastAPI | `fastapi.scaffold.md` | none | none | base |
+| Hono | cli | Hono | `hono.scaffold.md` | none | Cloudflare, PostgreSQL + Prisma, PostgreSQL + Drizzle | base |
+| Python (base) | template | Python | `python.scaffold.md` | none | FastAPI, Django | base |
 | Go | template | Go | `go.scaffold.md` | none | none | base |
 
 ## ORM
@@ -66,7 +66,7 @@
 
 | Item | Kind | Stacks row | Recipe | Depends-on | Chains-to | Gate |
 |------|------|------------|--------|------------|-----------|------|
-| Turborepo | cli | Turborepo | `turborepo.scaffold.md` | none | next, react-vite, hono | base |
+| Turborepo | cli | Turborepo | `turborepo.scaffold.md` | none | Next.js, React (Vite), Hono | base |
 
 ---
 

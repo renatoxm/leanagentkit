@@ -3,15 +3,16 @@
 > Shared reference for `leanagentkit-create-skill`, `leanagentkit-skill-artifact-template`,
 > `leanagentkit-distill-skill`, and any agent authoring a project skill. Aligned with the
 > [agentskills.io](https://agentskills.io) open standard. Adapted from Hermes Agent
-> skill-authoring HARDLINE rules. For predictability, pruning, and refactor diagnosis,
-> see `leanagentkit-create-skill` + `skill-craft-glossary.md`.
+> skill-authoring HARDLINE rules and Cursor `create-skill` discovery patterns. For
+> predictability, pruning, and refactor diagnosis, see `leanagentkit-create-skill` +
+> `skill-craft-glossary.md`.
 
 ## Frontmatter (required)
 
 ```yaml
 ---
 name: lowercase-hyphenated          # <=64 chars, no spaces
-description: "One sentence, <=60 chars, ends with a period."
+description: "WHAT it does. WHEN to use it — include trigger terms."
 version: 0.1.0
 related: [other-skill-name]         # optional — skills this one pairs with
 metadata:
@@ -23,17 +24,35 @@ status: active                      # active | pinned | archived
 
 ### `description` (most-violated rule)
 
-- **ONE sentence, <=60 characters**, ends with a period.
+Write in **third person**. Include both **WHAT** (capability) and **WHEN** (trigger
+scenarios). Add concrete trigger terms the user might say.
+
+| Limit | Rule |
+|-------|------|
+| Hard max | **1024 characters** (Cursor / agentskills discovery) |
+| Soft target | **≤200 characters** for kit and generated skills |
+| Form | One primary sentence preferred; ends with a period |
+
+Additional rules:
+
 - State the **capability**, not the implementation.
 - No marketing words: powerful, comprehensive, seamless, advanced, robust.
 - Do NOT repeat the skill name.
 - If the description contains a colon, wrap the whole value in double quotes.
-- **COUNT the characters** before saving. Anything past char 60 is silently truncated
-  by skill indexes and never routes.
+- **COUNT characters** before saving.
 
-Good (<=60): `Search arXiv papers by keyword, author, or ID.`
+Good (WHAT + WHEN, ≤200):
 
-Bad (123): `A comprehensive skill that lets the agent search arXiv for academic papers using keywords, authors, and categories.`
+`Keep a PR merge-ready by triaging comments and CI. Use after opening a PR or when the user asks to babysit or fix PR checks.`
+
+Bad (vague):
+
+`Helps with pull requests.`
+
+### Verbatim user text
+
+If the user supplies exact wording for a skill, use it **verbatim** in the skill body
+(same words, same order). Do not paraphrase or add unrequested headings around it.
 
 ### `status` lifecycle
 
@@ -58,6 +77,23 @@ Omit a section only if it genuinely has no content:
 7. **## Pitfalls** — known limits, rate limits, things that look broken but aren't.
 8. **## Verification** — a single command/check that proves the skill worked.
 9. **## Learned notes** — *(generated/project skills only)* append-only gotchas discovered in practice.
+
+## Progressive disclosure
+
+- Keep `SKILL.md` concise: ~100 lines for simple skills, ~200 for complex, **≤500** when possible.
+- Put detailed reference in sibling files (`reference.md`, checklists under `references/`).
+- Link **one level deep** from `SKILL.md` — avoid nested reference chains.
+- For fragile or repetitive operations, add a `scripts/` file beside the skill and reference it by path.
+
+## Degrees of freedom
+
+Match specificity to task fragility:
+
+| Freedom | When | Example |
+|---------|------|---------|
+| **High** (text instructions) | Multiple valid approaches | Code review guidelines |
+| **Medium** (templates/pseudocode) | Preferred pattern with variation | Report structure |
+| **Low** (exact scripts) | Fragile ops, consistency critical | Database migrations |
 
 ## Tool-agnostic framing
 

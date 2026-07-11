@@ -255,7 +255,9 @@ do not invoke `create-*`.
 **`Kind: template`**
 
 - Execute each step under `## Files` in order (create-file, patch, install-deps).
-- Substitute parameters from answers (`{{name}}`, `{{provider}}`, etc.).
+- Substitute parameters from answers (`{{name}}`, `{{provider}}`, etc.). When a
+  recipe defines `name_snake`, derive it as lowercase `{{name}}` with non-alphanumeric
+  characters replaced by `_` (unless the recipe documents a different rule).
 - Run conditional steps (`if eslint=yes`, `if ruff=yes`, etc.) and `## VS Code`
   steps after core files when the user opted in.
 - Then run **Optional — commit helpers** when `commit_helpers=yes` (Step 5).

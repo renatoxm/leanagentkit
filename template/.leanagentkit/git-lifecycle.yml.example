@@ -20,3 +20,6 @@ offer_commit_at_end_session: true
 # Offer push + gh pr create when spec Status: done and leanagentkit-check PASS
 # Requires GitHub CLI (gh) on PATH
 offer_pr_when_spec_done: true
+
+# After PR is opened, offer to run leanagentkit-babysit-pr until merge-ready
+offer_babysit_after_pr: false

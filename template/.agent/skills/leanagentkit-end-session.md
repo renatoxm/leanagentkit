@@ -26,7 +26,10 @@ description: End a coding session — persist active context, progress, and map 
    (use `leanagentkit-seed-adrs` style / `_TEMPLATE.md`).
 6. **`docs/memory/SCRATCH.md`** — clear it; promote anything still relevant into
    the files above.
-7. If a spec was completed, set its `Status: done`.
+7. If a spec was completed **and** the user confirms the feature is complete **and**
+   `leanagentkit-check` ran this session with PASS (or the user explicitly
+   acknowledges exceptions), set its `Status: done`. Otherwise leave status
+   unchanged and note remaining work in `ACTIVE_CONTEXT.md`.
 8. **Backlog.md (optional).** If Backlog integration is active and the completed
    spec has a `Backlog:` id:
    - **Only when** the spec is `Status: done`, move the card to Done:

@@ -30,8 +30,8 @@ kit-owned `leanagentkit-*.md` in user projects.
 
 Read before writing or editing:
 
-1. `.agent/skills/references/skill-authoring-standards.md` — frontmatter, ≤60 char
-   descriptions, section order, output paths
+1. `.agent/skills/references/skill-authoring-standards.md` — frontmatter, WHAT+WHEN
+   descriptions (≤200 soft / ≤1024 hard), section order, output paths
 2. `.agent/skills/references/skill-craft-glossary.md` — predictability, hierarchy,
    failure modes, LAK overrides
 
@@ -83,7 +83,7 @@ Confirm the **write target**:
 ### 2. Scope guardrails (never violate)
 
 1. **Never delete** a skill — archive via `leanagentkit-curate-skills`.
-2. **`description` ≤60 characters** — count before saving generated skills.
+2. **`description` ≤1024 characters** (soft target ≤200) — WHAT + WHEN, count before saving generated skills.
 3. **Never invent** flags, paths, or APIs not seen in source material.
 4. **Router/index-only skills forbidden** — every skill must be runnable on its own.
 5. Register new skills in `.agent/skills/generated/README.md` — **full flow only**
@@ -120,7 +120,7 @@ If the workflow needs parameterization, also write
    - **Collapse duplication** to single source of truth
    - **Progressive disclosure** — move reference to a sibling `.md` with a pointer
    - **Split** only when granularity earns it (by invocation or by sequence)
-4. Re-check against authoring standards (frontmatter, ≤60 char description, section
+4. Re-check against authoring standards (frontmatter, WHAT+WHEN description, section
    order). Preserve `## Learned notes` — append only, do not rewrite history.
 5. **Full flow only:** continue to step 5 if registry or wrappers need updates,
    then step 6. **Craft pass only:** stop here — return control to the caller.
@@ -144,10 +144,10 @@ Tell the user: skill name, file path, invocation string, what changed and why
 
 - **Craft pass only** must not register, wire wrappers, or re-delegate to distill
   or artifact-template — the caller owns those steps.
-- **≤60 char description** beats craft vocabulary in frontmatter — state capability,
-  not "predictability" or internal leading words.
-- Matt's rich model-invoked descriptions do not apply to generated skills; kit
-  guardrails use `invocation: auto` — generated skills default to explicit invoke.
+- **Description policy** beats craft vocabulary in frontmatter — state WHAT + WHEN with
+  trigger terms; soft target ≤200 chars for generated skills.
+- Cursor-style rich descriptions (up to 1024) are for discovery; keep generated skills
+  concise unless triggers truly need more.
 - Do not rewrite `## Learned notes` history during refactor — append new gotchas only.
 - Weak leading words (_be thorough_) are no-ops — use stronger pretrained words
   (_relentless_) or delete.
@@ -158,7 +158,7 @@ Tell the user: skill name, file path, invocation string, what changed and why
 
 Before finishing, confirm:
 
-- [ ] `description` ≤60 chars (generated skills)
+- [ ] `description` WHAT+WHEN, ≤1024 chars (generated skills; soft target ≤200)
 - [ ] Frontmatter complete per authoring standards
 - [ ] Section order matches standards; `## Learned notes` present for generated skills
 - [ ] Each procedure step has a checkable completion criterion

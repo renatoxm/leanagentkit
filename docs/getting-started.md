@@ -36,9 +36,9 @@ That runs the interactive setup: choose memory tiers, map the codebase, detect y
 npm create lean-agent-kit . --upgrade
 ```
 
-**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
+**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*`, `.agent/stacks/registry.md` (your custom rows), `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml` — not in the kit template, so upgrade never overwrites them).
+**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md` (your custom rows), `LEAN_AGENT_KIT.md`, `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml` — not in the kit template, so upgrade never overwrites them).
 
 After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
 

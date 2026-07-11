@@ -68,7 +68,7 @@ thread comments — when Caveman is enabled (`terse_reviews: true`), use
 ```
 ~100 lines   → Good, reviewable in one sitting
 ~300 lines   → OK if single logical change
-~1000 lines  → Split before review
+~1000 lines  → Split before review — use `leanagentkit-git-workflow` § Split oversized work into PRs
 ```
 
 Separate refactoring from feature work. Refactoring-only changes get their own

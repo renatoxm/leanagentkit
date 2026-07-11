@@ -5,9 +5,10 @@
 > defer to the `shadcn-svelte` skill. Don't duplicate component docs here.
 
 ## Install note
-The skill installs via a curl script into `~/.claude/skills/shadcn-svelte` (Claude
-Code layout), not `npx skills add`. For other agents, install from source (package
-with `scripts/package_skill.py`) and point the agent at the resulting skill folder.
+The skill installs via clone + `package_skill.py` + unzip into `.cursor/skills/`
+or `.claude/skills/` (preferred). For Claude Code global layout, a pinned curl
+script (`v1.0.3`) installs to `~/.claude/skills/shadcn-svelte` — not
+`npx skills add`.
 
 ## Defer to the skill for
 - Adding/configuring any of the 54 components (Button, Dialog, Data Table, etc.).

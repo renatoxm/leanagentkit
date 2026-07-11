@@ -1,9 +1,24 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
-import { mkdtempSync, existsSync, rmSync } from "node:fs";
+import { execFileSync, spawnSync } from "node:child_process";
+import { mkdtempSync, existsSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+
+const CLI = "bin/cli.mjs";
+
+function runCli(dir, ...args) {
+  return execFileSync("node", [CLI, dir, ...args], { stdio: "pipe" }).toString();
+}
+
+function runCliCapture(dir, ...args) {
+  const result = spawnSync("node", [CLI, dir, ...args], { encoding: "utf8" });
+  return {
+    stdout: result.stdout ?? "",
+    stderr: result.stderr ?? "",
+    status: result.status,
+  };
+}
 
 test("scaffolds kit files into a target dir", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-"));
@@ -39,6 +54,44 @@ test("skips existing files without --force", () => {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const out = execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" }).toString();
     assert.match(out, /skip/, "reports skipped files on second run");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("warns when re-scaffolding an existing kit without --force or --upgrade", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-warn-"));
+  try {
+    runCli(dir);
+    const { stderr, stdout } = runCliCapture(dir);
+    const combined = `${stdout}\n${stderr}`;
+    assert.match(combined, /already installed/i);
+    assert.match(combined, /--upgrade/i);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("--force overwrites existing kit files on scaffold", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-force-"));
+  try {
+    runCli(dir);
+    const custom = "# MY CUSTOM AGENTS";
+    writeFileSync(join(dir, "AGENTS.md"), custom);
+    runCli(dir, "--force");
+    assert.doesNotMatch(readFileSync(join(dir, "AGENTS.md"), "utf8"), /MY CUSTOM AGENTS/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("--upgrade --force is rejected", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-force-"));
+  try {
+    runCli(dir);
+    const result = runCliCapture(dir, "--upgrade", "--force");
+    assert.equal(result.status, 1);
+    assert.match(`${result.stdout}\n${result.stderr}`, /scaffold mode only/i);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

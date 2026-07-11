@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "prompt",
+        "prompt": "Lean Agent Kit session: At task start, follow AGENTS.md section 6 (Memory protocol). Read docs/memory/ACTIVE_CONTEXT.md and docs/CODEBASE_MAP.md before globbing the repo. If the user is beginning work, offer leanagentkit-start-session. Do not run bootstrap or other setup unless the user asks.",
+        "timeout": 30
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "prompt",
+        "prompt": "Lean Agent Kit session: Before ending, if code changed run leanagentkit-check then leanagentkit-end-session to persist ACTIVE_CONTEXT and PROGRESS. Do not auto-commit or auto-push.",
+        "timeout": 30
+      }
+    ]
+  }
+}

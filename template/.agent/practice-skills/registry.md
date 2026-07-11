@@ -74,6 +74,14 @@ when Cursor/Claude is wired. No detection needed.
 - **Enable when:** user opted in during bootstrap or created the config file in the repo
 - **Note:** spec owns intent; git branch is the execution sandbox. Prompt-only — never auto-commit, push, or open PR. PR offers require `gh` on PATH.
 
+## PR babysit (optional)
+
+- **Detect:** `.git` exists **and** `.leanagentkit/git-lifecycle.yml` exists **and** `offer_babysit_after_pr: true` in that config
+- **Skill:** `leanagentkit-babysit-pr`
+- **Default:** conditional
+- **Enable when:** user opted in during bootstrap (Step 3c babysit follow-up) or set `offer_babysit_after_pr: true` manually
+- **Note:** triages PR comments, conflicts, and in-scope CI until merge-ready. Requires `gh` on PATH. Never auto-merge.
+
 ## Architecture decomposition (optional)
 
 - **Detect:** `.leanagentkit/architecture.yml` exists with `enabled: true`
