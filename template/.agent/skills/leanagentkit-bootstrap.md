@@ -61,13 +61,14 @@ It also detects conditional **practice skills** from `.agent/practice-skills/reg
 initialized; git lifecycle when `.leanagentkit/git-lifecycle.yml` exists) and notes
 them in the summary.
 
-**Practice skills (guardrails):** Eleven cross-cutting skills ship in
-`.agent/skills/`. Nine are always-on with `invocation: auto` (review, simplify,
-git-workflow, docs, debug, security, performance, deprecation, api-design) —
-agents load them when relevant, not on every prompt. Five are `invocation:
-conditional` (ci-cd, observability, backlog, git-lifecycle, architecture): they ship dormant and are
-advertised in `AGENTS.md §7` only when `leanagentkit-match-stack` detects
-matching evidence. See `.agent/skills/README.md` § Engineering practice.
+**Practice skills (guardrails):** Cross-cutting skills ship in `.agent/skills/`.
+Eleven are always-on with `invocation: auto` (review, simplify, git-workflow,
+docs, debug, tdd, security, performance, deprecation, api-design,
+frontend-design) — agents load them when relevant, not on every prompt. Five are
+`invocation: conditional` (ci-cd, observability, backlog, git-lifecycle,
+architecture): they ship dormant and are advertised in `AGENTS.md §7` only when
+`leanagentkit-match-stack` detects matching evidence. See
+`.agent/skills/README.md` § Engineering practice.
 
 ## Step 3b — Optional visual board (Backlog.md)
 

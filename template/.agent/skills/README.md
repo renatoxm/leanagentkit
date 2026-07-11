@@ -64,7 +64,7 @@ and `.agent/scaffolders/<name>.scaffold.md`.
 ## Engineering practice (guardrails)
 
 Cross-cutting skills for review, debugging, security, etc. Shipped in
-`.agent/skills/`. The ten always-on skills use `invocation: auto` (lazy-loaded
+`.agent/skills/`. The eleven always-on skills use `invocation: auto` (lazy-loaded
 when relevant). Four conditional skills (CI/CD, observability, Backlog.md, git lifecycle) ship
 dormant (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 `leanagentkit-match-stack` detects matching evidence — see
@@ -82,6 +82,7 @@ dormant (explicit-invoke) and are advertised in `AGENTS.md §7` only when
 | `leanagentkit-performance.md` | Performance requirements or regressions |
 | `leanagentkit-deprecation.md` | Removing systems, APIs, legacy code |
 | `leanagentkit-api-design.md` | Designing APIs and module boundaries |
+| `leanagentkit-frontend-design.md` | Distinctive UI — avoid templated visual defaults |
 | `leanagentkit-ci-cd.md` | CI pipeline setup or failures *(conditional)* |
 | `leanagentkit-observability.md` | Logging, metrics, tracing for services *(conditional)* |
 | `leanagentkit-backlog.md` | Visual Kanban board synced to specs *(conditional — Backlog.md)* |

@@ -393,6 +393,12 @@ Invoke **`leanagentkit-simplify`**: it reduces complexity while preserving *exac
 
 **`leanagentkit-api-design`** designs interfaces that are hard to misuse: clear contracts, error semantics, boundary validation, stable types across frontend/backend. Do this *before* implementing — a bad interface is expensive to change later.
 
+### 🎨 Level 8b — Designing a visual surface
+
+> *"Build the landing page"* / *"this UI looks like every other AI demo."*
+
+**`leanagentkit-frontend-design`** forces a subject-specific design plan (color, type, layout, signature) before code, maps tokens onto your stack (`@theme` / CSS variables / shadcn), and rejects templated AI-default looks. Pair with Tailwind / component stack skills from `match-stack`; use `leanagentkit-performance` for CWV after the look is set.
+
 ### 🗑️ Level 9 — Removing things safely
 
 > *"Kill the legacy v1 API."*
@@ -410,7 +416,7 @@ grill (scope the migration, one decision at a time)
   → new-spec (freeze it; maybe split into multiple specs)
   → decompose-spec (optional — parallel-safe slices + contracts)
   → seed-adrs (record the irreversible decisions)
-  → api-design / security as boundaries are designed
+  → api-design / frontend-design / security as boundaries and surfaces are designed
   → implement-spec (sequential or parallel slices)
   → work in small commits (git-workflow)
   → check + review per slice
@@ -541,6 +547,7 @@ These carry `invocation: auto` — the agent reaches for them when the moment ca
 | `leanagentkit-performance` ⚡ | hitting perf requirements or regressions |
 | `leanagentkit-deprecation` 🗑️ | removing systems/APIs/duplicates |
 | `leanagentkit-api-design` 🟠 | designing endpoints/contracts/boundaries |
+| `leanagentkit-frontend-design` 🎨 | building or reshaping UI / avoiding templated looks |
 
 ### Conditional (ship dormant, advertised only when relevant)
 
@@ -724,8 +731,8 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
   → generated/leanagentkit-create-<type>   # run it forever
 
 🛡️ GUARDRAILS (auto or explicit)
-  review · simplify · git-workflow · docs · debug
-  security · performance · deprecation · api-design
+  review · simplify · git-workflow · docs · debug · tdd
+  security · performance · deprecation · api-design · frontend-design
   ci-cd · observability        (conditional)
 
 🤝 HANDOFF

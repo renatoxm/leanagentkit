@@ -40,6 +40,7 @@ when Cursor/Claude is wired. No detection needed.
 | `leanagentkit-performance` | Performance requirements or suspected regressions |
 | `leanagentkit-deprecation` | Removing systems, APIs, or consolidating duplicates |
 | `leanagentkit-api-design` | Designing APIs, module boundaries, public interfaces |
+| `leanagentkit-frontend-design` | Distinctive UI — palette, type, layout; avoid templated defaults |
 
 ---
 

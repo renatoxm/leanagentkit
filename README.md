@@ -284,6 +284,7 @@ Invoke any skill with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow
 | `leanagentkit-performance`  | Measurement-first optimization — profile, fix the proven bottleneck, measure again                                                     | Performance requirements exist or regressions are suspected             |
 | `leanagentkit-deprecation`  | Removes code that no longer earns its keep; migrates users safely from old to new                                                      | Removing systems/APIs, consolidating duplicates, or sunsetting features |
 | `leanagentkit-api-design`   | Designs stable interfaces that are hard to misuse — contracts, error semantics, boundary validation                                    | Creating endpoints, type contracts, or frontend/backend boundaries      |
+| `leanagentkit-frontend-design` | Distinctive, intentional UI — subject-specific palette/type/layout; avoids templated AI defaults                                    | New pages, landing surfaces, visual identity, or "looks templated" work |
 
 ### ⚙️ Engineering practice — conditional guardrails
 
@@ -349,6 +350,8 @@ Only `bin/` and `template/` ship (see the `files` whitelist in `package.json`); 
 ## 🙏 Credits
 
 The engineering-practice skills (code review, simplification, git workflow, documentation, debugging, TDD, security, performance, deprecation, API design, CI/CD, and observability) were adapted from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) — thanks to **Addy Osmani** and contributors for the inspiration. 💛
+
+`leanagentkit-frontend-design` adapts design process from [anthropics/skills `frontend-design`](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) into Lean Agent Kit memory, specs, and stack hooks. 💛
 
 The alignment and handoff skills (`leanagentkit-grill`, `leanagentkit-handoff`) and skill-authoring craft (`leanagentkit-create-skill`, adapted from `writing-great-skills`) were adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — thanks to **Matt Pocock**. 💛
 

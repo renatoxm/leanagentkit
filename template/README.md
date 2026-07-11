@@ -223,6 +223,7 @@ them with: **"Read `.agent/skills/leanagentkit-<name>.md` and follow it."**
 | `leanagentkit-performance`  | Measurement-first optimization — profile, fix the proven bottleneck, measure again                                                     | Performance requirements exist or regressions are suspected             |
 | `leanagentkit-deprecation`  | Removes code that no longer earns its keep; migrates users safely from old to new                                                      | Removing systems/APIs, consolidating duplicates, or sunsetting features |
 | `leanagentkit-api-design`   | Designs stable interfaces that are hard to misuse — contracts, error semantics, boundary validation                                    | Creating endpoints, type contracts, or frontend/backend boundaries      |
+| `leanagentkit-frontend-design` | Distinctive, intentional UI — subject-specific palette/type/layout; avoids templated AI defaults                                    | New pages, landing surfaces, visual identity, or "looks templated" work |
 
 ### Engineering practice — conditional guardrails
 
