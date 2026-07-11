@@ -119,9 +119,9 @@ continuing (same cadence as `leanagentkit-grill`).
    - `eslint` with `when: only if lang=TypeScript` → skip when `lang=JavaScript`
    - `vscode` with `when: only if ruff=yes` → skip when `ruff=no`
    Skip questions already answered by memory (e.g. if `AGENTS.md` §2 already
-   says pnpm, default package manager to pnpm). **Never inject tooling
+   says pnpm, default package manager to pnpm). **Never inject recipe tooling
    questions globally** — only ask ids that appear in the recipe's
-   `## Questions` table.
+   `## Questions` table. **Exception:** skill-level `commit_helpers` (Step 4.6).
 4. **Target directory / name** — ask only when the recipe needs it (greenfield
    base apps usually need a project name or `.` for current dir). When gate is
    **kit-only** and the recipe is **`Kind: cli`**:
@@ -135,6 +135,35 @@ continuing (same cadence as `leanagentkit-grill`).
 5. **Chain prompts** — if the recipe lists `Chains-to`, offer to run follow-on
    scaffolders after the base (e.g. base framework → ORM → Tailwind). Respect
    `Depends-on`: refuse or prompt to run prerequisites first.
+6. **Commit helpers (skill-level, Node only)** — after Step 4.4 (target dir) is
+   resolved, evaluate eligibility **before** compile/generate:
+   - **Eligible** when the recipe produces or updates a Node `package.json` at
+     `{{dir}}` (frameworks, Node backends, monorepos, etc.).
+   - **Skip** for Python/Go-only recipes (Django, FastAPI with uv/pip, Go) that
+     do not scaffold a Node manifest.
+   - **Skip the question** (note “commit helpers already configured”) when any
+     of: `{{dir}}/commitlint.config.*`, `{{dir}}/.husky/commit-msg`, or
+     `{{dir}}/package.json` already has both `scripts.commit` and
+     `config.commitizen.path`.
+   - **Additive scaffolds** (ORM, UI): ask only when `{{dir}}/package.json`
+     exists or will be created by this run.
+   - Ask: **“Add commit helpers (Conventional Commits, commitizen, husky, release
+     versioning)?”** — options **yes · no**, default **yes**.
+   - Record `commit_helpers` in `docs/memory/SCRATCH.md` under “Scaffold choices”.
+
+**Package manager for commit helpers (`{{pm}}`):**
+
+1. Use the recipe questionnaire `pm` answer when present (pnpm · npm · bun).
+2. Else read `AGENTS.md` §2 if it states a Node package manager.
+3. Else default **`npm`**.
+
+Map install commands — substitute `{{pm_install_dev}}` in Step 5:
+
+| `pm` | `{{pm_install_dev}}` |
+|------|----------------------|
+| `pnpm` | `pnpm add -D` |
+| `npm` | `npm install -D` |
+| `bun` | `bun add -D` |
 
 #### Optional lint/format and VS Code (recipe-driven)
 
@@ -147,6 +176,7 @@ Tooling questions are **recipe-local**. Supported question ids:
 | `ruff` | Python | Ruff lint + format in `pyproject.toml` |
 | `golangci` | Go | golangci-lint config + lint script |
 | `vscode` | any | Write `.vscode/settings.json` + `extensions.json` |
+| `commit_helpers` | Node | Conventional Commits, commitizen, husky, release versioning |
 
 **Rules:**
 
@@ -164,6 +194,9 @@ Tooling questions are **recipe-local**. Supported question ids:
 - **Precedence:** if a CLI flag already installs a tool (Next `--eslint`,
   Turborepo starter), do not duplicate. Run post-scaffold steps only for tools
   the generator did not cover (e.g. Prettier on Next.js).
+- **`commit_helpers` is skill-level** — not in recipe `## Questions` tables.
+  See Step 4.6. Run post-scaffold steps in Step 5 after recipe optional tools
+  and VS Code.
 
 ### 5. Compile and generate
 
@@ -192,7 +225,9 @@ for kit-only in-place scaffold (currently SvelteKit `--no-dir-check` only).
 3. Offer a recovery path:
    - **Re-run questionnaire** with a subdirectory (recommended), or
    - **User runs the compiled command in their own terminal** at `.` and answers
-     the prompt, then asks the agent to continue from post-scaffold steps, or
+     the prompt, then asks the agent to continue from post-scaffold steps
+     (including optional eslint/prettier/vscode and **commit helpers** when
+     `commit_helpers=yes` in `SCRATCH.md`), or
    - **App-first workflow** — scaffold in an empty folder, then install the kit.
 
 Record the compiled command in `SCRATCH.md` when aborting so the user can copy it.
@@ -215,6 +250,7 @@ do not invoke `create-*`.
   Then run `## VS Code` steps when `vscode=yes` and `.vscode/` was not already
   created by the generator. Copy from `.agent/scaffolders/snippets/vscode/`
   (kit root, not the generated app dir) when the recipe references a snippet.
+  Then run **Optional — commit helpers** when `commit_helpers=yes` (Step 5).
 
 **`Kind: template`**
 
@@ -222,9 +258,84 @@ do not invoke `create-*`.
 - Substitute parameters from answers (`{{name}}`, `{{provider}}`, etc.).
 - Run conditional steps (`if eslint=yes`, `if ruff=yes`, etc.) and `## VS Code`
   steps after core files when the user opted in.
+- Then run **Optional — commit helpers** when `commit_helpers=yes` (Step 5).
 
 **Dependency ordering:** if `Depends-on` lists other recipes, run those first (or
 confirm they already exist in the repo).
+
+#### Optional — commit helpers (if commit_helpers=yes)
+
+Run **after** recipe `## Optional — <tool>` steps and `## VS Code` steps.
+
+**1. Install devDependencies**
+
+Resolve `{{pm_install_dev}}` from the table in Step 4.6, then:
+
+```bash
+cd {{dir}} && {{pm_install_dev}} @commitlint/cli @commitlint/config-conventional commit-and-tag-version commitizen cz-conventional-changelog husky
+```
+
+**2. Initialize husky**
+
+From `{{dir}}` (requires `.git` for hooks to register; skip hook wiring when
+no repo — still finish steps 3–5):
+
+```bash
+cd {{dir}} && npx husky init
+```
+
+Remove the sample `.husky/pre-commit` if created (kit only needs `commit-msg`).
+
+**3. Patch `{{dir}}/package.json`**
+
+Merge — do not clobber unrelated scripts:
+
+```json
+{
+  "version": "0.1.0",
+  "scripts": {
+    "prepare": "husky",
+    "commit": "cz",
+    "release": "commit-and-tag-version"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
+```
+
+- **`version`:** set to `"0.1.0"` only if the field is missing; leave an existing
+  version untouched.
+- **`prepare`:** when absent, set to `"husky"`. When another `prepare` script
+  exists, **chain**: `"<existing> && husky"` (ask before replacing if chaining
+  is unsafe for that script).
+- **`commit` / `release`:** add; do not overwrite unrelated script keys.
+
+**4. Create config files**
+
+Copy from `.agent/scaffolders/snippets/commit-helpers/` (kit root):
+
+| Snippet | Target |
+|---------|--------|
+| `commitlint.config.cjs` | `{{dir}}/commitlint.config.cjs` |
+| `commit-msg` | `{{dir}}/.husky/commit-msg` |
+
+**5. Activate hooks**
+
+Re-run install so `prepare` runs husky (creates/updates `.husky/_`):
+
+```bash
+cd {{dir}} && {{pm}} install
+```
+
+**Git edge cases:**
+
+- **No `.git`** at repo root or `{{dir}}`: still install deps and config; note
+  that hooks activate after `git init` and step 5 (`{{pm}} install`).
+- **Nested app dir** (`web/`, etc.): run all steps from `{{dir}}` (where
+  `package.json` lives). Hooks bind to that package's `prepare` on install.
 
 ### 6. Verify
 
@@ -238,6 +349,15 @@ When lint/format or VS Code was opted in, also confirm:
   `.golangci.yml`, etc.) and the lint script runs (`npm run lint`, `ruff check`,
   `golangci-lint run`, etc.).
 - `.vscode/settings.json` and `extensions.json` exist when `vscode=yes`.
+
+When `commit_helpers=yes`, also confirm:
+
+- [ ] `commitlint.config.cjs` exists at `{{dir}}`
+- [ ] `.husky/commit-msg` exists and references commitlint
+- [ ] `package.json` has `version`, `scripts.commit`, `scripts.release`,
+  `scripts.prepare`, and `config.commitizen.path`
+- [ ] Dev deps installed (lockfile updated when present)
+- [ ] Optional smoke: `cd {{dir}} && npx cz --help` (non-interactive only)
 
 ### 7. Handoff (delegate — do not re-implement)
 
@@ -267,7 +387,7 @@ status, `match-stack` results, any `Chains-to` still pending, and suggested next
 step (`bootstrap`, `install`, `start-session`).
 
 List which optional tooling was installed vs skipped (eslint, prettier, ruff,
-golangci, vscode).
+golangci, vscode, commit_helpers).
 
 ## Rules
 

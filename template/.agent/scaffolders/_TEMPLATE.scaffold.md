@@ -91,6 +91,14 @@ Add scripts: `"lint": "ruff check ."`, `"format": "ruff format ."`.
 
 Create `.golangci.yml` and add `"lint": "golangci-lint run ./..."` to Makefile or scripts.
 
+## Optional — commit helpers
+
+> **Skill-level only** — do not duplicate in individual recipes. When the user
+> opts in during `leanagentkit-scaffold` Step 4.6, the skill runs post-scaffold
+> install, `package.json` patches, and husky setup from
+> `.agent/scaffolders/snippets/commit-helpers/` (`commitlint.config.cjs`,
+> `commit-msg`). See `leanagentkit-scaffold` Step 5 (“Optional — commit helpers”).
+
 ## VS Code (only when vscode=yes)
 
 > Copy from `.agent/scaffolders/snippets/vscode/` (kit root). Skip if the
