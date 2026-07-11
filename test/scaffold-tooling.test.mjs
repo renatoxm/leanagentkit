@@ -159,3 +159,43 @@ test("leanagentkit-bootstrap mentions kit-only greenfield", () => {
   );
   assert.match(bootstrap, /kit-only/i, "bootstrap should mention kit-only state");
 });
+
+const COMMIT_SNIPPETS = join(SCAFFOLDERS, "snippets/commit-helpers");
+
+test("commit-helpers snippets exist", () => {
+  assert.ok(existsSync(join(COMMIT_SNIPPETS, "commitlint.config.cjs")), "commitlint.config.cjs");
+  assert.ok(existsSync(join(COMMIT_SNIPPETS, "commit-msg")), "commit-msg hook");
+  assert.doesNotMatch(
+    readFileSync(join(COMMIT_SNIPPETS, "commitlint.config.cjs"), "utf8"),
+    /export default/,
+    "commitlint config should be CJS for broad scaffold compatibility",
+  );
+});
+
+test("leanagentkit-scaffold commit helpers use pm_install_dev not pm add", () => {
+  const content = readFileSync(SCAFFOLD_SKILL, "utf8");
+  const section = content.slice(content.indexOf("#### Optional — commit helpers"));
+  assert.match(section, /\{\{pm_install_dev\}\}/, "commit helpers should use {{pm_install_dev}}");
+  assert.match(content, /npm install -D/, "skill should document npm install -D in pm table");
+  assert.doesNotMatch(
+    section,
+    /\{\{pm\}\} add -D @commitlint/,
+    "commit helpers should not use {{pm}} add -D",
+  );
+});
+
+test("leanagentkit-scaffold commit helpers init husky before copying commit-msg hook", () => {
+  const content = readFileSync(SCAFFOLD_SKILL, "utf8");
+  const section = content.slice(content.indexOf("#### Optional — commit helpers"));
+  const initIdx = section.indexOf("husky init");
+  const copyIdx = section.indexOf("commit-msg` | `{{dir}}/.husky/commit-msg`");
+  assert.ok(initIdx > -1 && copyIdx > -1, "section should document husky init and commit-msg copy");
+  assert.ok(initIdx < copyIdx, "husky init should run before copying commit-msg");
+  assert.match(section, /\{\{pm\}\} install/, "should re-run install to activate prepare");
+});
+
+test("leanagentkit-scaffold documents commit_helpers exception to recipe-only tooling", () => {
+  const content = readFileSync(SCAFFOLD_SKILL, "utf8");
+  assert.match(content, /Exception.*commit_helpers.*Step 4\.6/is);
+  assert.match(content, /commitlint\.config\.cjs/, "verify should reference .cjs config");
+});
