@@ -48,15 +48,16 @@ if (upgrade && force) {
 }
 
 if (showHelp) {
+  const version = JSON.parse(await readFile(packageJsonPath, "utf8")).version;
   console.log(`
-create-lean-agent-kit — scaffold the Lean Agent Kit
+create-lean-agent-kit v${version} — scaffold the Lean Agent Kit
 
 Usage:
   npm create lean-agent-kit            # into the current directory
   npm create lean-agent-kit my-app     # into ./my-app
-  npx create-lean-agent-kit . --force  # overwrite existing kit files
-  npx create-lean-agent-kit . --upgrade  # refresh kit files, preserve user memory
-  npm create lean-agent-kit . -- --upgrade  # same, when using npm create
+  npx create-lean-agent-kit@latest . --upgrade  # refresh kit files, preserve user memory
+  npm create lean-agent-kit@latest . -- --upgrade  # same, when using npm create
+  pnpm dlx create-lean-agent-kit@latest . --upgrade
 
 Flags:
   -f, --force     overwrite files that already exist (scaffold mode)
@@ -291,6 +292,9 @@ async function main() {
     console.error("✗ template/ not found in the package. Reinstall create-lean-agent-kit.");
     process.exit(1);
   }
+
+  const version = await readCliVersion();
+  console.log(`create-lean-agent-kit v${version}`);
 
   if (upgrade) {
     await runUpgrade();

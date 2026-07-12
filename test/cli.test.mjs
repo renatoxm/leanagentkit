@@ -20,6 +20,17 @@ function runCliCapture(dir, ...args) {
   };
 }
 
+test("prints package version before scaffold", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-version-banner-"));
+  try {
+    const out = runCli(dir);
+    const pkgVersion = JSON.parse(readFileSync("package.json", "utf8")).version;
+    assert.match(out, new RegExp(`create-lean-agent-kit v${pkgVersion.replace(/\./g, "\\.")}`));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("scaffolds kit files into a target dir", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-"));
   try {
