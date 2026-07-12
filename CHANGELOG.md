@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.19](https://github.com/renatoxm/leanagentkit/compare/v0.4.18...v0.4.19) (2026-07-12)
+
+
+### Bug Fixes
+
+* **cli:** fail loudly on unknown flags and accidental re-scaffold ([35d6d8d](https://github.com/renatoxm/leanagentkit/commit/35d6d8df9da3ff2e6cf7470313ed69ecadd6e8f8))
+
 ## [0.4.18](https://github.com/renatoxm/leanagentkit/compare/v0.4.17...v0.4.18) (2026-07-12)
 
 ## [0.4.17](https://github.com/renatoxm/leanagentkit/compare/v0.4.16...v0.4.17) (2026-07-11)
