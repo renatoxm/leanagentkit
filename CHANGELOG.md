@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.20](https://github.com/renatoxm/leanagentkit/compare/v0.4.19...v0.4.20) (2026-07-12)
+
+
+### Bug Fixes
+
+* **cli:** print version banner so stale npx caches are obvious ([215be57](https://github.com/renatoxm/leanagentkit/commit/215be5777d28dcccc6415931d44869a9cdf31904))
+
 ## [0.4.19](https://github.com/renatoxm/leanagentkit/compare/v0.4.18...v0.4.19) (2026-07-12)
 
 
