@@ -33,9 +33,9 @@ const KNOWN_FLAGS = new Set([
 const unknownFlags = [...flags].filter((f) => !KNOWN_FLAGS.has(f));
 if (unknownFlags.length > 0) {
   const hint = unknownFlags.some((f) => /upgrad|updade|udpate|upate/i.test(f))
-    ? "\n  Did you mean --upgrade? (npm create needs: npm create lean-agent-kit . -- --upgrade)"
+    ? "\n  Did you mean --upgrade? (pin latest: npx create-lean-agent-kit@latest . --upgrade)"
     : "\n  Tip: npm create swallows flags unless you pass them after --\n" +
-      "       e.g. npm create lean-agent-kit . -- --upgrade";
+      "       e.g. npm create lean-agent-kit@latest . -- --upgrade";
   console.error(`✗ Unknown flag(s): ${unknownFlags.join(", ")}${hint}`);
   process.exit(1);
 }
@@ -181,8 +181,9 @@ async function scaffold() {
     console.error(
       "✗ Lean Agent Kit is already installed here.\n" +
         "  Use --upgrade to refresh kit files while preserving your memory:\n" +
-        "    npx create-lean-agent-kit . --upgrade\n" +
-        "    npm create lean-agent-kit . -- --upgrade\n" +
+        "    npx create-lean-agent-kit@latest . --upgrade\n" +
+        "    pnpm dlx create-lean-agent-kit@latest . --upgrade\n" +
+        "    npm create lean-agent-kit@latest . -- --upgrade\n" +
         "  Or --force to overwrite everything (will clobber user data).",
     );
     process.exit(1);

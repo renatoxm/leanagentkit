@@ -20,7 +20,7 @@ Everything else follows: works from **any starting point** (scaffold a new app w
 
 ## Quick start
 
-1. Scaffold: `npm create lean-agent-kit` (or copy `AGENTS.md`, `.agent/`, `docs/`).
+1. Scaffold: `npm create lean-agent-kit@latest` (or `npx` / `pnpm dlx create-lean-agent-kit@latest .`; or copy `AGENTS.md`, `.agent/`, `docs/`).
 2. Tell your agent: **"Read `.agent/skills/leanagentkit-bootstrap.md` and follow it."**
 3. Answer the questionnaire. Bootstrap maps the code, detects stack, wires agents.
 

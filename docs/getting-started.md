@@ -9,16 +9,23 @@ Lean Agent Kit is a tool-agnostic memory + guardrail system that keeps your agen
 
 ## Install
 
+Pin `@latest` so `npx` / `pnpm dlx` do not reuse a stale cached package (old
+caches can ignore `--upgrade` and print outdated bootstrap text).
+
 ```bash
 # into the current directory
-npm create lean-agent-kit
+npm create lean-agent-kit@latest
 
 # into a new/named folder
-npm create lean-agent-kit my-app
+npm create lean-agent-kit@latest my-app
 
 # equivalently
-npx create-lean-agent-kit .
+npx create-lean-agent-kit@latest .
+pnpm dlx create-lean-agent-kit@latest .
 ```
+
+Confirm the CLI prints `create-lean-agent-kit v…` before it scaffolds — that is the
+version that actually ran.
 
 ## Bootstrap
 
@@ -33,11 +40,15 @@ That runs the interactive setup: choose memory tiers, map the codebase, detect y
 ## Upgrade an installed kit
 
 ```bash
-npx create-lean-agent-kit . --upgrade
+npx create-lean-agent-kit@latest . --upgrade
+pnpm dlx create-lean-agent-kit@latest . --upgrade
 
 # with npm create, pass flags after --
-npm create lean-agent-kit . -- --upgrade
+npm create lean-agent-kit@latest . -- --upgrade
 ```
+
+Always pin `@latest` on upgrade. Without it, a stale `npx`/`pnpx` cache can run an
+old package that has no `--upgrade` support and will only skip existing files.
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 

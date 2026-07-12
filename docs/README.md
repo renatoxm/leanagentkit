@@ -2,6 +2,10 @@
 
 Developed with [VitePress](https://vitepress.dev/)
 
+User-facing install and upgrade commands live in [getting-started.md](./getting-started.md).
+Always document them with `@latest` (e.g. `npx create-lean-agent-kit@latest . --upgrade`)
+so readers do not hit stale `npx` / `pnpm dlx` caches.
+
 ## Running locally
 
 ```bash

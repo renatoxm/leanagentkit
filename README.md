@@ -41,16 +41,21 @@ Everything else follows from those two:
 
 ## ⚡ Usage
 
+Pin `@latest` so `npx` / `pnpm dlx` do not reuse a stale cached package.
+
 ```bash
 # 📂 into the current directory
-npm create lean-agent-kit
+npm create lean-agent-kit@latest
 
 # 🆕 into a new/named folder
-npm create lean-agent-kit my-app
+npm create lean-agent-kit@latest my-app
 
 # 🔁 equivalently
-npx create-lean-agent-kit .
+npx create-lean-agent-kit@latest .
+pnpm dlx create-lean-agent-kit@latest .
 ```
+
+Confirm the CLI prints `create-lean-agent-kit v…` before it scaffolds — that is the version that actually ran.
 
 Then open your AI agent in the project and say:
 
@@ -64,11 +69,14 @@ That runs the **interactive setup**: choose memory tiers, map the codebase, dete
 
 ```bash
 # refresh kit-owned files; preserve your memory and conventions
-npx create-lean-agent-kit . --upgrade
+npx create-lean-agent-kit@latest . --upgrade
+pnpm dlx create-lean-agent-kit@latest . --upgrade
 
 # with npm create, pass flags after --
-npm create lean-agent-kit . -- --upgrade
+npm create lean-agent-kit@latest . -- --upgrade
 ```
+
+Always pin `@latest` on upgrade. Without it, a stale cache can run an old package that ignores `--upgrade`.
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 

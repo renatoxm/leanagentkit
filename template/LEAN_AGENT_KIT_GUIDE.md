@@ -65,21 +65,26 @@ Because skills are *just files*, **any** agent that can read files works: Cursor
 
 ### Step 1 — Drop the kit into your project
 
+Pin `@latest` so `npx` / `pnpm dlx` do not reuse a stale cached package.
+
 ```bash
 # 📂 into the current directory (existing project, or an empty folder to scaffold into)
-npm create lean-agent-kit
+npm create lean-agent-kit@latest
 
 # 🆕 into a new/named folder
-npm create lean-agent-kit my-app
+npm create lean-agent-kit@latest my-app
 
 # 🔁 equivalently
-npx create-lean-agent-kit .
+npx create-lean-agent-kit@latest .
+pnpm dlx create-lean-agent-kit@latest .
 ```
+
+Confirm the CLI prints `create-lean-agent-kit v…` before it scaffolds — that is the version that actually ran.
 
 This copies the *template* (files only, zero runtime deps) into your repo: `AGENTS.md`, `.agent/`, `.agent/scaffolders/`, and `docs/`. Nothing runs yet — it's inert Markdown waiting for the bootstrap.
 
 > 🌱 **Greenfield?** After dropping the kit into a directory (empty or kit-only after
-> `npm create lean-agent-kit .`), scaffold a base app before bootstrap:
+> `npm create lean-agent-kit@latest .`), scaffold a base app before bootstrap:
 >
 > Read `.agent/skills/leanagentkit-scaffold.md` and follow it.
 >
@@ -93,11 +98,14 @@ This copies the *template* (files only, zero runtime deps) into your repo: `AGEN
 #### Upgrading an already-installed kit
 
 ```bash
-npx create-lean-agent-kit . --upgrade
+npx create-lean-agent-kit@latest . --upgrade
+pnpm dlx create-lean-agent-kit@latest . --upgrade
 
 # with npm create, pass flags after --
-npm create lean-agent-kit . -- --upgrade
+npm create lean-agent-kit@latest . -- --upgrade
 ```
+
+Always pin `@latest` on upgrade. Without it, a stale `npx`/`pnpx` cache can run an old package that has no `--upgrade` support and will only skip existing files.
 
 Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, scaffolder recipes, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), custom rows in `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md`, `LEAN_AGENT_KIT.md`, and edited ADRs.
 
@@ -703,7 +711,7 @@ Both are first-class. **Existing repo:** point `leanagentkit-bootstrap` at it an
 
 ```
 🚀 SETUP (once)
-  npm create lean-agent-kit            # drop in the files
+  npm create lean-agent-kit@latest     # drop in the files (pin @latest)
   → leanagentkit-scaffold              # from scratch: create a base app first (optional)
   → leanagentkit-bootstrap             # interactive setup — RUN FIRST (or right after scaffold)
 
