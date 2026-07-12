@@ -93,7 +93,10 @@ This copies the *template* (files only, zero runtime deps) into your repo: `AGEN
 #### Upgrading an already-installed kit
 
 ```bash
-npm create lean-agent-kit . --upgrade
+npx create-lean-agent-kit . --upgrade
+
+# with npm create, pass flags after --
+npm create lean-agent-kit . -- --upgrade
 ```
 
 Use `--upgrade` when a newer kit version is published. It refreshes kit-owned files (skills, stack playbooks, scaffolder recipes, install templates, guide) while **preserving** your memory and setup: `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), custom rows in `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md`, `LEAN_AGENT_KIT.md`, and edited ADRs.

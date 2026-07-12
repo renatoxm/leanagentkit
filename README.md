@@ -64,10 +64,10 @@ That runs the **interactive setup**: choose memory tiers, map the codebase, dete
 
 ```bash
 # refresh kit-owned files; preserve your memory and conventions
-npm create lean-agent-kit . --upgrade
-
-# equivalently
 npx create-lean-agent-kit . --upgrade
+
+# with npm create, pass flags after --
+npm create lean-agent-kit . -- --upgrade
 ```
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.

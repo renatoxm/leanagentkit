@@ -33,14 +33,19 @@ That runs the interactive setup: choose memory tiers, map the codebase, detect y
 ## Upgrade an installed kit
 
 ```bash
-npm create lean-agent-kit . --upgrade
+npx create-lean-agent-kit . --upgrade
+
+# with npm create, pass flags after --
+npm create lean-agent-kit . -- --upgrade
 ```
 
 **Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
 
 **Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md` (your custom rows), `LEAN_AGENT_KIT.md`, `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml` — not in the kit template, so upgrade never overwrites them).
 
-After upgrading, re-run the wire-agent skill if you use Cursor or Claude Code:
+After upgrading, the CLI prints a **wire-agent** next step (not bootstrap). Upgrade refreshes kit-owned skills while preserving your memory and conventions — you do not need to re-run the full interactive bootstrap unless you want a deliberate refresh.
+
+If you use Cursor or Claude Code, re-run wire-agent so skill wrappers match the refreshed `.agent/skills/` frontmatter:
 
 > Read `.agent/skills/leanagentkit-wire-agent.md` and follow it.
 

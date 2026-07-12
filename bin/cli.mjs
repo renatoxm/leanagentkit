@@ -38,6 +38,7 @@ Usage:
   npm create lean-agent-kit my-app     # into ./my-app
   npx create-lean-agent-kit . --force  # overwrite existing kit files
   npx create-lean-agent-kit . --upgrade  # refresh kit files, preserve user memory
+  npm create lean-agent-kit . -- --upgrade  # same, when using npm create
 
 Flags:
   -f, --force     overwrite files that already exist (scaffold mode)
