@@ -22,6 +22,24 @@ const force = flags.has("--force") || flags.has("-f");
 const upgrade = flags.has("--upgrade") || flags.has("-u");
 const showHelp = flags.has("--help") || flags.has("-h");
 
+const KNOWN_FLAGS = new Set([
+  "--force",
+  "-f",
+  "--upgrade",
+  "-u",
+  "--help",
+  "-h",
+]);
+const unknownFlags = [...flags].filter((f) => !KNOWN_FLAGS.has(f));
+if (unknownFlags.length > 0) {
+  const hint = unknownFlags.some((f) => /upgrad|updade|udpate|upate/i.test(f))
+    ? "\n  Did you mean --upgrade? (npm create needs: npm create lean-agent-kit . -- --upgrade)"
+    : "\n  Tip: npm create swallows flags unless you pass them after --\n" +
+      "       e.g. npm create lean-agent-kit . -- --upgrade";
+  console.error(`✗ Unknown flag(s): ${unknownFlags.join(", ")}${hint}`);
+  process.exit(1);
+}
+
 if (upgrade && force) {
   console.error(
     "✗ --force is for scaffold mode only. Use --upgrade to refresh kit files while preserving your memory.",
@@ -159,10 +177,14 @@ async function scaffold() {
     (await exists(join(target, ".agent", "skills", "leanagentkit-bootstrap.md")));
 
   if (kitPresent && !force) {
-    console.warn(
-      "⚠ Lean Agent Kit is already installed. Re-scaffold skips whole top-level folders that exist.\n" +
-        "  Use --upgrade to refresh kit files while preserving your memory, or --force to overwrite.",
+    console.error(
+      "✗ Lean Agent Kit is already installed here.\n" +
+        "  Use --upgrade to refresh kit files while preserving your memory:\n" +
+        "    npx create-lean-agent-kit . --upgrade\n" +
+        "    npm create lean-agent-kit . -- --upgrade\n" +
+        "  Or --force to overwrite everything (will clobber user data).",
     );
+    process.exit(1);
   }
 
   const entries = await readdir(templateDir, { withFileTypes: true });

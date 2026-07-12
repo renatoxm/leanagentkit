@@ -48,25 +48,39 @@ test("scaffolds kit files into a target dir", () => {
   }
 });
 
-test("skips existing files without --force", () => {
+test("skips existing non-kit files without --force", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-"));
   try {
-    execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
+    writeFileSync(join(dir, "AGENTS.md"), "# pre-existing\n");
     const out = execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" }).toString();
-    assert.match(out, /skip/, "reports skipped files on second run");
+    assert.match(out, /skip/, "reports skipped files when target has collisions");
+    assert.match(out, /scaffolded/i);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
 });
 
-test("warns when re-scaffolding an existing kit without --force or --upgrade", () => {
+test("exits when re-scaffolding an existing kit without --force or --upgrade", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-warn-"));
   try {
     runCli(dir);
-    const { stderr, stdout } = runCliCapture(dir);
+    const { stderr, stdout, status } = runCliCapture(dir);
     const combined = `${stdout}\n${stderr}`;
+    assert.equal(status, 1);
     assert.match(combined, /already installed/i);
     assert.match(combined, /--upgrade/i);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("rejects unknown flags and hints at --upgrade typos", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-unknown-flag-"));
+  try {
+    const result = runCliCapture(dir, "--updade");
+    assert.equal(result.status, 1);
+    assert.match(`${result.stdout}\n${result.stderr}`, /Unknown flag/i);
+    assert.match(`${result.stdout}\n${result.stderr}`, /--upgrade/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
