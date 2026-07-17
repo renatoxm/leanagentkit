@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [1.0.0](https://github.com/renatoxm/leanagentkit/compare/v0.4.21...v1.0.0) (2026-07-17)
 
+
+### ⚠ BREAKING CHANGES
+
+* rebuild kit around lean core and opt-in packs
+
+### Features
+
+* rebuild kit around lean core and opt-in packs ([f915a0d](https://github.com/renatoxm/leanagentkit/commit/f915a0de3be35ad56e62ad8a536713f412fc68a9))
+
+## [1.0.0](https://github.com/renatoxm/leanagentkit/compare/v0.4.21...v1.0.0) (2026-07-17)
+
 ### ⚠ BREAKING CHANGES
 
 * Default scaffold installs **lean core only** (not the full skill set).
