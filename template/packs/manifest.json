@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "spec",
+      "name": "Spec workflow",
+      "description": "Grill, specs, implement-spec, spikes, ADRs, progress/scratch memory",
+      "dependsOn": [],
+      "docsPage": "/guide#substantial-work",
+      "skills": [
+        "leanagentkit-grill",
+        "leanagentkit-new-spec",
+        "leanagentkit-implement-spec",
+        "leanagentkit-spike",
+        "leanagentkit-seed-adrs"
+      ]
+    },
+    {
+      "id": "stacks",
+      "name": "Stacks & scaffold",
+      "description": "Stack registry, playbooks, match-stack, and greenfield scaffolders",
+      "dependsOn": [],
+      "docsPage": "/stacks",
+      "skills": [
+        "leanagentkit-match-stack",
+        "leanagentkit-scaffold"
+      ]
+    },
+    {
+      "id": "practice",
+      "name": "Engineering practice",
+      "description": "Review, debug, TDD, security, performance, and related guardrail skills",
+      "dependsOn": [],
+      "docsPage": "/packs#practice",
+      "skills": [
+        "leanagentkit-review",
+        "leanagentkit-simplify",
+        "leanagentkit-git-workflow",
+        "leanagentkit-docs",
+        "leanagentkit-debug",
+        "leanagentkit-tdd",
+        "leanagentkit-security",
+        "leanagentkit-performance",
+        "leanagentkit-deprecation",
+        "leanagentkit-api-design",
+        "leanagentkit-frontend-design",
+        "leanagentkit-ci-cd",
+        "leanagentkit-observability"
+      ]
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture decomposition",
+      "description": "Clean Architecture / DDD guided decomposition and parallel slices",
+      "dependsOn": [
+        "spec"
+      ],
+      "docsPage": "/architecture-decomposition",
+      "skills": [
+        "leanagentkit-architecture",
+        "leanagentkit-decompose-spec"
+      ]
+    },
+    {
+      "id": "backlog",
+      "name": "Backlog.md",
+      "description": "Kanban board sync for specs (status layer only)",
+      "dependsOn": [
+        "spec"
+      ],
+      "docsPage": "/backlog",
+      "skills": [
+        "leanagentkit-backlog"
+      ]
+    },
+    {
+      "id": "git-lifecycle",
+      "name": "Git lifecycle",
+      "description": "Branch, commit, PR offers synced to specs; optional PR babysit",
+      "dependsOn": [
+        "spec"
+      ],
+      "docsPage": "/git-lifecycle",
+      "skills": [
+        "leanagentkit-git-lifecycle",
+        "leanagentkit-babysit-pr"
+      ]
+    },
+    {
+      "id": "trevor",
+      "name": "Trevor concierge",
+      "description": "Reminders, checklists, workflows, and kit teaching assistant",
+      "dependsOn": [],
+      "docsPage": "/trevor",
+      "skills": [
+        "leanagentkit-ask-trevor"
+      ]
+    },
+    {
+      "id": "caveman",
+      "name": "Caveman token efficiency",
+      "description": "Terse commits, PR reviews, and optional terse agent replies",
+      "dependsOn": [],
+      "docsPage": "/caveman",
+      "skills": [
+        "leanagentkit-caveman",
+        "leanagentkit-caveman-commit",
+        "leanagentkit-caveman-review"
+      ]
+    },
+    {
+      "id": "authoring",
+      "name": "Skill authoring",
+      "description": "Create, distill, curate project skills and artifact generators",
+      "dependsOn": [],
+      "docsPage": "/create-skill",
+      "skills": [
+        "leanagentkit-create-skill",
+        "leanagentkit-distill-skill",
+        "leanagentkit-curate-skills",
+        "leanagentkit-skill-artifact-template"
+      ]
+    }
+  ]
+}

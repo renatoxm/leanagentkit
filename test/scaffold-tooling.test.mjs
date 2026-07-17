@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const SCAFFOLDERS = join(process.cwd(), "template/.agent/scaffolders");
+const SCAFFOLDERS = join(process.cwd(), "template/packs/stacks/.agent/scaffolders");
 const SNIPPETS = join(SCAFFOLDERS, "snippets/vscode");
 
 const SNIPPET_FILES = [
@@ -116,7 +116,7 @@ test("django.scaffold defaults to subdirectory when kit-only", () => {
   assert.match(content, /preflight|leanagentkit-scaffold/i, "django should reference scaffold preflight");
 });
 
-const SCAFFOLD_SKILL = join(process.cwd(), "template/.agent/skills/leanagentkit-scaffold.md");
+const SCAFFOLD_SKILL = join(process.cwd(), "template/packs/stacks/.agent/skills/leanagentkit-scaffold.md");
 
 test("leanagentkit-scaffold kit-only preflight keys off gate not leftover files", () => {
   const content = readFileSync(SCAFFOLD_SKILL, "utf8");
@@ -154,7 +154,7 @@ test("leanagentkit-scaffold documents nested app handoff", () => {
 
 test("leanagentkit-bootstrap mentions kit-only greenfield", () => {
   const bootstrap = readFileSync(
-    join(process.cwd(), "template/.agent/skills/leanagentkit-bootstrap.md"),
+    join(process.cwd(), "template/core/.agent/skills/leanagentkit-bootstrap.md"),
     "utf8",
   );
   assert.match(bootstrap, /kit-only/i, "bootstrap should mention kit-only state");

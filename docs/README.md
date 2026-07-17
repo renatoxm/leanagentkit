@@ -1,24 +1,28 @@
-# Lean Agent Kit Documentation Github Page
+# Lean Agent Kit Documentation
 
-Developed with [VitePress](https://vitepress.dev/)
+VitePress site for [renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/).
 
-User-facing install and upgrade commands live in [getting-started.md](./getting-started.md).
-Always document them with `@latest` (e.g. `npx create-lean-agent-kit@latest . --upgrade`)
-so readers do not hit stale `npx` / `pnpm dlx` caches.
+User-facing install/upgrade commands: [getting-started.md](./getting-started.md).
+Always document with `@latest`.
+
+## Pages
+
+| Page | Source |
+|------|--------|
+| Guide | Generated from `template/core/LEAN_AGENT_KIT_GUIDE.md` |
+| Stacks | Generated from `template/packs/stacks/.agent/stacks/registry.md` |
+| Packs / Migration | Hand-authored `packs.md`, `migration-1.0.md` |
+| Pack deep-dives | `backlog.md`, `trevor.md`, … |
 
 ## Running locally
 
 ```bash
 cd docs
 pnpm install
-pnpm run docs:dev      # http://localhost:5173/leanagentkit/
+pnpm run docs:dev
 pnpm run docs:build    # runs sync first, then builds
 ```
 
 ## Deployment
 
-1. Push to main
-2. In the repo: Settings → Pages → Build and deployment → Source: GitHub Actions
-3. After the workflow runs, the site will be at https://renatoxm.github.io/leanagentkit/
-
-The guide and stacks pages are auto-synced from template/LEAN_AGENT_KIT_GUIDE.md and the README stack table on every dev/build — no manual duplication.
+Push to main → GitHub Actions Pages workflow → https://renatoxm.github.io/leanagentkit/

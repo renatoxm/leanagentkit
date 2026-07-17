@@ -1,117 +1,73 @@
 # Getting Started
 
-Lean Agent Kit is a tool-agnostic memory + guardrail system that keeps your agent's **context lean**: instead of re-scanning the repo every session, the agent navigates by a Markdown map and pulls only the files each task needs. It drops into any existing project and turns chaotic AI sessions into a disciplined, repeatable workflow.
-
-**Lean means context economics, in two reinforcing dimensions:**
-
-- **Lean context (runtime)** — the agent reads `CODEBASE_MAP.md` + `ACTIVE_CONTEXT.md`, then opens only the files a task needs. No globbing, no drift.
-- **Lean footprint (setup)** — only what your project actually uses gets scaffolded. A small footprint is what keeps context lean.
+Lean Agent Kit 1.0 installs a **lean core**: Markdown memory so your agent
+resumes from a map and active context, plus a convention check. Optional
+**packs** add specs, stacks, and integrations.
 
 ## Install
 
-Pin `@latest` so `npx` / `pnpm dlx` do not reuse a stale cached package (old
-caches can ignore `--upgrade` and print outdated bootstrap text).
+Pin `@latest` so caches do not run a stale package.
 
 ```bash
-# into the current directory
 npm create lean-agent-kit@latest
-
-# into a new/named folder
-npm create lean-agent-kit@latest my-app
-
-# equivalently
 npx create-lean-agent-kit@latest .
 pnpm dlx create-lean-agent-kit@latest .
 ```
 
-Confirm the CLI prints `create-lean-agent-kit v…` before it scaffolds — that is the
-version that actually ran.
+Confirm the CLI prints `create-lean-agent-kit v…` before scaffolding.
+
+**Core only by default.** To include packs on first scaffold:
+
+```bash
+npx create-lean-agent-kit@latest . --with spec,stacks
+```
 
 ## Bootstrap
 
-Open your AI agent in the project and say:
-
 > Read `.agent/skills/leanagentkit-bootstrap.md` and follow it.
 
-That runs the interactive setup: choose memory tiers, map the codebase, detect your stack, and wire up matching framework skills.
+Maps the codebase, fills `AGENTS.md` conventions, wires agents, and offers packs
+(does not install packs unless you choose them).
 
-**Flags:** `--force` overwrite existing kit files · `--upgrade` refresh kit files safely · `--help`.
+## Workflow sizes
 
-## Upgrade an installed kit
+| Size | Loop |
+|------|------|
+| Trivial | Just work |
+| Normal | `start-session` → work → `check` → `end-session` |
+| Substantial | Enable `spec` pack → grill → new-spec → implement-spec → check → end-session |
+
+## Add packs later
+
+```bash
+npx create-lean-agent-kit@latest . --enable-pack practice
+```
+
+Or: `leanagentkit-enable-pack`. Catalog: [Packs](/packs).
+
+## Upgrade & prune
 
 ```bash
 npx create-lean-agent-kit@latest . --upgrade
-pnpm dlx create-lean-agent-kit@latest . --upgrade
-
-# with npm create, pass flags after --
-npm create lean-agent-kit@latest . -- --upgrade
+npx create-lean-agent-kit@latest . --prune-to-core
 ```
 
-Always pin `@latest` on upgrade. Without it, a stale `npx`/`pnpx` cache can run an
-old package that has no `--upgrade` support and will only skip existing files.
+Coming from 0.x? See [Migration 1.0](/migration-1.0).
 
-**Refreshed** (kit-owned): `.agent/skills/`, `.agent/stacks/*` playbooks, `.agent/scaffolders/*.scaffold.md` (recipes), `.agent/install/` templates, `LEAN_AGENT_KIT_GUIDE.md`, and other template files.
-
-**Preserved** (user-owned): `AGENTS.md`, `docs/CODEBASE_MAP.md`, `docs/memory/*` (all existing files), `.agent/stacks/registry.md` and `.agent/scaffolders/registry.md` (your custom rows), `LEAN_AGENT_KIT.md`, `.agent/skills/generated/README.md`, `docs/adr/0001-*`, and opt-in configs you created under `.leanagentkit/` (e.g. `caveman.yml`, `trevor.yml`, `git-lifecycle.yml`, `architecture.yml` — not in the kit template, so upgrade never overwrites them).
-
-After upgrading, the CLI prints a **wire-agent** next step (not bootstrap). Upgrade refreshes kit-owned skills while preserving your memory and conventions — you do not need to re-run the full interactive bootstrap unless you want a deliberate refresh.
-
-If you use Cursor or Claude Code, re-run wire-agent so skill wrappers match the refreshed `.agent/skills/` frontmatter:
-
-> Read `.agent/skills/leanagentkit-wire-agent.md` and follow it.
-
-## The daily loop
+## What core scaffolds
 
 ```
-leanagentkit-start-session → (grill → new-spec → implement-spec for new work) → check → end-session
-```
-
-1. **`leanagentkit-start-session`** — primes from `ACTIVE_CONTEXT.md` + `CODEBASE_MAP.md` (cheap, no repo scan).
-2. **`leanagentkit-grill` → `leanagentkit-new-spec` → `leanagentkit-implement-spec`** — for new work, align on a plan, freeze a spec, then implement it spec-driven (`leanagentkit-tdd` keeps it test-first).
-3. **`leanagentkit-check`** — validates against `AGENTS.md` conventions and stack rules.
-4. **`leanagentkit-end-session`** — so the next session starts warm.
-
-When feasibility is unknown ("is this even possible?"), reach for **`leanagentkit-spike`** first — throwaway experiments under `spikes/` that return a VALIDATED / PARTIAL / INVALIDATED verdict before you commit to a real build.
-
-## Learning loop
-
-Generated skills in `.agent/skills/generated/` compound over time:
-
-- **`leanagentkit-create-skill`** — create or refactor generated skills to LAK standards.
-- **`leanagentkit-distill-skill`** — freeze a repeated session workflow into a reusable skill.
-- **`leanagentkit-curate-skills`** — review stale generators; archive, never delete.
-
-See the [Create skill guide](/create-skill) and [Full Guide](/guide#skill-craft-create-refactor) for details.
-
-## Optional: Caveman token efficiency
-
-Terse commit messages, PR comments, and (optionally) agent replies — opt in via
-`.leanagentkit/caveman.yml`. Say **Yes** during bootstrap Step 3e, or see the
-[Caveman guide](/caveman).
-
-## When the context window fills
-
-Starting a **new chat** when context is almost full is correct — the kit is designed for multi-session work.
-
-- **Mid-task, still continuing** → `leanagentkit-handoff` (writes `docs/memory/HANDOFF.md`) → new chat → `leanagentkit-start-session` → read `HANDOFF.md` and continue.
-- **Natural pause** (chunk done, end of day) → `leanagentkit-check` → `leanagentkit-end-session` → new chat later → `leanagentkit-start-session`.
-
-Do not use `end-session` alone when you're resetting only because context is full — it updates durable bookmarks but can miss in-flight conversational state. See [Resetting when the context window fills](/guide#resetting-when-the-context-window-fills) in the full guide.
-
-## What it scaffolds
-
-```
-AGENTS.md                 # canonical rulebook + memory protocol
-.agent/skills/            # kit skills (source of truth)
-.agent/stacks/registry.md # tech → external skill mapping
-.agent/scaffolders/       # greenfield scaffold recipes (registry-backed)
-docs/CODEBASE_MAP.md      # navigation index
-docs/memory/              # ACTIVE_CONTEXT, PROGRESS, SCRATCH
-docs/specs/  docs/adr/    # feature specs, architecture decisions
+AGENTS.md
+docs/CODEBASE_MAP.md
+docs/memory/ACTIVE_CONTEXT.md
+.agent/skills/          # core skills only
+.agent/install/         # Cursor / Claude templates
+LEAN_AGENT_KIT.md
+LEAN_AGENT_KIT_GUIDE.md
 ```
 
 ## Next steps
 
-- Read the [Full Guide](/guide) for the end-to-end playbook.
-- Browse [Built-in stack support](/stacks) for detected technologies and external skills.
-- See the [GitHub repository](https://github.com/renatoxm/leanagentkit) for the latest releases and changelog.
+- [Full guide](/guide)
+- [Packs](/packs)
+- Re-run `leanagentkit-wire-agent` after enabling packs (Cursor / Claude)

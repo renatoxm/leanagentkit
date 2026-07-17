@@ -1,0 +1,18 @@
+{
+  "id": "caveman",
+  "name": "Caveman token efficiency",
+  "description": "Terse commits, PR reviews, and optional terse agent replies",
+  "dependsOn": [],
+  "docsPage": "/caveman",
+  "skills": [
+    "leanagentkit-caveman",
+    "leanagentkit-caveman-commit",
+    "leanagentkit-caveman-review"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-caveman-commit.md",
+    ".agent/skills/leanagentkit-caveman-review.md",
+    ".agent/skills/leanagentkit-caveman.md",
+    ".leanagentkit/caveman.yml.example"
+  ]
+}

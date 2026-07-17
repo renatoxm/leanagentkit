@@ -1,0 +1,20 @@
+{
+  "id": "trevor",
+  "name": "Trevor concierge",
+  "description": "Reminders, checklists, workflows, and kit teaching assistant",
+  "dependsOn": [],
+  "docsPage": "/trevor",
+  "skills": [
+    "leanagentkit-ask-trevor"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-ask-trevor.md",
+    ".leanagentkit/trevor.yml.example",
+    "docs/memory/CHECKLISTS/_TEMPLATE.md",
+    "docs/memory/CHECKLISTS/weekly-review.md",
+    "docs/memory/REMINDERS.md",
+    "docs/memory/WORKFLOWS/_TEMPLATE.md",
+    "docs/memory/WORKFLOWS/pre-release.md",
+    "docs/memory/WORKFLOWS/weekly-review.md"
+  ]
+}

@@ -1,10 +1,17 @@
 # Architecture decomposition
 
+> **Requires packs:** `spec` and `architecture`.
+>
+> ```bash
+> npx create-lean-agent-kit@latest . --enable-pack architecture
+> ```
+> Then copy `.leanagentkit/architecture.yml.example` → `architecture.yml`. See [Packs](/packs).
+
 Optional integration for **Clean Architecture** and **Domain-Driven Design**
 guided spec decomposition — with parallel-safe work slices when contracts exist.
 
-The kit embeds reference material from [wondelai/skills](https://github.com/wondelai/skills)
-(MIT) under `.agent/skills/references/` — no separate install step.
+The **architecture** pack embeds reference material from [wondelai/skills](https://github.com/wondelai/skills)
+(MIT) under `.agent/skills/references/`.
 
 ## What it adds
 

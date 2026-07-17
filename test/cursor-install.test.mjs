@@ -1,17 +1,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, mkdir, cp } from "node:fs/promises";
 import { mkdtempSync, existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
   listKitSkills,
+  listCoreSkills,
   parseFrontmatter,
   wireCursor,
+  generateWrappers,
 } from "./helpers/skills.mjs";
 
-const TEMPLATE_CURSOR = join(process.cwd(), "template", ".agent", "install", "cursor");
+const TEMPLATE_CURSOR = join(process.cwd(), "template", "core", ".agent", "install", "cursor");
 
 test("cursor install templates exist after scaffold", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-cursor-"));
@@ -84,22 +86,33 @@ test("create-skill has discovery-safe description (<=1024 chars)", async () => {
   );
 });
 
-test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
-  const dir = mkdtempSync(join(tmpdir(), "lak-wire-"));
+test("default wire generates core-only cursor wrappers", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-wire-core-"));
   try {
     execFileSync("node", ["bin/cli.mjs", dir], { stdio: "pipe" });
     const skills = await wireCursor(dir);
+    const core = await listCoreSkills();
+    assert.equal(skills.length, core.length);
+    assert.ok(skills.every((s) => !s.name.includes("grill")));
+    assert.ok(existsSync(join(dir, ".cursor", "rules", "memory.mdc")));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
 
-    const rulePath = join(dir, ".cursor", "rules", "memory.mdc");
-    assert.ok(existsSync(rulePath), "memory.mdc copied");
+test("wrapper generation honors invocation auto vs conditional across packs", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-wire-"));
+  try {
+    await mkdir(join(dir, ".cursor", "rules"), { recursive: true });
+    await cp(join(TEMPLATE_CURSOR, "rules"), join(dir, ".cursor", "rules"), {
+      recursive: true,
+    });
+    const skills = await generateWrappers(dir, "cursor"); // all packs in package
 
     const skillDirs = await readdir(join(dir, ".cursor", "skills"), { withFileTypes: true });
     const dirs = skillDirs.filter((e) => e.isDirectory()).map((e) => e.name);
     assert.equal(dirs.length, skills.length, "all skill wrappers generated");
 
-    // Guard: the auto-invocation mechanism is actually in use. Without this, a
-    // refactor that dropped every `invocation: auto` would still pass the
-    // per-skill branch below (it would just take the else branch every time).
     assert.ok(
       skills.some((s) => s.invocation === "auto"),
       "at least one skill ships with invocation: auto",
@@ -130,8 +143,6 @@ test("wire-agent generates cursor wrappers under .cursor/skills/", async () => {
           `${skill.name}: conditional skills require disable-model-invocation`,
         );
       } else {
-        // Explicit orchestration skills and conditional practice skills both
-        // ship with disable-model-invocation so they never auto-fire.
         assert.equal(fm["disable-model-invocation"], "true");
       }
       assert.match(content, new RegExp(`\\.agent/skills/${skill.file}`));

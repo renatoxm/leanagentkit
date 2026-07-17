@@ -1,0 +1,15 @@
+{
+  "id": "backlog",
+  "name": "Backlog.md",
+  "description": "Kanban board sync for specs (status layer only)",
+  "dependsOn": [
+    "spec"
+  ],
+  "docsPage": "/backlog",
+  "skills": [
+    "leanagentkit-backlog"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-backlog.md"
+  ]
+}

@@ -11,7 +11,7 @@ import {
   wireClaude,
 } from "./helpers/skills.mjs";
 
-const TEMPLATE_CLAUDE = join(process.cwd(), "template", ".agent", "install", "claude");
+const TEMPLATE_CLAUDE = join(process.cwd(), "template", "core", ".agent", "install", "claude");
 
 test("claude install templates exist after scaffold", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-claude-"));

@@ -1,0 +1,18 @@
+{
+  "id": "git-lifecycle",
+  "name": "Git lifecycle",
+  "description": "Branch, commit, PR offers synced to specs; optional PR babysit",
+  "dependsOn": [
+    "spec"
+  ],
+  "docsPage": "/git-lifecycle",
+  "skills": [
+    "leanagentkit-git-lifecycle",
+    "leanagentkit-babysit-pr"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-babysit-pr.md",
+    ".agent/skills/leanagentkit-git-lifecycle.md",
+    ".leanagentkit/git-lifecycle.yml.example"
+  ]
+}

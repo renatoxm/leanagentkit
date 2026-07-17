@@ -1,0 +1,32 @@
+{
+  "id": "architecture",
+  "name": "Architecture decomposition",
+  "description": "Clean Architecture / DDD guided decomposition and parallel slices",
+  "dependsOn": [
+    "spec"
+  ],
+  "docsPage": "/architecture-decomposition",
+  "skills": [
+    "leanagentkit-architecture",
+    "leanagentkit-decompose-spec"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-architecture.md",
+    ".agent/skills/leanagentkit-decompose-spec.md",
+    ".agent/skills/references/clean-architecture/SKILL.md",
+    ".agent/skills/references/clean-architecture/references/adapters-frameworks.md",
+    ".agent/skills/references/clean-architecture/references/boundaries.md",
+    ".agent/skills/references/clean-architecture/references/component-principles.md",
+    ".agent/skills/references/clean-architecture/references/dependency-rule.md",
+    ".agent/skills/references/clean-architecture/references/entities-use-cases.md",
+    ".agent/skills/references/clean-architecture/references/solid-principles.md",
+    ".agent/skills/references/domain-driven-design/SKILL.md",
+    ".agent/skills/references/domain-driven-design/references/bounded-contexts.md",
+    ".agent/skills/references/domain-driven-design/references/building-blocks.md",
+    ".agent/skills/references/domain-driven-design/references/domain-events.md",
+    ".agent/skills/references/domain-driven-design/references/repositories-factories.md",
+    ".agent/skills/references/domain-driven-design/references/strategic-design.md",
+    ".agent/skills/references/domain-driven-design/references/ubiquitous-language.md",
+    ".leanagentkit/architecture.yml.example"
+  ]
+}

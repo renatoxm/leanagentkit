@@ -1,0 +1,42 @@
+{
+  "id": "practice",
+  "name": "Engineering practice",
+  "description": "Review, debug, TDD, security, performance, and related guardrail skills",
+  "dependsOn": [],
+  "docsPage": "/packs#practice",
+  "skills": [
+    "leanagentkit-review",
+    "leanagentkit-simplify",
+    "leanagentkit-git-workflow",
+    "leanagentkit-docs",
+    "leanagentkit-debug",
+    "leanagentkit-tdd",
+    "leanagentkit-security",
+    "leanagentkit-performance",
+    "leanagentkit-deprecation",
+    "leanagentkit-api-design",
+    "leanagentkit-frontend-design",
+    "leanagentkit-ci-cd",
+    "leanagentkit-observability"
+  ],
+  "files": [
+    ".agent/practice-skills/registry.md",
+    ".agent/skills/frame/findings-report.md",
+    ".agent/skills/leanagentkit-api-design.md",
+    ".agent/skills/leanagentkit-ci-cd.md",
+    ".agent/skills/leanagentkit-debug.md",
+    ".agent/skills/leanagentkit-deprecation.md",
+    ".agent/skills/leanagentkit-docs.md",
+    ".agent/skills/leanagentkit-frontend-design.md",
+    ".agent/skills/leanagentkit-git-workflow.md",
+    ".agent/skills/leanagentkit-observability.md",
+    ".agent/skills/leanagentkit-performance.md",
+    ".agent/skills/leanagentkit-review.md",
+    ".agent/skills/leanagentkit-security.md",
+    ".agent/skills/leanagentkit-simplify.md",
+    ".agent/skills/leanagentkit-tdd.md",
+    ".agent/skills/references/frontend-design-checklist.md",
+    ".agent/skills/references/performance-checklist.md",
+    ".agent/skills/references/security-checklist.md"
+  ]
+}

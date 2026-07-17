@@ -1,12 +1,18 @@
 # Git lifecycle integration
 
+> **Requires packs:** `spec` and `git-lifecycle`.
+>
+> ```bash
+> npx create-lean-agent-kit@latest . --enable-pack git-lifecycle
+> ```
+> Then copy `.leanagentkit/git-lifecycle.yml.example` → `git-lifecycle.yml`. See [Packs](/packs).
+
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.
 Git operations (branch, commit, PR) are **not** forced on the daily loop. For teams
 that want prompt-based git at natural lifecycle boundaries, the kit offers an
 **optional** integration through the `leanagentkit-git-lifecycle` skill.
 
-The scaffolder (`npm create lean-agent-kit`) does **not** create git lifecycle config.
-You opt in during bootstrap (Step 3c) or copy the example config manually.
+Core install does **not** include this pack. Enable it, then opt in via config.
 
 ## Why integrate?
 

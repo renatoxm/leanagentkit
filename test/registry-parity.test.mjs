@@ -6,12 +6,29 @@ import { join } from "node:path";
 const SCAFFOLDERS_REGISTRY = join(
   process.cwd(),
   "template",
+  "packs",
+  "stacks",
   ".agent",
   "scaffolders",
   "registry.md",
 );
-const STACKS_REGISTRY = join(process.cwd(), "template", ".agent", "stacks", "registry.md");
-const SCAFFOLDERS_DIR = join(process.cwd(), "template", ".agent", "scaffolders");
+const STACKS_REGISTRY = join(
+  process.cwd(),
+  "template",
+  "packs",
+  "stacks",
+  ".agent",
+  "stacks",
+  "registry.md",
+);
+const SCAFFOLDERS_DIR = join(
+  process.cwd(),
+  "template",
+  "packs",
+  "stacks",
+  ".agent",
+  "scaffolders",
+);
 
 function parseScaffolderRows(registryText) {
   const rows = [];

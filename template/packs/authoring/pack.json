@@ -1,0 +1,24 @@
+{
+  "id": "authoring",
+  "name": "Skill authoring",
+  "description": "Create, distill, curate project skills and artifact generators",
+  "dependsOn": [],
+  "docsPage": "/create-skill",
+  "skills": [
+    "leanagentkit-create-skill",
+    "leanagentkit-distill-skill",
+    "leanagentkit-curate-skills",
+    "leanagentkit-skill-artifact-template"
+  ],
+  "files": [
+    ".agent/recipes/_TEMPLATE.recipe.md",
+    ".agent/skills/generated/README.md",
+    ".agent/skills/generated/_GENERATOR_TEMPLATE.md",
+    ".agent/skills/leanagentkit-create-skill.md",
+    ".agent/skills/leanagentkit-curate-skills.md",
+    ".agent/skills/leanagentkit-distill-skill.md",
+    ".agent/skills/leanagentkit-skill-artifact-template.md",
+    ".agent/skills/references/skill-authoring-standards.md",
+    ".agent/skills/references/skill-craft-glossary.md"
+  ]
+}

@@ -1,5 +1,12 @@
 # Visual task board (Backlog.md)
 
+> **Requires packs:** `spec` and `backlog`.
+>
+> ```bash
+> npx create-lean-agent-kit@latest . --enable-pack backlog
+> ```
+> (`spec` is pulled in automatically.) See [Packs](/packs).
+
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.
 That keeps the agent's context lean, but there is no built-in Kanban or web UI.
 

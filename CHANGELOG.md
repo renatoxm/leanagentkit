@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0](https://github.com/renatoxm/leanagentkit/compare/v0.4.21...v1.0.0) (2026-07-17)
+
+### ⚠ BREAKING CHANGES
+
+* Default scaffold installs **lean core only** (not the full skill set).
+* Template layout is `template/core/` + `template/packs/*` (opt-in overlays).
+* Memory protocol is **map-first** (narrow search allowed); workflow sizes trivial/normal/substantial.
+* Optional features (spec, stacks, practice, Trevor, Caveman, …) require `--enable-pack` / `--with`.
+
+### Features
+
+* CLI: `--with`, `--enable-pack`, `--prune-to-core`, `--keep-pack`
+* Version stamp includes `installedPacks`
+* Skills: `leanagentkit-enable-pack`, `leanagentkit-migrate-1`
+* Docs: packs catalog, migration 1.0, rewritten guide/READMEs
+
+### Migration
+
+```bash
+npx create-lean-agent-kit@latest . --upgrade
+npx create-lean-agent-kit@latest . --prune-to-core   # optional lean reclaim
+npx create-lean-agent-kit@latest . --enable-pack spec,stacks
+```
+
+See https://renatoxm.github.io/leanagentkit/migration-1.0
+
 ## [0.4.21](https://github.com/renatoxm/leanagentkit/compare/v0.4.20...v0.4.21) (2026-07-12)
 
 ## [0.4.20](https://github.com/renatoxm/leanagentkit/compare/v0.4.19...v0.4.20) (2026-07-12)

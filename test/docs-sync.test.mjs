@@ -7,39 +7,41 @@ import { join } from "node:path";
 const REPO_ROOT = process.cwd();
 const SYNC_SCRIPT = join(REPO_ROOT, "docs", ".vitepress", "sync.mjs");
 const GUIDE_PATH = join(REPO_ROOT, "docs", "guide.md");
-const README_PATH = join(REPO_ROOT, "README.md");
+const STACKS_PATH = join(REPO_ROOT, "docs", "stacks.md");
+const GUIDE_SOURCE = join(REPO_ROOT, "template", "core", "LEAN_AGENT_KIT_GUIDE.md");
+const STACKS_REGISTRY = join(
+  REPO_ROOT,
+  "template",
+  "packs",
+  "stacks",
+  ".agent",
+  "stacks",
+  "registry.md",
+);
 
-const GUIDE_ANCHOR_TARGETS = [
-  "#🧠-1-the-mental-model-read-this-first",
-  "#🚀-2-install-bootstrap-—-your-first-10-minutes",
-  "#🧠-3-memory-tiers-—-how-the-kit-remembers",
-  "#🔄-4-the-daily-loop-—-your-everyday-rhythm",
-  "#🔀-5-workflows-from-simple-to-complex",
-  "#🧰-6-stacks-external-skills",
-  "#🏭-7-artifact-generators-—-teach-the-kit-to-scaffold",
-  "#🛡️-8-engineering‐practice-guardrails",
-  "#🤝-9-working-across-sessions-tools-teammates",
-  "#💡-10-pro-tips-anti‐patterns",
-  "#🧯-11-troubleshooting-faq",
-  "#📋-12-the-one‐page-cheat-sheet",
-];
-
-test("docs sync runs and writes guide.md with VitePress TOC anchors", () => {
+test("docs sync runs and writes guide.md from core guide", () => {
   execFileSync("node", [SYNC_SCRIPT], { stdio: "pipe" });
   assert.ok(existsSync(GUIDE_PATH), "docs/guide.md generated");
+  assert.ok(existsSync(STACKS_PATH), "docs/stacks.md generated");
 
   const guide = readFileSync(GUIDE_PATH, "utf8");
-  for (const anchor of GUIDE_ANCHOR_TARGETS) {
-    assert.match(guide, new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), {
-      message: `guide.md should reference TOC anchor ${anchor}`,
-    });
-  }
+  assert.match(guide, /GENERATED FILE/);
+  assert.match(guide, /Map-first/);
+  assert.match(guide, /Workflow sizes/);
+  assert.match(guide, /## 7\. Packs/);
+
+  const source = readFileSync(GUIDE_SOURCE, "utf8");
+  assert.match(source, /## 1\. Mental model/);
 });
 
-test("README still contains stacks section marker for syncStacks", () => {
-  const readme = readFileSync(README_PATH, "utf8");
-  assert.ok(
-    readme.includes("## 🧰 Built-in stack support"),
-    "README must keep ## 🧰 Built-in stack support for docs sync",
-  );
+test("stacks sync includes registry content and packs pack note", () => {
+  execFileSync("node", [SYNC_SCRIPT], { stdio: "pipe" });
+  const stacks = readFileSync(STACKS_PATH, "utf8");
+  assert.match(stacks, /enable-pack stacks/);
+  assert.ok(existsSync(STACKS_REGISTRY));
+  const registry = readFileSync(STACKS_REGISTRY, "utf8");
+  // At least one heading from registry should appear in generated page
+  const heading = registry.match(/^## (.+)$/m);
+  assert.ok(heading, "registry has headings");
+  assert.match(stacks, new RegExp(heading[1].replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
 });

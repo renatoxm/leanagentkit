@@ -1,0 +1,27 @@
+{
+  "id": "spec",
+  "name": "Spec workflow",
+  "description": "Grill, specs, implement-spec, spikes, ADRs, progress/scratch memory",
+  "dependsOn": [],
+  "docsPage": "/guide#substantial-work",
+  "skills": [
+    "leanagentkit-grill",
+    "leanagentkit-new-spec",
+    "leanagentkit-implement-spec",
+    "leanagentkit-spike",
+    "leanagentkit-seed-adrs"
+  ],
+  "files": [
+    ".agent/skills/leanagentkit-grill.md",
+    ".agent/skills/leanagentkit-implement-spec.md",
+    ".agent/skills/leanagentkit-new-spec.md",
+    ".agent/skills/leanagentkit-seed-adrs.md",
+    ".agent/skills/leanagentkit-spike.md",
+    "docs/adr/0001-record-architecture-decisions.md",
+    "docs/adr/_TEMPLATE.md",
+    "docs/memory/PROGRESS.md",
+    "docs/memory/SCRATCH.md",
+    "docs/specs/_SLICES_TEMPLATE.md",
+    "docs/specs/_TEMPLATE.md"
+  ]
+}

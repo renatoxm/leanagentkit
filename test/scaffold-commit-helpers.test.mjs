@@ -13,7 +13,7 @@ import { execSync } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 
-const SNIPPETS = join(process.cwd(), "template/.agent/scaffolders/snippets/commit-helpers");
+const SNIPPETS = join(process.cwd(), "template/packs/stacks/.agent/scaffolders/snippets/commit-helpers");
 
 test("commit-helpers flow works in a fresh npm project", { timeout: 120_000 }, () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-commit-helpers-"));

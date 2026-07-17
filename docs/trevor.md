@@ -1,5 +1,12 @@
 # Trevor — kit concierge
 
+> **Requires pack:** `trevor`.
+>
+> ```bash
+> npx create-lean-agent-kit@latest . --enable-pack trevor
+> ```
+> Skills are not present on a core-only install. See [Packs](/packs).
+
 <div class="guide-hero">
 <div class="guide-hero-text">
 
