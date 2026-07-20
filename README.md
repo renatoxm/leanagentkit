@@ -87,6 +87,7 @@ See [Migration 1.0](https://renatoxm.github.io/leanagentkit/migration-1.0).
 | `trevor` | Reminders / concierge |
 | `caveman` | Terse commits & review comments |
 | `authoring` | Distill / create project skills |
+| `imaginary` | Resize/crop/convert via h2non/imaginary |
 
 Full catalog: [Packs](https://renatoxm.github.io/leanagentkit/packs).
 

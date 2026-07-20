@@ -32,6 +32,7 @@ Ask as a short interactive set (host UI when available):
    - `trevor` — reminders/checklists concierge
    - `caveman` — terse commits/reviews
    - `authoring` — distill/create project skills
+   - `imaginary` — resize/crop/convert via h2non/imaginary Docker
 
 If the user picks packs that need `spec`, include `spec` automatically and say so.
 
@@ -77,9 +78,11 @@ For each tool selected in Step 0:
 ## Step 5 — Pack-specific follow-ups (only if installed)
 
 - **spec** — offer `leanagentkit-seed-adrs` if the codebase encodes decisions.
-- **trevor / caveman / git-lifecycle / architecture** — offer to copy the matching
-  `.leanagentkit/*.yml.example` → `*.yml`.
+- **trevor / caveman / git-lifecycle / architecture / imaginary** — offer to copy
+  the matching `.leanagentkit/*.yml.example` → `*.yml`.
 - **backlog** — offer install guide only if user wants a board (do not assume).
+- **imaginary** — offer docker run / compose from the skill reference; do not
+  start the container unless asked.
 - **authoring** — mention distill/curate; do not author generators unless asked.
 
 ## Step 6 — Document in LEAN_AGENT_KIT.md

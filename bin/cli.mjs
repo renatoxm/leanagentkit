@@ -117,7 +117,7 @@ Flags:
   --keep-pack <packs>   with --prune-to-core, retain these packs
   -h, --help            show this help
 
-Packs: spec, stacks, practice, architecture, backlog, git-lifecycle, trevor, caveman, authoring
+Packs: spec, stacks, practice, architecture, backlog, git-lifecycle, trevor, caveman, authoring, imaginary
   Missing dependencies are installed automatically (architecture, backlog, and
   git-lifecycle pull in spec).
 `);

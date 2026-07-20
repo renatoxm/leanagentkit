@@ -34,6 +34,7 @@ npx create-lean-agent-kit@latest . --enable-pack <id>
 | `trevor` | ask-trevor |
 | `caveman` | caveman, caveman-commit, caveman-review |
 | `authoring` | create-skill, distill-skill, curate-skills, skill-artifact-template |
+| `imaginary` | imaginary |
 
 See `LEAN_AGENT_KIT_GUIDE.md` and [packs docs](https://renatoxm.github.io/leanagentkit/packs).
 

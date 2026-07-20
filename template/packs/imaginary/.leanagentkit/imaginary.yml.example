@@ -1,0 +1,7 @@
+# Imaginary image-processing service for Lean Agent Kit.
+# Copy to .leanagentkit/imaginary.yml during bootstrap or manually.
+# The scaffolder does not start Docker — run h2non/imaginary yourself.
+# See .agent/skills/references/imaginary/api-reference.md for docker run / compose.
+
+# Base URL of the imaginary HTTP service (no trailing slash)
+base_url: http://localhost:9000

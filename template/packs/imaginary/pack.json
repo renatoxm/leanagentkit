@@ -1,0 +1,14 @@
+{
+  "id": "imaginary",
+  "name": "Imaginary image processing",
+  "description": "Resize, crop, convert, and batch-process images via self-hosted h2non/imaginary",
+  "dependsOn": [],
+  "docsPage": "/imaginary",
+  "skills": ["leanagentkit-imaginary"],
+  "files": [
+    ".agent/skills/leanagentkit-imaginary.md",
+    ".agent/skills/references/imaginary/api-reference.md",
+    ".agent/skills/scripts/check_imaginary.sh",
+    ".leanagentkit/imaginary.yml.example"
+  ]
+}

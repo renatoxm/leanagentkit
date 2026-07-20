@@ -120,6 +120,16 @@
         "leanagentkit-curate-skills",
         "leanagentkit-skill-artifact-template"
       ]
+    },
+    {
+      "id": "imaginary",
+      "name": "Imaginary image processing",
+      "description": "Resize, crop, convert, and batch-process images via self-hosted h2non/imaginary",
+      "dependsOn": [],
+      "docsPage": "/imaginary",
+      "skills": [
+        "leanagentkit-imaginary"
+      ]
     }
   ]
 }

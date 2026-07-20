@@ -32,6 +32,7 @@ Dependencies are resolved automatically (`architecture`, `backlog`, and
 | `trevor` | — | [Trevor](/trevor) |
 | `caveman` | — | [Caveman](/caveman) |
 | `authoring` | — | [Create skill](/create-skill) |
+| `imaginary` | — | [Imaginary](/imaginary) |
 
 Installed packs are recorded in `.agent/.leanagentkit-version` → `installedPacks`.
 

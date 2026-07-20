@@ -20,6 +20,7 @@ description: Install one or more Lean Agent Kit packs into an existing project (
 | `trevor` | — | Concierge, reminders, checklists |
 | `caveman` | — | Terse commits/reviews (optional terse chat) |
 | `authoring` | — | create/distill/curate skills, generators |
+| `imaginary` | — | Resize/crop/convert images via h2non/imaginary |
 
 ## Procedure
 
@@ -40,8 +41,9 @@ description: Install one or more Lean Agent Kit packs into an existing project (
 5. Confirm stamp `installedPacks` updated.
 6. Update `AGENTS.md` §7 with a short line per new pack.
 7. If Cursor/Claude: run `leanagentkit-wire-agent` so wrappers include new skills.
-8. For packs with config examples (trevor, caveman, git-lifecycle, architecture),
-   offer to copy `.leanagentkit/<name>.yml.example` → `.leanagentkit/<name>.yml`.
+8. For packs with config examples (trevor, caveman, git-lifecycle, architecture,
+   imaginary), offer to copy `.leanagentkit/<name>.yml.example` →
+   `.leanagentkit/<name>.yml`.
 
 ## Do not
 

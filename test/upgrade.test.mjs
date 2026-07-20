@@ -187,6 +187,26 @@ test("upgrade leaves user-created .leanagentkit/caveman.yml untouched", () => {
   }
 });
 
+test("upgrade leaves user-created .leanagentkit/imaginary.yml untouched", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-imaginary-"));
+  try {
+    runCli(dir, "--with", "imaginary");
+    const userImaginary = "base_url: http://127.0.0.1:9001\n";
+    const imaginaryPath = join(dir, ".leanagentkit", "imaginary.yml");
+    writeFileSync(imaginaryPath, userImaginary);
+
+    runCli(dir, "--upgrade");
+
+    assert.equal(
+      readFileSync(imaginaryPath, "utf8"),
+      userImaginary,
+      "imaginary.yml preserved",
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("upgrade refreshes authoring pack skills when installed", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-create-skill-"));
   try {

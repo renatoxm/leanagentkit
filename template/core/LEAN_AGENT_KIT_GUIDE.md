@@ -88,6 +88,7 @@ npx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec
 | `trevor` | — | Concierge, reminders, checklists |
 | `caveman` | — | Terse commits / reviews |
 | `authoring` | — | Create / distill / curate skills |
+| `imaginary` | — | Resize / crop / convert via h2non/imaginary |
 
 Docs: [Packs](https://renatoxm.github.io/leanagentkit/packs) ·
 [Migration](https://renatoxm.github.io/leanagentkit/migration-1.0) ·
@@ -97,7 +98,8 @@ Docs: [Packs](https://renatoxm.github.io/leanagentkit/packs) ·
 [Caveman](https://renatoxm.github.io/leanagentkit/caveman) ·
 [Git lifecycle](https://renatoxm.github.io/leanagentkit/git-lifecycle) ·
 [Architecture](https://renatoxm.github.io/leanagentkit/architecture-decomposition) ·
-[Create skill](https://renatoxm.github.io/leanagentkit/create-skill).
+[Create skill](https://renatoxm.github.io/leanagentkit/create-skill) ·
+[Imaginary](https://renatoxm.github.io/leanagentkit/imaginary).
 
 ### Substantial work (spec pack)
 

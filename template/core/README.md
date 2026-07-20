@@ -47,6 +47,7 @@ commands: [docs / packs](https://renatoxm.github.io/leanagentkit/packs).
 | `architecture` | Decomposition (needs `spec`) |
 | `backlog` / `git-lifecycle` | Board / git offers (need `spec`) |
 | `trevor` / `caveman` / `authoring` | Concierge / terse output / skill authoring |
+| `imaginary` | Image resize/crop/convert (h2non/imaginary) |
 
 ## Upgrade & prune
 

@@ -12,7 +12,7 @@ Always document with `@latest`.
 | Guide | Generated from `template/core/LEAN_AGENT_KIT_GUIDE.md` |
 | Stacks | Generated from `template/packs/stacks/.agent/stacks/registry.md` |
 | Packs / Migration | Hand-authored `packs.md`, `migration-1.0.md` |
-| Pack deep-dives | `backlog.md`, `trevor.md`, … |
+| Pack deep-dives | `backlog.md`, `trevor.md`, `caveman.md`, `imaginary.md`, … |
 
 ## Running locally
 

@@ -50,8 +50,14 @@ test("scaffolds core only by default", () => {
     assert.ok(!existsSync(join(dir, ".agent/scaffolders/registry.md")), "no scaffolders");
     assert.ok(!existsSync(join(dir, ".agent/skills/leanagentkit-ask-trevor.md")), "no trevor");
     assert.ok(!existsSync(join(dir, ".agent/skills/leanagentkit-caveman.md")), "no caveman");
+    assert.ok(!existsSync(join(dir, ".agent/skills/leanagentkit-imaginary.md")), "no imaginary");
+    assert.ok(
+      !existsSync(join(dir, ".agent/skills/scripts/check_imaginary.sh")),
+      "no imaginary script",
+    );
     assert.ok(!existsSync(join(dir, "docs/memory/REMINDERS.md")), "no reminders");
     assert.ok(!existsSync(join(dir, ".leanagentkit/trevor.yml.example")), "no trevor example");
+    assert.ok(!existsSync(join(dir, ".leanagentkit/imaginary.yml.example")), "no imaginary example");
 
     const stamp = JSON.parse(readFileSync(join(dir, ".agent/.leanagentkit-version"), "utf8"));
     assert.deepEqual(stamp.installedPacks, []);
@@ -153,6 +159,50 @@ test("--prune-to-core preserves core ACTIVE_CONTEXT and warns about AGENTS.md §
     assert.match(out, /AGENTS\.md/i);
     assert.match(out, /§7|section 7/i);
     assert.match(out, /PROGRESS|memory file/i);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("--enable-pack imaginary copies skill, script, reference, and config example", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-imaginary-"));
+  try {
+    runCli(dir);
+    runCli(dir, "--enable-pack", "imaginary");
+    assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-imaginary.md")));
+    assert.ok(existsSync(join(dir, ".agent/skills/scripts/check_imaginary.sh")));
+    assert.ok(
+      existsSync(join(dir, ".agent/skills/references/imaginary/api-reference.md")),
+    );
+    assert.ok(existsSync(join(dir, ".leanagentkit/imaginary.yml.example")));
+    const stamp = JSON.parse(readFileSync(join(dir, ".agent/.leanagentkit-version"), "utf8"));
+    assert.ok(stamp.installedPacks.includes("imaginary"));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("--prune-to-core removes imaginary pack files including scripts/", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-prune-imaginary-"));
+  try {
+    runCli(dir, "--with", "imaginary");
+    assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-imaginary.md")));
+    assert.ok(existsSync(join(dir, ".agent/skills/scripts/check_imaginary.sh")));
+    assert.ok(
+      existsSync(join(dir, ".agent/skills/references/imaginary/api-reference.md")),
+    );
+    assert.ok(existsSync(join(dir, ".leanagentkit/imaginary.yml.example")));
+
+    runCli(dir, "--prune-to-core");
+
+    assert.ok(!existsSync(join(dir, ".agent/skills/leanagentkit-imaginary.md")));
+    assert.ok(!existsSync(join(dir, ".agent/skills/scripts/check_imaginary.sh")));
+    assert.ok(
+      !existsSync(join(dir, ".agent/skills/references/imaginary/api-reference.md")),
+    );
+    assert.ok(!existsSync(join(dir, ".leanagentkit/imaginary.yml.example")));
+    const stamp = JSON.parse(readFileSync(join(dir, ".agent/.leanagentkit-version"), "utf8"));
+    assert.ok(!stamp.installedPacks.includes("imaginary"));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
