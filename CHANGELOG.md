@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/renatoxm/leanagentkit/compare/v1.0.0...v1.1.0) (2026-07-20)
+
+
+### Features
+
+* add imaginary image-processing pack ([0ef39f3](https://github.com/renatoxm/leanagentkit/commit/0ef39f3684c8f6d4bcdcaecd940301eb9759f179))
+
 ## [1.0.0](https://github.com/renatoxm/leanagentkit/compare/v0.4.21...v1.0.0) (2026-07-17)
 
 
