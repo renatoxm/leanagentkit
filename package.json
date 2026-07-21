@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/renatoxm/leanagentkit"
   },
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Lean core memory kit for AI coding agents — map-first context, convention checks, optional packs for specs/stacks/guardrails.",
   "type": "module",
   "bin": {

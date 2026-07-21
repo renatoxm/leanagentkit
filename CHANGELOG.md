@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/renatoxm/leanagentkit/compare/v1.1.2...v1.2.0) (2026-07-21)
+
+
+### Features
+
+* **cli:** add guided TTY installer ([f317f2e](https://github.com/renatoxm/leanagentkit/commit/f317f2ed71b6ddff3b2a106c7ed74f31db892c78))
+
 ## [1.1.2](https://github.com/renatoxm/leanagentkit/compare/v1.1.1...v1.1.2) (2026-07-21)
 
 ## [1.1.1](https://github.com/renatoxm/leanagentkit/compare/v1.1.0...v1.1.1) (2026-07-21)
