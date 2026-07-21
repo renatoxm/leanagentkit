@@ -1,11 +1,26 @@
 # Imaginary — image processing
 
-> **Requires pack:** `imaginary`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack imaginary
-> ```
-> Skills are not on disk until the pack is enabled. See [Packs](/packs).
+> **Requires pack:** `imaginary`. Skills are not on disk until the pack is enabled. See [Packs](/packs).
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack imaginary
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack imaginary
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack imaginary
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack imaginary
+```
+
+:::
 
 Optional skill for **resize, crop, convert, watermark, and batch** image transforms
 via the self-hosted [`h2non/imaginary`](https://github.com/h2non/imaginary) Docker

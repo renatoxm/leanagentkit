@@ -1,11 +1,26 @@
 # Caveman — token-efficiency skills
 
-> **Requires pack:** `caveman`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack caveman
-> ```
-> Skills are not on disk until the pack is enabled. See [Packs](/packs).
+> **Requires pack:** `caveman`. Skills are not on disk until the pack is enabled. See [Packs](/packs).
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack caveman
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack caveman
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack caveman
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack caveman
+```
+
+:::
 
 Optional **terse output** skills adapted from [Caveman](https://github.com/JuliusBrussee/caveman)
 (MIT) by Julius Brussee. They shrink how the agent **writes** — commit messages, PR comments,

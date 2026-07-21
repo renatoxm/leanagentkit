@@ -16,12 +16,37 @@ Always document with `@latest`.
 
 ## Running locally
 
-```bash
+::: code-group
+
+```bash [npm]
+cd docs
+npm install
+npm run docs:dev
+npm run docs:build    # runs sync first, then builds
+```
+
+```bash [pnpm]
 cd docs
 pnpm install
 pnpm run docs:dev
 pnpm run docs:build    # runs sync first, then builds
 ```
+
+```bash [yarn]
+cd docs
+yarn install
+yarn docs:dev
+yarn docs:build    # runs sync first, then builds
+```
+
+```bash [bun]
+cd docs
+bun install
+bun run docs:dev
+bun run docs:build    # runs sync first, then builds
+```
+
+:::
 
 ## Deployment
 

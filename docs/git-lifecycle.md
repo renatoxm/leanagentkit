@@ -1,10 +1,27 @@
 # Git lifecycle integration
 
 > **Requires packs:** `spec` and `git-lifecycle`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack git-lifecycle
-> ```
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack git-lifecycle
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack git-lifecycle
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack git-lifecycle
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack git-lifecycle
+```
+
+:::
+
 > Then copy `.leanagentkit/git-lifecycle.yml.example` → `git-lifecycle.yml`. See [Packs](/packs).
 
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.

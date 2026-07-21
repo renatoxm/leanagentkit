@@ -17,19 +17,54 @@ Lean Agent Kit **1.0** changes the default from “everything ships dormant” t
 
 1. **Upgrade** (preserves memory, `AGENTS.md`, registries, user configs):
 
-   ```bash
-   npx create-lean-agent-kit@latest . --upgrade
-   ```
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --upgrade
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --upgrade
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --upgrade
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --upgrade
+```
+
+:::
 
 2. Choose footprint:
 
    - **Keep everything** — stop here. Stamp may list inferred packs from on-disk skills.
    - **Go lean** — prune, then re-enable what you need:
 
-   ```bash
-   npx create-lean-agent-kit@latest . --prune-to-core
-   npx create-lean-agent-kit@latest . --enable-pack spec,stacks
-   ```
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --prune-to-core
+npx create-lean-agent-kit@latest . --enable-pack spec,stacks
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --prune-to-core
+pnpm dlx create-lean-agent-kit@latest . --enable-pack spec,stacks
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --prune-to-core
+yarn dlx create-lean-agent-kit@latest . --enable-pack spec,stacks
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --prune-to-core
+bunx create-lean-agent-kit@latest . --enable-pack spec,stacks
+```
+
+:::
 
    Prune archives pack overlays (including PROGRESS/SCRATCH if the spec pack is
    removed) under `.leanagentkit-backup/`. Core `ACTIVE_CONTEXT` is preserved.
@@ -52,8 +87,30 @@ Or ask the agent: **Read `.agent/skills/leanagentkit-migrate-1.md` and follow it
 
 ## New installs
 
-```bash
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest .
 # optional:
 npx create-lean-agent-kit@latest . --with spec,stacks
 ```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest .
+# optional:
+pnpm dlx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest .
+# optional:
+yarn dlx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest .
+# optional:
+bunx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+:::

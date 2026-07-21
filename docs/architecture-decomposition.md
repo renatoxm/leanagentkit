@@ -1,10 +1,27 @@
 # Architecture decomposition
 
 > **Requires packs:** `spec` and `architecture`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack architecture
-> ```
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack architecture
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack architecture
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack architecture
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack architecture
+```
+
+:::
+
 > Then copy `.leanagentkit/architecture.yml.example` → `architecture.yml`. See [Packs](/packs).
 
 Optional integration for **Clean Architecture** and **Domain-Driven Design**

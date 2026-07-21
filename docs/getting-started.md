@@ -8,19 +8,49 @@ resumes from a map and active context, plus a convention check. Optional
 
 Pin `@latest` so caches do not run a stale package.
 
-```bash
-npm create lean-agent-kit@latest
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest .
+```
+
+```bash [pnpm]
 pnpm dlx create-lean-agent-kit@latest .
 ```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest .
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest .
+```
+
+:::
 
 Confirm the CLI prints `create-lean-agent-kit v…` before scaffolding.
 
 **Core only by default.** To include packs on first scaffold:
 
-```bash
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest . --with spec,stacks
 ```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --with spec,stacks
+```
+
+:::
 
 ## Bootstrap
 
@@ -39,18 +69,53 @@ Maps the codebase, fills `AGENTS.md` conventions, wires agents, and offers packs
 
 ## Add packs later
 
-```bash
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest . --enable-pack practice
 ```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack practice
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack practice
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack practice
+```
+
+:::
 
 Or: `leanagentkit-enable-pack`. Catalog: [Packs](/packs).
 
 ## Upgrade & prune
 
-```bash
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest . --upgrade
 npx create-lean-agent-kit@latest . --prune-to-core
 ```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --upgrade
+pnpm dlx create-lean-agent-kit@latest . --prune-to-core
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --upgrade
+yarn dlx create-lean-agent-kit@latest . --prune-to-core
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --upgrade
+bunx create-lean-agent-kit@latest . --prune-to-core
+```
+
+:::
 
 Coming from 0.x? See [Migration 1.0](/migration-1.0).
 

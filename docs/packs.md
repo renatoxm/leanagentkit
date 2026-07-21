@@ -5,7 +5,9 @@ core install.
 
 ## Install
 
-```bash
+::: code-group
+
+```bash [npm]
 # First scaffold
 npx create-lean-agent-kit@latest . --with spec,stacks
 
@@ -15,6 +17,41 @@ npx create-lean-agent-kit@latest . --enable-pack practice,caveman
 # Agent skill
 # Read .agent/skills/leanagentkit-enable-pack.md and follow it.
 ```
+
+```bash [pnpm]
+# First scaffold
+pnpm dlx create-lean-agent-kit@latest . --with spec,stacks
+
+# Existing install
+pnpm dlx create-lean-agent-kit@latest . --enable-pack practice,caveman
+
+# Agent skill
+# Read .agent/skills/leanagentkit-enable-pack.md and follow it.
+```
+
+```bash [yarn]
+# First scaffold
+yarn dlx create-lean-agent-kit@latest . --with spec,stacks
+
+# Existing install
+yarn dlx create-lean-agent-kit@latest . --enable-pack practice,caveman
+
+# Agent skill
+# Read .agent/skills/leanagentkit-enable-pack.md and follow it.
+```
+
+```bash [bun]
+# First scaffold
+bunx create-lean-agent-kit@latest . --with spec,stacks
+
+# Existing install
+bunx create-lean-agent-kit@latest . --enable-pack practice,caveman
+
+# Agent skill
+# Read .agent/skills/leanagentkit-enable-pack.md and follow it.
+```
+
+:::
 
 Dependencies are resolved automatically (`architecture`, `backlog`, and
 `git-lifecycle` pull in `spec`).
@@ -38,10 +75,29 @@ Installed packs are recorded in `.agent/.leanagentkit-version` → `installedPac
 
 ## Prune
 
-```bash
+::: code-group
+
+```bash [npm]
 npx create-lean-agent-kit@latest . --prune-to-core
 npx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
 ```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --prune-to-core
+pnpm dlx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --prune-to-core
+yarn dlx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --prune-to-core
+bunx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
+```
+
+:::
 
 Pack files are moved to `.leanagentkit-backup/<timestamp>-prune/`, not deleted
 forever. That can include pack memory such as `PROGRESS.md` / reminders when

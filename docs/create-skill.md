@@ -1,11 +1,26 @@
 # Create skill — authoring & refactor craft
 
-> **Requires pack:** `authoring`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack authoring
-> ```
-> See [Packs](/packs).
+> **Requires pack:** `authoring`. See [Packs](/packs).
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack authoring
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack authoring
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack authoring
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack authoring
+```
+
+:::
 
 Meta skill for **creating and refactoring** project-specific skills under
 `.agent/skills/generated/`. Adapted from [Matt Pocock's

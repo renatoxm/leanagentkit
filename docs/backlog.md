@@ -1,11 +1,26 @@
 # Visual task board (Backlog.md)
 
-> **Requires packs:** `spec` and `backlog`.
->
-> ```bash
-> npx create-lean-agent-kit@latest . --enable-pack backlog
-> ```
-> (`spec` is pulled in automatically.) See [Packs](/packs).
+> **Requires packs:** `spec` and `backlog`. (`spec` is pulled in automatically.) See [Packs](/packs).
+
+::: code-group
+
+```bash [npm]
+npx create-lean-agent-kit@latest . --enable-pack backlog
+```
+
+```bash [pnpm]
+pnpm dlx create-lean-agent-kit@latest . --enable-pack backlog
+```
+
+```bash [yarn]
+yarn dlx create-lean-agent-kit@latest . --enable-pack backlog
+```
+
+```bash [bun]
+bunx create-lean-agent-kit@latest . --enable-pack backlog
+```
+
+:::
 
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.
 That keeps the agent's context lean, but there is no built-in Kanban or web UI.
@@ -30,13 +45,35 @@ criteria. The Backlog card is the **status layer** — column, checkboxes, notes
 
 ## Install
 
-```bash
-# Global CLI (pick one)
-npm i -g backlog.md
-# bun add -g backlog.md
-# brew install backlog-md
+Install the global CLI with your package manager of choice:
 
-# Initialize in your project root
+::: code-group
+
+```bash [npm]
+npm i -g backlog.md
+```
+
+```bash [pnpm]
+pnpm add -g backlog.md
+```
+
+```bash [yarn]
+yarn global add backlog.md
+```
+
+```bash [bun]
+bun add -g backlog.md
+```
+
+```bash [brew]
+brew install backlog-md
+```
+
+:::
+
+Then initialize in your project root:
+
+```bash
 backlog init "My Project"
 
 # No Git repo? Filesystem-only mode
