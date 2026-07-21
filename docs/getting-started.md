@@ -30,7 +30,19 @@ bunx create-lean-agent-kit@latest .
 
 Confirm the CLI prints `create-lean-agent-kit v…` before scaffolding.
 
-**Core only by default.** To include packs on first scaffold:
+### Guided installer (TTY)
+
+When stdin/stdout are a terminal and you pass **no mode flags**, the CLI walks you through:
+
+1. **Existing install** (if detected) — skip update, update (with or without backup), or **delete and clean install** (destructive warning; backup or permanent delete).
+2. **Framework intent** (empty or freshly cleaned folder) — choosing a base framework installs the `stacks` pack and customizes the final agent prompt so you can run `leanagentkit-scaffold` for that framework. Generators are **not** run by the CLI.
+3. **Optional packs** — multi-select list from the pack catalog. Keyboard: `↑/↓` move · `Space` select/unselect · `Enter` confirm. Dependencies (e.g. `spec` for `architecture`) are added automatically.
+
+Non-TTY / CI runs stay non-interactive (**core only** unless you pass flags).
+
+### Non-interactive flags
+
+To include packs on first scaffold without prompts:
 
 ::: code-group
 
@@ -54,10 +66,13 @@ bunx create-lean-agent-kit@latest . --with spec,stacks
 
 ## Bootstrap
 
+Follow the **printed agent prompt** after install. Typical core-only prompt:
+
 > Read `.agent/skills/leanagentkit-bootstrap.md` and follow it.
 
-Maps the codebase, fills `AGENTS.md` conventions, wires agents, and offers packs
-(does not install packs unless you choose them).
+With a framework intent + `stacks`, the prompt asks the agent to run `leanagentkit-scaffold` for that framework, then bootstrap (including match-stack).
+
+Bootstrap maps the codebase, fills `AGENTS.md` conventions, wires agents, and can offer more packs.
 
 ## Workflow sizes
 

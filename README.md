@@ -41,28 +41,24 @@ npx create-lean-agent-kit@latest .
 pnpm dlx create-lean-agent-kit@latest .
 ```
 
-Default install is **core only**. Then:
+In a **TTY**, the CLI runs a **guided installer**:
 
-> Read `.agent/skills/leanagentkit-bootstrap.md` and follow it.
+1. If Lean Agent Kit is already present — **skip update**, **update**, or **delete and clean install**
+2. Empty / freshly cleaned folder — optional framework intent (installs the `stacks` pack; the agent runs the scaffolder)
+3. Multi-select optional packs — `↑/↓` move · `Space` select/unselect · `Enter` confirm
 
-### With packs on first scaffold
+Non-TTY / CI installs stay **core only** (or use flags below). After install, follow the printed agent prompt (usually bootstrap; with a framework intent it points at `leanagentkit-scaffold` first).
 
-```bash
-npx create-lean-agent-kit@latest . --with spec,stacks
-```
-
-### Add packs later
+### Non-interactive flags
 
 ```bash
+npx create-lean-agent-kit@latest . --with spec,stacks   # packs on first scaffold
 npx create-lean-agent-kit@latest . --enable-pack practice
+npx create-lean-agent-kit@latest . --upgrade            # additive; preserves memory
+npx create-lean-agent-kit@latest . --prune-to-core      # archive pack files; re-enable what you need
 ```
 
-### Upgrade / prune (0.x → 1.0)
-
-```bash
-npx create-lean-agent-kit@latest . --upgrade          # additive; preserves memory
-npx create-lean-agent-kit@latest . --prune-to-core    # archive pack files; re-enable what you need
-```
+**Clean install** (guided only): warns that all kit files and memories will be removed, then asks whether to **back up** or **permanently delete** before reinstalling.
 
 See [Migration 1.0](https://renatoxm.github.io/leanagentkit/migration-1.0).
 
