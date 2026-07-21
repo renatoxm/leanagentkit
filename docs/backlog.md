@@ -1,5 +1,7 @@
 # Visual task board (Backlog.md)
 
+> See open work on a Kanban board while specs stay the source of truth.
+
 > **Requires packs:** `spec` and `backlog`. (`spec` is pulled in automatically.) See [Packs](/packs).
 
 ::: code-group
@@ -22,6 +24,8 @@ bunx create-lean-agent-kit@latest . --enable-pack backlog
 
 :::
 
+## What it is
+
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.
 That keeps the agent's context lean, but there is no built-in Kanban or web UI.
 
@@ -32,6 +36,35 @@ synced to your kit specs through the `leanagentkit-backlog` skill.
 The scaffolder (`npm create lean-agent-kit`) does **not** install Backlog.md.
 You install it yourself (or let the agent guide you during bootstrap).
 
+The **spec remains the source of truth** for problem, scope, and acceptance
+criteria. The Backlog card is the **status layer** — column, checkboxes, notes.
+
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Want a visual Kanban for open features?"} -->|No| skip["Skip - specs and ACTIVE_CONTEXT are enough"]
+  q1 -->|Yes| q2{"Already using or willing to install Backlog.md CLI?"}
+  q2 -->|Yes| enable["Enable backlog pack"]
+  q2 -->|No| maybe["Optional - install Backlog.md first, then enable"]
+```
+
+- **Enable if** you want `backlog board` / browser UI synced to specs, and you (or
+  your team) will keep the Backlog CLI installed.
+- **Skip if** Markdown specs + `PROGRESS.md` are enough visualization — zero
+  impact without the pack and without a Backlog project.
+
+## Use cases
+
+- **Team standup** — open `backlog board` or the browser UI; cards mirror To Do /
+  In Progress / Done without leaving Markdown.
+- **Spec ↔ card link** — `new-spec` creates a card with `--ref` to the spec;
+  implement/end-session move status only when the work is real.
+- **Session priming** — `start-session` lists open Backlog cards so you resume the
+  right feature.
+- **Trevor UX** — optional [Trevor](/trevor) wrapper for board commands without
+  changing Done rules.
+
 ## Why integrate?
 
 | Without Backlog.md | With Backlog.md |
@@ -39,9 +72,6 @@ You install it yourself (or let the agent guide you during bootstrap).
 | Specs + memory files only | Same specs + visual Kanban |
 | Progress in `PROGRESS.md` | Cards move on the board as work advances |
 | Agent reads `ACTIVE_CONTEXT` | You see open tasks at a glance (`backlog board`) |
-
-The **spec remains the source of truth** for problem, scope, and acceptance
-criteria. The Backlog card is the **status layer** — column, checkboxes, notes.
 
 ## Install
 

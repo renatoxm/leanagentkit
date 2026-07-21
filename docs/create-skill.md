@@ -1,5 +1,7 @@
 # Create skill — authoring & refactor craft
 
+> Create and refine project-specific skills under `.agent/skills/generated/`.
+
 > **Requires pack:** `authoring`. See [Packs](/packs).
 
 ::: code-group
@@ -22,11 +24,40 @@ bunx create-lean-agent-kit@latest . --enable-pack authoring
 
 :::
 
-Meta skill for **creating and refactoring** project-specific skills under
+## What it is
+
+Meta skills for **creating and refactoring** project-specific skills under
 `.agent/skills/generated/`. Adapted from [Matt Pocock's
 `writing-great-skills`](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills)
-(MIT) and Cursor `create-skill` discovery patterns. It applies LAK format rules
+(MIT) and Cursor `create-skill` discovery patterns. The pack applies LAK format rules
 plus predictability craft — without replacing distill, artifact generators, or curation.
+
+Use it when a repeated workflow should become a reusable, LAK-compliant skill file.
+
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Repeating the same multi-step agent workflow?"} -->|No| skip["Skip - invoke kit skills as-is"]
+  q1 -->|Yes| q2{"Want to distill or author generated skills?"}
+  q2 -->|Yes| enable["Enable authoring"]
+  q2 -->|No| maybe["Optional - enable when you start a learning loop"]
+```
+
+- **Enable if** you distill session workflows into skills, build artifact generators,
+  or need a craft/refactor pass on generated skills.
+- **Skip if** you only use shipped kit skills and do not maintain
+  `.agent/skills/generated/`.
+
+## Use cases
+
+- **Distill a session** — capture a workflow with `distill-skill`, then craft-pass
+  with `create-skill`.
+- **Generator from an example** — `skill-artifact-template` → craft pass → run the
+  generator in daily work.
+- **Fix sprawl** — refactor a generated skill that duplicates steps or lacks
+  completion criteria.
+- **Curate** — archive stale generators without deleting history.
 
 ## What it is / is not
 
@@ -36,6 +67,18 @@ plus predictability craft — without replacing distill, artifact generators, or
 | Refactor lens (pruning, hierarchy, failure modes) | A replacement for `leanagentkit-skill-artifact-template` |
 | Craft pass after distill or artifact-template drafts | Registry maintenance — use `leanagentkit-curate-skills` |
 | Explicit-invoke meta skill | A modifier of kit-owned `leanagentkit-*.md` in user projects |
+
+## How it works
+
+```mermaid
+flowchart LR
+  distill[distill-skill] --> craft[create-skill craft pass]
+  artifact[skill-artifact-template] --> craft
+  greenfield[create-skill create branch] --> generated[generated/leanagentkit-name.md]
+  craft --> generated
+  generated --> curate[curate-skills archive if stale]
+  generated --> daily[Run in daily work]
+```
 
 ## Quick start
 

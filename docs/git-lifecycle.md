@@ -1,5 +1,7 @@
 # Git lifecycle integration
 
+> Prompt-based branch, commit, and PR offers at natural points in the spec loop — never automatic.
+
 > **Requires packs:** `spec` and `git-lifecycle`.
 
 ::: code-group
@@ -24,12 +26,42 @@ bunx create-lean-agent-kit@latest . --enable-pack git-lifecycle
 
 > Then copy `.leanagentkit/git-lifecycle.yml.example` → `git-lifecycle.yml`. See [Packs](/packs).
 
+## What it is
+
 Lean Agent Kit tracks work in Markdown — `docs/specs/`, `ACTIVE_CONTEXT`, `PROGRESS`.
 Git operations (branch, commit, PR) are **not** forced on the daily loop. For teams
 that want prompt-based git at natural lifecycle boundaries, the kit offers an
 **optional** integration through the `leanagentkit-git-lifecycle` skill.
 
 Core install does **not** include this pack. Enable it, then opt in via config.
+
+The **spec remains the source of truth** for problem, scope, and acceptance
+criteria. The **git branch** is the **execution sandbox** — recorded in spec
+frontmatter when created.
+
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Want branch / commit / PR prompts tied to specs?"} -->|No| skip["Skip - manage git yourself"]
+  q1 -->|Yes| q2{"Working in a git repo and okay confirming each offer?"}
+  q2 -->|Yes| enable["Enable git-lifecycle"]
+  q2 -->|No| maybe["Optional - enable when the team agrees on prompts"]
+```
+
+- **Enable if** you want offers at `implement-spec` start (branch), end-session
+  (save-point commit), and spec-done (push + PR) — all confirm-before-run.
+- **Skip if** you already have a strict git ritual, or you do not use the [spec](/spec)
+  pack yet.
+
+## Use cases
+
+- **Feature branch per spec** — accept the branch offer; name lands in spec
+  frontmatter (`Branch: feature/…`).
+- **Save-point at session end** — dirty tree → optional commit before you leave.
+- **PR when Done** — after check passes and spec is `done`, offer `gh pr create`.
+- **Babysit after PR** — optional loop fixing review comments / CI until merge-ready
+  (`offer_babysit_after_pr`).
 
 ## Why integrate?
 
@@ -38,10 +70,6 @@ Core install does **not** include this pack. Enable it, then opt in via config.
 | Spec + memory only; you manage git yourself | Same spec workflow + offers at implement/end/done |
 | Branch whenever you remember | Branch offer at `implement-spec` start |
 | Manual PR when feature ships | Push + PR offer when spec is `done` and check passes |
-
-The **spec remains the source of truth** for problem, scope, and acceptance
-criteria. The **git branch** is the **execution sandbox** — recorded in spec
-frontmatter when created.
 
 ## Enable in Lean Agent Kit
 

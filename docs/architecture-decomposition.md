@@ -1,5 +1,7 @@
 # Architecture decomposition
 
+> Clean Architecture / DDD guided slices — optional parallel work when contracts exist.
+
 > **Requires packs:** `spec` and `architecture`.
 
 ::: code-group
@@ -24,11 +26,40 @@ bunx create-lean-agent-kit@latest . --enable-pack architecture
 
 > Then copy `.leanagentkit/architecture.yml.example` → `architecture.yml`. See [Packs](/packs).
 
+## What it is
+
 Optional integration for **Clean Architecture** and **Domain-Driven Design**
 guided spec decomposition — with parallel-safe work slices when contracts exist.
 
 The **architecture** pack embeds reference material from [wondelai/skills](https://github.com/wondelai/skills)
 (MIT) under `.agent/skills/references/`.
+
+You still write one parent spec; decomposition adds a slices file so large work
+can be ordered (and sometimes parallelized) safely.
+
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Features often span many modules or layers?"} -->|No| skip["Skip - single-spec implement is enough"]
+  q1 -->|Yes| q2{"Want CA/DDD diagnostics and optional parallel slices?"}
+  q2 -->|Yes| enable["Enable architecture"]
+  q2 -->|No| maybe["Optional - enable when a feature needs slicing"]
+```
+
+- **Enable if** you decompose non-trivial specs into dependency-aware slices, want
+  CA/DDD checklists, or plan parallel adapter work with contracts.
+- **Skip if** features stay small (Level 1–2) or you are happy with one sequential
+  `implement-spec` per feature.
+
+## Use cases
+
+- **Large feature** — after `new-spec`, run `decompose-spec` → `NNN-feature-slices.md`
+  with DependsOn / Parallel / Contract / FilesInPlay.
+- **Parallel adapters** — once contracts exist and file sets are disjoint, implement
+  Phase B slices in worktrees (optional).
+- **Boundary check** — architecture-aware pass during `leanagentkit-check`.
+- **With git lifecycle** — each parallel slice gets its own branch; Phase C merges.
 
 ## What it adds
 
@@ -37,6 +68,30 @@ The **architecture** pack embeds reference material from [wondelai/skills](https
 | One spec, sequential implement | Spec + optional slices file with dependency graph |
 | Manual parallel planning | Parallel slices marked when CA/DDD safety rules pass |
 | Ad-hoc boundaries | Embedded CA/DDD diagnostics and contract-first integration |
+
+## How it works
+
+```mermaid
+flowchart LR
+  grill[grill] --> newSpec[new-spec]
+  newSpec --> decomp[decompose-spec optional]
+  decomp --> impl[implement-spec]
+  impl --> check[check]
+  check --> endSession[end-session]
+```
+
+```text
+grill → new-spec → decompose-spec (optional) → implement-spec → check → end-session
+```
+
+1. **`leanagentkit-new-spec`** — creates `docs/specs/NNN-<feature>.md`
+2. **`leanagentkit-decompose-spec`** — creates `docs/specs/NNN-<feature>-slices.md`
+   - Runs CA + DDD Quick Diagnostics from embedded references
+   - Builds work slices with DependsOn, Parallel, Contract, FilesInPlay
+   - Links slices file from parent spec frontmatter
+3. **`leanagentkit-implement-spec`** — sequential (default) or parallel slices (opt-in)
+
+Skip decomposition for Level 1–2 trivial work.
 
 ## Opt in
 
@@ -64,21 +119,6 @@ Skills advertised in `AGENTS.md §7`:
 
 - `leanagentkit-architecture` — detection contract, parallel safety rules, boundary checks
 - `leanagentkit-decompose-spec` — explicit invoke after `new-spec`
-
-## Workflow
-
-```text
-grill → new-spec → decompose-spec (optional) → implement-spec → check → end-session
-```
-
-1. **`leanagentkit-new-spec`** — creates `docs/specs/NNN-<feature>.md`
-2. **`leanagentkit-decompose-spec`** — creates `docs/specs/NNN-<feature>-slices.md`
-   - Runs CA + DDD Quick Diagnostics from embedded references
-   - Builds work slices with DependsOn, Parallel, Contract, FilesInPlay
-   - Links slices file from parent spec frontmatter
-3. **`leanagentkit-implement-spec`** — sequential (default) or parallel slices (opt-in)
-
-Skip decomposition for Level 1–2 trivial work.
 
 ## Config
 

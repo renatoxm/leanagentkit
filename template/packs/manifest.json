@@ -6,7 +6,7 @@
       "name": "Spec workflow",
       "description": "Grill, specs, implement-spec, spikes, ADRs, progress/scratch memory",
       "dependsOn": [],
-      "docsPage": "/guide#substantial-work",
+      "docsPage": "/spec",
       "skills": [
         "leanagentkit-grill",
         "leanagentkit-new-spec",
@@ -31,7 +31,7 @@
       "name": "Engineering practice",
       "description": "Review, debug, TDD, security, performance, and related guardrail skills",
       "dependsOn": [],
-      "docsPage": "/packs#practice",
+      "docsPage": "/practice",
       "skills": [
         "leanagentkit-review",
         "leanagentkit-simplify",

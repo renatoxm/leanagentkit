@@ -38,6 +38,31 @@ replace `start-session`, specs, or the Backlog integration rules.
 </div>
 </div>
 
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Want reminders, checklists, or a kit concierge?"} -->|No| skip["Skip - use start-session and the guide"]
+  q1 -->|Yes| q2{"Okay with optional nudges at session start/end?"}
+  q2 -->|Yes| enable["Enable trevor"]
+  q2 -->|No| maybe["Optional - enable with session_preamble false"]
+```
+
+- **Enable if** you want personal reminders, runnable checklists/workflows, “Ask
+  Trevor …”, or a friendly router into kit skills.
+- **Skip if** you only need map + specs + the daily loop — Trevor is never required.
+
+## Use cases
+
+- **Session preamble** — pending reminders surface at start-session (acknowledge /
+  snooze / skip).
+- **Teach the kit** — “Ask Trevor how to start a new feature” routes to the right
+  skill instead of guessing.
+- **Personal checklist** — weekly review or release checklist under
+  `docs/memory/CHECKLISTS/`.
+- **What next** — synthesize resume note + open Backlog + reminders into one
+  suggestion.
+
 ## What Trevor is / is not
 
 | Trevor is | Trevor is not |

@@ -1,5 +1,7 @@
 # Imaginary — image processing
 
+> Resize, crop, convert, and batch-process images via a self-hosted Docker service.
+
 > **Requires pack:** `imaginary`. Skills are not on disk until the pack is enabled. See [Packs](/packs).
 
 ::: code-group
@@ -22,6 +24,8 @@ bunx create-lean-agent-kit@latest . --enable-pack imaginary
 
 :::
 
+## What it is
+
 Optional skill for **resize, crop, convert, watermark, and batch** image transforms
 via the self-hosted [`h2non/imaginary`](https://github.com/h2non/imaginary) Docker
 service (Go + libvips). Output is **already-processed files** ready to deploy —
@@ -29,6 +33,28 @@ not an on-the-fly CDN proxy.
 
 The scaffolder (`npm create lean-agent-kit`) does **not** start Docker or pull
 the imaginary image. You run the container yourself (or let the agent guide you).
+
+## Do I need this pack?
+
+```mermaid
+flowchart TD
+  q1{"Need local resize/crop/convert of image files?"} -->|No| skip["Skip - use your usual image tooling"]
+  q1 -->|Yes| q2{"Can you run Docker with h2non/imaginary?"}
+  q2 -->|Yes| enable["Enable imaginary"]
+  q2 -->|No| maybe["Optional - enable when Docker is available"]
+```
+
+- **Enable if** the agent should drive health-checked transforms against a local
+  imaginary container and write result files to disk.
+- **Skip if** you do not process images in this repo, or you already use a CDN /
+  design tool for assets.
+
+## Use cases
+
+- **Batch resize** — turn a folder of screenshots into web-ready WebP at fixed width.
+- **Format convert** — JPEG → PNG / WebP for a release asset pack.
+- **Crop / watermark** — apply consistent crops before uploading to docs or CMS.
+- **Health-first** — skill refuses to invent results if `/health` fails.
 
 ## What Imaginary is / is not
 
@@ -38,6 +64,18 @@ the imaginary image. You run the container yourself (or let the agent guide you)
 | An imgproxy-style alternative that writes files to disk | An on-the-fly image CDN / proxy for production traffic |
 | Opt-in via `--enable-pack imaginary` | Always-on; zero impact until you invoke the skill |
 | Config for `base_url` only | Automatic container orchestration |
+
+## How it works
+
+```mermaid
+flowchart TD
+  enable[Enable imaginary pack] --> docker[Start h2non/imaginary container]
+  docker --> invoke[Invoke leanagentkit-imaginary]
+  invoke --> health[Health check script]
+  health -->|OK| transform[curl transform endpoints]
+  health -->|Fail| stop[Stop and warn - no fake output]
+  transform --> files[Write processed files to disk]
+```
 
 ## Prerequisites
 

@@ -19,7 +19,9 @@ export default withMermaid(defineConfig({
       {
         text: 'Pack docs',
         items: [
+          { text: 'Spec', link: '/spec' },
           { text: 'Stacks', link: '/stacks' },
+          { text: 'Practice', link: '/practice' },
           { text: 'Backlog.md', link: '/backlog' },
           { text: 'Trevor', link: '/trevor' },
           { text: 'Caveman', link: '/caveman' },
@@ -38,7 +40,9 @@ export default withMermaid(defineConfig({
       {
         text: 'Optional packs',
         items: [
+          { text: 'Spec', link: '/spec' },
           { text: 'Stacks', link: '/stacks' },
+          { text: 'Practice', link: '/practice' },
           { text: 'Backlog.md', link: '/backlog' },
           { text: 'Trevor', link: '/trevor' },
           { text: 'Caveman', link: '/caveman' },

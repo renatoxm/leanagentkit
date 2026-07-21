@@ -137,24 +137,24 @@ function syncGuide() {
 }
 
 function syncStacks() {
+  const introPath = join(docsDir, '.partials/stacks-intro.md')
   const registryPath = join(
     repoRoot,
     'template/packs/stacks/.agent/stacks/registry.md',
   )
+  const intro = readFileSync(introPath, 'utf8').trimEnd()
   const registry = readFileSync(registryPath, 'utf8')
   const body = transformMarkdown(
     [
-      'Requires the **stacks** pack:',
+      intro,
       '',
-      '```bash',
-      'npx create-lean-agent-kit@latest . --enable-pack stacks',
-      '```',
-      '',
-      'Detection and playbooks live in the pack registry below.',
+      '---',
       '',
       registry,
       '',
       'Source: [`template/packs/stacks/.agent/stacks/registry.md`](https://github.com/renatoxm/leanagentkit/blob/main/template/packs/stacks/.agent/stacks/registry.md).',
+      '',
+      'Intro: [`docs/.partials/stacks-intro.md`](https://github.com/renatoxm/leanagentkit/blob/main/docs/.partials/stacks-intro.md).',
     ].join('\n'),
   )
   writeFileSync(

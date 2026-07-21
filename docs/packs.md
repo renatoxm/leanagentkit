@@ -3,6 +3,32 @@
 Optional overlays shipped in the same npm package. **Not** copied on a default
 core install.
 
+Not sure which packs you need? Each pack page starts with a **Do I need this
+pack?** flowchart — start with [Spec](/spec) and [Stacks](/stacks) if you are
+new, then add integrations only when you feel the gap.
+
+```mermaid
+flowchart TD
+  core[Core only] --> needFeature{"Fuzzy new features?"}
+  needFeature -->|Yes| spec[Enable spec]
+  needFeature -->|No| maybeStacks
+  spec --> needBoard{"Want Kanban / git prompts / CA slices?"}
+  needBoard -->|Kanban| backlog[backlog]
+  needBoard -->|Git prompts| gitLife[git-lifecycle]
+  needBoard -->|CA/DDD slices| arch[architecture]
+  needBoard -->|No| maybeStacks
+  core --> maybeStacks{"Detect or scaffold frameworks?"}
+  maybeStacks -->|Yes| stacks[stacks]
+  maybeStacks -->|No| extras
+  core --> extras{"Guardrails / reminders / images / authoring?"}
+  extras -->|Review debug TDD| practice[practice]
+  extras -->|Reminders| trevor[trevor]
+  extras -->|Terse commits| caveman[caveman]
+  extras -->|Generated skills| authoring[authoring]
+  extras -->|Image transforms| imaginary[imaginary]
+  extras -->|None| stay[Stay on core]
+```
+
 ## Install
 
 ::: code-group
@@ -60,9 +86,9 @@ Dependencies are resolved automatically (`architecture`, `backlog`, and
 
 | Id | Depends | Docs |
 |----|---------|------|
-| `spec` | — | Spec-driven loop in [Guide](/guide) |
+| `spec` | — | [Spec](/spec) |
 | `stacks` | — | [Stacks](/stacks) |
-| `practice` | — | Engineering guardrails (review, debug, TDD, …) |
+| `practice` | — | [Practice](/practice) |
 | `architecture` | `spec` | [Architecture](/architecture-decomposition) |
 | `backlog` | `spec` | [Backlog.md](/backlog) |
 | `git-lifecycle` | `spec` | [Git lifecycle](/git-lifecycle) |
@@ -110,7 +136,6 @@ Dependencies are **auto-installed** (e.g. `--enable-pack backlog` also installs
 
 ## practice
 
-Adds always-on-style engineering skills (review, simplify, git-workflow, docs,
-debug, tdd, security, performance, deprecation, api-design, frontend-design) plus
-conditional ci-cd / observability when evidence matches. They exist on disk only
-after the pack is enabled.
+See the dedicated [Practice](/practice) page for guardrail skills (review, debug,
+TDD, security, …), always-on vs conditional detection, and whether you need the
+pack.

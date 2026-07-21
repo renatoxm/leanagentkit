@@ -3,7 +3,7 @@
   "name": "Spec workflow",
   "description": "Grill, specs, implement-spec, spikes, ADRs, progress/scratch memory",
   "dependsOn": [],
-  "docsPage": "/guide#substantial-work",
+  "docsPage": "/spec",
   "skills": [
     "leanagentkit-grill",
     "leanagentkit-new-spec",
