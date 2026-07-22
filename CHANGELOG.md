@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/renatoxm/leanagentkit/compare/v1.2.0...v1.3.0) (2026-07-22)
+
+
+### Features
+
+* **stacks:** record commitlint limits and clarify scaffold-only helpers ([92f9f0d](https://github.com/renatoxm/leanagentkit/commit/92f9f0d098cdafc5cdf69d1795a7d09a32ab2323))
+
 ## [1.2.0](https://github.com/renatoxm/leanagentkit/compare/v1.1.2...v1.2.0) (2026-07-21)
 
 
