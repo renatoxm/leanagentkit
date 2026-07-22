@@ -28,7 +28,8 @@ Not: implement everything → giant commit.
 
 ### Atomic commits
 Each commit does one logical thing. Follow project commit conventions in
-`AGENTS.md` §3 (e.g. Conventional Commits if configured). When Caveman is enabled
+`AGENTS.md` §3–§4 (e.g. Conventional Commits + length limits if commitlint is
+configured). When Caveman is enabled
 (`terse_commits: true` in `.leanagentkit/caveman.yml`), defer message formatting
 to `leanagentkit-caveman-commit`.
 

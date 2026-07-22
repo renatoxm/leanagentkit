@@ -123,7 +123,8 @@ explicit user confirmation.**
 3. Draft message from context:
    - After AC: `feat(<slug>): <criterion summary>`
    - End session: `feat(<slug>): <brief progress from ACTIVE_CONTEXT>`
-   - Follow project commit conventions in `AGENTS.md` §3 when present.
+   - Follow project commit conventions in `AGENTS.md` §3–§4 when present
+     (including commitlint length limits).
 4. On confirm only:
    - Review staged diff with user if they want.
    - Ensure no secrets in diff.
@@ -184,5 +185,6 @@ Requires a git repository (`.git`). For PR offers, install GitHub CLI:
 - Spec owns intent; branch owns the execution sandbox.
 - **Never** auto-commit, auto-push, auto-create PR, or force-push.
 - **Never** commit secrets — check diff before commit.
-- Respect `AGENTS.md` commit conventions when drafting messages.
+- Respect `AGENTS.md` §3–§4 commit conventions when drafting messages
+  (including commitlint ≤ 100 char limits when recorded).
 - Declining a prompt is always valid — continue the lifecycle skill normally.

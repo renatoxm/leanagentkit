@@ -36,10 +36,13 @@ flowchart TD
 
 - **Greenfield** — empty or kit-only repo; pick Next.js / SvelteKit / Hono / etc.
   from a questionnaire; agent runs a non-interactive generator, then match-stack.
+  May also offer optional [commit helpers](#optional-commit-helpers).
 - **Brownfield** — existing Django + React monorepo; match-stack detects rows,
   offers skill installs, folds playbook conventions into `AGENTS.md` §4 / §7.
+  Does **not** install commitlint/commitizen (scaffold-only — see below).
 - **Additive** — already have a Node app; scaffold Prisma or Tailwind without
-  replacing the base framework.
+  replacing the base framework. Commit helpers may be offered when the recipe
+  touches a Node `package.json`.
 - **Re-run after enable** — you enabled Caveman or git-lifecycle; re-run
   match-stack so `AGENTS.md` §7 advertises the new skills.
 
@@ -72,6 +75,35 @@ Express, Django, Prisma, Go) — local conventions only, no external install.
 
 Bootstrap offers stacks in Step 0; if chosen, it runs match-stack after
 conventions (and may offer scaffold first on greenfield).
+
+## Optional commit helpers
+
+During `leanagentkit-scaffold` on Node apps, the agent may ask whether to add
+**commit helpers** — Conventional Commits via commitlint, commitizen (`cz`),
+husky `commit-msg`, and `commit-and-tag-version` for releases. That prompt is
+**scaffold-only** (skill-level Step 4.6 in `leanagentkit-scaffold`, not listed
+in recipe `## Questions` tables). When installed (or already present),
+`leanagentkit-init-conventions` / scaffold records in `AGENTS.md` §4 that
+subject and body/footer lines must be ≤ 100 chars
+(`@commitlint/config-conventional`) and prefers the package manager’s
+`commit` script (e.g. `pnpm commit`).
+
+| Situation | Commit helpers offered? |
+|-----------|-------------------------|
+| Greenfield / additive scaffold that creates or updates a Node `package.json` | Yes (default yes) |
+| Existing (occupied) app — bootstrap + `match-stack` only | No |
+| Python/Go-only recipes with no Node manifest | No |
+| Already configured (`commitlint.config.*`, `.husky/commit-msg`, or commitizen in `package.json`) | Skipped |
+
+On a **brownfield** Vite + React (or similar) repo, installing the kit and
+running bootstrap wires stack skills — it does **not** ask about commitlint or
+commitizen. To add them later, ask the agent to run the commit-helpers steps
+from `leanagentkit-scaffold` Step 5 against your app directory, or install the
+packages yourself.
+
+Related: [Getting Started](/getting-started#existing-apps) · [Git lifecycle](/git-lifecycle)
+(branch/PR *offers*, not commit-message tooling) · [Caveman](/caveman) (terse
+message style, not commitlint).
 
 ## Supported stacks (registry)
 

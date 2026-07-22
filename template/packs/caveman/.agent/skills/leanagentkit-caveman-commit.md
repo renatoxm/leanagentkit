@@ -30,7 +30,7 @@ Output the message only — does not run `git commit` or stage files.
 For **AGENTS.md §7 routing:**
 
 - `.leanagentkit/caveman.yml` exists with `enabled: true` and `terse_commits: true`
-- Read `AGENTS.md` §3 for project commit conventions (types, scope rules)
+- Read `AGENTS.md` §3–§4 for project commit conventions (types, scope, length)
 
 **Explicit invoke always works** — if the user asks for a commit message, follow
 this skill even when the config is off or missing.
@@ -46,15 +46,17 @@ this skill even when the config is off or missing.
 - `<type>(<scope>): <imperative summary>` — `<scope>` optional
 - Types: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`
 - Imperative mood: "add", "fix", "remove" — not "added", "adds", "adding"
-- ≤50 chars when possible, hard cap 72
+- Prefer short subjects; hard cap from `AGENTS.md` §4 **Commits:** (usually ≤ 100
+  when `@commitlint/config-conventional` via husky) — never exceed that limit
 - No trailing period
-- Match project convention from `AGENTS.md` §3
+- Match project convention from `AGENTS.md` §3–§4
 
 ### Body (only if needed)
 
 - Skip when subject is self-explanatory
 - Add body for: non-obvious *why*, breaking changes, migration notes, linked issues
-- Wrap at 72 chars; bullets `-` not `*`
+- Wrap body/footer at the same limit as `AGENTS.md` §4 (usually ≤ 100 with
+  commitlint conventional); bullets `-` not `*`
 - Reference issues at end: `Closes #42`, `Refs #17`
 
 ### Never include
@@ -77,7 +79,8 @@ Never compress these into subject-only.
 
 ## Verification
 
-Message is valid Conventional Commits, ≤72-char subject, body present only when needed.
+Message is valid Conventional Commits, subject/body within `AGENTS.md` §4 length
+limits (≤ 100 with commitlint conventional), body present only when needed.
 
 ## Attribution
 

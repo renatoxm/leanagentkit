@@ -166,9 +166,19 @@ Branch naming, atomic commits, and save-point patterns follow
 `leanagentkit-git-workflow` — the lifecycle skill handles prompts and commands;
 git-workflow holds the discipline.
 
+## Related: commit message tooling
+
+This pack prompts **when** to branch, commit, or open a PR — it does **not**
+install commitlint, commitizen, or husky. Conventional Commits tooling is an
+optional [stacks scaffold step](/stacks#optional-commit-helpers) (Node apps only),
+not part of git-lifecycle or brownfield bootstrap. For short commit wording
+without that tooling, see [Caveman](/caveman).
+
 ## Further reading
 
 - Kit skill: `template/.agent/skills/leanagentkit-git-lifecycle.md` (in your project:
   `.agent/skills/leanagentkit-git-lifecycle.md`)
 - [Full guide](/guide) — daily loop section includes git lifecycle overview
 - [Backlog.md integration](/backlog) — optional status layer (complements git lifecycle)
+- [Stacks — optional commit helpers](/stacks#optional-commit-helpers) — commitlint / commitizen / husky
+- [Getting Started — existing apps](/getting-started#existing-apps)

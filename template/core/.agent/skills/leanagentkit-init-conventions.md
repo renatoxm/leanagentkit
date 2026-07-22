@@ -22,12 +22,26 @@ conventions reflect reality, not aspiration.
 3. Infer **conventions** by reading 3–5 representative source files:
    - layering rules, naming patterns, error-handling style, import boundaries.
    Only state a convention you can see evidence for.
-4. Derive the **Never do** list from linters/configs, `.gitignore` (secrets,
+4. **Commitlint / Conventional Commits** (when evidence exists): if the repo has
+   `commitlint.config.*`, `.commitlintrc*`, `@commitlint/config-conventional` in
+   deps, and/or a husky `.husky/commit-msg` that runs commitlint, add under §4:
+
+   ```markdown
+   - **Commits:** Conventional Commits; subject (header) ≤ 100 chars; wrap body/footer lines at ≤ 100 (`@commitlint/config-conventional` via husky). Prefer `<pm> commit`.
+   ```
+
+   Resolve `<pm> commit` from the detected package manager and `scripts.commit`:
+   `pnpm commit` · `yarn commit` · `bun run commit` · `npm run commit`. If there
+   is no `commit` script, omit the Prefer clause. If `header-max-length` /
+   `body-max-line-length` are overridden in commitlint config, use those numbers
+   instead of 100.
+5. Derive the **Never do** list from linters/configs, `.gitignore` (secrets,
    generated dirs), and obvious footguns spotted in code.
-5. Write sections 1–5 of `AGENTS.md`. Leave the Memory protocol (section 6)
+6. Write sections 1–5 of `AGENTS.md`. Leave the Memory protocol (section 6)
    untouched. Update the `Last updated` date.
 
 ## Quality bar
 
 - Every command is copy-pasteable and real.
 - Every convention has a basis in the code, not a generic best practice.
+- Commit message length limits match commitlint config when present (default 100).

@@ -74,6 +74,14 @@ With a framework intent + `stacks`, the prompt asks the agent to run `leanagentk
 
 Bootstrap maps the codebase, fills `AGENTS.md` conventions, wires agents, and can offer more packs.
 
+### Existing apps
+
+Dropping the kit onto a repo that **already** has an app (e.g. Vite + React) is
+**occupied**: bootstrap runs map → conventions → `match-stack`. It does **not**
+run a base framework scaffold, and it does **not** offer commitlint / commitizen /
+husky. Those [commit helpers](/stacks#optional-commit-helpers) are asked only
+during `leanagentkit-scaffold` on Node greenfield or additive recipes.
+
 ## Workflow sizes
 
 | Size | Loop |

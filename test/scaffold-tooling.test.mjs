@@ -194,6 +194,15 @@ test("leanagentkit-scaffold commit helpers init husky before copying commit-msg 
   assert.match(section, /\{\{pm\}\} install/, "should re-run install to activate prepare");
 });
 
+test("leanagentkit-scaffold commit helpers record AGENTS.md 100-char limits", () => {
+  const content = readFileSync(SCAFFOLD_SKILL, "utf8");
+  const section = content.slice(content.indexOf("#### Optional — commit helpers"));
+  assert.match(section, /\*\*Commits:\*\*/);
+  assert.match(section, /≤ 100/);
+  assert.match(section, /\{\{pm_commit\}\}/);
+  assert.match(section, /@commitlint\/config-conventional/);
+});
+
 test("leanagentkit-scaffold documents commit_helpers exception to recipe-only tooling", () => {
   const content = readFileSync(SCAFFOLD_SKILL, "utf8");
   assert.match(content, /Exception.*commit_helpers.*Step 4\.6/is);

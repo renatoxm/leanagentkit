@@ -280,7 +280,7 @@ cd {{dir}} && {{pm_install_dev}} @commitlint/cli @commitlint/config-conventional
 **2. Initialize husky**
 
 From `{{dir}}` (requires `.git` for hooks to register; skip hook wiring when
-no repo — still finish steps 3–5):
+no repo — still finish steps 3–6):
 
 ```bash
 cd {{dir}} && npx husky init
@@ -332,6 +332,24 @@ Re-run install so `prepare` runs husky (creates/updates `.husky/_`):
 cd {{dir}} && {{pm}} install
 ```
 
+**6. Record commit conventions in `AGENTS.md` §4**
+
+Add (or replace an existing **Commits:** bullet) under Conventions:
+
+```markdown
+- **Commits:** Conventional Commits; subject (header) ≤ 100 chars; wrap body/footer lines at ≤ 100 (`@commitlint/config-conventional` via husky). Prefer `{{pm_commit}}`.
+```
+
+| `pm` | `{{pm_commit}}` |
+|------|-----------------|
+| `pnpm` | `pnpm commit` |
+| `yarn` | `yarn commit` |
+| `bun` | `bun run commit` |
+| `npm` | `npm run commit` |
+
+`@commitlint/config-conventional` defaults to 100 for header and body/footer
+line length — agents must respect this when drafting commits.
+
 **Git edge cases:**
 
 - **No `.git`** at repo root or `{{dir}}`: still install deps and config; note
@@ -359,6 +377,8 @@ When `commit_helpers=yes`, also confirm:
 - [ ] `package.json` has `version`, `scripts.commit`, `scripts.release`,
   `scripts.prepare`, and `config.commitizen.path`
 - [ ] Dev deps installed (lockfile updated when present)
+- [ ] `AGENTS.md` §4 has a **Commits:** bullet with ≤ 100 char limits and Prefer
+  `{{pm_commit}}`
 - [ ] Optional smoke: `cd {{dir}} && npx cz --help` (non-interactive only)
 
 ### 7. Handoff (delegate — do not re-implement)
