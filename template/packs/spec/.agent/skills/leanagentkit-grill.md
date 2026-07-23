@@ -71,4 +71,5 @@ procedure; use "do not write code" in the prompt if the host might edit files.
 - Questions are concrete and answered one at a time, each with a recommendation.
 - Anything answerable from the codebase was looked up, not asked.
 - The session ends with scope and acceptance criteria specific enough that
-  `leanagentkit-new-spec` can capture them without re-deriving intent.
+  `leanagentkit-new-spec` can capture them (including Decisions and Approach
+  files) without re-deriving intent.

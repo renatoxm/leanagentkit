@@ -61,17 +61,44 @@ test("implement-spec gates parallel mode on slices and user consent", () => {
   assert.match(content, /until Phase C \(integration\) completes/i);
 });
 
+test("implement-spec has portable plan gate and Cursor Plan host enhancements", () => {
+  const content = readFileSync(join(SPEC_SKILLS, "leanagentkit-implement-spec.md"), "utf8");
+  assert.match(content, /Portable plan gate/);
+  assert.match(content, /Implementation order/);
+  assert.match(content, /Test plan/);
+  assert.match(content, /When implementation diverges/);
+  assert.match(content, /Save to workspace/);
+  assert.match(content, /NNN-<feature>-plan\.md/);
+  assert.match(content, /Do not write code until I approve the plan/);
+  assert.match(content, /Persist first/);
+});
+
 test("git-lifecycle skips standard branch offer in parallel slice mode", () => {
   const content = readFileSync(join(GIT, "leanagentkit-git-lifecycle.md"), "utf8");
   assert.match(content, /Skip this offer.*parallel slice mode/is);
   assert.match(content, /Phase C integration/);
 });
 
+test("spec template includes plan sections", () => {
+  const content = readFileSync(
+    join(process.cwd(), "template", "packs", "spec", "docs", "specs", "_TEMPLATE.md"),
+    "utf8",
+  );
+  assert.match(content, /## Decisions \(locked\)/);
+  assert.match(content, /## Implementation order/);
+  assert.match(content, /## Test plan/);
+  assert.match(content, /## Done when/);
+  assert.match(content, /Area \/ module/);
+  assert.match(content, /> Plan:/);
+});
+
 test("new-spec excludes slices files from spec numbering", () => {
   const content = readFileSync(join(SPEC_SKILLS, "leanagentkit-new-spec.md"), "utf8");
   assert.match(content, /-slices\.md/);
+  assert.match(content, /-plan\.md/);
   assert.match(content, /_SLICES_TEMPLATE\.md/);
   assert.match(content, /leanagentkit-decompose-spec/);
+  assert.match(content, /\(\?:slices\|plan\)/);
 });
 
 test("new-spec handoff uses interactive UI and honors offer_decompose_after_spec", () => {
@@ -81,6 +108,9 @@ test("new-spec handoff uses interactive UI and honors offer_decompose_after_spec
   assert.match(content, /without re-asking \*\*this\*\*/);
   assert.match(content, /read-only mode/i);
   assert.match(content, /leanagentkit-implement-spec\.md/);
+  assert.match(content, /Plan implementation, then build/);
+  assert.match(content, /Decisions \(locked\)/);
+  assert.match(content, /Implementation order/);
 });
 
 test("decompose-spec handoff chains to implement-spec with mode gate", () => {
@@ -89,12 +119,26 @@ test("decompose-spec handoff chains to implement-spec with mode gate", () => {
   assert.match(content, /without re-asking \*\*this\*\*/);
   assert.match(content, /read-only mode/i);
   assert.match(content, /leanagentkit-implement-spec\.md/);
+  assert.match(content, /Plan implementation, then build/);
+  assert.match(content, /SwitchMode/);
+  assert.match(content, /Save to workspace/);
+});
+
+test("guide documents spec vs portable plan vs Cursor Plan", () => {
+  const guide = readFileSync(
+    join(process.cwd(), "template", "core", "LEAN_AGENT_KIT_GUIDE.md"),
+    "utf8",
+  );
+  assert.match(guide, /Spec vs plan/i);
+  assert.match(guide, /Implementation order/);
+  assert.match(guide, /Cursor.*Plan mode|Plan mode.*Cursor/i);
 });
 
 test("architecture lifecycle hooks delegate new-spec handoff", () => {
   const content = readFileSync(join(ARCH_SKILLS, "leanagentkit-architecture.md"), "utf8");
   assert.match(content, /leanagentkit-new-spec.*Handoff/s);
   assert.match(content, /offer_decompose_after_spec/);
+  assert.match(content, /Plan implementation/);
   assert.doesNotMatch(content, /Invoke `leanagentkit-decompose-spec`/);
 });
 

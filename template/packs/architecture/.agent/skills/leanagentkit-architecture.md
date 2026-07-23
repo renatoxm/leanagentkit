@@ -94,13 +94,16 @@ active, that skill offers an interactive questionnaire (or inline fallback):
 
 - **Both paths** — `offer_decompose_after_spec: true` in
   `.leanagentkit/architecture.yml` and the spec is non-trivial (3+ acceptance
-  criteria or Approach touches 3+ modules): Decompose, Implement, or Not yet.
-- **Implement only** — architecture inactive, `offer_decompose_after_spec: false`,
-  or trivial spec.
+  criteria or Approach touches 3+ modules): Plan implementation, Decompose,
+  Implement, or Not yet (Plan recommended).
+- **Implement / Plan only** — architecture inactive, `offer_decompose_after_spec:
+  false`, or trivial spec: Plan (non-trivial) or Implement (trivial), or Not yet.
 
 On user choice, `new-spec` chains into `leanagentkit-decompose-spec` or
 `leanagentkit-implement-spec` (after Agent-mode gate when the host is read-only).
-Skip decomposition for trivial specs (Level 1–2 work).
+Skip decomposition for trivial specs (Level 1–2 work). Non-trivial specs should
+fill Implementation order / Test plan (portable plan) before coding; Cursor Plan
+mode remains optional.
 
 ### During implement-spec
 

@@ -86,7 +86,10 @@ recommended option. Fall back to inline questions otherwise.
 Some skills include optional **Host enhancements**. Portable procedure always
 applies; mode switches are never required. Ask consent before switching. On Cursor,
 `SwitchMode` currently supports only `plan`; suggest Ask/Debug manually when useful.
-Persist state before switching modes.
+Persist state (`ACTIVE_CONTEXT`, and a handoff when context is heavy) before
+switching modes. For substantial specs, prefer Cursor Plan mode (or the portable
+Implementation order / Test plan sections) before coding — see
+`leanagentkit-implement-spec`.
 
 ## 7. Installed packs & stack skills
 <!-- Populated by bootstrap / enable-pack / match-stack (stacks pack).

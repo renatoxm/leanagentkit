@@ -109,6 +109,14 @@ grill → new-spec → implement-spec → check → end-session
 
 Optional: `decompose-spec` when **architecture** pack + config enabled.
 
+**Spec vs plan:** The feature **spec** (`docs/specs/NNN-*.md`) owns intent —
+Problem, Goal, Scope, acceptance criteria, and locked decisions. A portable
+**implementation plan** lives in the same file (Implementation order, Test plan,
+Done when) or an optional companion `NNN-*-plan.md`. On Cursor, Plan mode is an
+optional accelerator that produces the same shape; save workspace plans under
+`docs/specs/` and link them with `> Plan: …`. Non-trivial specs (3+ ACs or 3+
+modules) should fill Implementation order before coding — on any host.
+
 ## 8. Anti-patterns
 
 - Requiring start/end session for every one-line fix.

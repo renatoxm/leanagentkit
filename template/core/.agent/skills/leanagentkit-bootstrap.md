@@ -1,13 +1,13 @@
 ---
 name: leanagentkit-bootstrap
-description: One-shot interactive Lean Agent Kit setup — map codebase, conventions, wire agents, offer packs. Run this first.
+description: One-shot interactive Lean Agent Kit setup — map codebase, conventions, wire agents; offer packs only if none installed yet. Run this first.
 ---
 
 # Skill: leanagentkit-bootstrap
 
 **Goal:** Interactive setup for the **lean core**. Maps the codebase, fills
-conventions, wires agents, and offers optional **packs** (do not install packs
-unless the user chooses them).
+conventions, wires agents, and offers optional **packs** only when none are
+already installed (do not install packs unless the user chooses them).
 
 **Run this first.**
 
@@ -18,11 +18,18 @@ convention check. Packs are opt-in.
 
 ## Step 0 — Questionnaire
 
+**Packs already installed?** Read `.agent/.leanagentkit-version` →
+`installedPacks` first. If the list is non-empty (typical after
+`create-lean-agent-kit` with packs selected), **do not** ask about optional
+packs — note the active packs briefly and skip Step 1. To add more later, use
+`leanagentkit-enable-pack`.
+
 Ask as a short interactive set (host UI when available):
 
 1. **Map detail** — Minimal · Standard (recommended) · Deep
 2. **Agent targets** — Cursor · Claude Code · Copilot · ChatGPT · Aider · Cline · Other
-3. **Optional packs** (multi-select; default none) — briefly explain each:
+3. **Optional packs** — **only if** `installedPacks` is empty or missing
+   (core-only install). Multi-select; default none — briefly explain each:
    - `spec` — features via grill → spec → implement
    - `stacks` — detect stack + scaffold recipes
    - `practice` — review/debug/tdd/security guardrails
@@ -36,15 +43,19 @@ Ask as a short interactive set (host UI when available):
 
 If the user picks packs that need `spec`, include `spec` automatically and say so.
 
-**Greenfield:** If the repo is empty or kit-only (no app), and `stacks` will be
-installed, offer to run `leanagentkit-scaffold` after packs are enabled. If
-`stacks` is not selected, skip scaffolding.
+**Greenfield:** If the repo is empty or kit-only (no app), and `stacks` is
+already installed or will be, offer to run `leanagentkit-scaffold` after packs
+are ready. If `stacks` is not selected and not already installed, skip
+scaffolding.
 
 Record choices in a temporary note (or SCRATCH if spec pack will exist); clear at end.
 
 ## Step 1 — Enable chosen packs
 
-If any packs were selected:
+Skip if packs were already installed (Step 0 check) or none were selected in
+Step 0.
+
+If any packs were selected in Step 0:
 
 ```bash
 npx create-lean-agent-kit@latest . --enable-pack <comma-separated>
@@ -52,7 +63,7 @@ npx create-lean-agent-kit@latest . --enable-pack <comma-separated>
 
 Confirm `.agent/.leanagentkit-version` → `installedPacks`.
 
-If none selected, continue with core only.
+If none selected and none were already installed, continue with core only.
 
 ## Step 2 — Map the codebase
 

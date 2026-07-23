@@ -128,6 +128,16 @@ test("bootstrap offers packs and enable-pack flow", () => {
   assert.match(bootstrap, /trevor/);
   assert.match(bootstrap, /caveman/);
   assert.match(bootstrap, /architecture/);
+  assert.match(
+    bootstrap,
+    /do not.*ask about optional\s+packs/i,
+    "bootstrap should skip pack offer when packs already installed",
+  );
+  assert.match(
+    bootstrap,
+    /only if.*installedPacks.*empty/i,
+    "bootstrap should gate optional-packs question on empty stamp",
+  );
 });
 
 test("upgrade preserves scaffolder registry and refreshes recipes when stacks pack installed", () => {

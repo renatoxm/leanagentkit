@@ -72,7 +72,9 @@ Follow the **printed agent prompt** after install. Typical core-only prompt:
 
 With a framework intent + `stacks`, the prompt asks the agent to run `leanagentkit-scaffold` for that framework, then bootstrap (including match-stack).
 
-Bootstrap maps the codebase, fills `AGENTS.md` conventions, wires agents, and can offer more packs.
+Bootstrap maps the codebase, fills `AGENTS.md` conventions, and wires agents.
+It offers packs only on a core-only install; if packs were chosen during CLI
+setup, it skips that question.
 
 ### Existing apps
 

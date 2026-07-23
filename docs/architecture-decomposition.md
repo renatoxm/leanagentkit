@@ -84,12 +84,17 @@ flowchart LR
 grill → new-spec → decompose-spec (optional) → implement-spec → check → end-session
 ```
 
-1. **`leanagentkit-new-spec`** — creates `docs/specs/NNN-<feature>.md`
+1. **`leanagentkit-new-spec`** — creates `docs/specs/NNN-<feature>.md` (including
+   Decisions, Implementation order, and Test plan for non-trivial specs). Handoff
+   recommends **Plan implementation** before coding; Decompose remains available
+   when `offer_decompose_after_spec: true`.
 2. **`leanagentkit-decompose-spec`** — creates `docs/specs/NNN-<feature>-slices.md`
    - Runs CA + DDD Quick Diagnostics from embedded references
    - Builds work slices with DependsOn, Parallel, Contract, FilesInPlay
    - Links slices file from parent spec frontmatter
-3. **`leanagentkit-implement-spec`** — sequential (default) or parallel slices (opt-in)
+   - Handoff recommends Plan (or implement using slices)
+3. **`leanagentkit-implement-spec`** — portable plan gate, then sequential
+   (default) or parallel slices (opt-in); optional Cursor Plan mode
 
 Skip decomposition for Level 1–2 trivial work.
 
@@ -209,7 +214,8 @@ git worktree remove ../<repo>-<spec-slug>-<slice-id>   # when done
 **Decompose not offered after new-spec**
 
 - Confirm `.leanagentkit/architecture.yml` exists with `enabled: true`
-- Confirm `offer_decompose_after_spec: true` (when `false`, only Implement is offered)
+- Confirm `offer_decompose_after_spec: true` (when `false`, Plan / Implement are
+  offered for non-trivial / trivial specs — not Decompose)
 - Spec may be too trivial (< 3 ACs and < 3 modules) — invoke `decompose-spec` manually if needed
 
 **Parallel mode blocked**

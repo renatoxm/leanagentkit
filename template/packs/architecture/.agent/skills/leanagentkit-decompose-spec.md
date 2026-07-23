@@ -105,20 +105,26 @@ When slices are written:
 2. **Ask** (interactive UI when available — e.g. Cursor `AskQuestion`; see
    `AGENTS.md` §6 — Asking the user). Fall back to inline text when unsupported.
 
-   - Recommended: "Implement using slices" (sequential-by-slice default; parallel
-     where `Parallel=yes` when architecture integration is active)
+   - Recommended: "Plan implementation, then build" (Cursor Plan or portable
+     Implementation order on the parent spec)
+   - Also: "Implement using slices" (sequential-by-slice default; parallel where
+     `Parallel=yes` when architecture integration is active)
    - Also: "Not yet — stop after slices"
 
-3. **On choice** — if the user chose Implement and the host is in a read-only mode
-   (e.g. Cursor Ask mode), ask to switch to Agent mode before chaining (Shift+Tab
-   or the mode picker). Do not invoke write skills until the host allows edits.
+3. **On choice** — if the user chose Plan or Implement and the host is in a
+   read-only mode (e.g. Cursor Ask mode), ask to switch to Agent mode before
+   chaining (Shift+Tab or the mode picker). Do not invoke write skills until the
+   host allows edits. Persist `ACTIVE_CONTEXT` before any mode switch.
 
-4. **Chain** — continue in this session without re-asking **this** implement vs
-   not-yet choice (downstream skill prompts still apply):
+4. **Chain** — continue in this session without re-asking **this** plan /
+   implement vs not-yet choice (downstream skill prompts still apply):
+   - Plan implementation, then build → read
+     `.agent/skills/leanagentkit-implement-spec.md` and follow it (Prime plan gate
+     + optional Cursor Plan host enhancement; offer SwitchMode when available).
    - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it.
    - Not yet → stop; do not invoke another skill.
 
-Choosing Implement counts as explicit consent to leave decomposition.
+Choosing Plan or Implement counts as explicit consent to leave decomposition.
 `leanagentkit-implement-spec` step 2 handles sequential vs parallel slice mode.
 
 ## Quality bar
@@ -130,9 +136,51 @@ Choosing Implement counts as explicit consent to leave decomposition.
 
 ## Host enhancements (optional — never required)
 
-When the host is Cursor and the user agrees to Plan mode before implement:
+See also `AGENTS.md` §6 — Host enhancements and
+`leanagentkit-implement-spec` § Host enhancements (same Plan prompt shape).
 
-- Suggested Plan prompt: "Implement `docs/specs/NNN-<feature>.md` using slices in
-  `NNN-<feature>-slices.md`. Respect DependsOn order; parallel only where Parallel=yes."
+**When to recommend Plan mode:** after slices are written (decomposition already
+implies non-trivial scope). Prefer Plan before implement unless the user asks to
+code immediately.
 
-Otherwise continue with the portable procedure above.
+If the host is Cursor **and** the `SwitchMode` tool is available **and** the user
+agrees to use Plan mode before implement:
+
+1. Persist first: ensure parent spec frontmatter links `> Slices: …` and
+   `ACTIVE_CONTEXT` includes the slices path. Offer `leanagentkit-handoff` if
+   context is heavy.
+2. Ask: "Switch to Plan mode now?" with options: "Switch to Plan mode now",
+   "Not yet", and "Something else (I will type it)".
+3. On "Switch to Plan mode now": call `SwitchMode` with `target_mode_id: "plan"`.
+4. Suggested Plan prompt:
+
+   ```
+   Create an implementation plan for `<spec-path>` using slices in
+   `<slices-path>`.
+
+   Include:
+   - Decisions (locked) — from parent spec; do not re-grill
+   - File-level changes per slice (FilesInPlay)
+   - Implementation order respecting DependsOn
+   - Test plan mapped to parent acceptance criteria
+   - Todos with id/content for each slice / step
+
+   Do not write code until I approve the plan and click Build.
+   Parallel only where Parallel=yes; otherwise sequential-by-slice.
+   Respect parent spec In/Out boundaries.
+   ```
+
+5. After the plan exists: suggest **Save to workspace** as
+   `docs/specs/NNN-<feature>-plan.md`, and add
+   `> Plan: docs/specs/NNN-<feature>-plan.md` to the parent spec frontmatter.
+
+If the host is Cursor but `SwitchMode` is unavailable:
+
+- Suggest switching to Plan mode manually (Shift+Tab or the mode picker) and use
+  the same Plan prompt.
+
+Otherwise (Claude, Aider, Cline, Copilot, ChatGPT, etc.):
+
+- Continue with the portable procedure; when chaining to implement-spec, that
+  skill's Prime plan gate fills Implementation order / Test plan on the parent
+  spec.
