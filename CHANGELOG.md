@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/renatoxm/leanagentkit/compare/v1.3.0...v1.4.0) (2026-07-23)
+
+
+### Features
+
+* **spec:** add portable plan gate and skip bootstrap pack re-offer ([f55ab3c](https://github.com/renatoxm/leanagentkit/commit/f55ab3c4d4bac9639e7b2d3a28f8e37a2894cfb7))
+* **spec:** prefer Cursor Plan Build with portable implement bypass ([53a08e8](https://github.com/renatoxm/leanagentkit/commit/53a08e87d84c1f5a7e8ca49ffdc34c71f55375fe))
+
 ## [1.3.0](https://github.com/renatoxm/leanagentkit/compare/v1.2.0...v1.3.0) (2026-07-22)
 
 
