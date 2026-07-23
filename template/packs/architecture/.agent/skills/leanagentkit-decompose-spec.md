@@ -119,13 +119,15 @@ When slices are written:
 4. **Chain** — continue in this session without re-asking **this** plan /
    implement vs not-yet choice (downstream skill prompts still apply):
    - Plan implementation, then build → read
-     `.agent/skills/leanagentkit-implement-spec.md` and follow it (Prime plan gate
-     + optional Cursor Plan host enhancement; offer SwitchMode when available).
-   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it.
+     `.agent/skills/leanagentkit-implement-spec.md` and follow it (Cursor Plan +
+     Build when available; else portable bypass).
+   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it
+     (portable implement; skip Plan handoff unless the user asks).
    - Not yet → stop; do not invoke another skill.
 
 Choosing Plan or Implement counts as explicit consent to leave decomposition.
-`leanagentkit-implement-spec` step 2 handles sequential vs parallel slice mode.
+`leanagentkit-implement-spec` §2 chooses Cursor Plan Build vs portable; §3a
+handles sequential vs parallel slice mode on the portable path.
 
 ## Quality bar
 
@@ -136,51 +138,6 @@ Choosing Plan or Implement counts as explicit consent to leave decomposition.
 
 ## Host enhancements (optional — never required)
 
-See also `AGENTS.md` §6 — Host enhancements and
-`leanagentkit-implement-spec` § Host enhancements (same Plan prompt shape).
-
-**When to recommend Plan mode:** after slices are written (decomposition already
-implies non-trivial scope). Prefer Plan before implement unless the user asks to
-code immediately.
-
-If the host is Cursor **and** the `SwitchMode` tool is available **and** the user
-agrees to use Plan mode before implement:
-
-1. Persist first: ensure parent spec frontmatter links `> Slices: …` and
-   `ACTIVE_CONTEXT` includes the slices path. Offer `leanagentkit-handoff` if
-   context is heavy.
-2. Ask: "Switch to Plan mode now?" with options: "Switch to Plan mode now",
-   "Not yet", and "Something else (I will type it)".
-3. On "Switch to Plan mode now": call `SwitchMode` with `target_mode_id: "plan"`.
-4. Suggested Plan prompt:
-
-   ```
-   Create an implementation plan for `<spec-path>` using slices in
-   `<slices-path>`.
-
-   Include:
-   - Decisions (locked) — from parent spec; do not re-grill
-   - File-level changes per slice (FilesInPlay)
-   - Implementation order respecting DependsOn
-   - Test plan mapped to parent acceptance criteria
-   - Todos with id/content for each slice / step
-
-   Do not write code until I approve the plan and click Build.
-   Parallel only where Parallel=yes; otherwise sequential-by-slice.
-   Respect parent spec In/Out boundaries.
-   ```
-
-5. After the plan exists: suggest **Save to workspace** as
-   `docs/specs/NNN-<feature>-plan.md`, and add
-   `> Plan: docs/specs/NNN-<feature>-plan.md` to the parent spec frontmatter.
-
-If the host is Cursor but `SwitchMode` is unavailable:
-
-- Suggest switching to Plan mode manually (Shift+Tab or the mode picker) and use
-  the same Plan prompt.
-
-Otherwise (Claude, Aider, Cline, Copilot, ChatGPT, etc.):
-
-- Continue with the portable procedure; when chaining to implement-spec, that
-  skill's Prime plan gate fills Implementation order / Test plan on the parent
-  spec.
+Delegated to `leanagentkit-implement-spec` §2 (Cursor Plan Build) and §3
+(portable). Do **not** duplicate a separate Plan switch here after chaining —
+invoke implement-spec and let it route (or bypass when Plan is unavailable).

@@ -54,11 +54,27 @@ test("decompose-spec references slices template and embedded CA/DDD paths", () =
 test("implement-spec gates parallel mode on slices and user consent", () => {
   const content = readFileSync(join(SPEC_SKILLS, "leanagentkit-implement-spec.md"), "utf8");
   assert.match(content, /Parallel mode/);
-  assert.match(content, /user consent/i);
   assert.match(content, /slices file/i);
   assert.match(content, /sequential-by-slice/i);
   assert.match(content, /Phase C/);
   assert.match(content, /until Phase C \(integration\) completes/i);
+  assert.match(content, /Choosing \*\*parallel\*\* once is consent/i);
+});
+
+test("implement-spec routes Cursor Plan Build with portable bypass", () => {
+  const content = readFileSync(join(SPEC_SKILLS, "leanagentkit-implement-spec.md"), "utf8");
+  assert.match(content, /Choose execution route/);
+  assert.match(content, /Cursor Plan Build/);
+  assert.match(content, /Bypass this route/);
+  assert.match(content, /Host is \*\*not\*\* Cursor/);
+  assert.match(content, /Plan mode is \*\*unavailable\*\*/);
+  assert.match(content, /Stop the LAK implement loop/);
+  assert.match(content, /click \*\*Build\*\*/);
+  assert.match(content, /Portable LAK implement/);
+  assert.match(content, /Keep moving/);
+  assert.match(content, /immediately\*\* start the next/i);
+  assert.match(content, /Save to workspace/);
+  assert.match(content, /NNN-<feature>-plan\.md/);
 });
 
 test("implement-spec has portable plan gate and Cursor Plan host enhancements", () => {
@@ -67,10 +83,7 @@ test("implement-spec has portable plan gate and Cursor Plan host enhancements", 
   assert.match(content, /Implementation order/);
   assert.match(content, /Test plan/);
   assert.match(content, /When implementation diverges/);
-  assert.match(content, /Save to workspace/);
-  assert.match(content, /NNN-<feature>-plan\.md/);
-  assert.match(content, /Do not write code until I approve the plan/);
-  assert.match(content, /Persist first/);
+  assert.match(content, /Do not re-grill/);
 });
 
 test("git-lifecycle skips standard branch offer in parallel slice mode", () => {
@@ -109,6 +122,8 @@ test("new-spec handoff uses interactive UI and honors offer_decompose_after_spec
   assert.match(content, /read-only mode/i);
   assert.match(content, /leanagentkit-implement-spec\.md/);
   assert.match(content, /Plan implementation, then build/);
+  assert.match(content, /routes to Cursor Plan \+ Build/i);
+  assert.match(content, /bypasses/i);
   assert.match(content, /Decisions \(locked\)/);
   assert.match(content, /Implementation order/);
 });
@@ -120,8 +135,8 @@ test("decompose-spec handoff chains to implement-spec with mode gate", () => {
   assert.match(content, /read-only mode/i);
   assert.match(content, /leanagentkit-implement-spec\.md/);
   assert.match(content, /Plan implementation, then build/);
-  assert.match(content, /SwitchMode/);
-  assert.match(content, /Save to workspace/);
+  assert.match(content, /Cursor Plan \+ Build|portable bypass/i);
+  assert.doesNotMatch(content, /call `SwitchMode`/);
 });
 
 test("guide documents spec vs portable plan vs Cursor Plan", () => {
@@ -131,7 +146,8 @@ test("guide documents spec vs portable plan vs Cursor Plan", () => {
   );
   assert.match(guide, /Spec vs plan/i);
   assert.match(guide, /Implementation order/);
-  assert.match(guide, /Cursor.*Plan mode|Plan mode.*Cursor/i);
+  assert.match(guide, /Cursor Plan \+ Build/i);
+  assert.match(guide, /bypasses/i);
 });
 
 test("architecture lifecycle hooks delegate new-spec handoff", () => {
@@ -139,7 +155,9 @@ test("architecture lifecycle hooks delegate new-spec handoff", () => {
   assert.match(content, /leanagentkit-new-spec.*Handoff/s);
   assert.match(content, /offer_decompose_after_spec/);
   assert.match(content, /Plan implementation/);
+  assert.match(content, /prefers Cursor Plan \+ Build/i);
   assert.doesNotMatch(content, /Invoke `leanagentkit-decompose-spec`/);
+  assert.doesNotMatch(content, /Never auto-spawn parallel agents/);
 });
 
 test("practice-skills registry includes PR babysit row", () => {

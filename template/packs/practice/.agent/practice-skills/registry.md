@@ -88,7 +88,7 @@ when Cursor/Claude is wired. No detection needed.
 - **Skills:** `leanagentkit-architecture` (`invocation: conditional`); `leanagentkit-decompose-spec` (explicit-invoke orchestration — advertise alongside architecture when active)
 - **Default:** conditional (architecture integration skill only)
 - **Enable when:** user opted in during bootstrap (Step 3g) or created the config file manually
-- **Note:** spec owns intent; slices file (`docs/specs/NNN-*-slices.md`) owns work packages and parallel eligibility. Embedded CA/DDD references live in `.agent/skills/references/`. Parallel mode requires architecture config; sequential-by-slice does not. Never auto-spawn parallel agents.
+- **Note:** spec owns intent; slices file (`docs/specs/NNN-*-slices.md`) owns work packages and parallel eligibility. Embedded CA/DDD references live in `.agent/skills/references/`. Parallel mode requires architecture config; sequential-by-slice does not. Choosing parallel once consents to spawn up to `max_parallel` (portable path); Cursor Plan + Build is preferred when Plan mode is available.
 
 ## Token efficiency (Caveman, optional) — `match-stack` step 8 only
 

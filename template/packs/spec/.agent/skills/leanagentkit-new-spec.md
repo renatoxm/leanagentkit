@@ -106,9 +106,11 @@ When the spec is written:
    plan / implement choice (downstream skill prompts still apply):
    - Decompose → read `.agent/skills/leanagentkit-decompose-spec.md` and follow it.
    - Plan implementation, then build → read
-     `.agent/skills/leanagentkit-implement-spec.md` and follow it (Prime plan gate
-     + optional Cursor Plan host enhancement).
-   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it.
+     `.agent/skills/leanagentkit-implement-spec.md` and follow it. That skill
+     **routes to Cursor Plan + Build** when Cursor Plan mode is available; otherwise
+     it **bypasses** to portable LAK implement (non-Cursor / no Plan / user declined).
+   - Implement → read `.agent/skills/leanagentkit-implement-spec.md` and follow it
+     (portable implement in this chat; skip Plan handoff unless the user asks).
    - Not yet → stop; do not invoke another skill.
 
 Choosing Decompose, Plan, or Implement counts as explicit consent to leave spec

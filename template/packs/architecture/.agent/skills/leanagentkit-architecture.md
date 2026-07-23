@@ -102,17 +102,21 @@ active, that skill offers an interactive questionnaire (or inline fallback):
 On user choice, `new-spec` chains into `leanagentkit-decompose-spec` or
 `leanagentkit-implement-spec` (after Agent-mode gate when the host is read-only).
 Skip decomposition for trivial specs (Level 1–2 work). Non-trivial specs should
-fill Implementation order / Test plan (portable plan) before coding; Cursor Plan
-mode remains optional.
+fill Implementation order / Test plan (portable plan) before coding.
+`implement-spec` **prefers Cursor Plan + Build** when Plan mode is available;
+otherwise it bypasses to portable implement (non-Cursor / no Plan / user declined).
 
 ### During implement-spec
 
 If a slices file is linked from the parent spec and `parallel_work.enabled: true`,
-offer sequential vs parallel implementation per `leanagentkit-implement-spec`.
+and the session is on the **portable** route (not Cursor Plan Build), offer
+sequential vs parallel implementation per `leanagentkit-implement-spec` §3a.
+Choosing parallel once consents to spawning workers up to `max_parallel`.
 
 ## Rules
 
 - Capability-gate every step — silent no-op when architecture is not active.
 - Spec owns intent; slices file owns work packages and parallel eligibility.
-- Never auto-spawn parallel agents — user consent required.
+- On the portable path, choosing parallel mode is consent to spawn — do not
+  re-ask per slice. If the host cannot spawn, finish Phase B sequentially.
 - Embedded references are read-only kit content — do not overwrite on upgrade except via kit refresh.

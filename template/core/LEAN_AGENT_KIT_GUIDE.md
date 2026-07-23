@@ -112,10 +112,15 @@ Optional: `decompose-spec` when **architecture** pack + config enabled.
 **Spec vs plan:** The feature **spec** (`docs/specs/NNN-*.md`) owns intent —
 Problem, Goal, Scope, acceptance criteria, and locked decisions. A portable
 **implementation plan** lives in the same file (Implementation order, Test plan,
-Done when) or an optional companion `NNN-*-plan.md`. On Cursor, Plan mode is an
-optional accelerator that produces the same shape; save workspace plans under
-`docs/specs/` and link them with `> Plan: …`. Non-trivial specs (3+ ACs or 3+
-modules) should fill Implementation order before coding — on any host.
+Done when) or an optional companion `NNN-*-plan.md`.
+
+**Cursor Plan + Build:** On Cursor, when Plan mode is available,
+`implement-spec` hands "Plan then build" to Cursor Plan mode and **Build** (the
+IDE orchestrator — often multi-agent). It does **not** also run a sequential
+LAK implement loop in the same chat. If the host is not Cursor, or Plan mode is
+unavailable, or the user declines Plan, `implement-spec` **bypasses** to the
+portable implement path. Non-trivial specs should still fill Implementation
+order before coding on any host.
 
 ## 8. Anti-patterns
 

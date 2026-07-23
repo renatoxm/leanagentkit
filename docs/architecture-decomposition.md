@@ -93,8 +93,9 @@ grill → new-spec → decompose-spec (optional) → implement-spec → check �
    - Builds work slices with DependsOn, Parallel, Contract, FilesInPlay
    - Links slices file from parent spec frontmatter
    - Handoff recommends Plan (or implement using slices)
-3. **`leanagentkit-implement-spec`** — portable plan gate, then sequential
-   (default) or parallel slices (opt-in); optional Cursor Plan mode
+3. **`leanagentkit-implement-spec`** — on Cursor with Plan available, hands off to
+   Plan + **Build**; otherwise portable plan gate then sequential (default) or
+   parallel slices (opt-in / preferred when Parallel=yes)
 
 Skip decomposition for Level 1–2 trivial work.
 
