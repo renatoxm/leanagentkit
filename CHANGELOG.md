@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.1](https://github.com/renatoxm/leanagentkit/compare/v1.4.0...v1.4.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **bootstrap:** merge existing AGENTS.md instead of erasing it ([ea43023](https://github.com/renatoxm/leanagentkit/commit/ea430239d632f8e3b916eb7ac4ec62ceb6ffedfc))
+
 ## [1.4.0](https://github.com/renatoxm/leanagentkit/compare/v1.3.0...v1.4.0) (2026-07-23)
 
 
