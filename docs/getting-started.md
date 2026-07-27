@@ -74,7 +74,10 @@ With a framework intent + `stacks`, the prompt asks the agent to run `leanagentk
 
 Bootstrap maps the codebase, fills `AGENTS.md` conventions, and wires agents.
 It offers packs only on a core-only install; if packs were chosen during CLI
-setup, it skips that question.
+setup, it skips that question. If `AGENTS.md` already exists, bootstrap
+(`leanagentkit-init-conventions`) warns, backs it up under
+`.leanagentkit-backup/`, and merges compatible rules instead of erasing the
+file.
 
 ### Existing apps
 
@@ -86,10 +89,10 @@ during `leanagentkit-scaffold` on Node greenfield or additive recipes.
 
 ## Workflow sizes
 
-| Size | Loop |
-|------|------|
-| Trivial | Just work |
-| Normal | `start-session` → work → `check` → `end-session` |
+| Size        | Loop                                                                         |
+| ----------- | ---------------------------------------------------------------------------- |
+| Trivial     | Just work                                                                    |
+| Normal      | `start-session` → work → `check` → `end-session`                             |
 | Substantial | Enable `spec` pack → grill → new-spec → implement-spec → check → end-session |
 
 ## Add packs later

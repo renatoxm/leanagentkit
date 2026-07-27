@@ -16,13 +16,13 @@ trustworthy files so work resumes accurately.
 
 ## 2. Core files
 
-| Path | Purpose |
-|------|---------|
-| `AGENTS.md` | Project identity, commands, conventions, protocol |
-| `docs/CODEBASE_MAP.md` | Where things live |
-| `docs/memory/ACTIVE_CONTEXT.md` | What we’re doing now |
-| `.agent/skills/leanagentkit-*.md` | Portable procedures |
-| `.agent/.leanagentkit-version` | Version + `installedPacks` |
+| Path                              | Purpose                                           |
+| --------------------------------- | ------------------------------------------------- |
+| `AGENTS.md`                       | Project identity, commands, conventions, protocol |
+| `docs/CODEBASE_MAP.md`            | Where things live                                 |
+| `docs/memory/ACTIVE_CONTEXT.md`   | What we’re doing now                              |
+| `.agent/skills/leanagentkit-*.md` | Portable procedures                               |
+| `.agent/.leanagentkit-version`    | Version + `installedPacks`                        |
 
 ## 3. Map-first protocol
 
@@ -33,11 +33,11 @@ trustworthy files so work resumes accurately.
 
 ## 4. Workflow sizes
 
-| Size | Use when | Loop |
-|------|----------|------|
-| Trivial | Tiny fix, question | Work only; update ACTIVE_CONTEXT if focus changes |
-| Normal | Day-to-day coding | `start-session` → work → `check` → `end-session` |
-| Substantial | Fuzzy/new feature | Requires **spec** pack: `grill` → `new-spec` → `implement-spec` → `check` → `end-session` |
+| Size        | Use when           | Loop                                                                                      |
+| ----------- | ------------------ | ----------------------------------------------------------------------------------------- |
+| Trivial     | Tiny fix, question | Work only; update ACTIVE_CONTEXT if focus changes                                         |
+| Normal      | Day-to-day coding  | `start-session` → work → `check` → `end-session`                                          |
+| Substantial | Fuzzy/new feature  | Requires **spec** pack: `grill` → `new-spec` → `implement-spec` → `check` → `end-session` |
 
 Mid-task context full → `handoff` → new chat → `start-session`.
 
@@ -51,18 +51,18 @@ Mid-task context full → `handoff` → new chat → `start-session`.
 
 ## 6. Core skills
 
-| Skill | When |
-|-------|------|
-| `leanagentkit-bootstrap` | First setup |
-| `leanagentkit-map-codebase` | Build/refresh map |
-| `leanagentkit-init-conventions` | Fill AGENTS §1–5 |
-| `leanagentkit-wire-agent` | Cursor / Claude wrappers |
-| `leanagentkit-start-session` | Normal/substantial start |
-| `leanagentkit-end-session` | Persist context |
-| `leanagentkit-handoff` | Context full mid-task |
-| `leanagentkit-check` | Convention check |
-| `leanagentkit-enable-pack` | Add packs |
-| `leanagentkit-migrate-1` | 0.x → 1.0 |
+| Skill                           | When                                             |
+| ------------------------------- | ------------------------------------------------ |
+| `leanagentkit-bootstrap`        | First setup                                      |
+| `leanagentkit-map-codebase`     | Build/refresh map                                |
+| `leanagentkit-init-conventions` | Fill AGENTS §1–5 (merge + backup if file exists) |
+| `leanagentkit-wire-agent`       | Cursor / Claude wrappers                         |
+| `leanagentkit-start-session`    | Normal/substantial start                         |
+| `leanagentkit-end-session`      | Persist context                                  |
+| `leanagentkit-handoff`          | Context full mid-task                            |
+| `leanagentkit-check`            | Convention check                                 |
+| `leanagentkit-enable-pack`      | Add packs                                        |
+| `leanagentkit-migrate-1`        | 0.x → 1.0                                        |
 
 Invoke: `Read .agent/skills/leanagentkit-<name>.md and follow it.`
 
@@ -77,18 +77,18 @@ npx create-lean-agent-kit@latest . --prune-to-core             # drop pack overl
 npx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec
 ```
 
-| Pack | Depends | Summary |
-|------|---------|---------|
-| `spec` | — | Grill, specs, implement, spike, ADRs, PROGRESS/SCRATCH |
-| `stacks` | — | Registry, match-stack, scaffolders |
-| `practice` | — | Review, debug, TDD, security, performance, … |
-| `architecture` | `spec` | CA/DDD decompose + slices |
-| `backlog` | `spec` | Backlog.md status sync |
-| `git-lifecycle` | `spec` | Branch/commit/PR offers |
-| `trevor` | — | Concierge, reminders, checklists |
-| `caveman` | — | Terse commits / reviews |
-| `authoring` | — | Create / distill / curate skills |
-| `imaginary` | — | Resize / crop / convert via h2non/imaginary |
+| Pack            | Depends | Summary                                                |
+| --------------- | ------- | ------------------------------------------------------ |
+| `spec`          | —       | Grill, specs, implement, spike, ADRs, PROGRESS/SCRATCH |
+| `stacks`        | —       | Registry, match-stack, scaffolders                     |
+| `practice`      | —       | Review, debug, TDD, security, performance, …           |
+| `architecture`  | `spec`  | CA/DDD decompose + slices                              |
+| `backlog`       | `spec`  | Backlog.md status sync                                 |
+| `git-lifecycle` | `spec`  | Branch/commit/PR offers                                |
+| `trevor`        | —       | Concierge, reminders, checklists                       |
+| `caveman`       | —       | Terse commits / reviews                                |
+| `authoring`     | —       | Create / distill / curate skills                       |
+| `imaginary`     | —       | Resize / crop / convert via h2non/imaginary            |
 
 Docs: [Packs](https://renatoxm.github.io/leanagentkit/packs) ·
 [Migration](https://renatoxm.github.io/leanagentkit/migration-1.0) ·
@@ -132,13 +132,13 @@ order before coding on any host.
 
 ## 9. Troubleshooting
 
-| Symptom | Fix |
-|---------|-----|
-| Agent ignores conventions | Fill AGENTS §4–5; run `check` |
-| Cold start every time | `end-session` with a real resume note |
-| Too many skills / noise | `--prune-to-core`, enable only needed packs |
-| Stale map | `map-codebase` or narrow search + update map |
-| 0.x clutter after upgrade | `migrate-1` / `--prune-to-core` |
+| Symptom                   | Fix                                          |
+| ------------------------- | -------------------------------------------- |
+| Agent ignores conventions | Fill AGENTS §4–5; run `check`                |
+| Cold start every time     | `end-session` with a real resume note        |
+| Too many skills / noise   | `--prune-to-core`, enable only needed packs  |
+| Stale map                 | `map-codebase` or narrow search + update map |
+| 0.x clutter after upgrade | `migrate-1` / `--prune-to-core`              |
 
 ## 10. Cheat sheet
 

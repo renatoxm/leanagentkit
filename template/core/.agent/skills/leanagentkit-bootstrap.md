@@ -73,6 +73,12 @@ Run `leanagentkit-map-codebase` at the chosen detail level → `docs/CODEBASE_MA
 
 Run `leanagentkit-init-conventions` → `AGENTS.md` sections 1–5.
 
+**If `AGENTS.md` already exists** (and is not a blank kit stub): that skill
+**warns the user**, backs up to `.leanagentkit-backup/<timestamp>/AGENTS.md`,
+then **merges** — keeps compatible project rules; drops only instructions that
+conflict with the LAK memory protocol or make agent guidance ambiguous. Do not
+skip the backup/warn path or rewrite from a blank template.
+
 If `stacks` pack is installed, run `leanagentkit-match-stack` (detect, confirm,
 optional external skill install) and note results in `AGENTS.md` §7.
 
@@ -116,5 +122,6 @@ Set today on `AGENTS.md` and `docs/CODEBASE_MAP.md` placeholders.
 
 ## Re-running
 
-Safe to re-run. Never clobber human ADRs or PROGRESS history. Prefer
-`leanagentkit-enable-pack` for adding packs later.
+Safe to re-run. Never clobber human ADRs or PROGRESS history. Never erase a
+non-stub `AGENTS.md` without backup + merge (see `leanagentkit-init-conventions`).
+Prefer `leanagentkit-enable-pack` for adding packs later.

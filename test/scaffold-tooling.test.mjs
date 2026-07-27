@@ -160,6 +160,31 @@ test("leanagentkit-bootstrap mentions kit-only greenfield", () => {
   assert.match(bootstrap, /kit-only/i, "bootstrap should mention kit-only state");
 });
 
+test("leanagentkit-init-conventions merges existing AGENTS.md with backup", () => {
+  const skill = readFileSync(
+    join(process.cwd(), "template/core/.agent/skills/leanagentkit-init-conventions.md"),
+    "utf8",
+  );
+  assert.match(skill, /backup/i, "should require backup of existing AGENTS.md");
+  assert.match(skill, /\.leanagentkit-backup/, "backup path under .leanagentkit-backup");
+  assert.match(skill, /Warn the user/i, "should warn before changing existing file");
+  assert.match(skill, /merge/i, "should merge rather than erase");
+  assert.doesNotMatch(
+    skill,
+    /Write sections 1–5 of `AGENTS\.md`\. Leave the Memory protocol/,
+    "must not instruct a blind rewrite of §1–5 only",
+  );
+});
+
+test("leanagentkit-bootstrap points at AGENTS.md merge path", () => {
+  const bootstrap = readFileSync(
+    join(process.cwd(), "template/core/.agent/skills/leanagentkit-bootstrap.md"),
+    "utf8",
+  );
+  assert.match(bootstrap, /merges/i, "bootstrap should mention merge for existing AGENTS.md");
+  assert.match(bootstrap, /\.leanagentkit-backup/, "bootstrap should mention backup path");
+});
+
 const COMMIT_SNIPPETS = join(SCAFFOLDERS, "snippets/commit-helpers");
 
 test("commit-helpers snippets exist", () => {
