@@ -31,15 +31,15 @@ replace lifecycle skills.
 Infer mode from intent. If ambiguous, ask **one** clarifying question with a
 recommended option, then proceed.
 
-| Mode | Trigger hints |
-|------|---------------|
-| **Teach** | how, teach, learn, which skill |
-| **Answer** | what is, where is, project status, history |
-| **Reminders** | remind, reminder, snooze, acknowledge |
-| **Checklists** | checklist, check off, run checklist |
-| **Backlog UX** | board, card, backlog, move task, kanban |
-| **What next** | what should I do, what's next, prioritize |
-| **Workflows** | workflow, weekly review, run workflow |
+| Mode           | Trigger hints                              |
+| -------------- | ------------------------------------------ |
+| **Teach**      | how, teach, learn, which skill             |
+| **Answer**     | what is, where is, project status, history |
+| **Reminders**  | remind, reminder, snooze, acknowledge      |
+| **Checklists** | checklist, check off, run checklist        |
+| **Backlog UX** | board, card, backlog, move task, kanban    |
+| **What next**  | what should I do, what's next, prioritize  |
+| **Workflows**  | workflow, weekly review, run workflow      |
 
 Prefix user-facing lines with `[🤖 Trevor]` — never store that prefix in files.
 
@@ -48,14 +48,14 @@ Prefix user-facing lines with `[🤖 Trevor]` — never store that prefix in fil
 Read `LEAN_AGENT_KIT_GUIDE.md` (relevant section) or project docs. Route to the
 right skill — do not re-explain entire procedures inline.
 
-| User intent | Route to |
-|-------------|----------|
-| Fuzzy idea / alignment | `leanagentkit-grill` |
-| Start building feature | `grill` → `new-spec` → `implement-spec` |
-| Session start / resume | `leanagentkit-start-session` |
-| Debug / tests fail | `leanagentkit-debug` |
-| Visual board | `leanagentkit-backlog` (if active) |
-| Learn the kit / Trevor | `LEAN_AGENT_KIT_GUIDE.md` + docs site Trevor page |
+| User intent            | Route to                                                             |
+| ---------------------- | -------------------------------------------------------------------- |
+| Fuzzy idea / alignment | `leanagentkit-grill`                                                 |
+| Start building feature | `grill` → `new-spec` → `implement-spec`                              |
+| Session start / resume | `AGENTS.md` §6 ambient start (optional `leanagentkit-start-session`) |
+| Debug / tests fail     | `leanagentkit-debug`                                                 |
+| Visual board           | `leanagentkit-backlog` (if active)                                   |
+| Learn the kit / Trevor | `LEAN_AGENT_KIT_GUIDE.md` + docs site Trevor page                    |
 
 Offer to read and follow the routed skill when the user is ready.
 
@@ -70,14 +70,16 @@ the user asks about history. Do not glob the repo. Cite file paths in answers.
 **File:** `docs/memory/REMINDERS.md`
 
 **Schema per entry:**
+
 ```markdown
 ## R-001 · Title
+
 - created: YYYY-MM-DD
-- show_after: YYYY-MM-DD   # optional snooze target
+- show_after: YYYY-MM-DD # optional snooze target
 - status: pending | acknowledged | done
-- acknowledged: YYYY-MM-DD   # set when user acknowledges
-- linked: docs/specs/NNN-feature.md   # optional
-- backlog: BACK-12   # optional
+- acknowledged: YYYY-MM-DD # set when user acknowledges
+- linked: docs/specs/NNN-feature.md # optional
+- backlog: BACK-12 # optional
 - note: one-line detail
 ```
 
@@ -119,13 +121,13 @@ Reuse `leanagentkit-backlog` detection: `backlog` on PATH **and** `backlog/`,
 
 **Do not** duplicate backlog rules. Follow `leanagentkit-backlog` §Lifecycle commands:
 
-| Action | Delegate |
-|--------|----------|
-| List open work | `backlog task list -s "To Do" --plain` + `In Progress` |
-| Create card | `backlog task create … --ref docs/specs/… --plain` per new-spec flow |
-| Move status | `backlog task edit <id> -s "<status>" --plain` |
-| Add feedback | `backlog task edit <id> --append-notes "…" --plain` |
-| Complete | **Only** when spec `Status: done` — never on session end alone |
+| Action         | Delegate                                                             |
+| -------------- | -------------------------------------------------------------------- |
+| List open work | `backlog task list -s "To Do" --plain` + `In Progress`               |
+| Create card    | `backlog task create … --ref docs/specs/… --plain` per new-spec flow |
+| Move status    | `backlog task edit <id> -s "<status>" --plain`                       |
+| Add feedback   | `backlog task edit <id> --append-notes "…" --plain`                  |
+| Complete       | **Only** when spec `Status: done` — never on session end alone       |
 
 Confirm card id with user before mutating. Cross-reference `ACTIVE_CONTEXT`.
 
@@ -156,7 +158,7 @@ Repeated workflows → suggest `leanagentkit-distill-skill` to freeze into
 
 ## Do not
 
-- Replace `start-session` or skip its memory reads.
+- Skip `AGENTS.md` §6 memory reads (ACTIVE_CONTEXT, map, LEARNINGS) or replace ambient start.
 - Move Backlog cards to `Done` outside backlog skill rules.
 - Store architectural decisions or spec scope in `REMINDERS.md`.
 - Auto-run checklists at session start.

@@ -63,11 +63,11 @@ flowchart TD
 
 ## What it adds
 
-| Without | With architecture decomposition |
-|---------|--------------------------------|
-| One spec, sequential implement | Spec + optional slices file with dependency graph |
-| Manual parallel planning | Parallel slices marked when CA/DDD safety rules pass |
-| Ad-hoc boundaries | Embedded CA/DDD diagnostics and contract-first integration |
+| Without                        | With architecture decomposition                            |
+| ------------------------------ | ---------------------------------------------------------- |
+| One spec, sequential implement | Spec + optional slices file with dependency graph          |
+| Manual parallel planning       | Parallel slices marked when CA/DDD safety rules pass       |
+| Ad-hoc boundaries              | Embedded CA/DDD diagnostics and contract-first integration |
 
 ## How it works
 
@@ -77,11 +77,11 @@ flowchart LR
   newSpec --> decomp[decompose-spec optional]
   decomp --> impl[implement-spec]
   impl --> check[check]
-  check --> endSession[end-session]
+  check --> finalize[finalize]
 ```
 
 ```text
-grill → new-spec → decompose-spec (optional) → implement-spec → check → end-session
+grill → new-spec → decompose-spec (optional) → implement-spec → check → finalize
 ```
 
 1. **`leanagentkit-new-spec`** — creates `docs/specs/NNN-<feature>.md` (including
@@ -130,14 +130,14 @@ Skills advertised in `AGENTS.md §7`:
 
 `.leanagentkit/architecture.yml`:
 
-| Field | Default | Purpose |
-|-------|---------|---------|
-| `enabled` | `true` | Master switch |
-| `offer_decompose_after_spec` | `true` | Offer decompose after non-trivial new-spec |
-| `parallel_work.enabled` | `true` | Allow parallel mode in implement-spec |
-| `parallel_work.max_parallel` | `3` | Cap concurrent parallel slices |
-| `parallel_work.require_contracts` | `true` | Block parallel until Integration contracts filled |
-| `parallel_work.use_worktrees` | `true` | Git worktree per parallel slice |
+| Field                             | Default | Purpose                                           |
+| --------------------------------- | ------- | ------------------------------------------------- |
+| `enabled`                         | `true`  | Master switch                                     |
+| `offer_decompose_after_spec`      | `true`  | Offer decompose after non-trivial new-spec        |
+| `parallel_work.enabled`           | `true`  | Allow parallel mode in implement-spec             |
+| `parallel_work.max_parallel`      | `3`     | Cap concurrent parallel slices                    |
+| `parallel_work.require_contracts` | `true`  | Block parallel until Integration contracts filled |
+| `parallel_work.use_worktrees`     | `true`  | Git worktree per parallel slice                   |
 
 ## Parallel safety rules
 
@@ -197,18 +197,18 @@ git worktree remove ../<repo>-<spec-slug>-<slice-id>   # when done
 
 ## Source of truth
 
-| Layer | Owns | Location |
-|-------|------|----------|
-| Spec | Problem, goal, scope, acceptance criteria, approach | `docs/specs/NNN-*.md` |
+| Layer  | Owns                                                         | Location                     |
+| ------ | ------------------------------------------------------------ | ---------------------------- |
+| Spec   | Problem, goal, scope, acceptance criteria, approach          | `docs/specs/NNN-*.md`        |
 | Slices | Work packages, parallel eligibility, contracts, slice status | `docs/specs/NNN-*-slices.md` |
 
 ## Embedded references
 
-| Path | Content |
-|------|---------|
-| `.agent/skills/references/clean-architecture/` | Dependency Rule, layers, boundaries, SOLID |
-| `.agent/skills/references/domain-driven-design/` | Bounded contexts, aggregates, events, ACL |
-| `.agent/skills/references/THIRD_PARTY.md` | Attribution |
+| Path                                             | Content                                    |
+| ------------------------------------------------ | ------------------------------------------ |
+| `.agent/skills/references/clean-architecture/`   | Dependency Rule, layers, boundaries, SOLID |
+| `.agent/skills/references/domain-driven-design/` | Bounded contexts, aggregates, events, ACL  |
+| `.agent/skills/references/THIRD_PARTY.md`        | Attribution                                |
 
 ## Troubleshooting
 

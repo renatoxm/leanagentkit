@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Bounded Contexts and Context Mapping
 
 A bounded context is the most important strategic pattern in Domain-Driven Design. It defines an explicit boundary within which a particular domain model is defined, consistent, and applicable. Context mapping describes the relationships between bounded contexts and the strategies for translating between them.
@@ -11,11 +12,11 @@ A bounded context is not a module, a microservice, or a deployment unit -- thoug
 
 In any system of sufficient size, the same word means different things to different people:
 
-| Term | In Sales Context | In Shipping Context | In Billing Context |
-|------|-----------------|--------------------|--------------------|
-| Customer | A prospect or account with contact info and purchase history | A delivery address with receiving instructions | A billing entity with payment methods and credit terms |
-| Product | A catalog item with descriptions, images, and pricing tiers | A physical item with weight, dimensions, and handling requirements | A line item with a price, tax category, and discount rules |
-| Order | A quote or deal being negotiated | A shipment to be picked, packed, and dispatched | An invoice to be generated and collected |
+| Term     | In Sales Context                                             | In Shipping Context                                                | In Billing Context                                         |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | ---------------------------------------------------------- |
+| Customer | A prospect or account with contact info and purchase history | A delivery address with receiving instructions                     | A billing entity with payment methods and credit terms     |
+| Product  | A catalog item with descriptions, images, and pricing tiers  | A physical item with weight, dimensions, and handling requirements | A line item with a price, tax category, and discount rules |
+| Order    | A quote or deal being negotiated                             | A shipment to be picked, packed, and dispatched                    | An invoice to be generated and collected                   |
 
 Trying to create a single `Customer` class that serves all three contexts produces a bloated, contradictory monstrosity with dozens of fields, most of which are irrelevant in any given use case. The bounded context pattern says: stop fighting this. Let each context have its own `Customer` model, optimized for its own needs.
 
@@ -24,16 +25,19 @@ Trying to create a single `Customer` class that serves all three contexts produc
 Boundaries emerge from several signals:
 
 **Linguistic signals:**
+
 - When the same term means different things to different groups, those groups are in different contexts
 - When conversations between groups require "translation" ("when you say X, do you mean Y?"), there is a boundary
 - When a concept exists in one group but has no analog in another, the boundary is clear
 
 **Organizational signals:**
+
 - Different teams owning different parts of the system
 - Different departments with different processes and vocabulary
 - Different regulatory requirements (e.g., PCI compliance for payments vs. HIPAA for patient data)
 
 **Technical signals:**
+
 - Different data storage needs (relational vs. document vs. event store)
 - Different consistency requirements (strong consistency for payments vs. eventual consistency for recommendations)
 - Different rate of change (billing rules change quarterly; product catalog changes daily)
@@ -59,6 +63,7 @@ Context mapping describes how bounded contexts relate to each other. Eric Evans 
 **Risks:** Coupling. Any change to the shared kernel requires coordination between both teams. If not carefully managed, the shared kernel grows uncontrollably.
 
 **Rules:**
+
 - Keep the shared kernel as small as possible -- value objects and basic types only
 - Require explicit agreement (both teams) for any change
 - Automated tests in both contexts must pass before any shared kernel change is merged
@@ -91,11 +96,13 @@ Context mapping describes how bounded contexts relate to each other. Eric Evans 
 **When to use:** When you need to integrate with a system whose model does not fit yours, and you cannot afford to let that foreign model leak into your domain. This is the most important defensive pattern in DDD.
 
 **Structure:**
+
 ```
 Your Domain Layer  <-->  ACL (Adapters + Translators)  <-->  External System
 ```
 
 The ACL contains:
+
 - **Adapters** that handle the technical protocol (HTTP, gRPC, message queue)
 - **Translators** that convert external model objects into your domain objects
 - **Facades** that present a clean interface to your domain layer
@@ -109,6 +116,7 @@ The ACL contains:
 **When to use:** When an upstream context serves multiple downstream consumers and cannot tailor its interface to each one. The OHS provides a standard integration point.
 
 **Characteristics:**
+
 - Versioned API with backward compatibility guarantees
 - Documentation and contracts (OpenAPI, protobuf schemas, JSON Schema)
 - The interface is deliberately designed for external consumption, not a direct exposure of the internal model
@@ -122,6 +130,7 @@ The ACL contains:
 **When to use:** When multiple contexts need to exchange data and a standard format prevents each integration from inventing its own.
 
 **Examples:**
+
 - Industry-standard formats: HL7 for healthcare, SWIFT for banking, EDI for supply chain
 - Internal schemas: a company-wide JSON schema for events published on a shared message bus
 - Protocol Buffers or Avro schemas for service-to-service communication
@@ -133,6 +142,7 @@ The ACL contains:
 **When to use:** When the cost of integration (coordination, translation, coupling) exceeds the cost of duplication. Sometimes it is cheaper and simpler for two teams to build their own `Address` validation than to share one.
 
 **Signals that Separate Ways is appropriate:**
+
 - The integration would be trivial functionality on both sides
 - The teams are in different organizations with different release cycles
 - The shared functionality is not core to either context
@@ -144,6 +154,7 @@ The ACL contains:
 **When to use (as a label):** When mapping an existing landscape, some systems simply are Big Balls of Mud. Acknowledging this is the first step toward improvement. Drawing a boundary around the mud and treating it as a single (messy) context allows you to build clean contexts alongside it, protected by an ACL.
 
 **Migration strategy:**
+
 1. Draw a boundary around the entire mudball
 2. Build new functionality in a clean bounded context
 3. Protect the new context with an ACL against the mudball
@@ -171,15 +182,15 @@ Conway's Law states that systems mirror the communication structures of the orga
 
 ### Choosing the Right Pattern
 
-| Situation | Recommended Pattern |
-|-----------|-------------------|
+| Situation                                              | Recommended Pattern                             |
+| ------------------------------------------------------ | ----------------------------------------------- |
 | Two teams with a good relationship and shared concepts | Shared Kernel (kept small) or Customer-Supplier |
-| Integrating with a system you do not control | Anti-Corruption Layer |
-| Exposing your context to many consumers | Open Host Service + Published Language |
-| Integrating with a hostile or unresponsive upstream | Conformist (if cost is low) or Separate Ways |
-| Legacy system with no clear model | Big Ball of Mud (label it) + ACL around it |
-| Two teams that must evolve in lockstep | Partnership |
-| Integration cost exceeds duplication cost | Separate Ways |
+| Integrating with a system you do not control           | Anti-Corruption Layer                           |
+| Exposing your context to many consumers                | Open Host Service + Published Language          |
+| Integrating with a hostile or unresponsive upstream    | Conformist (if cost is low) or Separate Ways    |
+| Legacy system with no clear model                      | Big Ball of Mud (label it) + ACL around it      |
+| Two teams that must evolve in lockstep                 | Partnership                                     |
+| Integration cost exceeds duplication cost              | Separate Ways                                   |
 
 ### Drawing a Context Map
 

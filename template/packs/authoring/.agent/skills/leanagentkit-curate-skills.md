@@ -10,7 +10,7 @@ flag stale/duplicate/superseded generators, and propose consolidation — the ma
 file-based equivalent of Hermes's background curator.
 
 **Run when:** "curate my skills", "clean up generated skills", periodically after
-several sessions, or when `end-session` nudges you.
+several sessions, or when finalize / `end-session` nudges you.
 
 **Reads:** `.agent/skills/generated/*`, `.agent/skills/generated/README.md`,
 `.agent/recipes/*`
@@ -33,6 +33,7 @@ several sessions, or when `end-session` nudges you.
 ## Procedure
 
 ### 1. Inventory
+
 List every skill in `.agent/skills/generated/leanagentkit-*.md` (exclude
 `_GENERATOR_TEMPLATE.md` and anything under `archived/`). For each, read frontmatter:
 `name`, `description`, `status`, `related`, `metadata.tags`, `source`, and
@@ -43,38 +44,44 @@ matching file or files with no registry row.
 
 ### 2. Assess each skill
 
-| Signal | Suggestion |
-|--------|------------|
-| Not referenced in README `Last used` for 30+ days | Mark **stale** — propose archive |
-| Overlaps another skill's procedure (>70% similar steps) | Mark **duplicate** — propose merge or archive the weaker one |
-| Superseded by a newer generator for the same artifact type | Mark **superseded** — propose archive the old one |
-| `status: pinned` | **Skip** — no action |
-| `status: archived` | Already archived — verify file is under `archived/` |
-| Active and recently used | **Keep** — no action |
+| Signal                                                     | Suggestion                                                   |
+| ---------------------------------------------------------- | ------------------------------------------------------------ |
+| Not referenced in README `Last used` for 30+ days          | Mark **stale** — propose archive                             |
+| Overlaps another skill's procedure (>70% similar steps)    | Mark **duplicate** — propose merge or archive the weaker one |
+| Superseded by a newer generator for the same artifact type | Mark **superseded** — propose archive the old one            |
+| `status: pinned`                                           | **Skip** — no action                                         |
+| `status: archived`                                         | Already archived — verify file is under `archived/`          |
+| Active and recently used                                   | **Keep** — no action                                         |
 
 ### 3. Present findings
+
 Show the user a table: Skill | Status | Issue | Proposed action.
 Ask for approval before making any changes. Default to conservative: when unsure, keep.
 
 ### 4. Apply approved actions
 
 **Archive** (never delete):
+
 1. Set `status: archived` in frontmatter.
 2. Move file to `.agent/skills/generated/archived/<filename>`.
 3. Update registry row Status to `archived`.
 4. Remove Cursor/Claude wrappers if present (or re-run `leanagentkit-wire-agent`).
 
 **Pin** (user request):
+
 1. Set `status: pinned` in frontmatter.
 2. Update registry row Status to `pinned`.
 
 **Consolidate** (merge duplicates):
+
 1. Merge the stronger procedure into one skill.
 2. Archive the weaker duplicate (steps above).
 3. Update `related` links on surviving skill.
 
 ### 5. Record
+
 Prepend a dated entry to `docs/memory/PROGRESS.md`:
+
 - Skills reviewed: N
 - Archived: [names]
 - Pinned: [names]
@@ -82,6 +89,7 @@ Prepend a dated entry to `docs/memory/PROGRESS.md`:
 - Notes: any consolidation done
 
 ### 6. Report
+
 Summarize what changed and what was kept. Remind the user archived skills live in
 `generated/archived/` and can be restored by moving back and setting `status: active`.
 

@@ -9,11 +9,11 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param |
-|----|--------|---------|---------|----------------|
-| base_color | Base color | slate · zinc · stone · gray · neutral | slate | `--base-color {{value}}` |
-| css | CSS variables | yes · no | yes | `--css-variables` / `--no-css-variables` |
-| pm | Package manager | pnpm · npm · bun | pnpm | for install |
+| id         | prompt          | options                               | default | → flag / param                           |
+| ---------- | --------------- | ------------------------------------- | ------- | ---------------------------------------- |
+| base_color | Base color      | slate · zinc · stone · gray · neutral | slate   | `--base-color {{value}}`                 |
+| css        | CSS variables   | yes · no                              | yes     | `--css-variables` / `--no-css-variables` |
+| pm         | Package manager | pnpm · npm · bun                      | pnpm    | for install                              |
 
 ## Command (cli kind only)
 

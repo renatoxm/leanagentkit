@@ -20,12 +20,12 @@ glow stacks, rounded-full pill clusters, multi-layer card shadows, emoji rows.
 
 ## Design-plan token system
 
-| Axis | Capture |
-|------|---------|
-| **Color** | 4–6 named hex values (roles: bg, surface, text, accent, muted…) |
-| **Type** | Display (restraint) + body + optional utility/caption face; scale + weights |
-| **Layout** | One-sentence concept + ASCII wireframe for the first viewport |
-| **Signature** | The single memorable element that embodies the brief |
+| Axis          | Capture                                                                     |
+| ------------- | --------------------------------------------------------------------------- |
+| **Color**     | 4–6 named hex values (roles: bg, surface, text, accent, muted…)             |
+| **Type**      | Display (restraint) + body + optional utility/caption face; scale + weights |
+| **Layout**    | One-sentence concept + ASCII wireframe for the first viewport               |
+| **Signature** | The single memorable element that embodies the brief                        |
 
 Map tokens onto the project's real system (`@theme`, CSS variables, theme file) —
 do not invent a parallel palette the stack cannot express.

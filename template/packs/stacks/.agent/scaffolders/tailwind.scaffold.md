@@ -9,10 +9,10 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param |
-|----|--------|---------|---------|----------------|
-| bundler | Bundler integration | vite · postcss · none (css only) | vite | `{{bundler}}` |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` |
+| id      | prompt              | options                          | default | → flag / param |
+| ------- | ------------------- | -------------------------------- | ------- | -------------- |
+| bundler | Bundler integration | vite · postcss · none (css only) | vite    | `{{bundler}}`  |
+| pm      | Package manager     | pnpm · npm · bun                 | pnpm    | `{{pm}}`       |
 
 ## Files (template kind only)
 

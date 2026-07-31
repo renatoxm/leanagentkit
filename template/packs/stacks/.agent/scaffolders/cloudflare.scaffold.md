@@ -9,16 +9,16 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| platform | Platform | Workers · Pages | Workers | `--platform={{value}}` | |
-| framework | Framework preset | hono · next · astro · svelte · none (plain worker) | hono | `--framework={{value}}` | |
-| lang | Language | TypeScript · JavaScript | TypeScript | `--lang=ts` / `--lang=js` | |
-| eslint | ESLint? | yes · no | yes | post-scaffold install | only if `lang=TypeScript` |
-| prettier | Prettier? | yes · no | yes | post-scaffold install | only if `lang=TypeScript` |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` | |
-| dir | Project directory | `<name>` · `.` (TTY only) | `worker` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id        | prompt                      | options                                            | default                                | → flag / param            | when                                   |
+| --------- | --------------------------- | -------------------------------------------------- | -------------------------------------- | ------------------------- | -------------------------------------- |
+| platform  | Platform                    | Workers · Pages                                    | Workers                                | `--platform={{value}}`    |                                        |
+| framework | Framework preset            | hono · next · astro · svelte · none (plain worker) | hono                                   | `--framework={{value}}`   |                                        |
+| lang      | Language                    | TypeScript · JavaScript                            | TypeScript                             | `--lang=ts` / `--lang=js` |                                        |
+| eslint    | ESLint?                     | yes · no                                           | yes                                    | post-scaffold install     | only if `lang=TypeScript`              |
+| prettier  | Prettier?                   | yes · no                                           | yes                                    | post-scaffold install     | only if `lang=TypeScript`              |
+| pm        | Package manager             | pnpm · npm · bun                                   | pnpm                                   | `{{pm}}`                  |                                        |
+| dir       | Project directory           | `<name>` · `.` (TTY only)                          | `worker` when kit-only; `.` when empty | `{{dir}}`                 |                                        |
+| vscode    | VS Code workspace settings? | yes · no                                           | yes                                    | write `.vscode/*`         | only if `eslint=yes` or `prettier=yes` |
 
 ## Command (cli kind only)
 
@@ -54,9 +54,13 @@ Create `eslint.config.js`:
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(js.configs.recommended, ...tseslint.configs.recommended, {
-  ignores: ["dist", ".wrangler"],
-});
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    ignores: ["dist", ".wrangler"],
+  },
+);
 ```
 
 Add `"lint": "eslint ."` to `package.json` scripts.

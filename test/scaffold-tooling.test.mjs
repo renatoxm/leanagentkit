@@ -212,8 +212,8 @@ test("leanagentkit-scaffold commit helpers use pm_install_dev not pm add", () =>
 test("leanagentkit-scaffold commit helpers init husky before copying commit-msg hook", () => {
   const content = readFileSync(SCAFFOLD_SKILL, "utf8");
   const section = content.slice(content.indexOf("#### Optional — commit helpers"));
-  const initIdx = section.indexOf("husky init");
-  const copyIdx = section.indexOf("commit-msg` | `{{dir}}/.husky/commit-msg`");
+  const initIdx = section.search(/husky init/);
+  const copyIdx = section.search(/`commit-msg`\s*\|\s*`\{\{dir\}\}\/\.husky\/commit-msg`/);
   assert.ok(initIdx > -1 && copyIdx > -1, "section should document husky init and commit-msg copy");
   assert.ok(initIdx < copyIdx, "husky init should run before copying commit-msg");
   assert.match(section, /\{\{pm\}\} install/, "should re-run install to activate prepare");

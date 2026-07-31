@@ -83,13 +83,13 @@ Keep each meaning in a **single source of truth**.
 
 Diagnose refactor work using these tags:
 
-| Mode | Symptom | Cure (in order) |
-|------|---------|-----------------|
+| Mode                     | Symptom                         | Cure (in order)                                                                         |
+| ------------------------ | ------------------------------- | --------------------------------------------------------------------------------------- |
 | **Premature completion** | Step ends before genuinely done | Sharpen completion criterion; split sequence if criterion stays fuzzy and rush persists |
-| **Duplication** | Same meaning in two places | Collapse to single source of truth |
-| **Sediment** | Stale layers never removed | Prune for relevance; archive if skill is obsolete |
-| **Sprawl** | Skill too long even when live | Progressive disclosure; split by branch or sequence |
-| **No-op** | Line restates default behaviour | Delete; strengthen leading word if the concept matters |
+| **Duplication**          | Same meaning in two places      | Collapse to single source of truth                                                      |
+| **Sediment**             | Stale layers never removed      | Prune for relevance; archive if skill is obsolete                                       |
+| **Sprawl**               | Skill too long even when live   | Progressive disclosure; split by branch or sequence                                     |
+| **No-op**                | Line restates default behaviour | Delete; strengthen leading word if the concept matters                                  |
 
 **Granularity** — split only when the cut earns it: by invocation (distinct leading
 word worth its own discoverability) or by sequence (hide post-completion steps).
@@ -98,16 +98,16 @@ word worth its own discoverability) or by sequence (hide post-completion steps).
 
 Matt's craft vocabulary applies to LAK generated skills with these hard constraints:
 
-| Craft concept | LAK rule |
-|---------------|----------|
-| Rich model-invoked **description** | Generated skills: third person, **WHAT + WHEN**, trigger terms. Soft target ≤200 chars; hard max 1024. Count before save. |
-| **Router skill** | Forbidden — do not write index-only skills that only point at others. |
-| Write target | Project skills → `.agent/skills/generated/leanagentkit-<name>.md` only |
-| Kit-owned skills | Never modify `leanagentkit-*.md` in user projects — overwritten on `--upgrade` |
-| Retire a skill | **Archive** to `generated/archived/`; set `status: archived`; never delete |
-| Model-invoked vs user-invoked | `invocation: auto` on kit guardrails; generated skills ship explicit-invoke wrappers (`disable-model-invocation: true`) unless you deliberately opt into auto |
-| Section order | Follow `skill-authoring-standards.md` — When to Use through Learned notes |
-| Self-improvement | Append gotchas under `## Learned notes` in generated skills only |
+| Craft concept                      | LAK rule                                                                                                                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rich model-invoked **description** | Generated skills: third person, **WHAT + WHEN**, trigger terms. Soft target ≤200 chars; hard max 1024. Count before save.                                     |
+| **Router skill**                   | Forbidden — do not write index-only skills that only point at others.                                                                                         |
+| Write target                       | Project skills → `.agent/skills/generated/leanagentkit-<name>.md` only                                                                                        |
+| Kit-owned skills                   | Never modify `leanagentkit-*.md` in user projects — overwritten on `--upgrade`                                                                                |
+| Retire a skill                     | **Archive** to `generated/archived/`; set `status: archived`; never delete                                                                                    |
+| Model-invoked vs user-invoked      | `invocation: auto` on kit guardrails; generated skills ship explicit-invoke wrappers (`disable-model-invocation: true`) unless you deliberately opt into auto |
+| Section order                      | Follow `skill-authoring-standards.md` — When to Use through Learned notes                                                                                     |
+| Self-improvement                   | Skill gotchas → `## Learned notes`; project gotchas → `docs/memory/LEARNINGS.md`                                                                              |
 
 For the full upstream domain model, see
 [mattpocock/skills — writing-great-skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/writing-great-skills).

@@ -4,13 +4,13 @@
 
 enabled: true
 
-# Show pending reminders during leanagentkit-start-session
+# Show pending reminders during ambient start / optional leanagentkit-start-session
 session_preamble: true
 
 # Max reminders surfaced per session (cap context bloat)
 max_reminders_per_session: 3
 
-# Offer to save a reminder at leanagentkit-end-session
+# Offer to save a reminder at finalize / optional leanagentkit-end-session
 end_session_capture: true
 
 # Default checklist runner mode: guided (one item at a time) | batch

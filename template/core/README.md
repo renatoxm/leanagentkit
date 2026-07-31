@@ -9,12 +9,13 @@ can read files.
 
 ## Core files
 
-| File | Role |
-|------|------|
-| `AGENTS.md` | Canonical rules + memory protocol (§6) |
-| `docs/CODEBASE_MAP.md` | Navigation index |
-| `docs/memory/ACTIVE_CONTEXT.md` | Focus + resume |
-| `.agent/skills/` | Bootstrap, session, check, wire, packs |
+| File                            | Role                                                        |
+| ------------------------------- | ----------------------------------------------------------- |
+| `AGENTS.md`                     | Canonical rules + ambient memory protocol (§6)              |
+| `docs/CODEBASE_MAP.md`          | Navigation index                                            |
+| `docs/memory/ACTIVE_CONTEXT.md` | Focus + resume                                              |
+| `docs/memory/LEARNINGS.md`      | Avoidable-mistake inbox → promote to AGENTS.md              |
+| `.agent/skills/`                | Bootstrap, check, handoff, optional session wrappers, packs |
 
 ## Quick start
 
@@ -29,8 +30,8 @@ npx create-lean-agent-kit@latest . --enable-pack spec,stacks
 ## Workflow sizes
 
 - **Trivial** — no ceremony.
-- **Normal** — `start-session` → work → `check` → `end-session`.
-- **Substantial** — enable `spec` pack; grill → new-spec → implement-spec.
+- **Normal** — work with ambient touches → `check` → finalize (`end-session` when packs/spec).
+- **Substantial** — enable `spec` pack; grill → new-spec → implement-spec → check → finalize.
 
 Protocol details: **`AGENTS.md` §6**. Full playbook: **`LEAN_AGENT_KIT_GUIDE.md`**.
 
@@ -39,15 +40,15 @@ Protocol details: **`AGENTS.md` §6**. Full playbook: **`LEAN_AGENT_KIT_GUIDE.md
 See stamp `.agent/.leanagentkit-version` → `installedPacks`. Catalog and install
 commands: [docs / packs](https://renatoxm.github.io/leanagentkit/packs).
 
-| Pack | Purpose |
-|------|---------|
-| `spec` | Spec-driven feature loop |
-| `stacks` | Stack skills + scaffold |
-| `practice` | Engineering guardrails |
-| `architecture` | Decomposition (needs `spec`) |
-| `backlog` / `git-lifecycle` | Board / git offers (need `spec`) |
-| `trevor` / `caveman` / `authoring` | Concierge / terse output / skill authoring |
-| `imaginary` | Image resize/crop/convert (h2non/imaginary) |
+| Pack                               | Purpose                                     |
+| ---------------------------------- | ------------------------------------------- |
+| `spec`                             | Spec-driven feature loop                    |
+| `stacks`                           | Stack skills + scaffold                     |
+| `practice`                         | Engineering guardrails                      |
+| `architecture`                     | Decomposition (needs `spec`)                |
+| `backlog` / `git-lifecycle`        | Board / git offers (need `spec`)            |
+| `trevor` / `caveman` / `authoring` | Concierge / terse output / skill authoring  |
+| `imaginary`                        | Image resize/crop/convert (h2non/imaginary) |
 
 ## Upgrade & prune
 

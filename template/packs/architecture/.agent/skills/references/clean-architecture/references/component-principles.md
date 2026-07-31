@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Component Principles
 
 Components are the units of deployment -- the smallest entities that can be independently deployed. In Java they are jar files, in Ruby they are gems, in .NET they are DLLs, in JavaScript they are npm packages or bundled modules. Robert C. Martin defines six principles that govern how classes should be grouped into components (cohesion) and how components should relate to each other (coupling).
@@ -14,11 +15,13 @@ This reference covers the three cohesion principles (REP, CCP, CRP), the three c
 Classes and modules that are grouped into a component should be releasable together. If you version and release a component, every class in it should make sense as part of that release. A component should have a cohesive theme -- a reason for being grouped.
 
 **Why it matters:**
+
 - Users of a component expect that when they upgrade to a new version, all classes in the component have been updated coherently
 - If a component contains unrelated classes, users are forced to upgrade for changes they don't care about
 - A component without a coherent theme is difficult to document, understand, and maintain
 
 **Practical implications:**
+
 - A component named `order-domain` should contain `Order`, `OrderItem`, `OrderStatus`, `OrderPolicy` -- all cohesively related to order business rules
 - It should NOT also contain `UserPreferences` or `EmailTemplate` just because they happen to be used nearby
 - When you can't write a one-sentence description of what the component does, it probably violates REP
@@ -30,18 +33,19 @@ Classes and modules that are grouped into a component should be releasable toget
 This is the Single Responsibility Principle applied at the component level. A component should not have multiple reasons to change.
 
 **Why it matters:**
+
 - When a change in business requirements affects multiple classes, ideally all those classes are in the same component
 - This means only one component needs to be redeployed rather than many
 - Minimizes the ripple effect of changes across the deployment landscape
 
 **Practical application:**
 
-| Change Reason | Group Together | Separate From |
-|---------------|---------------|---------------|
-| Order pricing rules change | `OrderCalculator`, `DiscountPolicy`, `TaxCalculator` | `OrderController`, `OrderRepository` |
-| Database schema changes | `OrderMapper`, `OrderRepository`, `OrderMigration` | `Order`, `OrderCalculator` |
-| API response format changes | `OrderPresenter`, `OrderSerializer`, `OrderViewModel` | `Order`, `OrderService` |
-| Authentication rules change | `AuthPolicy`, `TokenValidator`, `SessionManager` | `OrderService`, `PaymentService` |
+| Change Reason               | Group Together                                        | Separate From                        |
+| --------------------------- | ----------------------------------------------------- | ------------------------------------ |
+| Order pricing rules change  | `OrderCalculator`, `DiscountPolicy`, `TaxCalculator`  | `OrderController`, `OrderRepository` |
+| Database schema changes     | `OrderMapper`, `OrderRepository`, `OrderMigration`    | `Order`, `OrderCalculator`           |
+| API response format changes | `OrderPresenter`, `OrderSerializer`, `OrderViewModel` | `Order`, `OrderService`              |
+| Authentication rules change | `AuthPolicy`, `TokenValidator`, `SessionManager`      | `OrderService`, `PaymentService`     |
 
 **The key question:** "When this business rule changes, which classes will I need to modify?" Group those classes together.
 
@@ -52,6 +56,7 @@ This is the Single Responsibility Principle applied at the component level. A co
 Classes in a component should be tightly related. If you depend on one class in a component, you should depend on most (ideally all) classes in that component. If you only use one class out of twenty, the component is too broad.
 
 **Why it matters:**
+
 - When a component changes, all components that depend on it must be revalidated and potentially redeployed
 - If Component A depends on Component B but only uses one class, changes to unrelated classes in B still force A to be revalidated
 - Fat components create unnecessary coupling
@@ -85,6 +90,7 @@ A component's composition typically evolves over time, starting broad (CCP-orien
 The dependency graph of components must be a Directed Acyclic Graph (DAG). If Component A depends on B, and B depends on C, and C depends on A, you have a cycle -- and the three components are effectively one undivisible monolith.
 
 **Why cycles are destructive:**
+
 - Cycles make independent release impossible -- you can't release A without releasing B and C
 - Changes in any component in the cycle potentially affect all others
 - Build order becomes ambiguous or impossible
@@ -143,11 +149,11 @@ A component should only depend on components that are more stable than it is. St
 - **Fan-out (Ce):** Number of classes inside the component that depend on classes outside the component (outgoing dependencies)
 - **Instability (I):** I = Ce / (Ca + Ce), where I ranges from 0 (maximally stable) to 1 (maximally unstable)
 
-| Metric Value | Meaning | Implication |
-|-------------|---------|-------------|
-| I = 0 | Maximally stable (many dependents, no dependencies) | Hard to change; should be abstract |
-| I = 1 | Maximally unstable (no dependents, many dependencies) | Easy to change; should be concrete |
-| I = 0.5 | Balanced | Moderate change risk |
+| Metric Value | Meaning                                               | Implication                        |
+| ------------ | ----------------------------------------------------- | ---------------------------------- |
+| I = 0        | Maximally stable (many dependents, no dependencies)   | Hard to change; should be abstract |
+| I = 1        | Maximally unstable (no dependents, many dependencies) | Easy to change; should be concrete |
+| I = 0.5      | Balanced                                              | Moderate change risk               |
 
 **The SDP rule:** If Component A depends on Component B, then I(B) should be less than or equal to I(A). You should depend on things that are harder to change than you are.
 
@@ -197,16 +203,17 @@ Components with high D values warrant investigation.
 
 ### Component Mapping to Clean Architecture
 
-| Clean Architecture Circle | Stability | Abstractness | Character |
-|--------------------------|-----------|-------------|-----------|
-| **Entities** | Very stable (I near 0) | Abstract (interfaces, domain types) | Core business rules; many dependents |
-| **Use Cases** | Stable (I = 0.2-0.4) | Moderately abstract (ports, interactors) | Application rules; depend on entities |
-| **Adapters** | Unstable (I = 0.5-0.7) | Concrete (controllers, gateways) | Translation layer; depend on use cases |
-| **Frameworks** | Very unstable (I near 1) | Concrete (configuration, wiring) | Glue code; depend on everything |
+| Clean Architecture Circle | Stability                | Abstractness                             | Character                              |
+| ------------------------- | ------------------------ | ---------------------------------------- | -------------------------------------- |
+| **Entities**              | Very stable (I near 0)   | Abstract (interfaces, domain types)      | Core business rules; many dependents   |
+| **Use Cases**             | Stable (I = 0.2-0.4)     | Moderately abstract (ports, interactors) | Application rules; depend on entities  |
+| **Adapters**              | Unstable (I = 0.5-0.7)   | Concrete (controllers, gateways)         | Translation layer; depend on use cases |
+| **Frameworks**            | Very unstable (I near 1) | Concrete (configuration, wiring)         | Glue code; depend on everything        |
 
 ### Versioning Components Independently
 
 When components are properly decoupled:
+
 - Each can have its own version number
 - Each can be released on its own schedule
 - Teams can own components independently
@@ -225,24 +232,24 @@ When components are properly decoupled:
 
 ### Common Component Anti-Patterns
 
-| Anti-Pattern | Symptom | Fix |
-|-------------|---------|-----|
-| **God component** | One component contains everything | Split by CCP: group by reason for change |
-| **Circular dependencies** | Can't release or build independently | Apply ADP: DIP or extraction |
-| **Concrete stable component** | Many dependents, no abstractions, painful to change | Apply SAP: extract interfaces, move implementations to unstable components |
-| **Unstable abstractions** | Abstract component with no dependents | Remove dead abstractions or rethink dependency structure |
-| **Shotgun releases** | Changing one feature requires releasing five components | Apply CCP: group co-changing classes together |
-| **Dependency magnet** | One utility component everyone depends on | Split into focused components; apply CRP |
+| Anti-Pattern                  | Symptom                                                 | Fix                                                                        |
+| ----------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **God component**             | One component contains everything                       | Split by CCP: group by reason for change                                   |
+| **Circular dependencies**     | Can't release or build independently                    | Apply ADP: DIP or extraction                                               |
+| **Concrete stable component** | Many dependents, no abstractions, painful to change     | Apply SAP: extract interfaces, move implementations to unstable components |
+| **Unstable abstractions**     | Abstract component with no dependents                   | Remove dead abstractions or rethink dependency structure                   |
+| **Shotgun releases**          | Changing one feature requires releasing five components | Apply CCP: group co-changing classes together                              |
+| **Dependency magnet**         | One utility component everyone depends on               | Split into focused components; apply CRP                                   |
 
 ### Dependency Analysis Tools
 
-| Language | Tool | Purpose |
-|----------|------|---------|
-| Java | JDepend, ArchUnit | Measure component metrics, enforce dependency rules |
-| JavaScript/TypeScript | Dependency Cruiser, Madge | Visualize and validate module dependencies |
-| Python | import-linter, pydeps | Enforce import rules, visualize package dependencies |
-| .NET | NDepend | Component metrics, dependency analysis |
-| Go | `go vet`, custom linters | Package dependency validation |
-| General | SonarQube | Cross-language dependency and quality analysis |
+| Language              | Tool                      | Purpose                                              |
+| --------------------- | ------------------------- | ---------------------------------------------------- |
+| Java                  | JDepend, ArchUnit         | Measure component metrics, enforce dependency rules  |
+| JavaScript/TypeScript | Dependency Cruiser, Madge | Visualize and validate module dependencies           |
+| Python                | import-linter, pydeps     | Enforce import rules, visualize package dependencies |
+| .NET                  | NDepend                   | Component metrics, dependency analysis               |
+| Go                    | `go vet`, custom linters  | Package dependency validation                        |
+| General               | SonarQube                 | Cross-language dependency and quality analysis       |
 
 These tools automate the detection of cycles, stability violations, and components in the Zone of Pain or Zone of Uselessness. Integrate them into CI/CD pipelines to prevent architectural drift.

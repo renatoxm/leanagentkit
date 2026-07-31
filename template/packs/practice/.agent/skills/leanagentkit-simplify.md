@@ -16,6 +16,7 @@ the goal — faster comprehension is.
 - Deep nesting, long functions, unclear names, scattered duplication
 
 **When NOT to use:**
+
 - Code is already clean
 - You don't understand the code yet (comprehend first)
 - Performance-critical path where simpler version is measurably slower
@@ -32,30 +33,34 @@ the goal — faster comprehension is.
 ## Process
 
 ### Step 1: Understand (Chesterton's Fence)
+
 Before changing anything:
+
 - What is this code's responsibility? Who calls it?
 - Edge cases, error paths, tests defining behavior?
 - Why was it written this way? (Check git blame if unclear)
 
 ### Step 2: Identify opportunities
 
-| Signal | Remedy |
-|--------|--------|
-| Deep nesting (3+ levels) | Guard clauses, extract helper |
-| Long functions (50+ lines) | Split by responsibility |
-| Nested ternaries | if/else, switch, lookup map |
-| Generic names (`data`, `temp`) | Rename to describe content |
-| Duplicated logic (5+ lines) | Extract shared function |
-| Dead code | Remove after confirming unused |
-| Comments stating "what" | Delete; keep "why" comments |
+| Signal                         | Remedy                         |
+| ------------------------------ | ------------------------------ |
+| Deep nesting (3+ levels)       | Guard clauses, extract helper  |
+| Long functions (50+ lines)     | Split by responsibility        |
+| Nested ternaries               | if/else, switch, lookup map    |
+| Generic names (`data`, `temp`) | Rename to describe content     |
+| Duplicated logic (5+ lines)    | Extract shared function        |
+| Dead code                      | Remove after confirming unused |
+| Comments stating "what"        | Delete; keep "why" comments    |
 
 ### Step 3: Apply incrementally
+
 One change at a time → run tests → commit or continue.
 **Separate refactoring PR from feature/bugfix PR.**
 
 Rule of 500: refactors touching >500 lines need automation (codemod), not manual edits.
 
 ### Step 4: Verify
+
 - Simpler version genuinely easier to understand?
 - Consistent with codebase patterns?
 - Diff clean and reviewable?

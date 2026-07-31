@@ -8,10 +8,10 @@
 | `leanagentkit-wire-agent`       | Cursor / Claude wrappers                         |
 | `leanagentkit-map-codebase`     | Build/refresh `CODEBASE_MAP`                     |
 | `leanagentkit-init-conventions` | Fill `AGENTS.md` §1–5 (merge + backup if exists) |
-| `leanagentkit-start-session`    | Cheap session prime                              |
-| `leanagentkit-end-session`      | Persist ACTIVE_CONTEXT                           |
-| `leanagentkit-handoff`          | Mid-task baton                                   |
-| `leanagentkit-check`            | Convention check                                 |
+| `leanagentkit-start-session`    | Optional prime + pack hooks                      |
+| `leanagentkit-end-session`      | Finalize (+ required with packs/PROGRESS)        |
+| `leanagentkit-handoff`          | Mid-task baton (explicit)                        |
+| `leanagentkit-check`            | Convention check + LEARNINGS capture             |
 | `leanagentkit-enable-pack`      | Install packs                                    |
 | `leanagentkit-migrate-1`        | 0.x → 1.0 migration                              |
 

@@ -54,7 +54,7 @@ this skill even when the config is off or missing.
 ### Body (only if needed)
 
 - Skip when subject is self-explanatory
-- Add body for: non-obvious *why*, breaking changes, migration notes, linked issues
+- Add body for: non-obvious _why_, breaking changes, migration notes, linked issues
 - Wrap body/footer at the same limit as `AGENTS.md` §4 (usually ≤ 100 with
   commitlint conventional); bullets `-` not `*`
 - Reference issues at end: `Closes #42`, `Refs #17`

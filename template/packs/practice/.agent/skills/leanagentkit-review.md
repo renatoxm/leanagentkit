@@ -27,12 +27,14 @@ thread comments — when Caveman is enabled (`terse_reviews: true`), use
 ## Five-axis review
 
 ### 1. Correctness
+
 - Matches spec/task requirements and active acceptance criteria
 - Edge cases and error paths handled
 - Tests cover behavior (not just happy path)
 - No race conditions, off-by-one, or state inconsistencies
 
 ### 2. Readability & simplicity
+
 - Names clear and consistent with `AGENTS.md` §4
 - Control flow straightforward; no unnecessary cleverness
 - Abstractions earn their complexity (don't generalize before third use case)
@@ -40,6 +42,7 @@ thread comments — when Caveman is enabled (`terse_reviews: true`), use
 - For deeper simplification work → `leanagentkit-simplify`
 
 ### 3. Architecture
+
 - Follows existing patterns or justifies new ones
 - Clean module boundaries; dependencies flow correctly
 - Refactors **reduce** concepts held by reader, not relocate complexity
@@ -47,11 +50,13 @@ thread comments — when Caveman is enabled (`terse_reviews: true`), use
 - File size: ~1000 total lines is an inspection signal — decompose before adding
 
 ### 4. Security
+
 - Quick pass here; for auth/input/external boundaries → `leanagentkit-security`
 - Input validated at boundaries; no secrets in code/logs
 - Auth checks where needed; parameterized queries
 
 ### 5. Performance
+
 - Quick pass here; for profiling/budgets/CWV → `leanagentkit-performance`
 - No N+1, unbounded fetches, missing pagination, obvious hot-path waste
 
@@ -77,6 +82,7 @@ commit/PR.
 ## Structural remedies
 
 When flagging structure problems, propose the move:
+
 - Replace conditional chains with typed model or dispatcher
 - Extract helper or split oversized file before adding more
 - Reuse canonical helper instead of near-duplicate

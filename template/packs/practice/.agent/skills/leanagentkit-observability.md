@@ -31,11 +31,11 @@ one of them. No questions → not ready to instrument.
 
 ### 2. Pick the right signal
 
-| Signal | Answers | Example |
-|--------|---------|---------|
+| Signal         | Answers                     | Example                          |
+| -------------- | --------------------------- | -------------------------------- |
 | Structured log | What happened in this case? | `payment_failed` with error code |
-| Metric | How often / how fast? | p99 latency histogram |
-| Trace | Where did time go? | Request span breakdown |
+| Metric         | How often / how fast?       | p99 latency histogram            |
+| Trace          | Where did time go?          | Request span breakdown           |
 
 Metrics tell you **that** something is wrong; traces tell you **where**; logs
 tell you **why**.
@@ -72,6 +72,7 @@ boundaries. Sample by default; keep errors if backend supports tail sampling.
 ### 6. Alerting
 
 Alert on **symptoms users feel**, not causes:
+
 ```
 Page-worthy:  error rate > 1% for 5 min, p99 latency > SLA
 Dashboard:    CPU at 85%, one pod restarted

@@ -26,6 +26,7 @@ safely from old to new — deprecation without a replacement is abandonment.
 ## Deprecation decision
 
 Before deprecating, answer:
+
 1. Does this still provide unique value? If yes, maintain.
 2. How many consumers? Quantify migration scope.
 3. Does a replacement exist? Build replacement first.
@@ -34,9 +35,9 @@ Before deprecating, answer:
 
 ## Advisory vs compulsory
 
-| Type | When | Mechanism |
-|------|------|-----------|
-| Advisory | Old system stable, migration optional | Warnings, docs, nudges |
+| Type       | When                                               | Mechanism                         |
+| ---------- | -------------------------------------------------- | --------------------------------- |
+| Advisory   | Old system stable, migration optional              | Warnings, docs, nudges            |
 | Compulsory | Security risk, blocks progress, unsustainable cost | Hard deadline + migration tooling |
 
 Default to advisory. Compulsory requires tooling, docs, and support.

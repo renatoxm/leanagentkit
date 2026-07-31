@@ -6,12 +6,15 @@
 ## <!-- YYYY-MM-DD --> — <short title>
 
 **Done**
+
 - <what shipped / changed>
 
 **Left**
+
 - [ ] <what remains>
 
 **Notes**
+
 - <anything a future session needs to know>
 
 ---
@@ -20,9 +23,9 @@
 
 ## YYYY-MM-DD — title
 **Done**
-- 
+-
 **Left**
-- [ ] 
+- [ ]
 **Notes**
-- 
+-
 -->

@@ -1,12 +1,13 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Interface Adapters and Frameworks
 
 Interface Adapters and Frameworks & Drivers form the two outermost circles of Clean Architecture. Interface Adapters translate data between the forms convenient for Use Cases and Entities and the forms convenient for external agencies. Frameworks and Drivers are the glue code that connects the system to the outside world. Together, these layers contain all the volatile, technology-specific decisions -- the parts most likely to change over the life of a system.
 
 This reference covers controllers, presenters, gateways, the nature of frameworks as details, database and web as details, keeping frameworks at arm's length, and the plugin architecture.
 
-
 ## Table of Contents
+
 1. [Interface Adapters](#interface-adapters)
 2. [Frameworks as Details](#frameworks-as-details)
 3. [The Database Is a Detail](#the-database-is-a-detail)
@@ -23,12 +24,14 @@ This reference covers controllers, presenters, gateways, the nature of framework
 A Controller is an adapter that translates input from the delivery mechanism (HTTP, CLI, message queue, gRPC) into a form that the Use Case can understand. It constructs a Request Model and calls the Use Case's Input Port.
 
 **Responsibilities of a Controller:**
+
 - Parse and extract data from the delivery mechanism's native format
 - Construct the Use Case's Request Model
 - Call the Use Case's Input Port
 - Handle delivery-mechanism-specific concerns (authentication, rate limiting) BEFORE calling the Use Case
 
 **What a Controller must NOT do:**
+
 - Contain business logic
 - Directly access the database
 - Format output for the response (that's the Presenter's job)
@@ -69,6 +72,7 @@ The Controller knows about HTTP data format and knows about `PlaceOrderRequest`.
 A Presenter translates Use Case output into a form suitable for the delivery mechanism. It implements the Use Case's Output Port and produces a View Model.
 
 **The Presenter pattern separates two concerns:**
+
 1. The Use Case decides WHAT data to present
 2. The Presenter decides HOW to format it for display
 
@@ -157,12 +161,12 @@ Notice the `_to_domain` method: it maps between the persistence format (database
 
 ### Adapter Types Summary
 
-| Adapter | Translates From | Translates To | Direction |
-|---------|----------------|---------------|-----------|
-| **Controller** | External input (HTTP, CLI, event) | Use Case Request Model | Inward |
-| **Presenter** | Use Case Response Model | View Model (JSON, HTML, CLI output) | Outward |
-| **Gateway** | Repository/Service Interface | Concrete technology (SQL, API, file) | Outward |
-| **Mapper** | Domain Entity | Persistence Model (ORM, document) | Both directions |
+| Adapter        | Translates From                   | Translates To                        | Direction       |
+| -------------- | --------------------------------- | ------------------------------------ | --------------- |
+| **Controller** | External input (HTTP, CLI, event) | Use Case Request Model               | Inward          |
+| **Presenter**  | Use Case Response Model           | View Model (JSON, HTML, CLI output)  | Outward         |
+| **Gateway**    | Repository/Service Interface      | Concrete technology (SQL, API, file) | Outward         |
+| **Mapper**     | Domain Entity                     | Persistence Model (ORM, document)    | Both directions |
 
 ## Frameworks as Details
 
@@ -171,6 +175,7 @@ Notice the `_to_domain` method: it maps between the persistence format (database
 Frameworks are powerful tools. They provide routing, dependency injection, ORM, template rendering, and dozens of other features. The temptation is to build your system on top of the framework -- to let the framework be the architecture.
 
 This is a trap. When the framework IS the architecture:
+
 - You cannot test business logic without the framework running
 - You cannot change the framework without rewriting the application
 - Framework bugs become your bugs, in your most critical code
@@ -189,6 +194,7 @@ Frameworks are authored by people who have a use case for them. They provide mas
 Each of these is a coupling point. The more you comply, the harder it is to separate.
 
 **The Clean Architecture approach:**
+
 - Don't derive business objects from framework base classes
 - Don't put framework annotations on domain entities
 - Don't let the framework dictate your project structure
@@ -196,14 +202,14 @@ Each of these is a coupling point. The more you comply, the harder it is to sepa
 
 ### Practical Framework Isolation
 
-| Framework Feature | Coupled Approach | Decoupled Approach |
-|-------------------|-----------------|-------------------|
-| **Routing** | Business logic in route handlers | Route handlers call Controllers; Controllers call Use Cases |
-| **ORM** | Domain entities ARE ORM models | Separate domain entities; map to/from ORM models in gateways |
-| **Validation** | Framework validation decorators on entities | Validation in Use Case or domain layer using plain code |
-| **Dependency injection** | `@Inject` annotations on domain classes | Constructor injection; wiring in Main component |
-| **Configuration** | `Settings.get("key")` in business logic | Inject config values as constructor parameters |
-| **Logging** | Framework logger called directly in Use Cases | Inject a logger interface; implement with framework in outer circle |
+| Framework Feature        | Coupled Approach                              | Decoupled Approach                                                  |
+| ------------------------ | --------------------------------------------- | ------------------------------------------------------------------- |
+| **Routing**              | Business logic in route handlers              | Route handlers call Controllers; Controllers call Use Cases         |
+| **ORM**                  | Domain entities ARE ORM models                | Separate domain entities; map to/from ORM models in gateways        |
+| **Validation**           | Framework validation decorators on entities   | Validation in Use Case or domain layer using plain code             |
+| **Dependency injection** | `@Inject` annotations on domain classes       | Constructor injection; wiring in Main component                     |
+| **Configuration**        | `Settings.get("key")` in business logic       | Inject config values as constructor parameters                      |
+| **Logging**              | Framework logger called directly in Use Cases | Inject a logger interface; implement with framework in outer circle |
 
 ## The Database Is a Detail
 
@@ -212,6 +218,7 @@ The database is a detail. It is a mechanism for storing and retrieving data. Fro
 ### Why It Matters
 
 When business rules know about the database:
+
 - Testing requires a database (slow, fragile tests)
 - Database schema changes ripple into business logic
 - Migrating to a different database means rewriting business rules
@@ -230,6 +237,7 @@ The repository pattern is the primary mechanism for keeping the database at arm'
 ORMs are useful tools, but they must be contained in the outer circles:
 
 **The two-model approach:**
+
 - **Domain model**: Pure business entities with business methods and rules. No ORM annotations. Lives in the Entity circle.
 - **Persistence model**: ORM-annotated classes that map to database tables. Lives in the Adapter circle. The gateway maps between the two.
 
@@ -242,6 +250,7 @@ The web is a delivery mechanism -- a way to transport data between the user and 
 ### Delivery Mechanism Independence
 
 When use cases are independent of the delivery mechanism, you can:
+
 - Serve the same business logic through REST, GraphQL, gRPC, CLI, and WebSocket simultaneously
 - Test business logic without HTTP
 - Migrate from one web framework to another by rewriting only the outer circle
@@ -307,14 +316,14 @@ Main is the only place where the concrete classes from all circles come together
 
 ### Plugin Swappability in Practice
 
-| Plugin | Interface | Implementation A | Implementation B |
-|--------|-----------|-----------------|-----------------|
-| **Persistence** | `OrderRepository` | `PostgresOrderRepository` | `DynamoOrderRepository` |
-| **Email** | `EmailService` | `SendGridEmailService` | `SesEmailService` |
-| **Payment** | `PaymentGateway` | `StripeGateway` | `BraintreeGateway` |
-| **Search** | `ProductSearch` | `ElasticsearchProductSearch` | `AlgoliaProductSearch` |
-| **Cache** | `CacheStore` | `RedisCacheStore` | `MemcachedCacheStore` |
-| **File storage** | `FileStore` | `S3FileStore` | `LocalFileStore` |
+| Plugin           | Interface         | Implementation A             | Implementation B        |
+| ---------------- | ----------------- | ---------------------------- | ----------------------- |
+| **Persistence**  | `OrderRepository` | `PostgresOrderRepository`    | `DynamoOrderRepository` |
+| **Email**        | `EmailService`    | `SendGridEmailService`       | `SesEmailService`       |
+| **Payment**      | `PaymentGateway`  | `StripeGateway`              | `BraintreeGateway`      |
+| **Search**       | `ProductSearch`   | `ElasticsearchProductSearch` | `AlgoliaProductSearch`  |
+| **Cache**        | `CacheStore`      | `RedisCacheStore`            | `MemcachedCacheStore`   |
+| **File storage** | `FileStore`       | `S3FileStore`                | `LocalFileStore`        |
 
 Each swap is a single line change in Main plus a new implementation class. No business logic changes. No use case changes. No entity changes. This is the power of treating frameworks and infrastructure as plugins.
 

@@ -33,6 +33,7 @@ test("CLAUDE.md template references AGENTS.md", async () => {
   assert.match(content, /AGENTS\.md/);
   assert.match(content, /ACTIVE_CONTEXT\.md/);
   assert.match(content, /CODEBASE_MAP\.md/);
+  assert.match(content, /LEARNINGS\.md/);
 });
 
 test("wire-agent generates claude wrappers under .claude/skills/", async () => {

@@ -1,12 +1,13 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Boundaries and Boundary Anatomy
 
 Boundaries are the lines that separate software elements. In Clean Architecture, boundaries separate policies from details, stable code from volatile code, and high-level concerns from low-level mechanisms. How you draw boundaries, where you place them, and how you implement them determines whether a system remains maintainable over decades or degrades into an unmaintainable monolith.
 
 This reference covers boundary anatomy, boundary crossing mechanisms, the Humble Object pattern, partial boundaries, layers and boundaries, services as boundaries, test boundaries, and the Main component as the ultimate plugin.
 
-
 ## Table of Contents
+
 1. [Boundary Anatomy](#boundary-anatomy)
 2. [Boundary Crossing](#boundary-crossing)
 3. [The Humble Object Pattern](#the-humble-object-pattern)
@@ -43,16 +44,16 @@ Controller ----calls----> InputPort (interface)
 
 ### Boundary Components
 
-| Component | Circle | Role |
-|-----------|--------|------|
-| **Input Port** | Use Case | Interface that defines what the use case accepts |
-| **Output Port** | Use Case | Interface that defines what the use case produces |
-| **Interactor** | Use Case | Implements Input Port; calls Output Port |
-| **Controller** | Adapter | Calls Input Port; translates from delivery mechanism |
-| **Presenter** | Adapter | Implements Output Port; translates to display format |
-| **Data Transfer Objects** | Use Case | Simple structures that carry data across the boundary |
-| **Gateway Interface** | Use Case | Abstraction for data persistence or external services |
-| **Gateway Implementation** | Adapter | Concrete persistence or service access |
+| Component                  | Circle   | Role                                                  |
+| -------------------------- | -------- | ----------------------------------------------------- |
+| **Input Port**             | Use Case | Interface that defines what the use case accepts      |
+| **Output Port**            | Use Case | Interface that defines what the use case produces     |
+| **Interactor**             | Use Case | Implements Input Port; calls Output Port              |
+| **Controller**             | Adapter  | Calls Input Port; translates from delivery mechanism  |
+| **Presenter**              | Adapter  | Implements Output Port; translates to display format  |
+| **Data Transfer Objects**  | Use Case | Simple structures that carry data across the boundary |
+| **Gateway Interface**      | Use Case | Abstraction for data persistence or external services |
+| **Gateway Implementation** | Adapter  | Concrete persistence or service access                |
 
 ## Boundary Crossing
 
@@ -200,13 +201,13 @@ class SmtpNotificationSender(NotificationSender):
 
 ### Where Humble Objects Appear in Clean Architecture
 
-| Boundary | Humble Object | Testable Partner |
-|----------|--------------|-----------------|
-| GUI/View | Template renderer, React component | Presenter logic that produces ViewModel |
-| Database | SQL execution, ORM save/load | Use Case logic, mapping logic |
-| External API | HTTP client wrapper | Service logic that decides what to send |
-| Filesystem | File read/write operations | Logic that decides what to read/write |
-| Clock/Random | System clock, random generator | Logic that uses injected clock/random |
+| Boundary     | Humble Object                      | Testable Partner                        |
+| ------------ | ---------------------------------- | --------------------------------------- |
+| GUI/View     | Template renderer, React component | Presenter logic that produces ViewModel |
+| Database     | SQL execution, ORM save/load       | Use Case logic, mapping logic           |
+| External API | HTTP client wrapper                | Service logic that decides what to send |
+| Filesystem   | File read/write operations         | Logic that decides what to read/write   |
+| Clock/Random | System clock, random generator     | Logic that uses injected clock/random   |
 
 ## Partial Boundaries
 
@@ -270,13 +271,13 @@ The Facade provides a simpler interface but doesn't enforce dependency direction
 
 ### Choosing Boundary Strength
 
-| Situation | Boundary Type | Cost | Protection |
-|-----------|--------------|------|------------|
-| Will definitely need to swap implementations | Full boundary (ports on both sides) | High | Complete |
-| Might need to swap; want the option | Partial (interfaces, same package) | Medium | Good |
-| Multiple strategies but stable architecture | Strategy pattern | Low-medium | Moderate |
-| Just want to simplify access to a subsystem | Facade | Low | Minimal |
-| Uncertain -- need might never arise | None (but document the decision) | Zero | None |
+| Situation                                    | Boundary Type                       | Cost       | Protection |
+| -------------------------------------------- | ----------------------------------- | ---------- | ---------- |
+| Will definitely need to swap implementations | Full boundary (ports on both sides) | High       | Complete   |
+| Might need to swap; want the option          | Partial (interfaces, same package)  | Medium     | Good       |
+| Multiple strategies but stable architecture  | Strategy pattern                    | Low-medium | Moderate   |
+| Just want to simplify access to a subsystem  | Facade                              | Low        | Minimal    |
+| Uncertain -- need might never arise          | None (but document the decision)    | Zero       | None       |
 
 ## Services as Boundaries
 
@@ -287,6 +288,7 @@ A common misconception is that splitting a system into microservices automatical
 ### When Services Create Real Boundaries
 
 A service creates a genuine architectural boundary when:
+
 - It has its own data store that no other service accesses directly
 - It communicates through well-defined interfaces (API contracts)
 - Its internal structure follows the Dependency Rule independently
@@ -294,12 +296,12 @@ A service creates a genuine architectural boundary when:
 
 ### When Services Fail as Boundaries
 
-| Anti-Pattern | Why It Fails |
-|-------------|-------------|
-| Shared database | Changes to the schema affect all services -- they're coupled |
-| Shared data model library | All services import the same DTOs -- they change together |
-| Synchronous orchestration | Service A calls B calls C calls D -- distributed monolith |
-| Chatty communication | Services exchange many small calls -- performance and coupling |
+| Anti-Pattern              | Why It Fails                                                   |
+| ------------------------- | -------------------------------------------------------------- |
+| Shared database           | Changes to the schema affect all services -- they're coupled   |
+| Shared data model library | All services import the same DTOs -- they change together      |
+| Synchronous orchestration | Service A calls B calls C calls D -- distributed monolith      |
+| Chatty communication      | Services exchange many small calls -- performance and coupling |
 
 ### Services Should Contain Clean Architecture
 
@@ -334,12 +336,12 @@ Adapter --------<depends-on------ AdapterTest
 
 ### Testing Each Circle
 
-| Circle | Test Strategy | Dependencies Needed |
-|--------|--------------|-------------------|
-| **Entities** | Unit tests with no mocks | None -- entities are self-contained |
-| **Use Cases** | Unit tests with mocked ports | Mock repositories, mock presenters |
-| **Adapters** | Integration tests | Real database (testcontainers), real HTTP |
-| **Frameworks** | End-to-end tests | Full system running |
+| Circle         | Test Strategy                | Dependencies Needed                       |
+| -------------- | ---------------------------- | ----------------------------------------- |
+| **Entities**   | Unit tests with no mocks     | None -- entities are self-contained       |
+| **Use Cases**  | Unit tests with mocked ports | Mock repositories, mock presenters        |
+| **Adapters**   | Integration tests            | Real database (testcontainers), real HTTP |
+| **Frameworks** | End-to-end tests             | Full system running                       |
 
 ### The Fragile Test Problem
 

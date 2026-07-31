@@ -44,7 +44,10 @@ test("cursor hooks template has sessionStart and sessionEnd", async () => {
   assert.ok(Array.isArray(hooks.hooks.sessionStart));
   assert.ok(Array.isArray(hooks.hooks.sessionEnd));
   assert.match(hooks.hooks.sessionStart[0].prompt, /Lean Agent Kit session/);
-  assert.match(hooks.hooks.sessionEnd[0].prompt, /leanagentkit-end-session/);
+  assert.match(hooks.hooks.sessionStart[0].prompt, /LEARNINGS\.md|ambient/i);
+  assert.match(hooks.hooks.sessionEnd[0].prompt, /ACTIVE_CONTEXT|LEARNINGS/i);
+  assert.match(hooks.hooks.sessionEnd[0].prompt, /end-session/i);
+  assert.doesNotMatch(hooks.hooks.sessionEnd[0].prompt, /prefer leanagentkit-check first/i);
 });
 
 test("cursor hooks template uses 30s timeout", async () => {

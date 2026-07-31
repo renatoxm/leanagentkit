@@ -1,17 +1,21 @@
 ---
 name: leanagentkit-start-session
-description: Start a coding session — read memory files and prime context without dumping the repo.
+description: Optional session prime — read memory and run pack hooks. AGENTS.md §6 ambient start is enough without this skill.
 ---
 
 # Skill: leanagentkit-start-session
 
-**Goal:** Prime context cheaply at the start of a **normal** or **substantial** session.
-Skip this skill for **trivial** work (see `AGENTS.md` §6).
+**Goal:** Optional checklist to prime context and run pack hooks at the start of a
+**normal** or **substantial** session. Skip for **trivial** work.
+
+**§6 ambient start is enough without invoking this skill.** Use this when you want
+pack hooks (backlog / trevor) or an explicit prime checklist.
 
 ## Procedure
 
 1. If `docs/memory/HANDOFF.md` exists and describes in-flight work, read it first.
-2. Read **first**: `docs/memory/ACTIVE_CONTEXT.md`, then `docs/CODEBASE_MAP.md`.
+2. Read **first**: `docs/memory/ACTIVE_CONTEXT.md`, then `docs/CODEBASE_MAP.md`,
+   then skim Open entries in `docs/memory/LEARNINGS.md`.
 3. If ACTIVE_CONTEXT names a feature and `docs/specs/<feature>.md` exists (spec pack),
    read that spec.
 4. From "Files in play" and "Resume from here", open those source files.

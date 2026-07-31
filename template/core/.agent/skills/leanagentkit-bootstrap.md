@@ -13,8 +13,8 @@ already installed (do not install packs unless the user chooses them).
 
 ## Principle: lean by default
 
-Only create what the project needs. Core is enough for map + session memory +
-convention check. Packs are opt-in.
+Only create what the project needs. Core is enough for map + ambient session memory +
+LEARNINGS self-improvement + convention check. Packs are opt-in.
 
 ## Step 0 — Questionnaire
 
@@ -110,11 +110,15 @@ do not claim uninstalled packs are present.
 ## Step 7 — Summarize
 
 Print: map detail, agents wired, `installedPacks`, workflow sizes (trivial /
-normal / substantial), and:
+normal / substantial), ambient memory + LEARNINGS, and:
 
 ```
-leanagentkit-start-session → work → leanagentkit-check → leanagentkit-end-session
+work (ambient touches) → leanagentkit-check → finalize
+  (end-session required when spec/backlog/git-lifecycle/trevor installed)
 ```
+
+`leanagentkit-start-session` remains optional for pack preamble hooks; §6 ambient
+reads are enough for core priming.
 
 ## Step 8 — Stamp dates
 

@@ -9,9 +9,9 @@ to run the procedure without reading the whole codebase.
 
 Invoke: **"Read `.agent/skills/generated/leanagentkit-<name>.md` and follow it."**
 
-| Generator | Artifact | Recipe | Tags | Related | Status | Last used | Authored |
-|-----------|----------|--------|------|---------|--------|-----------|----------|
-| _(none yet — run `leanagentkit-skill-artifact-template` or `leanagentkit-distill-skill` to author one)_ | | | | | | | |
+| Generator                                                                                               | Artifact | Recipe | Tags | Related | Status | Last used | Authored |
+| ------------------------------------------------------------------------------------------------------- | -------- | ------ | ---- | ------- | ------ | --------- | -------- |
+| _(none yet — run `leanagentkit-skill-artifact-template` or `leanagentkit-distill-skill` to author one)_ |          |        |      |         |        |           |          |
 
 **Status values:** `active` (default) · `pinned` (curator must not touch) · `archived` (moved to `archived/`)
 

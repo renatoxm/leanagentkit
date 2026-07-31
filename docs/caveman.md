@@ -31,7 +31,7 @@ Optional **terse output** skills adapted from [Caveman](https://github.com/Juliu
 and (optionally) chat replies — without compressing kit memory files.
 
 Caveman is a **thin style layer** — it does not replace `leanagentkit-review`,
-`leanagentkit-git-workflow`, or the memory protocol.
+`leanagentkit-git-workflow`, ambient memory / `LEARNINGS.md`, or the memory protocol.
 
 ## Do I need this pack?
 
@@ -60,12 +60,12 @@ flowchart TD
 
 ## What Caveman is / is not
 
-| Caveman is | Caveman is not |
-|------------|----------------|
-| Terse Conventional Commit message formatting | A replacement for `leanagentkit-git-workflow` principles |
-| One-line paste-ready PR review comments | A replacement for multi-axis `leanagentkit-review` |
-| Optional terse agent chat replies | Memory compression for `CODEBASE_MAP` or `ACTIVE_CONTEXT` |
-| Opt-in via `.leanagentkit/caveman.yml` | Always-on guardrails |
+| Caveman is                                   | Caveman is not                                                          |
+| -------------------------------------------- | ----------------------------------------------------------------------- |
+| Terse Conventional Commit message formatting | A replacement for `leanagentkit-git-workflow` principles                |
+| One-line paste-ready PR review comments      | A replacement for multi-axis `leanagentkit-review`                      |
+| Optional terse agent chat replies            | Memory compression for `CODEBASE_MAP`, `ACTIVE_CONTEXT`, or `LEARNINGS` |
+| Opt-in via `.leanagentkit/caveman.yml`       | Always-on guardrails                                                    |
 
 ## How it works
 
@@ -102,16 +102,16 @@ flowchart TD
 
 ```yaml
 enabled: true
-terse_communication: false   # leanagentkit-caveman — off by default
-terse_commits: true          # leanagentkit-caveman-commit
-terse_reviews: true          # leanagentkit-caveman-review
+terse_communication: false # leanagentkit-caveman — off by default
+terse_commits: true # leanagentkit-caveman-commit
+terse_reviews: true # leanagentkit-caveman-review
 ```
 
-| Toggle | Skill | Default | Notes |
-|--------|-------|---------|-------|
-| `terse_communication` | `leanagentkit-caveman` | `false` | Adds ~1–1.5k input tokens/turn when active |
-| `terse_commits` | `leanagentkit-caveman-commit` | `true` | Pairs with `leanagentkit-git-workflow` |
-| `terse_reviews` | `leanagentkit-caveman-review` | `true` | Pairs with `leanagentkit-review` |
+| Toggle                | Skill                         | Default | Notes                                      |
+| --------------------- | ----------------------------- | ------- | ------------------------------------------ |
+| `terse_communication` | `leanagentkit-caveman`        | `false` | Adds ~1–1.5k input tokens/turn when active |
+| `terse_commits`       | `leanagentkit-caveman-commit` | `true`  | Pairs with `leanagentkit-git-workflow`     |
+| `terse_reviews`       | `leanagentkit-caveman-review` | `true`  | Pairs with `leanagentkit-review`           |
 
 Integration is **active** only when `.leanagentkit/caveman.yml` exists with `enabled: true`.
 Otherwise skills remain available for explicit invoke — zero impact on the daily loop.
@@ -126,6 +126,7 @@ leanagentkit-review           →  five-axis findings report before merge
 leanagentkit-caveman-review   →  one-line PR thread comments
 
 leanagentkit-handoff          →  clear prose in HANDOFF.md (not terse)
+docs/memory/LEARNINGS.md      →  clear prose for project learnings (not terse)
 leanagentkit-caveman          →  terse chat replies only when enabled
 ```
 

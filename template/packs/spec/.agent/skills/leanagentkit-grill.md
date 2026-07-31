@@ -7,7 +7,7 @@ invocation: auto
 # Skill: leanagentkit-grill
 
 **Goal:** Close the gap between what the user wants and what the agent is about
-to build — *before* any code is written. Interview relentlessly until you reach a
+to build — _before_ any code is written. Interview relentlessly until you reach a
 shared understanding of the change.
 
 ## When to use
@@ -25,7 +25,7 @@ review — use `leanagentkit-review`.
 1. **Prime cheaply.** Read `docs/memory/ACTIVE_CONTEXT.md` and
    `docs/CODEBASE_MAP.md` first so questions are grounded in the real repo.
 2. **Interview one question at a time.** Ask a single question, give your
-   *recommended* answer, then wait for the user's response before continuing.
+   _recommended_ answer, then wait for the user's response before continuing.
    Use the host's interactive multiple-choice UI when available (see AGENTS.md
    §6 — Asking the user); fall back to inline text only when unsupported.
    Asking multiple questions at once is bewildering.

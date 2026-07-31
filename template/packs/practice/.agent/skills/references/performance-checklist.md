@@ -5,11 +5,11 @@ Quick reference for application performance. Use alongside
 
 ## Core Web Vitals targets
 
-| Metric | Good | Needs work | Poor |
-|--------|------|------------|------|
-| LCP | ≤ 2.5s | ≤ 4.0s | > 4.0s |
-| INP | ≤ 200ms | ≤ 500ms | > 500ms |
-| CLS | ≤ 0.1 | ≤ 0.25 | > 0.25 |
+| Metric | Good    | Needs work | Poor    |
+| ------ | ------- | ---------- | ------- |
+| LCP    | ≤ 2.5s  | ≤ 4.0s     | > 4.0s  |
+| INP    | ≤ 200ms | ≤ 500ms    | > 500ms |
+| CLS    | ≤ 0.1   | ≤ 0.25     | > 0.25  |
 
 ## Measure first
 
@@ -38,13 +38,13 @@ Quick reference for application performance. Use alongside
 
 ## Anti-patterns
 
-| Pattern | Fix |
-|---------|-----|
-| N+1 queries | Joins, includes, batch loading |
-| Unbounded fetches | Pagination, LIMIT |
-| Missing indexes | Index filtered/sorted columns |
-| Large bundles | Code split, audit dependencies |
-| Unoptimized images | WebP/AVIF, responsive sizes |
+| Pattern              | Fix                                  |
+| -------------------- | ------------------------------------ |
+| N+1 queries          | Joins, includes, batch loading       |
+| Unbounded fetches    | Pagination, LIMIT                    |
+| Missing indexes      | Index filtered/sorted columns        |
+| Large bundles        | Code split, audit dependencies       |
+| Unoptimized images   | WebP/AVIF, responsive sizes          |
 | Blocking main thread | Chunk long tasks, offload heavy work |
 
 ## Performance budget (typical web app)

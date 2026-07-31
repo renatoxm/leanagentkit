@@ -45,15 +45,21 @@ prune, then re-enable only what you need.
 6. Show backup path under `.leanagentkit-backup/*-prune/` if prune ran.
    Warn if PROGRESS/SCRATCH/reminders were moved — those are recoverable from backup.
    User-authored `docs/specs/<feature>.md` files are left in place.
-7. Rewrite `AGENTS.md` §6–§7 to match 1.0 protocol if still on 0.x wording
+7. Rewrite `AGENTS.md` §6–§7 to match current protocol if still on older wording
    (upgrade refreshes kit-owned `AGENTS.md` only when not preserved — **AGENTS.md
-   is preserved on upgrade and prune**). Merge 1.0 protocol sections into the user's
+   is preserved on upgrade and prune**). Merge protocol sections into the user's
    AGENTS.md carefully: keep §1–5 content; replace §6 memory protocol with the
-   map-first / workflow-sizes text from the core template; **clear stale §7**
-   practice/token/pack lines that reference packs no longer installed.
-8. Re-run `leanagentkit-wire-agent` for Cursor/Claude.
-9. Summarize: version, packs kept, prune backup path, next session command
-   (`leanagentkit-start-session`).
+   ambient / map-first / LEARNINGS / workflow-sizes text from the core template;
+   **clear stale §7** practice/token/pack lines that reference packs no longer installed.
+   Ensure `docs/memory/LEARNINGS.md` exists (upgrade adds it when missing). Merge
+   ambient + Finalize rules into preserved `AGENTS.md` §6 (upgrade does not rewrite
+   AGENTS.md).
+8. Re-run `leanagentkit-wire-agent` for Cursor/Claude — refresh LAK hooks so ambient /
+   LEARNINGS prompts replace older ceremony nudges (`--upgrade` does not touch
+   `.cursor/hooks.json`).
+9. Summarize: version, packs kept, prune backup path, next step (follow `AGENTS.md`
+   §6 ambient start — optional `leanagentkit-start-session` for pack hooks; finalize
+   via `end-session` when packs/PROGRESS apply).
 
 ## Do not
 

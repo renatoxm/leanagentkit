@@ -61,12 +61,12 @@ flowchart TD
 
 ## What it is / is not
 
-| Create skill is | Create skill is not |
-|-----------------|---------------------|
-| Orchestrator for LAK-compliant skill authoring | A replacement for `leanagentkit-distill-skill` |
-| Refactor lens (pruning, hierarchy, failure modes) | A replacement for `leanagentkit-skill-artifact-template` |
-| Craft pass after distill or artifact-template drafts | Registry maintenance — use `leanagentkit-curate-skills` |
-| Explicit-invoke meta skill | A modifier of kit-owned `leanagentkit-*.md` in user projects |
+| Create skill is                                      | Create skill is not                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| Orchestrator for LAK-compliant skill authoring       | A replacement for `leanagentkit-distill-skill`               |
+| Refactor lens (pruning, hierarchy, failure modes)    | A replacement for `leanagentkit-skill-artifact-template`     |
+| Craft pass after distill or artifact-template drafts | Registry maintenance — use `leanagentkit-curate-skills`      |
+| Explicit-invoke meta skill                           | A modifier of kit-owned `leanagentkit-*.md` in user projects |
 
 ## How it works
 
@@ -93,20 +93,20 @@ Refactor an existing file:
 
 ## When to use which skill
 
-| Goal | Skill |
-|------|-------|
-| Session workflow → reusable skill | `leanagentkit-distill-skill` → craft pass via create-skill |
-| Code example → artifact generator | `leanagentkit-skill-artifact-template` → craft pass via create-skill |
-| Requirements → new skill (greenfield) | `leanagentkit-create-skill` (create branch) |
-| Fix sprawl, duplication, skipped steps | `leanagentkit-create-skill` (refactor branch) |
-| Archive stale generators | `leanagentkit-curate-skills` |
+| Goal                                   | Skill                                                                |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| Session workflow → reusable skill      | `leanagentkit-distill-skill` → craft pass via create-skill           |
+| Code example → artifact generator      | `leanagentkit-skill-artifact-template` → craft pass via create-skill |
+| Requirements → new skill (greenfield)  | `leanagentkit-create-skill` (create branch)                          |
+| Fix sprawl, duplication, skipped steps | `leanagentkit-create-skill` (refactor branch)                        |
+| Archive stale generators               | `leanagentkit-curate-skills`                                         |
 
 ## References (read with create-skill)
 
-| File | Role |
-|------|------|
-| `references/skill-authoring-standards.md` | Frontmatter, WHAT+WHEN descriptions, section order, output paths |
-| `references/skill-craft-glossary.md` | Predictability, information hierarchy, failure modes, LAK overrides |
+| File                                      | Role                                                                |
+| ----------------------------------------- | ------------------------------------------------------------------- |
+| `references/skill-authoring-standards.md` | Frontmatter, WHAT+WHEN descriptions, section order, output paths    |
+| `references/skill-craft-glossary.md`      | Predictability, information hierarchy, failure modes, LAK overrides |
 
 ## LAK hard rules vs craft principles
 

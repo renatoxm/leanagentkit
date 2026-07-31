@@ -44,13 +44,13 @@ bash .agent/skills/scripts/check_imaginary.sh "$BASE_URL"
 
 ## Quick Reference
 
-| Action | Command sketch |
-|--------|----------------|
-| Health | `bash .agent/skills/scripts/check_imaginary.sh [base_url]` |
-| Resize | `curl -o out.webp -F "file=@in.jpg" "$BASE_URL/resize?width=800&type=webp"` |
+| Action    | Command sketch                                                                            |
+| --------- | ----------------------------------------------------------------------------------------- |
+| Health    | `bash .agent/skills/scripts/check_imaginary.sh [base_url]`                                |
+| Resize    | `curl -o out.webp -F "file=@in.jpg" "$BASE_URL/resize?width=800&type=webp"`               |
 | Smartcrop | `curl -o out.webp -F "file=@in.jpg" "$BASE_URL/smartcrop?width=500&height=400&type=webp"` |
-| Pipeline | See reference — `/pipeline` with `operations` JSON |
-| Full API | `.agent/skills/references/imaginary/api-reference.md` |
+| Pipeline  | See reference — `/pipeline` with `operations` JSON                                        |
+| Full API  | `.agent/skills/references/imaginary/api-reference.md`                                     |
 
 ## Procedure
 

@@ -28,7 +28,9 @@ test("docs sync runs and writes guide.md from core guide", () => {
   assert.match(guide, /GENERATED FILE/);
   assert.match(guide, /Map-first/);
   assert.match(guide, /Workflow sizes/);
-  assert.match(guide, /## 7\. Packs/);
+  assert.match(guide, /Ambient memory/);
+  assert.match(guide, /LEARNINGS\.md/);
+  assert.match(guide, /## 9\. Packs/);
 
   const source = readFileSync(GUIDE_SOURCE, "utf8");
   assert.match(source, /## 1\. Mental model/);

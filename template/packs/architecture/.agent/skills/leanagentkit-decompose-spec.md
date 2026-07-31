@@ -62,16 +62,16 @@ Copy `docs/specs/_SLICES_TEMPLATE.md` → `docs/specs/NNN-<feature>-slices.md`.
 
 Fill the **Work slices** table. For each row:
 
-| Column | Guidance |
-|--------|----------|
-| **ID** | `S1`, `S2`, … |
-| **Title** | Short, domain-language name |
-| **Type** | `domain` · `use_case` · `adapter` · `context` · `integration` |
-| **DependsOn** | Comma-separated IDs or `—` |
-| **Parallel** | `yes` only when parallel safety rules pass; else `no` |
-| **Contract** | Port, event, or schema ref — required for `parallel: yes` when `require_contracts: true` |
-| **FilesInPlay** | Explicit paths from CODEBASE_MAP / Approach |
-| **Status** | Start as `pending` |
+| Column          | Guidance                                                                                 |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| **ID**          | `S1`, `S2`, …                                                                            |
+| **Title**       | Short, domain-language name                                                              |
+| **Type**        | `domain` · `use_case` · `adapter` · `context` · `integration`                            |
+| **DependsOn**   | Comma-separated IDs or `—`                                                               |
+| **Parallel**    | `yes` only when parallel safety rules pass; else `no`                                    |
+| **Contract**    | Port, event, or schema ref — required for `parallel: yes` when `require_contracts: true` |
+| **FilesInPlay** | Explicit paths from CODEBASE_MAP / Approach                                              |
+| **Status**      | Start as `pending`                                                                       |
 
 Order: domain → use_case → parallel adapters/contexts → integration last.
 
@@ -90,7 +90,7 @@ If `require_contracts: true` and contracts are empty, parallel mode must not be 
 Add to parent spec frontmatter:
 
 ```markdown
-> Slices: docs/specs/NNN-<feature>-slices.md   ·   …
+> Slices: docs/specs/NNN-<feature>-slices.md · …
 ```
 
 Set `docs/memory/ACTIVE_CONTEXT.md` → Current focus to include the slices file path.

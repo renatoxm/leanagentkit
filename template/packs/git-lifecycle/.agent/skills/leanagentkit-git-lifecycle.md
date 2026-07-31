@@ -11,8 +11,8 @@ invocation: conditional
 Principles and naming live in `leanagentkit-git-workflow` — this skill handles
 detection, user prompts, and commands at lifecycle boundaries.
 
-**When active:** lifecycle skills (`implement-spec`, `end-session`) call into this
-skill's procedures. When inactive, they are silent no-ops.
+**When active:** lifecycle skills (`implement-spec`, finalize / optional `end-session`)
+call into this skill's procedures. When inactive, they are silent no-ops.
 
 **Not for:** spec authoring (`new-spec`), alignment (`grill`), or general git
 discipline without lifecycle context — use `leanagentkit-git-workflow`.
@@ -36,27 +36,27 @@ the PR step silently; branch and commit offers still work.
 
 See `.leanagentkit/git-lifecycle.yml.example` for the schema. Key fields:
 
-| Field | Default | Purpose |
-|-------|---------|---------|
-| `enabled` | `true` | Master switch |
-| `branch_prefix` | `feature` | `feature`, `fix`, `chore`, or `refactor` |
-| `default_base` | `main` | Base branch when auto-detect fails |
-| `offer_commit_on_ac` | `false` | Offer commit after each acceptance criterion |
-| `offer_commit_at_end_session` | `true` | Offer save-point commit at session end |
-| `offer_pr_when_spec_done` | `true` | Offer push + PR when spec completes |
-| `offer_babysit_after_pr` | `false` | Offer PR babysit loop after PR is created |
+| Field                         | Default   | Purpose                                      |
+| ----------------------------- | --------- | -------------------------------------------- |
+| `enabled`                     | `true`    | Master switch                                |
+| `branch_prefix`               | `feature` | `feature`, `fix`, `chore`, or `refactor`     |
+| `default_base`                | `main`    | Base branch when auto-detect fails           |
+| `offer_commit_on_ac`          | `false`   | Offer commit after each acceptance criterion |
+| `offer_commit_at_end_session` | `true`    | Offer save-point commit at session end       |
+| `offer_pr_when_spec_done`     | `true`    | Offer push + PR when spec completes          |
+| `offer_babysit_after_pr`      | `false`   | Offer PR babysit loop after PR is created    |
 
 ## Source of truth
 
-| Layer | Owns | Location |
-|-------|------|----------|
-| Spec | Problem, goal, scope, acceptance criteria, approach | `docs/specs/NNN-*.md` |
-| Git branch | Execution sandbox for implementation | recorded in spec frontmatter |
+| Layer      | Owns                                                | Location                     |
+| ---------- | --------------------------------------------------- | ---------------------------- |
+| Spec       | Problem, goal, scope, acceptance criteria, approach | `docs/specs/NNN-*.md`        |
+| Git branch | Execution sandbox for implementation                | recorded in spec frontmatter |
 
 Link them on branch create:
 
 ```markdown
-> Branch: feature/team-workspaces   ·   Backlog: BACK-12   ·   Status: active   ·   Updated: <!-- YYYY-MM-DD -->
+> Branch: feature/team-workspaces · Backlog: BACK-12 · Status: active · Updated: <!-- YYYY-MM-DD -->
 ```
 
 Branch slug from spec filename: `005-team-workspaces.md` → `team-workspaces`.
@@ -64,13 +64,13 @@ Full branch name: `{branch_prefix}/{slug}`.
 
 ## Lifecycle mapping
 
-| Kit event | Git behavior | Config gate |
-|-----------|--------------|-------------|
-| `new-spec` | **None** | — |
-| `implement-spec` start | Offer branch creation | always when active |
-| `implement-spec` AC checked | Offer commit | `offer_commit_on_ac: true` |
-| `end-session` | Offer save-point commit if dirty tree | `offer_commit_at_end_session: true` |
-| Spec `done` + `check` PASS | Offer push + PR | `offer_pr_when_spec_done: true` + `gh` |
+| Kit event                   | Git behavior                          | Config gate                            |
+| --------------------------- | ------------------------------------- | -------------------------------------- |
+| `new-spec`                  | **None**                              | —                                      |
+| `implement-spec` start      | Offer branch creation                 | always when active                     |
+| `implement-spec` AC checked | Offer commit                          | `offer_commit_on_ac: true`             |
+| `end-session` / finalize    | Offer save-point commit if dirty tree | `offer_commit_at_end_session: true`    |
+| Spec `done` + `check` PASS  | Offer push + PR                       | `offer_pr_when_spec_done: true` + `gh` |
 
 ## Branch offer (implement-spec start)
 
@@ -111,7 +111,7 @@ Resume parent-branch offers for sequential-by-AC or sequential-by-slice modes.
   (`{branch_prefix}/{slug}` or `{branch_prefix}/{slug}-integration`) before PR.
   Record the integration branch in parent spec frontmatter when created.
 
-## Commit offer (AC or end-session)
+## Commit offer (AC or finalize)
 
 Follow `leanagentkit-git-workflow` save-point pattern. **Never commit without
 explicit user confirmation.**
@@ -144,6 +144,7 @@ Only when spec `Status: done` and `leanagentkit-check` is PASS.
    git push -u origin HEAD
    ```
 4. On PR confirm:
+
    ```bash
    gh pr create --title "<feature name from spec>" --body "$(cat <<'EOF'
    ## Summary
@@ -160,6 +161,7 @@ Only when spec `Status: done` and `leanagentkit-check` is PASS.
    EOF
    )"
    ```
+
 5. Return the PR URL to the user when created.
 6. If `offer_babysit_after_pr` is true, ask (interactive UI when available):
    - Recommended: "Babysit this PR until merge-ready?"

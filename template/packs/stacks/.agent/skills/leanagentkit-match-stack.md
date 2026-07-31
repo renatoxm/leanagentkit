@@ -88,13 +88,14 @@ config (`.mcp.json` entries), and runs install commands when approved.
    - `terse_communication: true` → `leanagentkit-caveman` — terse agent replies
    - `terse_commits: true` → `leanagentkit-caveman-commit` — terse commit messages
    - `terse_reviews: true` → `leanagentkit-caveman-review` — one-line PR comments
-   Omit toggles that are `false` or missing. If `enabled` is not `true`, or the
-   file is absent, **clear** the Token efficiency subsection (leave the heading
-   with a blank body or remove generated lines). **Idempotent:** replace the entire
-   Token efficiency subsection body on re-run; never list Caveman skills under
-   Practice skills (step 7).
+     Omit toggles that are `false` or missing. If `enabled` is not `true`, or the
+     file is absent, **clear** the Token efficiency subsection (leave the heading
+     with a blank body or remove generated lines). **Idempotent:** replace the entire
+     Token efficiency subsection body on re-run; never list Caveman skills under
+     Practice skills (step 7).
 
 ## Rules
+
 - The registry is authoritative — don't hardcode install commands here.
 - Distinguish `skill` (copy-in) from `mcp` (server) rows; they install differently.
 - Idempotent: re-running updates, never duplicates snippets or re-installs needlessly.

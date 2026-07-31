@@ -13,7 +13,7 @@ pointer files from kit templates and **generates** skill wrappers from
 
 **Reads:** `.agent/install/<target>/`, `.agent/skills/leanagentkit-*.md`,
 `.agent/.leanagentkit-version` (`installedPacks`)
-**Writes:** `.cursor/rules/`, `.cursor/hooks.json` *(opt-in)*, `.cursor/skills/`, `CLAUDE.md`, `.claude/skills/`
+**Writes:** `.cursor/rules/`, `.cursor/hooks.json` _(opt-in)_, `.cursor/skills/`, `CLAUDE.md`, `.claude/skills/`
 
 **Pack-aware:** Only skills present on disk are wrapped. Core install has a small
 set; packs add more via `--enable-pack`. Do not invent wrappers for missing files.
@@ -23,12 +23,15 @@ set; packs add more via `--enable-pack`. Do not invent wrappers for missing file
 ### 1. For each selected target, copy static templates
 
 **Cursor** (`cursor` selected):
+
 - Copy `.agent/install/cursor/rules/*` → `.cursor/rules/` (create dirs as needed).
 - Do **not** copy anything from `.agent/install/cursor/skills/` — wrappers are generated in step 2.
 - **Session hooks (opt-in):** ask whether to install Cursor session hooks that nudge
-  `leanagentkit-start-session` / `leanagentkit-end-session`:
+  ambient memory (`AGENTS.md` §6) and LEARNINGS (light sessionEnd — not full finalize):
   - Recommended **Yes** on first wire when `.cursor/hooks.json` does not exist.
-  - Recommended **No** when hooks already exist unless the user wants to refresh LAK entries.
+  - Recommended **Yes** after an upgrade that changed the memory protocol, so LAK
+    hook prompts replace older start/end ceremony text.
+  - Recommended **No** when hooks already exist and the user only wants wrappers.
   - On **Yes**:
     - If `.cursor/hooks.json` is missing → copy `.agent/install/cursor/hooks.json` → `.cursor/hooks.json`.
     - If present → merge only LAK entries: for `sessionStart` and `sessionEnd`, replace
@@ -37,6 +40,7 @@ set; packs add more via `--enable-pack`. Do not invent wrappers for missing file
   - On **No** → skip hooks; continue with wrappers.
 
 **Claude Code** (`claude` selected):
+
 - Copy `.agent/install/claude/CLAUDE.md` → project root `CLAUDE.md`.
 - Do **not** copy anything from `.agent/install/claude/skills/` — wrappers are generated in step 2.
 
@@ -49,6 +53,7 @@ For every file matching `.agent/skills/leanagentkit-*.md` (top-level only — no
 2. Write a wrapper `SKILL.md` for each selected target:
 
 **Cursor** → `.cursor/skills/<name>/SKILL.md`:
+
 - Only `invocation: auto` (always-on practice guardrails) **omits**
   `disable-model-invocation`, so the agent can auto-load the skill when relevant.
 - Everything else includes `disable-model-invocation: true` so the agent only
@@ -68,6 +73,7 @@ Read `.agent/skills/<name>.md` and follow it.
 ```
 
 **Claude Code** → `.claude/skills/<name>/SKILL.md`:
+
 ```markdown
 ---
 name: <name>

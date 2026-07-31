@@ -56,16 +56,28 @@
 - **Type:** mcp (hosted at `mcp.svelte.dev`)
 - **Install (MCP, preferred):** add the remote MCP server to your agent config:
   ```json
-  { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
+  {
+    "mcpServers": {
+      "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" }
+    }
+  }
   ```
   - Claude Code / Cursor: install the plugin from the repo's `.claude-plugin` / `.cursor-plugin`.
   - Claude Code alt (MCP config): add to root `.mcp.json`:
     ```json
-    { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
+    {
+      "mcpServers": {
+        "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" }
+      }
+    }
     ```
   - Cursor alt (MCP config): add to `.cursor/mcp.json`:
     ```json
-    { "mcpServers": { "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" } } }
+    {
+      "mcpServers": {
+        "svelte": { "type": "http", "url": "https://mcp.svelte.dev/mcp" }
+      }
+    }
     ```
 - **Provides:** live Svelte 5 / SvelteKit docs retrieval, autofix, playground generation via MCP tools
 - **Playbook:** `.agent/stacks/svelte.md`

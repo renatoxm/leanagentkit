@@ -51,11 +51,11 @@ kit-only, or occupied).
 
 Classify the repo **before** offering base scaffolds:
 
-| State | Detect | Base scaffolds |
-|-------|--------|----------------|
-| **Empty** | No kit markers, no app manifest, no meaningful `src/`/`app/`/`manage.py`/`go.mod` | Offer base + additive |
+| State        | Detect                                                                                                 | Base scaffolds                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
+| **Empty**    | No kit markers, no app manifest, no meaningful `src/`/`app/`/`manage.py`/`go.mod`                      | Offer base + additive                            |
 | **Kit-only** | Kit markers present (`.agent/` + `AGENTS.md` or `docs/`), but **no app manifest** and no app code tree | Offer base + additive (see kit-only rules below) |
-| **Occupied** | Existing app detected (`package.json` with app deps, `src/`/`app/` with code, etc.) | **Additive-only** |
+| **Occupied** | Existing app detected (`package.json` with app deps, `src/`/`app/` with code, etc.)                    | **Additive-only**                                |
 
 **Kit markers:** `.agent/`, `AGENTS.md`, `docs/`, `README.md`, `LEAN_AGENT_KIT.md`,
 `LEAN_AGENT_KIT_GUIDE.md`, `.leanagentkit/`, `.vscode/` (when kit-owned), `.git/`.
@@ -118,10 +118,10 @@ continuing (same cadence as `leanagentkit-grill`).
    - `prettier` with `when: only if eslint=yes` → skip when `eslint=no`
    - `eslint` with `when: only if lang=TypeScript` → skip when `lang=JavaScript`
    - `vscode` with `when: only if ruff=yes` → skip when `ruff=no`
-   Skip questions already answered by memory (e.g. if `AGENTS.md` §2 already
-   says pnpm, default package manager to pnpm). **Never inject recipe tooling
-   questions globally** — only ask ids that appear in the recipe's
-   `## Questions` table. **Exception:** skill-level `commit_helpers` (Step 4.6).
+     Skip questions already answered by memory (e.g. if `AGENTS.md` §2 already
+     says pnpm, default package manager to pnpm). **Never inject recipe tooling
+     questions globally** — only ask ids that appear in the recipe's
+     `## Questions` table. **Exception:** skill-level `commit_helpers` (Step 4.6).
 4. **Target directory / name** — ask only when the recipe needs it (greenfield
    base apps usually need a project name or `.` for current dir). When gate is
    **kit-only** and the recipe is **`Kind: cli`**:
@@ -159,24 +159,24 @@ continuing (same cadence as `leanagentkit-grill`).
 
 Map install commands — substitute `{{pm_install_dev}}` in Step 5:
 
-| `pm` | `{{pm_install_dev}}` |
-|------|----------------------|
-| `pnpm` | `pnpm add -D` |
-| `npm` | `npm install -D` |
-| `bun` | `bun add -D` |
+| `pm`   | `{{pm_install_dev}}` |
+| ------ | -------------------- |
+| `pnpm` | `pnpm add -D`        |
+| `npm`  | `npm install -D`     |
+| `bun`  | `bun add -D`         |
 
 #### Optional lint/format and VS Code (recipe-driven)
 
 Tooling questions are **recipe-local**. Supported question ids:
 
-| id | Stack | Meaning |
-|----|-------|---------|
-| `eslint` | JS/TS | ESLint config + lint script |
-| `prettier` | JS/TS | Prettier config + format script |
-| `ruff` | Python | Ruff lint + format in `pyproject.toml` |
-| `golangci` | Go | golangci-lint config + lint script |
-| `vscode` | any | Write `.vscode/settings.json` + `extensions.json` |
-| `commit_helpers` | Node | Conventional Commits, commitizen, husky, release versioning |
+| id               | Stack  | Meaning                                                     |
+| ---------------- | ------ | ----------------------------------------------------------- |
+| `eslint`         | JS/TS  | ESLint config + lint script                                 |
+| `prettier`       | JS/TS  | Prettier config + format script                             |
+| `ruff`           | Python | Ruff lint + format in `pyproject.toml`                      |
+| `golangci`       | Go     | golangci-lint config + lint script                          |
+| `vscode`         | any    | Write `.vscode/settings.json` + `extensions.json`           |
+| `commit_helpers` | Node   | Conventional Commits, commitizen, husky, release versioning |
 
 **Rules:**
 
@@ -319,10 +319,10 @@ Merge — do not clobber unrelated scripts:
 
 Copy from `.agent/scaffolders/snippets/commit-helpers/` (kit root):
 
-| Snippet | Target |
-|---------|--------|
+| Snippet                 | Target                          |
+| ----------------------- | ------------------------------- |
 | `commitlint.config.cjs` | `{{dir}}/commitlint.config.cjs` |
-| `commit-msg` | `{{dir}}/.husky/commit-msg` |
+| `commit-msg`            | `{{dir}}/.husky/commit-msg`     |
 
 **5. Activate hooks**
 
@@ -340,12 +340,12 @@ Add (or replace an existing **Commits:** bullet) under Conventions:
 - **Commits:** Conventional Commits; subject (header) ≤ 100 chars; wrap body/footer lines at ≤ 100 (`@commitlint/config-conventional` via husky). Prefer `{{pm_commit}}`.
 ```
 
-| `pm` | `{{pm_commit}}` |
-|------|-----------------|
-| `pnpm` | `pnpm commit` |
-| `yarn` | `yarn commit` |
-| `bun` | `bun run commit` |
-| `npm` | `npm run commit` |
+| `pm`   | `{{pm_commit}}`  |
+| ------ | ---------------- |
+| `pnpm` | `pnpm commit`    |
+| `yarn` | `yarn commit`    |
+| `bun`  | `bun run commit` |
+| `npm`  | `npm run commit` |
 
 `@commitlint/config-conventional` defaults to 100 for header and body/footer
 line length — agents must respect this when drafting commits.
@@ -375,10 +375,10 @@ When `commit_helpers=yes`, also confirm:
 - [ ] `commitlint.config.cjs` exists at `{{dir}}`
 - [ ] `.husky/commit-msg` exists and references commitlint
 - [ ] `package.json` has `version`, `scripts.commit`, `scripts.release`,
-  `scripts.prepare`, and `config.commitizen.path`
+      `scripts.prepare`, and `config.commitizen.path`
 - [ ] Dev deps installed (lockfile updated when present)
 - [ ] `AGENTS.md` §4 has a **Commits:** bullet with ≤ 100 char limits and Prefer
-  `{{pm_commit}}`
+      `{{pm_commit}}`
 - [ ] Optional smoke: `cd {{dir}} && npx cz --help` (non-interactive only)
 
 ### 7. Handoff (delegate — do not re-implement)
@@ -399,15 +399,14 @@ Do **not** manually duplicate `match-stack` logic. Instead:
    `leanagentkit-bootstrap` (or at minimum `leanagentkit-map-codebase` +
    `leanagentkit-init-conventions`).
 3. Update `docs/memory/ACTIVE_CONTEXT.md` with what was scaffolded and the next
-   step (e.g. "run install, then start-session").
+   step (e.g. "run install, then follow AGENTS.md §6 ambient start").
 4. Clear scaffold notes from `SCRATCH.md` when done.
 
 ### 8. Report
 
 Print: category + item scaffolded, compiled command(s) or files written, verify
 status, `match-stack` results, any `Chains-to` still pending, and suggested next
-step (`bootstrap`, `install`, `start-session`).
-
+step (`bootstrap`, `install`, ambient §6 / optional `start-session`).
 List which optional tooling was installed vs skipped (eslint, prettier, ruff,
 golangci, vscode, commit_helpers).
 

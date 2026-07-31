@@ -41,26 +41,26 @@ Read before writing or editing:
 
 For refactor: name the target file (usually under `.agent/skills/generated/`).
 
-For a **craft pass** from another meta-skill: say *craft pass only* and name the
+For a **craft pass** from another meta-skill: say _craft pass only_ and name the
 draft file — skip Orient delegation and steps 5–6 (Register & wire, Report); the
 caller registers and reports.
 
 ## Quick Reference
 
-| Request | Path |
-|---------|------|
-| Session → skill | `leanagentkit-distill-skill` → craft pass here (craft pass only) |
-| Example → generator | `leanagentkit-skill-artifact-template` → craft pass here (craft pass only) |
-| Requirements → new skill | This skill — create branch (full flow) |
-| Fix existing generated skill | This skill — refactor branch (full flow) |
-| Stale / duplicate registry | `leanagentkit-curate-skills` |
+| Request                      | Path                                                                       |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| Session → skill              | `leanagentkit-distill-skill` → craft pass here (craft pass only)           |
+| Example → generator          | `leanagentkit-skill-artifact-template` → craft pass here (craft pass only) |
+| Requirements → new skill     | This skill — create branch (full flow)                                     |
+| Fix existing generated skill | This skill — refactor branch (full flow)                                   |
+| Stale / duplicate registry   | `leanagentkit-curate-skills`                                               |
 
 ## Procedure
 
 ### 1. Orient
 
 **Craft pass only** — when invoked from `leanagentkit-distill-skill` step 5b or
-`leanagentkit-skill-artifact-template` step 6b, or when the prompt says *craft pass*:
+`leanagentkit-skill-artifact-template` step 6b, or when the prompt says _craft pass_:
 
 - Skip delegation to distill or artifact-template.
 - Go directly to **step 4 (Refactor branch)** on the named draft file.

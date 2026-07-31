@@ -9,12 +9,12 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| example | Starter example | basic · kitchen-sink | basic | `--example {{value}}` | |
-| pm | Package manager | pnpm · npm · bun | pnpm | auto-detected by create-turbo |
-| dir | Project directory | `<name>` · `.` (TTY only) | `monorepo` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | |
+| id      | prompt                      | options                   | default                                  | → flag / param                | when |
+| ------- | --------------------------- | ------------------------- | ---------------------------------------- | ----------------------------- | ---- |
+| example | Starter example             | basic · kitchen-sink      | basic                                    | `--example {{value}}`         |      |
+| pm      | Package manager             | pnpm · npm · bun          | pnpm                                     | auto-detected by create-turbo |
+| dir     | Project directory           | `<name>` · `.` (TTY only) | `monorepo` when kit-only; `.` when empty | `{{dir}}`                     |      |
+| vscode  | VS Code workspace settings? | yes · no                  | yes                                      | write `.vscode/*`             |      |
 
 > **Note:** Both `basic` and `kitchen-sink` examples ship ESLint + Prettier
 > (`packages/eslint-config`, root Prettier). No separate lint questions.

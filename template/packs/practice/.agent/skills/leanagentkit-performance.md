@@ -27,11 +27,11 @@ complexity without gain.
 
 ## Core Web Vitals targets
 
-| Metric | Good | Needs work | Poor |
-|--------|------|------------|------|
-| LCP | ≤ 2.5s | ≤ 4.0s | > 4.0s |
-| INP | ≤ 200ms | ≤ 500ms | > 500ms |
-| CLS | ≤ 0.1 | ≤ 0.25 | > 0.25 |
+| Metric | Good    | Needs work | Poor    |
+| ------ | ------- | ---------- | ------- |
+| LCP    | ≤ 2.5s  | ≤ 4.0s     | > 4.0s  |
+| INP    | ≤ 200ms | ≤ 500ms    | > 500ms |
+| CLS    | ≤ 0.1   | ≤ 0.25     | > 0.25  |
 
 ## Workflow
 
@@ -57,15 +57,15 @@ Backend/API         → N+1 queries, missing indexes, connection pool
 
 ## Common anti-patterns
 
-| Pattern | Fix |
-|---------|-----|
-| N+1 queries | Joins, includes, batch loading |
-| Unbounded fetches | Pagination, LIMIT |
+| Pattern                  | Fix                                            |
+| ------------------------ | ---------------------------------------------- |
+| N+1 queries              | Joins, includes, batch loading                 |
+| Unbounded fetches        | Pagination, LIMIT                              |
 | Missing image dimensions | width/height, lazy below fold, priority on LCP |
-| Large initial bundle | Code split, dynamic import for heavy features |
-| Unnecessary re-renders | Stable references; memo only when profiled |
-| Missing caching | HTTP cache headers, in-memory for hot reads |
-| Blocking main thread | Chunk long tasks; offload heavy computation |
+| Large initial bundle     | Code split, dynamic import for heavy features  |
+| Unnecessary re-renders   | Stable references; memo only when profiled     |
+| Missing caching          | HTTP cache headers, in-memory for hot reads    |
+| Blocking main thread     | Chunk long tasks; offload heavy computation    |
 
 ## Performance budget (typical web app)
 
@@ -81,6 +81,7 @@ Enforce in CI when project configures bundle-size or Lighthouse checks.
 ## Metric honesty
 
 Without tool artifacts (Lighthouse JSON, CrUX, traces):
+
 - Report source-level findings only
 - Mark scorecard as `not measured`
 - Label every finding `potential impact`

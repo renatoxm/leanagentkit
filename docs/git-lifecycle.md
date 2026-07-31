@@ -49,8 +49,8 @@ flowchart TD
   q2 -->|No| maybe["Optional - enable when the team agrees on prompts"]
 ```
 
-- **Enable if** you want offers at `implement-spec` start (branch), end-session
-  (save-point commit), and spec-done (push + PR) — all confirm-before-run.
+- **Enable if** you want offers at `implement-spec` start (branch), finalize /
+  end-session (save-point commit), and spec-done (push + PR) — all confirm-before-run.
 - **Skip if** you already have a strict git ritual, or you do not use the [spec](/spec)
   pack yet.
 
@@ -65,11 +65,11 @@ flowchart TD
 
 ## Why integrate?
 
-| Without git lifecycle | With git lifecycle |
-|---------------------|-------------------|
-| Spec + memory only; you manage git yourself | Same spec workflow + offers at implement/end/done |
-| Branch whenever you remember | Branch offer at `implement-spec` start |
-| Manual PR when feature ships | Push + PR offer when spec is `done` and check passes |
+| Without git lifecycle                       | With git lifecycle                                   |
+| ------------------------------------------- | ---------------------------------------------------- |
+| Spec + memory only; you manage git yourself | Same spec workflow + offers at implement/end/done    |
+| Branch whenever you remember                | Branch offer at `implement-spec` start               |
+| Manual PR when feature ships                | Push + PR offer when spec is `done` and check passes |
 
 ## Enable in Lean Agent Kit
 
@@ -94,12 +94,12 @@ Otherwise lifecycle skills skip git lifecycle steps silently — zero impact.
 
 ```yaml
 enabled: true
-branch_prefix: feature          # feature | fix | chore | refactor
+branch_prefix: feature # feature | fix | chore | refactor
 default_base: main
-offer_commit_on_ac: false       # off by default (noisy)
+offer_commit_on_ac: false # off by default (noisy)
 offer_commit_at_end_session: true
-offer_pr_when_spec_done: true   # requires gh on PATH
-offer_babysit_after_pr: false  # offer merge-ready loop after PR is opened
+offer_pr_when_spec_done: true # requires gh on PATH
+offer_babysit_after_pr: false # offer merge-ready loop after PR is opened
 ```
 
 ## How it maps to the daily loop
@@ -107,7 +107,7 @@ offer_babysit_after_pr: false  # offer merge-ready loop after PR is opened
 ```
 leanagentkit-new-spec       →  no git hooks (docs only)
 leanagentkit-implement-spec →  offer branch at start; optional commit per AC; offer PR when done
-leanagentkit-end-session    →  offer save-point commit if working tree is dirty
+leanagentkit-end-session / finalize    →  offer save-point commit if working tree is dirty
 ```
 
 ```mermaid
@@ -127,7 +127,7 @@ When the user accepts a branch offer at `implement-spec` start, the branch name
 is recorded in the spec frontmatter:
 
 ```markdown
-> Branch: feature/team-workspaces   ·   Backlog: BACK-12   ·   Status: active   ·   Updated: 2026-07-02
+> Branch: feature/team-workspaces · Backlog: BACK-12 · Status: active · Updated: 2026-07-02
 ```
 
 Branch slug from filename: `005-team-workspaces.md` → `team-workspaces`.

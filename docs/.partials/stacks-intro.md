@@ -64,10 +64,10 @@ flowchart TD
   I --> J
 ```
 
-| Path | Skill | When |
-|------|-------|------|
-| Detect / wire | `leanagentkit-match-stack` | Existing app, or after scaffold |
-| Create / add | `leanagentkit-scaffold` | Greenfield base app or additive ORM / UI / platform |
+| Path          | Skill                      | When                                                |
+| ------------- | -------------------------- | --------------------------------------------------- |
+| Detect / wire | `leanagentkit-match-stack` | Existing app, or after scaffold                     |
+| Create / add  | `leanagentkit-scaffold`    | Greenfield base app or additive ORM / UI / platform |
 
 **Playbook vs external skill:** some registry rows install an upstream skill or
 MCP (Cloudflare, Hono, Svelte, Tailwind). Others are **playbook-only** (React,
@@ -88,12 +88,12 @@ subject and body/footer lines must be ≤ 100 chars
 (`@commitlint/config-conventional`) and prefers the package manager’s
 `commit` script (e.g. `pnpm commit`).
 
-| Situation | Commit helpers offered? |
-|-----------|-------------------------|
-| Greenfield / additive scaffold that creates or updates a Node `package.json` | Yes (default yes) |
-| Existing (occupied) app — bootstrap + `match-stack` only | No |
-| Python/Go-only recipes with no Node manifest | No |
-| Already configured (`commitlint.config.*`, `.husky/commit-msg`, or commitizen in `package.json`) | Skipped |
+| Situation                                                                                        | Commit helpers offered? |
+| ------------------------------------------------------------------------------------------------ | ----------------------- |
+| Greenfield / additive scaffold that creates or updates a Node `package.json`                     | Yes (default yes)       |
+| Existing (occupied) app — bootstrap + `match-stack` only                                         | No                      |
+| Python/Go-only recipes with no Node manifest                                                     | No                      |
+| Already configured (`commitlint.config.*`, `.husky/commit-msg`, or commitizen in `package.json`) | Skipped                 |
 
 On a **brownfield** Vite + React (or similar) repo, installing the kit and
 running bootstrap wires stack skills — it does **not** ask about commitlint or
@@ -102,7 +102,7 @@ from `leanagentkit-scaffold` Step 5 against your app directory, or install the
 packages yourself.
 
 Related: [Getting Started](/getting-started#existing-apps) · [Git lifecycle](/git-lifecycle)
-(branch/PR *offers*, not commit-message tooling) · [Caveman](/caveman) (terse
+(branch/PR _offers_, not commit-message tooling) · [Caveman](/caveman) (terse
 message style, not commitlint).
 
 ## Supported stacks (registry)

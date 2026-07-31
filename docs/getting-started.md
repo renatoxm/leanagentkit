@@ -89,11 +89,15 @@ during `leanagentkit-scaffold` on Node greenfield or additive recipes.
 
 ## Workflow sizes
 
-| Size        | Loop                                                                         |
-| ----------- | ---------------------------------------------------------------------------- |
-| Trivial     | Just work                                                                    |
-| Normal      | `start-session` → work → `check` → `end-session`                             |
-| Substantial | Enable `spec` pack → grill → new-spec → implement-spec → check → end-session |
+| Size        | Loop                                                                      |
+| ----------- | ------------------------------------------------------------------------- |
+| Trivial     | Just work                                                                 |
+| Normal      | Work with ambient touches → `check` → finalize                            |
+| Substantial | Enable `spec` pack → grill → new-spec → implement-spec → check → finalize |
+
+**Finalize:** core-only may refresh `ACTIVE_CONTEXT` alone; with `spec` /
+`backlog` / `git-lifecycle` / `trevor`, run `leanagentkit-end-session`. Details:
+[Guide](/guide).
 
 ## Add packs later
 
@@ -145,6 +149,11 @@ bunx create-lean-agent-kit@latest . --prune-to-core
 
 :::
 
+After `--upgrade`: merge ambient + Finalize into preserved `AGENTS.md` §6 (upgrade
+does not rewrite it); confirm `docs/memory/LEARNINGS.md` exists; **re-run
+`leanagentkit-wire-agent`** so Cursor hooks / CLAUDE.md pick up ambient prompts
+(`--upgrade` does not refresh `.cursor/hooks.json`).
+
 Coming from 0.x? See [Migration 1.0](/migration-1.0).
 
 ## What core scaffolds
@@ -153,6 +162,7 @@ Coming from 0.x? See [Migration 1.0](/migration-1.0).
 AGENTS.md
 docs/CODEBASE_MAP.md
 docs/memory/ACTIVE_CONTEXT.md
+docs/memory/LEARNINGS.md
 .agent/skills/          # core skills only
 .agent/install/         # Cursor / Claude templates
 LEAN_AGENT_KIT.md

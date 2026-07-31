@@ -18,10 +18,12 @@ a decision is changed by adding a new ADR that supersedes the old one.
 ## Consequences
 
 **Positive**
+
 - Decisions and their rationale survive context resets and team/agent changes.
 - Cheap for an agent to read only when a decision is being made or changed.
 
 **Negative / trade-offs**
+
 - Requires discipline to write one when a real decision is made.
 
 ## Alternatives considered

@@ -29,7 +29,9 @@ Don't push past a failing test to work on the next feature.
 Work in order. Do not skip steps.
 
 ### 1. Reproduce
+
 Make the failure happen reliably. If not reproducible:
+
 - Timing → add timestamps, try under load/concurrency
 - Environment → compare versions, env vars, CI vs local
 - State → check leaked globals, singletons, test pollution
@@ -38,7 +40,9 @@ Make the failure happen reliably. If not reproducible:
 Run the specific failing test in isolation before the full suite.
 
 ### 2. Localize
+
 Which layer?
+
 ```
 UI/Frontend → console, DOM, network
 API/Backend   → server logs, request/response
@@ -51,9 +55,11 @@ Test itself   → false negative?
 For regressions: `git bisect` to find introducing commit.
 
 ### 3. Reduce
+
 Minimal failing case — strip unrelated code/config until only the bug remains.
 
 ### 4. Fix root cause
+
 Fix underlying issue, not symptom.
 
 ```
@@ -65,14 +71,17 @@ Good fix: fix API query producing duplicates
 Ask "why?" until you reach the actual cause.
 
 ### 5. Guard
+
 Write a test that fails without the fix and passes with it.
 
 ### 6. Verify end-to-end
+
 Specific test → full suite → build → manual spot-check if applicable.
 
 ## Error-specific patterns
 
 **Test failure after change:**
+
 - Code or test wrong? Update whichever is incorrect — don't skip the test
 - Unrelated change? Check shared state, imports, globals
 - Flaky? Fix flakiness — don't ignore

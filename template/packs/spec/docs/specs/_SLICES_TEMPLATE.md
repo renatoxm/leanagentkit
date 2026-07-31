@@ -1,13 +1,13 @@
 # Work slices: <feature name>
 
 > Companion to parent spec. One slices file per feature.
-> Parent: docs/specs/NNN-<feature>.md   ·   Updated: <!-- YYYY-MM-DD -->
+> Parent: docs/specs/NNN-<feature>.md · Updated: <!-- YYYY-MM-DD -->
 
 ## Architecture diagnostics
 
-| Framework | Score (0–10) | Failed diagnostic rows |
-|-----------|--------------|------------------------|
-| Clean Architecture | <!-- e.g. 7 --> | <!-- list or "none" --> |
+| Framework            | Score (0–10)    | Failed diagnostic rows  |
+| -------------------- | --------------- | ----------------------- |
+| Clean Architecture   | <!-- e.g. 7 --> | <!-- list or "none" --> |
 | Domain-Driven Design | <!-- e.g. 6 --> | <!-- list or "none" --> |
 
 ## Bounded contexts (optional)
@@ -16,13 +16,13 @@
 
 ## Work slices
 
-| ID | Title | Type | DependsOn | Parallel | Contract | FilesInPlay | Status |
-|----|-------|------|-----------|----------|----------|-------------|--------|
-| S1 | <!-- e.g. Order aggregate --> | domain | — | no | — | <!-- paths --> | pending |
-| S2 | <!-- e.g. PlaceOrder use case + ports --> | use_case | S1 | no | <!-- port names --> | <!-- paths --> | pending |
-| S3 | <!-- e.g. HTTP adapter --> | adapter | S2 | yes | PlaceOrderInput | <!-- paths --> | pending |
-| S4 | <!-- e.g. Postgres repository --> | adapter | S2 | yes | OrderRepository | <!-- paths --> | pending |
-| S5 | <!-- e.g. Integration / wiring --> | integration | S3,S4 | no | composition root | <!-- paths --> | pending |
+| ID  | Title                                     | Type        | DependsOn | Parallel | Contract            | FilesInPlay    | Status  |
+| --- | ----------------------------------------- | ----------- | --------- | -------- | ------------------- | -------------- | ------- |
+| S1  | <!-- e.g. Order aggregate -->             | domain      | —         | no       | —                   | <!-- paths --> | pending |
+| S2  | <!-- e.g. PlaceOrder use case + ports --> | use_case    | S1        | no       | <!-- port names --> | <!-- paths --> | pending |
+| S3  | <!-- e.g. HTTP adapter -->                | adapter     | S2        | yes      | PlaceOrderInput     | <!-- paths --> | pending |
+| S4  | <!-- e.g. Postgres repository -->         | adapter     | S2        | yes      | OrderRepository     | <!-- paths --> | pending |
+| S5  | <!-- e.g. Integration / wiring -->        | integration | S3,S4     | no       | composition root    | <!-- paths --> | pending |
 
 **Type values:** `domain` · `use_case` · `adapter` · `context` · `integration`
 

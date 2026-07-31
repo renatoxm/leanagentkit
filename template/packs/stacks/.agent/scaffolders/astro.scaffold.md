@@ -9,17 +9,17 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| template | Starter template | minimal · basics · blog | minimal | `--template {{value}}` | |
-| ts | TypeScript strictness | strict · relaxed · none | strict | `--typescript strict` / `relaxed` / `false` | |
-| eslint | ESLint? | yes · no | yes | post-scaffold install | |
-| prettier | Prettier? | yes · no | yes | post-scaffold install | |
-| install | Install dependencies now? | yes · no | yes | omit `--install none` / `--install none` | |
-| git | Initialize git? | yes · no | no | omit `--git false` / `--git false` | |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` | |
-| dir | Project directory | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id       | prompt                      | options                   | default                             | → flag / param                              | when                                   |
+| -------- | --------------------------- | ------------------------- | ----------------------------------- | ------------------------------------------- | -------------------------------------- |
+| template | Starter template            | minimal · basics · blog   | minimal                             | `--template {{value}}`                      |                                        |
+| ts       | TypeScript strictness       | strict · relaxed · none   | strict                              | `--typescript strict` / `relaxed` / `false` |                                        |
+| eslint   | ESLint?                     | yes · no                  | yes                                 | post-scaffold install                       |                                        |
+| prettier | Prettier?                   | yes · no                  | yes                                 | post-scaffold install                       |                                        |
+| install  | Install dependencies now?   | yes · no                  | yes                                 | omit `--install none` / `--install none`    |                                        |
+| git      | Initialize git?             | yes · no                  | no                                  | omit `--git false` / `--git false`          |                                        |
+| pm       | Package manager             | pnpm · npm · bun          | pnpm                                | `{{pm}}`                                    |                                        |
+| dir      | Project directory           | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}`                                   |                                        |
+| vscode   | VS Code workspace settings? | yes · no                  | yes                                 | write `.vscode/*`                           | only if `eslint=yes` or `prettier=yes` |
 
 ## Command (cli kind only)
 

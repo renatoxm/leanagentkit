@@ -9,15 +9,15 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| template | Runtime template | nodejs · cloudflare-workers · cloudflare-pages · bun | nodejs | `--template {{value}}` | |
-| eslint | ESLint? | yes · no | yes | post-scaffold install | |
-| prettier | Prettier? | yes · no | yes | post-scaffold install | |
-| pm | Package manager | pnpm · npm · bun | pnpm | `--pm {{value}}` | |
-| install | Install dependencies? | yes · no | yes | omit `--install false` / `--install false` | |
-| dir | Project directory | `<name>` · `.` (TTY only) | `api` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id       | prompt                      | options                                              | default                             | → flag / param                             | when                                   |
+| -------- | --------------------------- | ---------------------------------------------------- | ----------------------------------- | ------------------------------------------ | -------------------------------------- |
+| template | Runtime template            | nodejs · cloudflare-workers · cloudflare-pages · bun | nodejs                              | `--template {{value}}`                     |                                        |
+| eslint   | ESLint?                     | yes · no                                             | yes                                 | post-scaffold install                      |                                        |
+| prettier | Prettier?                   | yes · no                                             | yes                                 | post-scaffold install                      |                                        |
+| pm       | Package manager             | pnpm · npm · bun                                     | pnpm                                | `--pm {{value}}`                           |                                        |
+| install  | Install dependencies?       | yes · no                                             | yes                                 | omit `--install false` / `--install false` |                                        |
+| dir      | Project directory           | `<name>` · `.` (TTY only)                            | `api` when kit-only; `.` when empty | `{{dir}}`                                  |                                        |
+| vscode   | VS Code workspace settings? | yes · no                                             | yes                                 | write `.vscode/*`                          | only if `eslint=yes` or `prettier=yes` |
 
 ## Command (cli kind only)
 

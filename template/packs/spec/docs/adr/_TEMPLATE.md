@@ -17,9 +17,11 @@
 ## Consequences
 
 **Positive**
+
 - <...>
 
 **Negative / trade-offs**
+
 - <...>
 
 ## Alternatives considered

@@ -39,13 +39,14 @@ decompose  →  research  →  build  →  verdict
 Break the user's idea into **2-5 independent feasibility questions**. Each
 question is one spike. Present them as a table with Given/When/Then framing:
 
-| # | Spike | Validates (Given/When/Then) | Risk |
-|---|-------|----------------------------|------|
-| 001 | websocket-streaming | Given a WS connection, when LLM streams tokens, then client receives chunks < 100ms | High |
-| 002a | pdf-parse-pdfjs | Given a multi-page PDF, when parsed with pdfjs, then structured text is extractable | Medium |
-| 002b | pdf-parse-camelot | Given a multi-page PDF, when parsed with camelot, then structured text is extractable | Medium |
+| #    | Spike               | Validates (Given/When/Then)                                                           | Risk   |
+| ---- | ------------------- | ------------------------------------------------------------------------------------- | ------ |
+| 001  | websocket-streaming | Given a WS connection, when LLM streams tokens, then client receives chunks < 100ms   | High   |
+| 002a | pdf-parse-pdfjs     | Given a multi-page PDF, when parsed with pdfjs, then structured text is extractable   | Medium |
+| 002b | pdf-parse-camelot   | Given a multi-page PDF, when parsed with camelot, then structured text is extractable | Medium |
 
 **Spike types:**
+
 - **standard** — one approach answering one question
 - **comparison** — same question, different approaches (shared number, letter suffix `a`/`b`/`c`)
 
@@ -70,9 +71,9 @@ then you build. Per spike:
 1. **Brief it.** 2-3 sentences: what this spike is, why it matters, key risk.
 2. **Surface competing approaches** if there's real choice:
 
-   | Approach | Tool/Library | Pros | Cons | Status |
-   |----------|-------------|------|------|--------|
-   | ... | ... | ... | ... | maintained / abandoned / beta |
+   | Approach | Tool/Library | Pros | Cons | Status                        |
+   | -------- | ------------ | ---- | ---- | ----------------------------- |
+   | ...      | ...          | ...  | ...  | maintained / abandoned / beta |
 
 3. **Pick one.** State why. If 2+ are credible, build quick variants within the spike.
 4. **Skip research** for pure logic with no external dependencies.
@@ -123,15 +124,19 @@ Each spike's `README.md` closes with:
 ## Verdict: VALIDATED | PARTIAL | INVALIDATED
 
 ### What worked
+
 - ...
 
 ### What didn't
+
 - ...
 
 ### Surprises
+
 - ...
 
 ### Recommendation for the real build
+
 - ...
 ```
 
@@ -147,12 +152,12 @@ back, then do a head-to-head comparison:
 ```markdown
 ## Head-to-head: pdfjs vs camelot
 
-| Dimension | pdfjs (002a) | camelot (002b) |
-|-----------|--------------|----------------|
-| Extraction quality | 9/10 structured | 7/10 table-only |
-| Setup complexity | npm install, 1 line | pip + ghostscript |
-| Perf on 100-page PDF | 3s | 18s |
-| Handles rotated text | no | yes |
+| Dimension            | pdfjs (002a)        | camelot (002b)    |
+| -------------------- | ------------------- | ----------------- |
+| Extraction quality   | 9/10 structured     | 7/10 table-only   |
+| Setup complexity     | npm install, 1 line | pip + ghostscript |
+| Perf on 100-page PDF | 3s                  | 18s               |
+| Handles rotated text | no                  | yes               |
 
 **Winner:** pdfjs for our use case. Camelot if we need table-first extraction later.
 ```

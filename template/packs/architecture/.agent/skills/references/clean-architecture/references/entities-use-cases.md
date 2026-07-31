@@ -1,12 +1,13 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Entities and Use Cases
 
 Entities and Use Cases form the two innermost circles of Clean Architecture. Entities contain Enterprise Business Rules -- the most general and highest-level rules. Use Cases contain Application Business Rules -- the automation rules specific to a particular application. Together, they represent the core value of the system, the code that is most worth protecting from external change.
 
 This reference covers entity design, use case structure, the interactor pattern, input/output boundaries, request/response models, and strategies for keeping use cases focused.
 
-
 ## Table of Contents
+
 1. [Enterprise Business Rules (Entities)](#enterprise-business-rules-entities)
 2. [Application Business Rules (Use Cases)](#application-business-rules-use-cases)
 3. [Request and Response Models](#request-and-response-models)
@@ -82,22 +83,22 @@ def test_order_calculates_total_with_tax():
 
 ### Entity Design Patterns
 
-| Pattern | When to Use | Example |
-|---------|-------------|---------|
-| **Rich domain model** | Complex business rules with many invariants | `Order` with status transitions, validation, calculations |
-| **Value objects** | Immutable concepts defined by their attributes | `Money(amount, currency)`, `Address(street, city, zip)` |
-| **Aggregates** | Cluster of entities treated as a unit for data changes | `Order` aggregate contains `OrderItems`; external code accesses items only through `Order` |
-| **Domain events** | Communicate that something meaningful happened | `Order.place()` produces `OrderPlaced` event |
-| **Factory methods** | Complex construction that enforces invariants | `Order.create(items, customer)` validates and initializes |
+| Pattern               | When to Use                                            | Example                                                                                    |
+| --------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| **Rich domain model** | Complex business rules with many invariants            | `Order` with status transitions, validation, calculations                                  |
+| **Value objects**     | Immutable concepts defined by their attributes         | `Money(amount, currency)`, `Address(street, city, zip)`                                    |
+| **Aggregates**        | Cluster of entities treated as a unit for data changes | `Order` aggregate contains `OrderItems`; external code accesses items only through `Order` |
+| **Domain events**     | Communicate that something meaningful happened         | `Order.place()` produces `OrderPlaced` event                                               |
+| **Factory methods**   | Complex construction that enforces invariants          | `Order.create(items, customer)` validates and initializes                                  |
 
 ### Common Entity Mistakes
 
-| Mistake | Why It's Wrong | Fix |
-|---------|---------------|-----|
-| Anemic entities (data-only, no behavior) | Business rules scatter into services; entity is just a DTO | Move business logic into entity methods |
-| ORM annotations on domain entities | Entity depends on database framework | Separate domain entity from persistence model |
-| Entity knows about its repository | Entity depends on infrastructure | Pass dependencies into use cases, not entities |
-| Public setters on everything | No invariant protection; any code can put entity in invalid state | Use methods that enforce business rules; make fields private |
+| Mistake                                  | Why It's Wrong                                                    | Fix                                                          |
+| ---------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------ |
+| Anemic entities (data-only, no behavior) | Business rules scatter into services; entity is just a DTO        | Move business logic into entity methods                      |
+| ORM annotations on domain entities       | Entity depends on database framework                              | Separate domain entity from persistence model                |
+| Entity knows about its repository        | Entity depends on infrastructure                                  | Pass dependencies into use cases, not entities               |
+| Public setters on everything             | No invariant protection; any code can put entity in invalid state | Use methods that enforce business rules; make fields private |
 
 ## Application Business Rules (Use Cases)
 
@@ -168,6 +169,7 @@ class PlaceOrderInteractor(PlaceOrderInput):
 The boundaries are the interfaces that separate the Use Case circle from the circles on either side. They are defined in the Use Case circle and implemented by the outer circles.
 
 **Why boundaries matter:**
+
 - The Controller depends on the Input Port (inward dependency -- correct)
 - The Presenter depends on the Output Port (inward dependency -- correct)
 - The Interactor depends on neither the Controller nor the Presenter (isolation preserved)
@@ -200,6 +202,7 @@ This is simpler and often sufficient. Use the full Output Port pattern when the 
 Request models are simple data structures that carry input data across the boundary. They are defined in the Use Case circle.
 
 **Rules for request models:**
+
 - No framework types (no `HttpRequest`, no `Form`, no `JsonNode`)
 - No entity types (the controller maps external data to the request model; the interactor maps the request model to entity calls)
 - Contain only primitives, strings, and simple nested structures
@@ -225,6 +228,7 @@ class OrderItemRequest:
 Response models carry output data across the boundary. They are defined in the Use Case circle.
 
 **Rules for response models:**
+
 - No entity types -- the Use Case extracts the relevant data from entities and populates the response
 - No framework types -- the Presenter (outer circle) converts the response into whatever format the delivery mechanism needs
 - Contain only the data the outer circle needs to fulfill its role
@@ -268,6 +272,7 @@ Each transformation is a boundary crossing. Each boundary is an opportunity to d
 Each Use Case should represent a single application operation. If you find a Use Case doing multiple things, split it.
 
 **Signs of an unfocused Use Case:**
+
 - The class name contains "And" (e.g., `CreateAndNotifyOrder`)
 - The execute method has conditional branches for fundamentally different operations
 - The class has more than 3-4 dependencies
@@ -275,11 +280,11 @@ Each Use Case should represent a single application operation. If you find a Use
 
 ### Use Case Granularity Guidelines
 
-| Granularity | Use Case Example | Notes |
-|-------------|-----------------|-------|
-| **Too coarse** | `ManageOrders` | Does everything -- create, update, cancel, refund |
-| **Right level** | `PlaceOrder`, `CancelOrder`, `RefundOrder` | Each is a single operation with clear input and output |
-| **Too fine** | `ValidateOrderItems`, `CalculateOrderTotal` | These are steps within a use case, not standalone operations |
+| Granularity     | Use Case Example                            | Notes                                                        |
+| --------------- | ------------------------------------------- | ------------------------------------------------------------ |
+| **Too coarse**  | `ManageOrders`                              | Does everything -- create, update, cancel, refund            |
+| **Right level** | `PlaceOrder`, `CancelOrder`, `RefundOrder`  | Each is a single operation with clear input and output       |
+| **Too fine**    | `ValidateOrderItems`, `CalculateOrderTotal` | These are steps within a use case, not standalone operations |
 
 ### Composing Use Cases
 
@@ -308,12 +313,14 @@ The Use Case emits a domain event; another Use Case subscribes to it. This is be
 ### Use Case Dependencies
 
 A Use Case should depend on:
+
 - **Entity types** (to call business rules)
 - **Repository interfaces** (to load and persist entities)
 - **Output port interfaces** (to present results)
 - **Domain service interfaces** (for cross-entity business operations)
 
 A Use Case should NOT depend on:
+
 - **Framework types** (HTTP, ORM, message queue)
 - **Concrete infrastructure classes** (database client, email service)
 - **Other use case concrete classes** (use input port interfaces instead)

@@ -7,9 +7,12 @@ with every install as `LEAN_AGENT_KIT_GUIDE.md`.
 
 Lean Agent Kit is **context economics**:
 
-1. **Lean context** — sessions start from `ACTIVE_CONTEXT` + `CODEBASE_MAP`, then
-   open named files. Narrow search is allowed when the map is wrong or incomplete.
+1. **Lean context** — sessions start from `ACTIVE_CONTEXT` + `CODEBASE_MAP` +
+   recent `LEARNINGS`, then open named files. Narrow search is allowed when the
+   map is wrong or incomplete.
 2. **Lean footprint** — default install is core only. Packs are opt-in overlays.
+3. **Ambient memory** — refresh focus/resume as side effects of work; capture
+   avoidable failures into `LEARNINGS.md`. Session skills are optional wrappers.
 
 It is not a replacement for your editor agent’s tools. It is a small set of
 trustworthy files so work resumes accurately.
@@ -21,35 +24,76 @@ trustworthy files so work resumes accurately.
 | `AGENTS.md`                       | Project identity, commands, conventions, protocol |
 | `docs/CODEBASE_MAP.md`            | Where things live                                 |
 | `docs/memory/ACTIVE_CONTEXT.md`   | What we’re doing now                              |
+| `docs/memory/LEARNINGS.md`        | Avoidable-mistake inbox → promote to AGENTS.md    |
 | `.agent/skills/leanagentkit-*.md` | Portable procedures                               |
 | `.agent/.leanagentkit-version`    | Version + `installedPacks`                        |
 
 ## 3. Map-first protocol
 
-1. Read `ACTIVE_CONTEXT.md`, then `CODEBASE_MAP.md`.
+1. Read `ACTIVE_CONTEXT.md`, then `CODEBASE_MAP.md`, then skim Open `LEARNINGS.md`.
 2. Open files they name.
 3. If needed, **search narrowly** (symbol, path prefix, tests for one module).
 4. Do **not** re-scan the whole repository to “get oriented.”
 
-## 4. Workflow sizes
+## 4. Ambient memory
 
-| Size        | Use when           | Loop                                                                                      |
-| ----------- | ------------------ | ----------------------------------------------------------------------------------------- |
-| Trivial     | Tiny fix, question | Work only; update ACTIVE_CONTEXT if focus changes                                         |
-| Normal      | Day-to-day coding  | `start-session` → work → `check` → `end-session`                                          |
-| Substantial | Fuzzy/new feature  | Requires **spec** pack: `grill` → `new-spec` → `implement-spec` → `check` → `end-session` |
+Default path is **ambient** for core focus/resume. Update memory on triggers
+(see `AGENTS.md` §6):
 
-Mid-task context full → `handoff` → new chat → `start-session`.
+| Trigger               | Update                                                                     |
+| --------------------- | -------------------------------------------------------------------------- |
+| Focus shifts          | `ACTIVE_CONTEXT` focus + Resume                                            |
+| Meaningful edits      | Files in play (+ Resume)                                                   |
+| Structure change      | `CODEBASE_MAP`                                                             |
+| Avoidable failure     | Append/bump `LEARNINGS`                                                    |
+| Context full mid-task | Explicit `handoff`                                                         |
+| User stopping         | **Finalize** (§6): core-only may skip `end-session`; packs/spec require it |
 
-## 5. Bookkeeping budget
+`leanagentkit-start-session` is optional (backlog/trevor preamble).
+`leanagentkit-end-session` **is** finalize when `spec` / `backlog` /
+`git-lifecycle` / `trevor` are installed — ambient ACTIVE_CONTEXT alone does not
+run PROGRESS or pack hooks.
 
-- Always (normal/substantial end): refresh `ACTIVE_CONTEXT` with a concrete resume note.
+## 5. Workflow sizes
+
+| Size        | Use when           | Loop                                                                                 |
+| ----------- | ------------------ | ------------------------------------------------------------------------------------ |
+| Trivial     | Tiny fix, question | Work only; update ACTIVE_CONTEXT if focus changes                                    |
+| Normal      | Day-to-day coding  | Work with ambient touches → `check` → finalize                                       |
+| Substantial | Fuzzy/new feature  | Requires **spec** pack: `grill` → `new-spec` → `implement-spec` → `check` → finalize |
+
+Mid-task context full → `handoff` → new chat → ambient §6 start (optional `start-session`).
+
+## 6. Bookkeeping budget
+
+- Keep `ACTIVE_CONTEXT` Resume concrete via ambient touches (not only at goodbye).
 - Map: only if structure changed.
-- PROGRESS / SCRATCH / ADRs / specs: only if the **spec** pack is installed and
-  something material changed.
+- LEARNINGS: on avoidable failures (including when AGENTS.md already had the rule).
+- PROGRESS / SCRATCH / ADRs / specs: via **finalize** / `end-session` when the
+  **spec** pack is installed.
 - Do not turn every typo fix into a session ritual.
+- Core-only: skipping `end-session` is OK if ACTIVE_CONTEXT is current. With
+  packs above, run `end-session` at stop.
 
-## 6. Core skills
+## 7. Self-improvement (`LEARNINGS.md`)
+
+Append-only inbox of mistakes that should not repeat. Skim Open at task start.
+
+**Capture** when: something failed/redone; one-line **Avoid**; likely to recur.
+Still capture when the same Avoid is already in `AGENTS.md` but was violated
+again (salience).
+
+**Promote** when `Seen:` ≥ 3 — offer to add or **strengthen** a one-liner in
+`AGENTS.md` §4 or §5 **only after user confirms**. Cap Open at ~20; merge
+duplicates by bumping `Seen:`.
+
+Example: commitlint rejects a long subject → shorten → append `commits` learning
+→ next commit reads it → after repeats, harden §4 Commits / §5 Never do.
+
+Skill `## Learned notes` (authoring pack / generated skills) are for **skill**
+gotchas. Project-wide scars live in `LEARNINGS.md`.
+
+## 8. Core skills
 
 | Skill                           | When                                             |
 | ------------------------------- | ------------------------------------------------ |
@@ -57,16 +101,16 @@ Mid-task context full → `handoff` → new chat → `start-session`.
 | `leanagentkit-map-codebase`     | Build/refresh map                                |
 | `leanagentkit-init-conventions` | Fill AGENTS §1–5 (merge + backup if file exists) |
 | `leanagentkit-wire-agent`       | Cursor / Claude wrappers                         |
-| `leanagentkit-start-session`    | Normal/substantial start                         |
-| `leanagentkit-end-session`      | Persist context                                  |
-| `leanagentkit-handoff`          | Context full mid-task                            |
-| `leanagentkit-check`            | Convention check                                 |
+| `leanagentkit-start-session`    | Optional prime + pack hooks                      |
+| `leanagentkit-end-session`      | Finalize (+ required with packs/PROGRESS)        |
+| `leanagentkit-handoff`          | Context full mid-task (explicit)                 |
+| `leanagentkit-check`            | Convention check + LEARNINGS capture             |
 | `leanagentkit-enable-pack`      | Add packs                                        |
 | `leanagentkit-migrate-1`        | 0.x → 1.0                                        |
 
 Invoke: `Read .agent/skills/leanagentkit-<name>.md and follow it.`
 
-## 7. Packs
+## 9. Packs
 
 Install:
 
@@ -104,7 +148,7 @@ Docs: [Packs](https://renatoxm.github.io/leanagentkit/packs) ·
 ### Substantial work (spec pack)
 
 ```
-grill → new-spec → implement-spec → check → end-session
+grill → new-spec → implement-spec → check → finalize
 ```
 
 Optional: `decompose-spec` when **architecture** pack + config enabled.
@@ -122,25 +166,28 @@ unavailable, or the user declines Plan, `implement-spec` **bypasses** to the
 portable implement path. Non-trivial specs should still fill Implementation
 order before coding on any host.
 
-## 8. Anti-patterns
+## 10. Anti-patterns
 
 - Requiring start/end session for every one-line fix.
+- Skipping `end-session` when packs need PROGRESS / backlog / git / trevor hooks.
 - Forbidding all search because “the map exists.”
 - Enabling every pack “just in case.”
 - Letting ACTIVE_CONTEXT go stale for weeks.
+- Ignoring repeated hook/lint failures without a LEARNINGS note.
 - Treating optional integrations (Backlog, Trevor) as required.
 
-## 9. Troubleshooting
+## 11. Troubleshooting
 
-| Symptom                   | Fix                                          |
-| ------------------------- | -------------------------------------------- |
-| Agent ignores conventions | Fill AGENTS §4–5; run `check`                |
-| Cold start every time     | `end-session` with a real resume note        |
-| Too many skills / noise   | `--prune-to-core`, enable only needed packs  |
-| Stale map                 | `map-codebase` or narrow search + update map |
-| 0.x clutter after upgrade | `migrate-1` / `--prune-to-core`              |
+| Symptom                   | Fix                                              |
+| ------------------------- | ------------------------------------------------ |
+| Agent ignores conventions | Fill AGENTS §4–5; run `check`; promote LEARNINGS |
+| Cold start every time     | Ambient Resume note (or finalize) with real next |
+| Repeat commitlint fails   | Append `commits` learning; promote after 3×      |
+| Too many skills / noise   | `--prune-to-core`, enable only needed packs      |
+| Stale map                 | `map-codebase` or narrow search + update map     |
+| 0.x clutter after upgrade | `migrate-1` / `--prune-to-core`                  |
 
-## 10. Cheat sheet
+## 12. Cheat sheet
 
 ```bash
 # Install core
@@ -156,7 +203,8 @@ npx create-lean-agent-kit@latest . --prune-to-core
 
 ```
 Trivial:     just work
-Normal:      start-session → work → check → end-session
-Substantial: grill → new-spec → implement-spec → check → end-session
-Handoff:     handoff → new chat → start-session
+Normal:      ambient work → check → finalize
+Substantial: grill → new-spec → implement-spec → check → finalize
+Handoff:     handoff → new chat → ambient §6 start
+Learning:    fail → LEARNINGS append/bump → retry → promote at Seen ≥ 3
 ```

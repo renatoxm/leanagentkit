@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Building Blocks: Entities, Value Objects, and Aggregates
 
 The tactical building blocks of Domain-Driven Design provide a vocabulary for structuring domain models. Entities, Value Objects, and Aggregates are the three most critical patterns. Getting them right determines whether a domain model is expressive and maintainable or bloated and fragile.
@@ -17,11 +18,11 @@ Ask: "If all the attributes change, is it still the same thing?"
 
 ### Identity Strategies
 
-| Strategy | How It Works | When to Use |
-|----------|-------------|-------------|
-| Natural key | Use a real-world identifier (SSN, ISBN, VIN) | When a stable, unique external identifier exists |
-| Surrogate key | Generate a synthetic ID (UUID, auto-increment) | When no natural key exists or the natural key can change |
-| Composite key | Combine multiple attributes | When identity is defined by a relationship (e.g., student + course = enrollment) |
+| Strategy      | How It Works                                   | When to Use                                                                      |
+| ------------- | ---------------------------------------------- | -------------------------------------------------------------------------------- |
+| Natural key   | Use a real-world identifier (SSN, ISBN, VIN)   | When a stable, unique external identifier exists                                 |
+| Surrogate key | Generate a synthetic ID (UUID, auto-increment) | When no natural key exists or the natural key can change                         |
+| Composite key | Combine multiple attributes                    | When identity is defined by a relationship (e.g., student + course = enrollment) |
 
 **Prefer UUIDs over auto-increment** for distributed systems. UUIDs can be generated anywhere without coordination; auto-increment requires a central authority.
 
@@ -58,13 +59,13 @@ Value Objects are the unsung heroes of domain models. Most developers default to
 
 **Benefits of Value Objects:**
 
-| Benefit | Explanation |
-|---------|-------------|
-| Immutability | No shared mutable state; safe to pass around, cache, and use in concurrent code |
-| Side-effect-free behavior | Methods return new Value Objects rather than mutating state; easy to reason about |
-| Self-validation | A Value Object validates itself on creation; an invalid Value Object can never exist |
-| Equality by value | `Money(100, "USD") == Money(100, "USD")` regardless of object reference |
-| Expressiveness | `Money` instead of `BigDecimal`; `EmailAddress` instead of `String`; domain meaning is encoded in the type |
+| Benefit                   | Explanation                                                                                                |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Immutability              | No shared mutable state; safe to pass around, cache, and use in concurrent code                            |
+| Side-effect-free behavior | Methods return new Value Objects rather than mutating state; easy to reason about                          |
+| Self-validation           | A Value Object validates itself on creation; an invalid Value Object can never exist                       |
+| Equality by value         | `Money(100, "USD") == Money(100, "USD")` regardless of object reference                                    |
+| Expressiveness            | `Money` instead of `BigDecimal`; `EmailAddress` instead of `String`; domain meaning is encoded in the type |
 
 ### Value Object Design Rules
 
@@ -76,24 +77,24 @@ Value Objects are the unsung heroes of domain models. Most developers default to
 
 ### Common Value Objects
 
-| Value Object | Replaces | Why It Is Better |
-|-------------|---------|------------------|
-| `Money(amount, currency)` | `BigDecimal` | Prevents currency mismatch errors; encapsulates rounding rules |
-| `EmailAddress(value)` | `String` | Validates format on construction; impossible to have invalid email in the system |
-| `DateRange(start, end)` | Two `Date` fields | Enforces `start <= end`; contains overlap/contains logic |
-| `Address(street, city, state, zip)` | Multiple String fields | Groups related data; validates as a unit |
-| `Quantity(value, unit)` | `int` or `double` | Prevents unit mismatch (adding kilograms to liters) |
-| `PhoneNumber(countryCode, number)` | `String` | Validates format; normalizes representation |
+| Value Object                        | Replaces               | Why It Is Better                                                                 |
+| ----------------------------------- | ---------------------- | -------------------------------------------------------------------------------- |
+| `Money(amount, currency)`           | `BigDecimal`           | Prevents currency mismatch errors; encapsulates rounding rules                   |
+| `EmailAddress(value)`               | `String`               | Validates format on construction; impossible to have invalid email in the system |
+| `DateRange(start, end)`             | Two `Date` fields      | Enforces `start <= end`; contains overlap/contains logic                         |
+| `Address(street, city, state, zip)` | Multiple String fields | Groups related data; validates as a unit                                         |
+| `Quantity(value, unit)`             | `int` or `double`      | Prevents unit mismatch (adding kilograms to liters)                              |
+| `PhoneNumber(countryCode, number)`  | `String`               | Validates format; normalizes representation                                      |
 
 ### When to Use Value Objects vs. Entities
 
-| Signal | Entity | Value Object |
-|--------|--------|-------------|
-| Needs to be tracked over time | Yes | No |
-| Has a lifecycle (created, modified, archived) | Yes | No -- replaced, not modified |
-| Two instances with same attributes are different things | Yes | No -- they are the same thing |
-| Immutability is natural | No | Yes |
-| Appears in the model as a measurement, description, or attribute | No | Yes |
+| Signal                                                           | Entity | Value Object                  |
+| ---------------------------------------------------------------- | ------ | ----------------------------- |
+| Needs to be tracked over time                                    | Yes    | No                            |
+| Has a lifecycle (created, modified, archived)                    | Yes    | No -- replaced, not modified  |
+| Two instances with same attributes are different things          | Yes    | No -- they are the same thing |
+| Immutability is natural                                          | No     | Yes                           |
+| Appears in the model as a measurement, description, or attribute | No     | Yes                           |
 
 **Rule of thumb:** If in doubt, make it a Value Object. You can always promote it to an Entity later if identity becomes important. Going the other direction (demoting an Entity to a Value Object) is much harder.
 
@@ -106,6 +107,7 @@ An Aggregate is a cluster of domain objects (entities and value objects) treated
 Without aggregates, any object in the system can hold a reference to any other object and modify it directly. This creates an impossibly tangled web of dependencies where enforcing business invariants (rules that must always be true) becomes a nightmare.
 
 Aggregates solve this by drawing a boundary:
+
 - **Inside the boundary:** Strong consistency. All invariants are enforced within a single transaction.
 - **Outside the boundary:** Eventual consistency. Changes propagate via domain events or polling.
 
@@ -117,15 +119,16 @@ Eric Evans and Vaughn Vernon established these rules, refined by the DDD communi
 
 An invariant is a rule that must always be true. Example: "An order's total must equal the sum of its line items." This invariant involves `Order` and `OrderLineItem`. Both belong in the same aggregate because the invariant spans both.
 
-| If the invariant spans... | Then... |
-|--------------------------|---------|
-| A single entity | That entity is its own aggregate |
-| An entity and its closely related objects | They form one aggregate |
-| Two independently identifiable things | They are separate aggregates; enforce the rule via eventual consistency or a domain event |
+| If the invariant spans...                 | Then...                                                                                   |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------- |
+| A single entity                           | That entity is its own aggregate                                                          |
+| An entity and its closely related objects | They form one aggregate                                                                   |
+| Two independently identifiable things     | They are separate aggregates; enforce the rule via eventual consistency or a domain event |
 
 #### Rule 2: Small Aggregates
 
 Large aggregates cause:
+
 - **Concurrency conflicts.** Two users editing different parts of the same large aggregate will conflict.
 - **Performance problems.** Loading a large aggregate means loading everything it contains.
 - **Transaction scope bloat.** Larger transaction scope means longer locks and more contention.
@@ -139,6 +142,7 @@ Large aggregates cause:
 Do not hold direct object references to other aggregates. Instead, store only the identifier:
 
 **Wrong:**
+
 ```
 class Order {
   Customer customer;  // Direct reference to another aggregate
@@ -146,6 +150,7 @@ class Order {
 ```
 
 **Right:**
+
 ```
 class Order {
   CustomerId customerId;  // Reference by ID only
@@ -162,6 +167,7 @@ When one aggregate's action should trigger a change in another aggregate, do not
 2. An event handler picks up the event and modifies the second aggregate in a separate transaction
 
 **Example:**
+
 - `Order.place()` publishes `OrderPlaced` event
 - `InventoryHandler` receives `OrderPlaced` and calls `inventory.reserve(items)`
 - These are two separate transactions
@@ -194,6 +200,7 @@ Most of the time, a small delay is acceptable. Humans rarely need true atomicity
 The Aggregate Root is the single entity through which all external interaction with the aggregate occurs:
 
 **Rules for the root:**
+
 1. External objects may only hold references to the root, never to internal entities
 2. All changes to the aggregate go through the root's methods
 3. The root enforces all aggregate invariants
@@ -201,6 +208,7 @@ The Aggregate Root is the single entity through which all external interaction w
 5. Delete the root and everything inside the aggregate is deleted
 
 **Example:**
+
 ```
 // External code interacts only with Order (the root)
 order.addLineItem(product, quantity, price)
@@ -214,13 +222,13 @@ order.calculateTotal()
 
 ### Common Aggregate Mistakes
 
-| Mistake | Consequence | Fix |
-|---------|------------|-----|
-| Making the entire object graph one aggregate | Concurrency nightmares, slow loading | Split into multiple aggregates; reference by ID |
-| Holding direct references to other aggregates | Tight coupling; cannot enforce boundaries | Replace with ID references |
-| Updating multiple aggregates in one transaction | Distributed lock contention; scaling bottleneck | Use domain events for cross-aggregate consistency |
-| Putting all logic in services instead of the aggregate root | Anemic aggregate; invariants not enforced | Move invariant-enforcing logic into the aggregate root |
-| Creating aggregates based on database tables | Data model drives domain model (backward) | Design aggregates from domain invariants, then map to persistence |
+| Mistake                                                     | Consequence                                     | Fix                                                               |
+| ----------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| Making the entire object graph one aggregate                | Concurrency nightmares, slow loading            | Split into multiple aggregates; reference by ID                   |
+| Holding direct references to other aggregates               | Tight coupling; cannot enforce boundaries       | Replace with ID references                                        |
+| Updating multiple aggregates in one transaction             | Distributed lock contention; scaling bottleneck | Use domain events for cross-aggregate consistency                 |
+| Putting all logic in services instead of the aggregate root | Anemic aggregate; invariants not enforced       | Move invariant-enforcing logic into the aggregate root            |
+| Creating aggregates based on database tables                | Data model drives domain model (backward)       | Design aggregates from domain invariants, then map to persistence |
 
 ## Putting It All Together
 

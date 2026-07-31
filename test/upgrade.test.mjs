@@ -41,6 +41,11 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
       userContext,
       "ACTIVE_CONTEXT preserved",
     );
+    assert.ok(
+      existsSync(join(dir, "docs/memory/LEARNINGS.md")),
+      "LEARNINGS.md present after upgrade",
+    );
+
     assert.doesNotMatch(
       readFileSync(join(dir, ".agent/skills/leanagentkit-bootstrap.md"), "utf8"),
       /STALE SKILL/,
@@ -59,6 +64,31 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
     assert.equal(stamp.version, PKG_VERSION);
     assert.ok(Array.isArray(stamp.installedPacks));
     assert.ok(stamp.updatedAt);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("upgrade adds missing LEARNINGS.md and preserves existing LEARNINGS content", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-upgrade-learnings-"));
+  try {
+    runCli(dir);
+    const userLearnings = "# MY CUSTOM LEARNINGS\n- keep me\n";
+    writeFileSync(join(dir, "docs/memory/LEARNINGS.md"), userLearnings);
+    runCli(dir, "--upgrade");
+    assert.equal(
+      readFileSync(join(dir, "docs/memory/LEARNINGS.md"), "utf8"),
+      userLearnings,
+      "existing LEARNINGS preserved",
+    );
+
+    rmSync(join(dir, "docs/memory/LEARNINGS.md"));
+    runCli(dir, "--upgrade");
+    assert.ok(existsSync(join(dir, "docs/memory/LEARNINGS.md")), "missing LEARNINGS added");
+    assert.match(
+      readFileSync(join(dir, "docs/memory/LEARNINGS.md"), "utf8"),
+      /Learnings|Open|Capture|Schema/i,
+    );
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

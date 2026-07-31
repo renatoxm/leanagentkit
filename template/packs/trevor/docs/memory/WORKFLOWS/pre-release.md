@@ -13,4 +13,4 @@ Run via Trevor: "Run workflow pre-release"
 2. [ ] Run `leanagentkit-check` on changed files this release
 3. [ ] Confirm spec acceptance criteria are checked; if Backlog linked, verify card ACs match
 4. [ ] Ask user: ready to mark spec `Status: done` and move Backlog card to Done? (only if check PASS and all AC met — follow `leanagentkit-backlog` rules)
-5. [ ] Offer `leanagentkit-end-session` to persist state
+5. [ ] Offer finalize (`leanagentkit-end-session`) or refresh ACTIVE_CONTEXT to persist state

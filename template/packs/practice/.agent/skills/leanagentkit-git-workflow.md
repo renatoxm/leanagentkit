@@ -12,21 +12,25 @@ keeps changes manageable and reversible.
 
 **Lifecycle prompts:** when git lifecycle integration is active (see
 `leanagentkit-git-lifecycle`), branch/commit/PR offers at `implement-spec` and
-`end-session` follow that skill — this file holds the principles and patterns.
+finalize / `end-session` follow that skill — this file holds the principles and patterns.
 
 ## Core principles
 
 ### Trunk-based development (recommended)
+
 Keep main always deployable. Short-lived feature branches (1–3 days). Prefer
 feature flags over long-lived branches for incomplete work.
 
 ### Commit early, commit often
+
 ```
 Implement slice → Test → Verify → Commit → Next slice
 ```
+
 Not: implement everything → giant commit.
 
 ### Atomic commits
+
 Each commit does one logical thing. Follow project commit conventions in
 `AGENTS.md` §3–§4 (e.g. Conventional Commits + length limits if commitlint is
 configured). When Caveman is enabled
@@ -34,6 +38,7 @@ configured). When Caveman is enabled
 to `leanagentkit-caveman-commit`.
 
 **Format:**
+
 ```
 <type>: <short imperative description>
 
@@ -43,10 +48,12 @@ to `leanagentkit-caveman-commit`.
 Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
 
 ### Separate concerns
+
 Don't mix formatting with behavior. Don't mix refactor with feature.
 Small cleanups (rename one variable) may ride with feature at reviewer discretion.
 
 ### Size targets
+
 ```
 ~100 lines  → Easy to review and revert
 ~300 lines  → OK for single logical change
@@ -164,6 +171,7 @@ git blame <file>          # who changed a line
 ## Parallel work (worktrees)
 
 For multiple agents/features in parallel:
+
 ```bash
 git worktree add ../project-feature-a feature/my-feature
 # each worktree = separate directory, own branch

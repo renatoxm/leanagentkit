@@ -101,6 +101,7 @@ const PRESERVE_ON_UPGRADE = new Set([
   "AGENTS.md",
   "docs/CODEBASE_MAP.md",
   "docs/memory/ACTIVE_CONTEXT.md",
+  "docs/memory/LEARNINGS.md",
   "docs/memory/PROGRESS.md",
   "docs/memory/SCRATCH.md",
   "docs/memory/REMINDERS.md",
@@ -1360,7 +1361,7 @@ async function runPrune(targetDir, keepPackRaw) {
   Previous stamp packs: ${onDiskPacks.join(", ") || "(none)"}${memoryNote}
 
 Important — AGENTS.md is preserved and may still list removed packs in §7.
-Review AGENTS.md §7 and clear stale pack/skill lines. Core ACTIVE_CONTEXT was kept.
+Review AGENTS.md §7 and clear stale pack/skill lines. Core ACTIVE_CONTEXT and LEARNINGS were kept.
 
 Re-enable packs with:
     npx create-lean-agent-kit@latest . --enable-pack <packs>

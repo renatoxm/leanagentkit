@@ -1,12 +1,13 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # SOLID Principles
 
 The SOLID principles are five design principles for managing dependencies at the class and module level. They were assembled and named by Robert C. Martin in the early 2000s, drawing on decades of software engineering wisdom. In Clean Architecture, SOLID principles serve as the mid-level building blocks that make the Dependency Rule possible. Without SOLID, the concentric circles would leak and the boundaries would crumble.
 
 This reference covers each principle with definitions, code examples, common violations, and practical application guidance.
 
-
 ## Table of Contents
+
 1. [SRP: The Single Responsibility Principle](#srp-the-single-responsibility-principle)
 2. [OCP: The Open-Closed Principle](#ocp-the-open-closed-principle)
 3. [LSP: The Liskov Substitution Principle](#lsp-the-liskov-substitution-principle)
@@ -84,13 +85,13 @@ Each class now serves one actor. Changes requested by the CFO only affect `PayCa
 
 ### SRP Indicators
 
-| Indicator | Likely Violation |
-|-----------|-----------------|
-| Class has methods serving different departments/teams | Multiple actors |
-| "And" in the class name (`OrderValidatorAndNotifier`) | Multiple responsibilities |
-| Class changes frequently for unrelated reasons | Multiple change drivers |
-| Merge conflicts from unrelated feature branches | Multiple actors modifying same class |
-| Unit tests require many unrelated mocks | Class does too many things |
+| Indicator                                             | Likely Violation                     |
+| ----------------------------------------------------- | ------------------------------------ |
+| Class has methods serving different departments/teams | Multiple actors                      |
+| "And" in the class name (`OrderValidatorAndNotifier`) | Multiple responsibilities            |
+| Class changes frequently for unrelated reasons        | Multiple change drivers              |
+| Merge conflicts from unrelated feature branches       | Multiple actors modifying same class |
+| Unit tests require many unrelated mocks               | Class does too many things           |
 
 ## OCP: The Open-Closed Principle
 
@@ -212,12 +213,12 @@ def test_area(rect: Rectangle):
 
 ### LSP in Practice
 
-| Violation Pattern | Why It Breaks | Fix |
-|-------------------|--------------|-----|
-| Subclass throws unexpected exceptions | Callers don't handle exceptions they didn't expect from the base type | Subclass should honor the base type's exception contract |
-| Subclass ignores methods (no-op override) | Callers rely on the method doing something | The class hierarchy is wrong; use composition or a different abstraction |
-| Subclass strengthens preconditions | Callers that work with base type fail with subtype | Subtypes may weaken preconditions, never strengthen them |
-| Subclass weakens postconditions | Callers expect guarantees the subtype doesn't provide | Subtypes may strengthen postconditions, never weaken them |
+| Violation Pattern                         | Why It Breaks                                                         | Fix                                                                      |
+| ----------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Subclass throws unexpected exceptions     | Callers don't handle exceptions they didn't expect from the base type | Subclass should honor the base type's exception contract                 |
+| Subclass ignores methods (no-op override) | Callers rely on the method doing something                            | The class hierarchy is wrong; use composition or a different abstraction |
+| Subclass strengthens preconditions        | Callers that work with base type fail with subtype                    | Subtypes may weaken preconditions, never strengthen them                 |
+| Subclass weakens postconditions           | Callers expect guarantees the subtype doesn't provide                 | Subtypes may strengthen postconditions, never weaken them                |
 
 ### LSP and Interfaces in Clean Architecture
 
@@ -383,10 +384,10 @@ def main():
 
 This is the critical insight: **the interface belongs to the high-level module, not the low-level module.**
 
-| Ownership | Meaning | Result |
-|-----------|---------|--------|
-| Interface owned by high-level module | The Use Case defines what it needs | Low-level module adapts to high-level needs |
-| Interface owned by low-level module | The database defines its capabilities | High-level module must adapt to database -- dependency NOT inverted |
+| Ownership                            | Meaning                               | Result                                                              |
+| ------------------------------------ | ------------------------------------- | ------------------------------------------------------------------- |
+| Interface owned by high-level module | The Use Case defines what it needs    | Low-level module adapts to high-level needs                         |
+| Interface owned by low-level module  | The database defines its capabilities | High-level module must adapt to database -- dependency NOT inverted |
 
 When the Use Case defines `OrderRepository`, it specifies methods like `save(order)` and `find_by_id(id)` -- business-oriented operations. The database adapter must conform to this business-oriented interface.
 
@@ -394,13 +395,13 @@ When the database adapter defines the interface, it specifies methods like `exec
 
 ### Common DIP Violations
 
-| Violation | Example | Fix |
-|-----------|---------|-----|
-| Importing concrete classes in high-level modules | `from stripe import StripeClient` in Use Case | Define `PaymentGateway` interface in Use Case; implement with Stripe in adapter |
-| Using static/global factory methods | `Database.get_instance()` in Use Case | Inject repository through constructor |
-| Depending on framework types in domain | `@Autowired` on domain class | Use plain constructor injection; wire in Main |
-| Low-level module defines the interface | `IStripeGateway` lives in the Stripe adapter package | Move interface to Use Case package; rename to `PaymentGateway` |
-| New operator in high-level code | `repo = PostgresRepository()` inside Use Case | Inject through constructor; instantiate in Main |
+| Violation                                        | Example                                              | Fix                                                                             |
+| ------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Importing concrete classes in high-level modules | `from stripe import StripeClient` in Use Case        | Define `PaymentGateway` interface in Use Case; implement with Stripe in adapter |
+| Using static/global factory methods              | `Database.get_instance()` in Use Case                | Inject repository through constructor                                           |
+| Depending on framework types in domain           | `@Autowired` on domain class                         | Use plain constructor injection; wire in Main                                   |
+| Low-level module defines the interface           | `IStripeGateway` lives in the Stripe adapter package | Move interface to Use Case package; rename to `PaymentGateway`                  |
+| New operator in high-level code                  | `repo = PostgresRepository()` inside Use Case        | Inject through constructor; instantiate in Main                                 |
 
 ### DIP and Clean Architecture
 

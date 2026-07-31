@@ -14,7 +14,7 @@ default_base: main
 # Offer a save-point commit after each acceptance criterion is checked (noisy if true)
 offer_commit_on_ac: false
 
-# Offer a save-point commit at end-session when the working tree is dirty
+# Offer a save-point commit at finalize / end-session when the working tree is dirty
 offer_commit_at_end_session: true
 
 # Offer push + gh pr create when spec Status: done and leanagentkit-check PASS

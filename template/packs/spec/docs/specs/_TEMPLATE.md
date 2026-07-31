@@ -1,7 +1,7 @@
 # Spec: <feature name>
 
 > Medium-term memory. One file per feature. Intent + acceptance criteria.
-> Backlog: <task-id>   ·   Status: draft | active | done | abandoned   ·   Updated: <!-- YYYY-MM-DD -->
+> Backlog: <task-id> · Status: draft | active | done | abandoned · Updated: <!-- YYYY-MM-DD -->
 >
 > _(Omit the `Backlog:` line until `leanagentkit-new-spec` creates a linked card
 > when Backlog.md integration is active. Omit `Branch:` until
@@ -39,8 +39,8 @@
 
 ## Approach
 
-| Area / module | Files | Change |
-|---------------|-------|--------|
+| Area / module     | Files          | Change                |
+| ----------------- | -------------- | --------------------- |
 | <!-- e.g. API --> | `path/to/file` | add / modify / delete |
 
 <!-- Data flow, ADR links, notes beyond the table. -->

@@ -41,6 +41,7 @@ test("scaffolds core only by default", () => {
     assert.ok(existsSync(join(dir, ".agent/skills/leanagentkit-migrate-1.md")), "migrate-1");
     assert.ok(existsSync(join(dir, "docs/CODEBASE_MAP.md")), "codebase map");
     assert.ok(existsSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md")), "active context");
+    assert.ok(existsSync(join(dir, "docs/memory/LEARNINGS.md")), "learnings");
     assert.ok(existsSync(join(dir, "LEAN_AGENT_KIT.md")), "README renamed");
     assert.ok(!existsSync(join(dir, "README.md")), "did not write README.md");
 
@@ -139,12 +140,14 @@ test("--prune-to-core --keep-pack retains listed packs", () => {
   }
 });
 
-test("--prune-to-core preserves core ACTIVE_CONTEXT and warns about AGENTS.md §7", () => {
+test("--prune-to-core preserves core ACTIVE_CONTEXT and LEARNINGS and warns about AGENTS.md §7", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-prune-memory-"));
   try {
     runCli(dir, "--with", "spec");
     const userContext = "# MY ACTIVE CONTEXT — do not lose\n";
+    const userLearnings = "# MY LEARNINGS — do not lose\n";
     writeFileSync(join(dir, "docs/memory/ACTIVE_CONTEXT.md"), userContext);
+    writeFileSync(join(dir, "docs/memory/LEARNINGS.md"), userLearnings);
     writeFileSync(join(dir, "docs/memory/PROGRESS.md"), "# my progress history\n");
     writeFileSync(join(dir, "docs/specs/my-feature.md"), "# user authored spec\n");
 
@@ -154,16 +157,21 @@ test("--prune-to-core preserves core ACTIVE_CONTEXT and warns about AGENTS.md §
       userContext,
       "ACTIVE_CONTEXT preserved through prune",
     );
+    assert.equal(
+      readFileSync(join(dir, "docs/memory/LEARNINGS.md"), "utf8"),
+      userLearnings,
+      "LEARNINGS preserved through prune",
+    );
     assert.ok(existsSync(join(dir, "docs/specs/my-feature.md")), "user specs left in place");
     assert.ok(!existsSync(join(dir, "docs/memory/PROGRESS.md")), "PROGRESS archived with pack");
     assert.match(out, /AGENTS\.md/i);
     assert.match(out, /§7|section 7/i);
     assert.match(out, /PROGRESS|memory file/i);
+    assert.match(out, /LEARNINGS/i);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
 });
-
 test("--enable-pack imaginary copies skill, script, reference, and config example", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-imaginary-"));
   try {

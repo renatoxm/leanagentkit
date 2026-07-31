@@ -9,10 +9,10 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param |
-|----|--------|---------|---------|----------------|
+| id       | prompt            | options                     | default    | → flag / param                    |
+| -------- | ----------------- | --------------------------- | ---------- | --------------------------------- |
 | provider | Database provider | postgresql · mysql · sqlite | postgresql | `--datasource-provider {{value}}` |
-| pm | Package manager | pnpm · npm · bun | pnpm | for install step |
+| pm       | Package manager   | pnpm · npm · bun            | pnpm       | for install step                  |
 
 ## Command (cli kind only)
 

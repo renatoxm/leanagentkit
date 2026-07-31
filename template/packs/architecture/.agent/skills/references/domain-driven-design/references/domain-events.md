@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Domain Events
 
 A domain event represents something that happened in the domain that domain experts care about. Events are named in past tense, are immutable facts, and serve as the primary mechanism for decoupling bounded contexts and achieving eventual consistency across aggregate boundaries.
@@ -9,12 +10,12 @@ A domain event captures a meaningful occurrence in the business domain. "Meaning
 
 ### Domain Events vs. Technical Events
 
-| Domain Event | Technical Event | Why It Matters |
-|-------------|----------------|----------------|
-| `OrderPlaced` | `RowInserted` | The domain expert cares about orders being placed; they do not care about database rows |
-| `PaymentReceived` | `WebhookProcessed` | The business reacts to payments; the webhook is an implementation detail |
-| `ClaimDenied` | `StatusUpdated` | Denial triggers business processes (appeals, notifications); a status update triggers nothing meaningful |
-| `InventoryDepleted` | `CountReachedZero` | The business has specific procedures for depleted inventory; zero is just a number |
+| Domain Event        | Technical Event    | Why It Matters                                                                                           |
+| ------------------- | ------------------ | -------------------------------------------------------------------------------------------------------- |
+| `OrderPlaced`       | `RowInserted`      | The domain expert cares about orders being placed; they do not care about database rows                  |
+| `PaymentReceived`   | `WebhookProcessed` | The business reacts to payments; the webhook is an implementation detail                                 |
+| `ClaimDenied`       | `StatusUpdated`    | Denial triggers business processes (appeals, notifications); a status update triggers nothing meaningful |
+| `InventoryDepleted` | `CountReachedZero` | The business has specific procedures for depleted inventory; zero is just a number                       |
 
 ### The Litmus Test
 
@@ -27,6 +28,7 @@ Ask a domain expert: "Would you care if this happened?" If yes, it is a domain e
 Domain events are always named in past tense because they represent facts that have already occurred. By the time anyone processes the event, the thing has already happened.
 
 **Correct naming:**
+
 - `OrderPlaced` -- an order was placed
 - `PaymentReceived` -- a payment was received
 - `ShipmentDispatched` -- a shipment was dispatched
@@ -34,6 +36,7 @@ Domain events are always named in past tense because they represent facts that h
 - `PolicyRenewed` -- a policy was renewed
 
 **Incorrect naming:**
+
 - `PlaceOrder` -- this is a command, not an event
 - `OrderPlacing` -- this implies the action is in progress
 - `OrderEvent` -- too generic; what happened?
@@ -43,11 +46,11 @@ Domain events are always named in past tense because they represent facts that h
 
 Be specific about what happened. Vague event names create the same problems as vague method names -- consumers cannot understand what occurred without reading the payload.
 
-| Vague | Specific | Why Specific Is Better |
-|-------|----------|----------------------|
-| `OrderChanged` | `OrderItemAdded`, `OrderItemRemoved`, `OrderAddressChanged` | Different changes trigger different business reactions |
-| `UserUpdated` | `UserEmailVerified`, `UserPasswordChanged`, `UserProfileCompleted` | A password change requires a security audit; a profile completion triggers onboarding flow |
-| `PaymentProcessed` | `PaymentAuthorized`, `PaymentCaptured`, `PaymentRefunded` | Authorization and capture are distinct business steps with different downstream effects |
+| Vague              | Specific                                                           | Why Specific Is Better                                                                     |
+| ------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `OrderChanged`     | `OrderItemAdded`, `OrderItemRemoved`, `OrderAddressChanged`        | Different changes trigger different business reactions                                     |
+| `UserUpdated`      | `UserEmailVerified`, `UserPasswordChanged`, `UserProfileCompleted` | A password change requires a security audit; a profile completion triggers onboarding flow |
+| `PaymentProcessed` | `PaymentAuthorized`, `PaymentCaptured`, `PaymentRefunded`          | Authorization and capture are distinct business steps with different downstream effects    |
 
 ### Event Naming Conventions
 
@@ -58,6 +61,7 @@ Adopt a consistent naming pattern across the codebase:
 ```
 
 Examples:
+
 - `OrderPlaced`, `OrderCancelled`, `OrderFulfilled`
 - `InvoiceSent`, `InvoicePaid`, `InvoiceOverdue`
 - `MemberRegistered`, `MemberSuspended`, `MemberReinstated`
@@ -66,45 +70,53 @@ Examples:
 
 A well-designed domain event contains:
 
-| Field | Purpose | Example |
-|-------|---------|---------|
-| `eventId` | Unique identifier for this specific event occurrence | `uuid("a1b2c3d4...")` |
-| `eventType` | The name of the event | `"OrderPlaced"` |
-| `occurredAt` | When the event happened | `"2024-03-15T14:30:00Z"` |
-| `aggregateId` | The ID of the aggregate that produced the event | `orderId: "ORD-12345"` |
-| `aggregateType` | The type of aggregate | `"Order"` |
-| `payload` | The domain-relevant data | `{ customerId, items, total, shippingAddress }` |
-| `metadata` | Technical metadata (correlation ID, causation ID, user ID) | `{ correlationId, userId }` |
+| Field           | Purpose                                                    | Example                                         |
+| --------------- | ---------------------------------------------------------- | ----------------------------------------------- |
+| `eventId`       | Unique identifier for this specific event occurrence       | `uuid("a1b2c3d4...")`                           |
+| `eventType`     | The name of the event                                      | `"OrderPlaced"`                                 |
+| `occurredAt`    | When the event happened                                    | `"2024-03-15T14:30:00Z"`                        |
+| `aggregateId`   | The ID of the aggregate that produced the event            | `orderId: "ORD-12345"`                          |
+| `aggregateType` | The type of aggregate                                      | `"Order"`                                       |
+| `payload`       | The domain-relevant data                                   | `{ customerId, items, total, shippingAddress }` |
+| `metadata`      | Technical metadata (correlation ID, causation ID, user ID) | `{ correlationId, userId }`                     |
 
 ### What Goes in the Payload
 
 Include enough data for consumers to react without calling back to the producer:
 
 **Too little:**
+
 ```json
 { "orderId": "ORD-12345" }
 ```
+
 Every consumer must call back to the Order service to get details. This creates coupling and latency.
 
 **Too much:**
+
 ```json
-{ "order": { /* entire order aggregate serialized */ } }
+{
+  "order": {
+    /* entire order aggregate serialized */
+  }
+}
 ```
+
 This bloats messages, exposes internal model details, and creates tight coupling to the aggregate structure.
 
 **Just right:**
+
 ```json
 {
   "orderId": "ORD-12345",
   "customerId": "CUST-789",
-  "items": [
-    { "productId": "PROD-1", "quantity": 2, "unitPrice": 29.99 }
-  ],
+  "items": [{ "productId": "PROD-1", "quantity": 2, "unitPrice": 29.99 }],
   "totalAmount": 59.98,
   "currency": "USD",
   "shippingAddress": { "city": "Springfield", "state": "IL" }
 }
 ```
+
 Enough for most consumers to react; detailed enough to avoid callbacks for common cases.
 
 ## Publishing Domain Events
@@ -140,11 +152,11 @@ The most reliable way to publish domain events is the transactional outbox:
 
 ### Delivery Guarantees
 
-| Guarantee | Meaning | Implementation |
-|-----------|---------|----------------|
-| At-most-once | Events may be lost but never duplicated | Fire-and-forget; no outbox; acceptable for non-critical events |
-| At-least-once | Events are never lost but may be duplicated | Outbox pattern with retry; consumers must be idempotent |
-| Exactly-once | Events are delivered exactly once | Practically impossible in distributed systems; achieve via at-least-once + idempotent consumers |
+| Guarantee     | Meaning                                     | Implementation                                                                                  |
+| ------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| At-most-once  | Events may be lost but never duplicated     | Fire-and-forget; no outbox; acceptable for non-critical events                                  |
+| At-least-once | Events are never lost but may be duplicated | Outbox pattern with retry; consumers must be idempotent                                         |
+| Exactly-once  | Events are delivered exactly once           | Practically impossible in distributed systems; achieve via at-least-once + idempotent consumers |
 
 **At-least-once with idempotent consumers** is the standard approach. Design every event handler to be safe to run multiple times with the same event.
 
@@ -152,13 +164,13 @@ The most reliable way to publish domain events is the transactional outbox:
 
 ### Internal vs. Integration Events
 
-| Aspect | Domain Event (Internal) | Integration Event (External) |
-|--------|------------------------|------------------------------|
-| Scope | Within a bounded context | Across bounded contexts |
-| Audience | Event handlers in the same context | Other teams' services |
-| Schema | Can change freely with the model | Must be versioned and backward-compatible |
-| Naming | Uses internal ubiquitous language | Uses published language (shared schema) |
-| Transport | In-process event bus or same database | Message broker (Kafka, RabbitMQ, SNS) |
+| Aspect    | Domain Event (Internal)               | Integration Event (External)              |
+| --------- | ------------------------------------- | ----------------------------------------- |
+| Scope     | Within a bounded context              | Across bounded contexts                   |
+| Audience  | Event handlers in the same context    | Other teams' services                     |
+| Schema    | Can change freely with the model      | Must be versioned and backward-compatible |
+| Naming    | Uses internal ubiquitous language     | Uses published language (shared schema)   |
+| Transport | In-process event bus or same database | Message broker (Kafka, RabbitMQ, SNS)     |
 
 ### Translation at the Boundary
 
@@ -190,17 +202,18 @@ Event sourcing stores the complete history of state changes as an ordered sequen
 
 ### When to Use Event Sourcing
 
-| Good Fit | Poor Fit |
-|----------|----------|
-| Audit requirements (financial, medical, legal) | Simple CRUD with no audit needs |
-| Complex domain with many state transitions | Domains with few state changes |
-| Need to answer "how did we get here?" | Only need current state |
-| Need to rebuild state at any point in time | No temporal query requirements |
+| Good Fit                                           | Poor Fit                                |
+| -------------------------------------------------- | --------------------------------------- |
+| Audit requirements (financial, medical, legal)     | Simple CRUD with no audit needs         |
+| Complex domain with many state transitions         | Domains with few state changes          |
+| Need to answer "how did we get here?"              | Only need current state                 |
+| Need to rebuild state at any point in time         | No temporal query requirements          |
 | High-value domain events that are worth preserving | High-volume, low-value data (telemetry) |
 
 ### Event Sourcing Mechanics
 
 **Storing events:**
+
 ```
 Stream: Order-12345
   1: OrderCreated { customerId, items }
@@ -211,6 +224,7 @@ Stream: Order-12345
 ```
 
 **Rebuilding state:**
+
 ```
 currentState = OrderCreated.apply(emptyOrder)
 currentState = PaymentAuthorized.apply(currentState)
@@ -223,12 +237,12 @@ currentState = OrderDelivered.apply(currentState)
 
 ### Event Sourcing Challenges
 
-| Challenge | Solution |
-|-----------|----------|
-| Event schema evolution | Use upcasters to transform old events into the current schema; never delete old events |
-| Performance with long event streams | Snapshots at regular intervals; read models for queries |
-| Complexity | Only use event sourcing for aggregates where it provides clear value; not everything needs to be event-sourced |
-| Debugging | Event logs provide excellent debugging and auditing; invest in tooling to browse and replay events |
+| Challenge                           | Solution                                                                                                       |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Event schema evolution              | Use upcasters to transform old events into the current schema; never delete old events                         |
+| Performance with long event streams | Snapshots at regular intervals; read models for queries                                                        |
+| Complexity                          | Only use event sourcing for aggregates where it provides clear value; not everything needs to be event-sourced |
+| Debugging                           | Event logs provide excellent debugging and auditing; invest in tooling to browse and replay events             |
 
 ## Patterns for Event Handling
 

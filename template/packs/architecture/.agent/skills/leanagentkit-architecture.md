@@ -31,12 +31,12 @@ Read config from `.leanagentkit/architecture.yml`. If `enabled: false`, skip sil
 Kit-owned reference material (no external install). See
 `.agent/skills/references/THIRD_PARTY.md` for attribution.
 
-| Reference | Path | Use for |
-|-----------|------|---------|
-| Clean Architecture | `.agent/skills/references/clean-architecture/SKILL.md` | Dependency Rule, layers, boundaries, component cycles |
-| CA deep refs | `.agent/skills/references/clean-architecture/references/` | dependency-rule, entities-use-cases, boundaries, etc. |
-| Domain-Driven Design | `.agent/skills/references/domain-driven-design/SKILL.md` | Bounded contexts, aggregates, events, strategic design |
-| DDD deep refs | `.agent/skills/references/domain-driven-design/references/` | bounded-contexts, building-blocks, domain-events, etc. |
+| Reference            | Path                                                        | Use for                                                |
+| -------------------- | ----------------------------------------------------------- | ------------------------------------------------------ |
+| Clean Architecture   | `.agent/skills/references/clean-architecture/SKILL.md`      | Dependency Rule, layers, boundaries, component cycles  |
+| CA deep refs         | `.agent/skills/references/clean-architecture/references/`   | dependency-rule, entities-use-cases, boundaries, etc.  |
+| Domain-Driven Design | `.agent/skills/references/domain-driven-design/SKILL.md`    | Bounded contexts, aggregates, events, strategic design |
+| DDD deep refs        | `.agent/skills/references/domain-driven-design/references/` | bounded-contexts, building-blocks, domain-events, etc. |
 
 Read the SKILL.md Quick Diagnostic tables when decomposing or checking boundaries.
 
@@ -44,14 +44,14 @@ Read the SKILL.md Quick Diagnostic tables when decomposing or checking boundarie
 
 See `.leanagentkit/architecture.yml.example` for the schema. Key fields:
 
-| Field | Default | Purpose |
-|-------|---------|---------|
-| `enabled` | `true` | Master switch |
-| `offer_decompose_after_spec` | `true` | Offer `leanagentkit-decompose-spec` after `new-spec` |
-| `parallel_work.enabled` | `true` | Allow parallel slice mode in `implement-spec` |
-| `parallel_work.max_parallel` | `3` | Cap concurrent parallel slices |
-| `parallel_work.require_contracts` | `true` | Block parallel until Integration contracts filled |
-| `parallel_work.use_worktrees` | `true` | One git worktree per parallel slice |
+| Field                             | Default | Purpose                                              |
+| --------------------------------- | ------- | ---------------------------------------------------- |
+| `enabled`                         | `true`  | Master switch                                        |
+| `offer_decompose_after_spec`      | `true`  | Offer `leanagentkit-decompose-spec` after `new-spec` |
+| `parallel_work.enabled`           | `true`  | Allow parallel slice mode in `implement-spec`        |
+| `parallel_work.max_parallel`      | `3`     | Cap concurrent parallel slices                       |
+| `parallel_work.require_contracts` | `true`  | Block parallel until Integration contracts filled    |
+| `parallel_work.use_worktrees`     | `true`  | One git worktree per parallel slice                  |
 
 ## Parallel safety rules
 
@@ -97,7 +97,7 @@ active, that skill offers an interactive questionnaire (or inline fallback):
   criteria or Approach touches 3+ modules): Plan implementation, Decompose,
   Implement, or Not yet (Plan recommended).
 - **Implement / Plan only** — architecture inactive, `offer_decompose_after_spec:
-  false`, or trivial spec: Plan (non-trivial) or Implement (trivial), or Not yet.
+false`, or trivial spec: Plan (non-trivial) or Implement (trivial), or Not yet.
 
 On user choice, `new-spec` chains into `leanagentkit-decompose-spec` or
 `leanagentkit-implement-spec` (after Agent-mode gate when the host is read-only).

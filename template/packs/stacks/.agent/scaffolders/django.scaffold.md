@@ -9,12 +9,12 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| name | Project name | `<project_name>` | `config` | `{{name}}` | |
-| layout | Layout | subdirectory · current directory (TTY only) | subdirectory when kit-only; current directory when empty | `.` / `{{name}}/` | |
-| ruff | Ruff (lint + format)? | yes · no | yes | post-scaffold install | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `ruff=yes` |
+| id     | prompt                      | options                                     | default                                                  | → flag / param        | when               |
+| ------ | --------------------------- | ------------------------------------------- | -------------------------------------------------------- | --------------------- | ------------------ |
+| name   | Project name                | `<project_name>`                            | `config`                                                 | `{{name}}`            |                    |
+| layout | Layout                      | subdirectory · current directory (TTY only) | subdirectory when kit-only; current directory when empty | `.` / `{{name}}/`     |                    |
+| ruff   | Ruff (lint + format)?       | yes · no                                    | yes                                                      | post-scaffold install |                    |
+| vscode | VS Code workspace settings? | yes · no                                    | yes                                                      | write `.vscode/*`     | only if `ruff=yes` |
 
 ## Command (cli kind only)
 

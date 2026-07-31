@@ -30,7 +30,7 @@ kit, answer from memory, manage personal reminders and checklists, wrap Backlog 
 run workflows, and suggest what to do next.
 
 Trevor is a **thin orchestrator** — it routes to existing skills; it does not
-replace `start-session`, specs, or the Backlog integration rules.
+replace ambient start / `start-session`, specs, or the Backlog integration rules.
 
 </div>
 <div class="guide-hero-image">
@@ -42,7 +42,7 @@ replace `start-session`, specs, or the Backlog integration rules.
 
 ```mermaid
 flowchart TD
-  q1{"Want reminders, checklists, or a kit concierge?"} -->|No| skip["Skip - use start-session and the guide"]
+  q1{"Want reminders, checklists, or a kit concierge?"} -->|No| skip["Skip - use ambient §6 and the guide"]
   q1 -->|Yes| q2{"Okay with optional nudges at session start/end?"}
   q2 -->|Yes| enable["Enable trevor"]
   q2 -->|No| maybe["Optional - enable with session_preamble false"]
@@ -54,8 +54,8 @@ flowchart TD
 
 ## Use cases
 
-- **Session preamble** — pending reminders surface at start-session (acknowledge /
-  snooze / skip).
+- **Session preamble** — pending reminders surface at ambient start / optional
+  `start-session` (acknowledge / snooze / skip).
 - **Teach the kit** — “Ask Trevor how to start a new feature” routes to the right
   skill instead of guessing.
 - **Personal checklist** — weekly review or release checklist under
@@ -65,12 +65,12 @@ flowchart TD
 
 ## What Trevor is / is not
 
-| Trevor is | Trevor is not |
-|-----------|---------------|
-| A friendly entry point for kit questions | A replacement for `leanagentkit-start-session` |
-| Personal reminders and checklists | Project blockers (use `ACTIVE_CONTEXT`) |
-| Backlog UX wrapper (delegates to `leanagentkit-backlog`) | A second source of spec truth |
-| Optional session nudges at start/end | Mandatory process on every task |
+| Trevor is                                                | Trevor is not                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------- |
+| A friendly entry point for kit questions                 | A replacement for ambient §6 / `leanagentkit-start-session` |
+| Personal reminders and checklists                        | Project blockers (use `ACTIVE_CONTEXT`)                     |
+| Backlog UX wrapper (delegates to `leanagentkit-backlog`) | A second source of spec truth                               |
+| Optional session nudges at start/end                     | Mandatory process on every task                             |
 
 Invoke anytime:
 
@@ -90,7 +90,7 @@ Or say: **"Ask Trevor …"**
 
 3. Run your normal session start:
 
-   > Read `leanagentkit-start-session` and follow it.
+   > Follow AGENTS.md §6 ambient start (or optional leanagentkit-start-session).
 
    Pending reminders surface at the end of priming (when `session_preamble: true`).
 
@@ -104,17 +104,18 @@ Or enable during bootstrap — Step 3d offers Trevor setup.
 
 All Trevor artifacts live under `docs/memory/` (user-owned, git-friendly):
 
-| Path | Purpose |
-|------|---------|
-| `docs/memory/REMINDERS.md` | Personal nudges (pending / acknowledged / done) |
-| `docs/memory/CHECKLISTS/*.md` | User-defined runnable checklists |
-| `docs/memory/WORKFLOWS/*.md` | Multi-step personal procedures |
-| `.leanagentkit/trevor.yml` | Opt-in config (not overwritten on upgrade) |
+| Path                          | Purpose                                         |
+| ----------------------------- | ----------------------------------------------- |
+| `docs/memory/REMINDERS.md`    | Personal nudges (pending / acknowledged / done) |
+| `docs/memory/CHECKLISTS/*.md` | User-defined runnable checklists                |
+| `docs/memory/WORKFLOWS/*.md`  | Multi-step personal procedures                  |
+| `.leanagentkit/trevor.yml`    | Opt-in config (not overwritten on upgrade)      |
 
 ### Reminder schema
 
 ```markdown
 ## R-001 · Review auth spec with team
+
 - created: 2026-07-01
 - show_after: 2026-07-02
 - status: pending | acknowledged | done
@@ -133,20 +134,20 @@ enabled: true
 session_preamble: true
 max_reminders_per_session: 3
 end_session_capture: true
-checklist_default_mode: guided   # guided | batch
+checklist_default_mode: guided # guided | batch
 ```
 
 ## Modes
 
-| Mode | Trigger | Reads / writes |
-|------|---------|----------------|
-| **Teach** | how, teach, which skill | Routes to guide + kit skills |
-| **Answer** | project status, where is | `ACTIVE_CONTEXT`, `CODEBASE_MAP`, linked spec |
-| **Reminders** | remind, snooze, acknowledge | `REMINDERS.md` |
-| **Checklists** | run checklist | `CHECKLISTS/*.md` |
-| **Backlog UX** | board, move card, kanban | Delegates to `leanagentkit-backlog` |
-| **What next** | what should I do | Synthesizes resume + Backlog + reminders |
-| **Workflows** | run workflow | `WORKFLOWS/*.md` |
+| Mode           | Trigger                     | Reads / writes                                |
+| -------------- | --------------------------- | --------------------------------------------- |
+| **Teach**      | how, teach, which skill     | Routes to guide + kit skills                  |
+| **Answer**     | project status, where is    | `ACTIVE_CONTEXT`, `CODEBASE_MAP`, linked spec |
+| **Reminders**  | remind, snooze, acknowledge | `REMINDERS.md`                                |
+| **Checklists** | run checklist               | `CHECKLISTS/*.md`                             |
+| **Backlog UX** | board, move card, kanban    | Delegates to `leanagentkit-backlog`           |
+| **What next**  | what should I do            | Synthesizes resume + Backlog + reminders      |
+| **Workflows**  | run workflow                | `WORKFLOWS/*.md`                              |
 
 ### Checklists: guided vs batch
 
@@ -173,7 +174,8 @@ when the spec is genuinely finished (same no-false-Done rule as the daily loop).
 
 ### Start session
 
-When `enabled: true` and `session_preamble: true`, `leanagentkit-start-session`
+When `enabled: true` and `session_preamble: true`, ambient start / optional
+`leanagentkit-start-session`
 shows up to `max_reminders_per_session` pending reminders (default 3), one at a
 time:
 
@@ -185,7 +187,7 @@ Prefix: `[🤖 Trevor]`. Session continues normally after reminders.
 
 ### End session
 
-When `end_session_capture: true`, `leanagentkit-end-session` asks once whether to
+When `end_session_capture: true`, finalize / `leanagentkit-end-session` asks once whether to
 save a reminder for next session.
 
 **Opt out:** set `enabled: false` or `session_preamble: false` /
@@ -195,29 +197,29 @@ save a reminder for next session.
 
 ```mermaid
 flowchart LR
-  startSession[start-session] --> trevorPreamble[Trevor preamble optional]
+  ambientStart[ambient start] --> trevorPreamble[Trevor preamble optional]
   trevorPreamble --> priming[Memory priming]
   priming --> work[Work loop]
   work --> check[check]
-  check --> endSession[end-session]
-  endSession --> trevorCapture[Trevor capture optional]
+  check --> finalize[finalize]
+  finalize --> trevorCapture[Trevor capture optional]
   askTrevor[ask-trevor anytime] --> teach[Teach / Answer / Reminders / etc]
 ```
 
 ```
-leanagentkit-start-session → (Trevor reminders?) → work → check → end-session → (Trevor capture?)
+ambient §6 → (Trevor reminders?) → work → check → finalize → (Trevor capture?)
 ```
 
 Trevor does not change spec-driven workflow: grill → new-spec → implement-spec.
 
 ## Open work semantics
 
-| Source | Owns |
-|--------|------|
+| Source           | Owns                                         |
+| ---------------- | -------------------------------------------- |
 | `ACTIVE_CONTEXT` | Current project focus, blockers, resume note |
-| `docs/specs/` | Feature scope and acceptance criteria |
-| Backlog card | Status / Kanban visualization |
-| `REMINDERS.md` | Personal nudges (not project truth) |
+| `docs/specs/`    | Feature scope and acceptance criteria        |
+| Backlog card     | Status / Kanban visualization                |
+| `REMINDERS.md`   | Personal nudges (not project truth)          |
 
 ## Team vs personal
 

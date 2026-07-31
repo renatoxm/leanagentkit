@@ -16,14 +16,14 @@
 > **Do not add tooling questions unless this recipe can install them
 > non-interactively.** Additive scaffolds (ORM, UI) inherit base-app tooling.
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| `<id>` | `<question>` | `<opt-a>` · `<opt-b>` | `<default>` | `<flag or {{param}}>` | |
-| `eslint` | ESLint? | yes · no | yes | post-scaffold install | JS/TS only |
-| `prettier` | Prettier? | yes · no | yes | post-scaffold install | optional: only if `eslint=yes` |
-| `ruff` | Ruff (lint + format)? | yes · no | yes | post-scaffold install | Python only |
-| `golangci` | golangci-lint? | yes · no | yes | post-scaffold install | Go only |
-| `vscode` | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if recipe has `## VS Code` |
+| id         | prompt                      | options               | default     | → flag / param        | when                            |
+| ---------- | --------------------------- | --------------------- | ----------- | --------------------- | ------------------------------- |
+| `<id>`     | `<question>`                | `<opt-a>` · `<opt-b>` | `<default>` | `<flag or {{param}}>` |                                 |
+| `eslint`   | ESLint?                     | yes · no              | yes         | post-scaffold install | JS/TS only                      |
+| `prettier` | Prettier?                   | yes · no              | yes         | post-scaffold install | optional: only if `eslint=yes`  |
+| `ruff`     | Ruff (lint + format)?       | yes · no              | yes         | post-scaffold install | Python only                     |
+| `golangci` | golangci-lint?              | yes · no              | yes         | post-scaffold install | Go only                         |
+| `vscode`   | VS Code workspace settings? | yes · no              | yes         | write `.vscode/*`     | only if recipe has `## VS Code` |
 
 ## Command (cli kind only)
 

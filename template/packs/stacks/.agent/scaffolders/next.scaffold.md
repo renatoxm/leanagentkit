@@ -9,17 +9,17 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| ts | TypeScript? | yes · no | yes | `--ts` / `--js` | |
-| tailwind | Tailwind CSS? | yes · no | yes | `--tailwind` / `--no-tailwind` | |
-| eslint | ESLint? | yes · no | yes | `--eslint` / `--no-eslint` | |
-| prettier | Prettier? | yes · no | yes | post-scaffold install | only if `eslint=yes` |
-| router | Router | App Router · Pages Router | App Router | `--app` / `--no-app` | |
-| src_dir | Use `src/` directory? | yes · no | yes | `--src-dir` / `--no-src-dir` | |
-| pm | Package manager | pnpm · npm · bun | pnpm | `--use-pnpm` / `--use-npm` / `--use-bun` | |
-| dir | Project directory | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id       | prompt                      | options                   | default                             | → flag / param                           | when                                   |
+| -------- | --------------------------- | ------------------------- | ----------------------------------- | ---------------------------------------- | -------------------------------------- |
+| ts       | TypeScript?                 | yes · no                  | yes                                 | `--ts` / `--js`                          |                                        |
+| tailwind | Tailwind CSS?               | yes · no                  | yes                                 | `--tailwind` / `--no-tailwind`           |                                        |
+| eslint   | ESLint?                     | yes · no                  | yes                                 | `--eslint` / `--no-eslint`               |                                        |
+| prettier | Prettier?                   | yes · no                  | yes                                 | post-scaffold install                    | only if `eslint=yes`                   |
+| router   | Router                      | App Router · Pages Router | App Router                          | `--app` / `--no-app`                     |                                        |
+| src_dir  | Use `src/` directory?       | yes · no                  | yes                                 | `--src-dir` / `--no-src-dir`             |                                        |
+| pm       | Package manager             | pnpm · npm · bun          | pnpm                                | `--use-pnpm` / `--use-npm` / `--use-bun` |                                        |
+| dir      | Project directory           | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}`                                |                                        |
+| vscode   | VS Code workspace settings? | yes · no                  | yes                                 | write `.vscode/*`                        | only if `eslint=yes` or `prettier=yes` |
 
 ## Command (cli kind only)
 

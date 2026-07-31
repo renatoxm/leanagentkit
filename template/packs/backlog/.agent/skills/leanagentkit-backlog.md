@@ -10,9 +10,9 @@ invocation: conditional
 optional visual task layer. The **spec** (`docs/specs/NNN-*.md`) is the source of
 truth for content; the **Backlog card** is the status/visualization layer.
 
-**When active:** other lifecycle skills (`start-session`, `new-spec`, `implement-spec`,
-`check`, `end-session`) call into this skill's procedures. When inactive, they are
-silent no-ops.
+**When active:** other lifecycle skills (ambient start / optional `start-session`,
+`new-spec`, `implement-spec`, `check`, finalize / optional `end-session`) call into
+this skill's procedures. When inactive, they are silent no-ops.
 
 ## Detection contract
 
@@ -53,10 +53,10 @@ After init, re-run `leanagentkit-match-stack` (or complete bootstrap Step 3) so
 
 ## Source of truth
 
-| Layer | Owns | Location |
-|-------|------|----------|
-| Spec | Problem, goal, scope, acceptance criteria, approach | `docs/specs/NNN-*.md` |
-| Backlog card | Status, Kanban column, visual AC checkboxes, notes | `backlog/tasks/*.md` |
+| Layer        | Owns                                                | Location              |
+| ------------ | --------------------------------------------------- | --------------------- |
+| Spec         | Problem, goal, scope, acceptance criteria, approach | `docs/specs/NNN-*.md` |
+| Backlog card | Status, Kanban column, visual AC checkboxes, notes  | `backlog/tasks/*.md`  |
 
 Link them:
 
@@ -69,14 +69,14 @@ duplicate scope edits in both places.
 
 ## Status mapping
 
-| Kit event | Backlog card status | Condition |
-|-----------|---------------------|-----------|
-| `new-spec` creates card | `To Do` | Always when active |
-| `implement-spec` starts | `In Progress` | Spec has linked card |
-| `implement-spec` checks AC | `--check-ac N` | As each spec AC is met |
-| Spec `Status: done` | `Done` | All AC checked + `leanagentkit-check` PASS |
-| `end-session` | `Done` | **Only** when spec is `Status: done` |
-| `end-session` (incomplete) | sync notes only | Never auto-complete |
+| Kit event                             | Backlog card status | Condition                                  |
+| ------------------------------------- | ------------------- | ------------------------------------------ |
+| `new-spec` creates card               | `To Do`             | Always when active                         |
+| `implement-spec` starts               | `In Progress`       | Spec has linked card                       |
+| `implement-spec` checks AC            | `--check-ac N`      | As each spec AC is met                     |
+| Spec `Status: done`                   | `Done`              | All AC checked + `leanagentkit-check` PASS |
+| `end-session` / finalize              | `Done`              | **Only** when spec is `Status: done`       |
+| `end-session` / finalize (incomplete) | sync notes only     | Never auto-complete                        |
 
 **No false Done:** ending a session does **not** complete a card. Move to `Done`
 only when the spec is genuinely finished.
@@ -109,7 +109,7 @@ backlog task create "<feature name>" \
 Record the returned task id in the spec frontmatter:
 
 ```markdown
-> Backlog: <task-id>   ·   Status: draft | active | done | abandoned   ·   Updated: <!-- YYYY-MM-DD -->
+> Backlog: <task-id> · Status: draft | active | done | abandoned · Updated: <!-- YYYY-MM-DD -->
 ```
 
 ### Implement spec — move to In Progress

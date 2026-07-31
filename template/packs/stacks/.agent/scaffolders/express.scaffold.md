@@ -9,14 +9,14 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| name | Package name | `<name>` | `api` | `{{name}}` | |
-| ts | TypeScript? | yes · no | yes | `{{use_ts}}` | |
-| eslint | ESLint? | yes · no | yes | add lint deps | |
-| prettier | Prettier? | yes · no | yes | add format deps | |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id       | prompt                      | options          | default | → flag / param    | when                                   |
+| -------- | --------------------------- | ---------------- | ------- | ----------------- | -------------------------------------- |
+| name     | Package name                | `<name>`         | `api`   | `{{name}}`        |                                        |
+| ts       | TypeScript?                 | yes · no         | yes     | `{{use_ts}}`      |                                        |
+| eslint   | ESLint?                     | yes · no         | yes     | add lint deps     |                                        |
+| prettier | Prettier?                   | yes · no         | yes     | add format deps   |                                        |
+| pm       | Package manager             | pnpm · npm · bun | pnpm    | `{{pm}}`          |                                        |
+| vscode   | VS Code workspace settings? | yes · no         | yes     | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
 
 ## Files (template kind only)
 
@@ -107,7 +107,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  { ignores: ["dist/**"] }
+  { ignores: ["dist/**"] },
 );
 ```
 
@@ -154,7 +154,7 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   eslintConfigPrettier,
-  { ignores: ["dist/**"] }
+  { ignores: ["dist/**"] },
 );
 ```
 
@@ -164,7 +164,11 @@ When `eslint=yes` and `ts=no`:
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 
-export default [js.configs.recommended, eslintConfigPrettier, { ignores: ["dist/**"] }];
+export default [
+  js.configs.recommended,
+  eslintConfigPrettier,
+  { ignores: ["dist/**"] },
+];
 ```
 
 ## VS Code (only when vscode=yes)

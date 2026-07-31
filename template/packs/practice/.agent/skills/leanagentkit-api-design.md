@@ -21,22 +21,29 @@ For removing or versioning old interfaces → `leanagentkit-deprecation`.
 ## Core principles
 
 ### Hyrum's Law
+
 Every observable behavior — including undocumented quirks — becomes a de facto
 contract. Be intentional about what you expose. Plan deprecation at design time.
 
 ### Contract first
+
 Define the interface before implementing. Types/schemas ARE the spec.
 
 ### Consistent error semantics
+
 One error strategy everywhere:
+
 ```
 { error: { code, message, details? } }
 ```
+
 Map HTTP status consistently (400/401/403/404/409/422/500). Don't mix throw,
 null, and error-object patterns across endpoints.
 
 ### Validate at boundaries
+
 Trust internal code. Validate at system edges:
+
 - API route handlers, form handlers
 - External service responses (**always treat as untrusted**)
 - Environment/config loading
@@ -44,17 +51,18 @@ Trust internal code. Validate at system edges:
 Don't validate between internal functions sharing type contracts.
 
 ### Prefer addition over modification
+
 Add optional fields; don't change types or remove fields without migration plan.
 
 ### Predictable naming
 
-| Pattern | Convention |
-|---------|------------|
-| REST endpoints | Plural nouns: `GET /api/tasks` |
-| Query params | camelCase |
-| Response fields | camelCase |
-| Booleans | `is`/`has`/`can` prefix |
-| Enums | UPPER_SNAKE or project convention |
+| Pattern         | Convention                        |
+| --------------- | --------------------------------- |
+| REST endpoints  | Plural nouns: `GET /api/tasks`    |
+| Query params    | camelCase                         |
+| Response fields | camelCase                         |
+| Booleans        | `is`/`has`/`can` prefix           |
+| Enums           | UPPER_SNAKE or project convention |
 
 ## REST patterns
 

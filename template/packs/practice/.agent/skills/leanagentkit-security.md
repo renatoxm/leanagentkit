@@ -31,6 +31,7 @@ line of code — not a phase.
 ## Three-tier boundary system
 
 ### Always do
+
 - Validate external input at system boundaries
 - Parameterize database queries
 - Encode output (prevent XSS); use framework auto-escaping
@@ -41,12 +42,14 @@ line of code — not a phase.
 - Run dependency audit before release
 
 ### Ask first (human approval)
+
 - New auth flows or auth logic changes
 - New sensitive data categories (PII, payment)
 - New external integrations, CORS changes, file upload handlers
 - Rate limiting changes, elevated permissions
 
 ### Never do
+
 - Commit secrets; log sensitive data
 - Trust client-side validation as security boundary
 - Disable security headers for convenience

@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Ubiquitous Language
 
 The single most important practice in Domain-Driven Design. A ubiquitous language is the shared vocabulary between developers and domain experts that is used everywhere -- in conversation, documentation, code, tests, and diagrams. It is not a glossary appended to a wiki. It is the living, evolving language that shapes how the system is built and how the team thinks about the domain.
@@ -13,12 +14,12 @@ A ubiquitous language eliminates this class of failure by establishing a single,
 
 Without a ubiquitous language, every conversation requires mental translation:
 
-| Developer Says | Domain Expert Hears | Actual Meaning | Risk |
-|---------------|--------------------|-|------|
-| `UserEntity` | "User? We don't have users, we have policyholders" | The system models a concept the business does not recognize | Code does not reflect reality; edge cases are missed |
-| `processData()` | "Process what data? Which business operation?" | A generic method hiding domain-specific logic | Business rules buried in implementation; impossible to validate |
-| `status = 3` | "What does 3 mean?" | An opaque encoding of a domain concept | Magic numbers replace meaningful domain states |
-| `ServiceManager` | "Manager of what?" | A catch-all class with no domain analog | God class accumulates unrelated responsibilities |
+| Developer Says   | Domain Expert Hears                                | Actual Meaning                                              | Risk                                                            |
+| ---------------- | -------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------- |
+| `UserEntity`     | "User? We don't have users, we have policyholders" | The system models a concept the business does not recognize | Code does not reflect reality; edge cases are missed            |
+| `processData()`  | "Process what data? Which business operation?"     | A generic method hiding domain-specific logic               | Business rules buried in implementation; impossible to validate |
+| `status = 3`     | "What does 3 mean?"                                | An opaque encoding of a domain concept                      | Magic numbers replace meaningful domain states                  |
+| `ServiceManager` | "Manager of what?"                                 | A catch-all class with no domain analog                     | God class accumulates unrelated responsibilities                |
 
 ### The Payoff of Alignment
 
@@ -66,12 +67,14 @@ This cycle repeats continuously throughout the project, not just at the beginnin
 Every class in the domain layer should be named after a concept the business recognizes:
 
 **Good names (domain language):**
+
 - `LoanApplication` -- the business knows what this is
 - `CreditDecision` -- an explicit outcome of an underwriting process
 - `PaymentSchedule` -- a concrete domain concept
 - `PolicyRenewalNotice` -- named exactly as the business document is named
 
 **Bad names (technical language):**
+
 - `ApplicationDTO` -- DTO is a technical pattern, not a domain concept
 - `PaymentService` -- "service" is a technical role, not a domain concept; what does this service do?
 - `DataProcessor` -- meaningless in domain terms
@@ -82,6 +85,7 @@ Every class in the domain layer should be named after a concept the business rec
 Methods should read like sentences a domain expert would say:
 
 **Good:**
+
 ```
 policy.renew(effectiveDate)
 claim.submitForAdjudication()
@@ -90,6 +94,7 @@ order.fulfillWith(shipment)
 ```
 
 **Bad:**
+
 ```
 policy.update(data)
 claim.process()
@@ -117,14 +122,15 @@ Maintain a glossary document that evolves with the model. This is not a static a
 
 **What goes in the glossary:**
 
-| Term | Definition | Context | Example |
-|------|-----------|---------|---------|
-| Claim | A formal request for payment under an insurance policy following a covered event | Claims processing | "The policyholder filed a claim for water damage" |
+| Term         | Definition                                                                               | Context           | Example                                                      |
+| ------------ | ---------------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------------ |
+| Claim        | A formal request for payment under an insurance policy following a covered event         | Claims processing | "The policyholder filed a claim for water damage"            |
 | Adjudication | The process of evaluating a claim to determine whether it is covered and how much to pay | Claims processing | "The claim is in adjudication pending the damage assessment" |
-| Coverage | The set of perils and limits defined in a policy | Underwriting | "This policy provides coverage for fire but not flood" |
-| Premium | The amount the policyholder pays for coverage | Billing | "The annual premium is $1,200, payable monthly" |
+| Coverage     | The set of perils and limits defined in a policy                                         | Underwriting      | "This policy provides coverage for fire but not flood"       |
+| Premium      | The amount the policyholder pays for coverage                                            | Billing           | "The annual premium is $1,200, payable monthly"              |
 
 **What does NOT go in the glossary:**
+
 - Technical terms (`Repository`, `Service`, `Controller`)
 - Implementation details (`PostgreSQL table name`, `API endpoint`)
 - Generic programming concepts (`interface`, `abstract class`)

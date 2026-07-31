@@ -6,8 +6,8 @@ invocation: auto
 
 # Skill: leanagentkit-docs
 
-**Goal:** Document decisions and intent, not restate code. Code shows *what*;
-docs explain *why* and *what alternatives were rejected*.
+**Goal:** Document decisions and intent, not restate code. Code shows _what_;
+docs explain _why_ and _what alternatives were rejected_.
 
 ## When to use
 
@@ -17,6 +17,7 @@ docs explain *why* and *what alternatives were rejected*.
 - Inline gotchas that agents/humans keep hitting
 
 **When NOT to use:**
+
 - Obvious code that restates itself
 - Throwaway prototypes
 - **Architecture decisions (ADRs)** — use `leanagentkit-seed-adrs` and
@@ -25,6 +26,7 @@ docs explain *why* and *what alternatives were rejected*.
 ## Architecture decisions (defer to kit)
 
 Significant decisions belong in ADRs:
+
 - Framework/library/infrastructure choices
 - Auth strategy, data model, API style
 - Anything expensive to reverse
@@ -35,7 +37,7 @@ with a new numbered ADR.
 
 ## Inline comments
 
-Comment *why*, not *what*:
+Comment _why_, not _what_:
 
 ```
 BAD:  // increment counter
@@ -55,6 +57,7 @@ leave commented-out code (git has history).
 ## README essentials
 
 Every project README should cover:
+
 1. One-paragraph description
 2. Quick start (install, env setup, dev command)
 3. Commands table (from `AGENTS.md` §3)
@@ -65,7 +68,9 @@ Every project README should cover:
 
 ```markdown
 ## [version] - YYYY-MM-DD
+
 ### Added / Fixed / Changed
+
 - Description (#issue if applicable)
 ```
 

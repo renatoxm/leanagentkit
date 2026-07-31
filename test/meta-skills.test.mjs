@@ -254,6 +254,43 @@ test("end-session gates spec done on check PASS and user confirmation", () => {
   assert.match(content, /leanagentkit-check/);
   assert.match(content, /user confirms/i);
   assert.match(content, /Status: done|leave status/i);
+  assert.match(content, /Required|PROGRESS|pack/i);
+});
+
+test("check skill references LEARNINGS capture", () => {
+  const content = readFileSync(join(CORE, "leanagentkit-check.md"), "utf8");
+  assert.match(content, /LEARNINGS\.md/);
+  assert.match(content, /append or bump/i);
+  assert.match(content, /already in `AGENTS\.md`|already in AGENTS/i);
+});
+
+test("start-session is optional ambient wrapper", () => {
+  const content = readFileSync(join(CORE, "leanagentkit-start-session.md"), "utf8");
+  assert.match(content, /optional/i);
+  assert.match(content, /LEARNINGS\.md/);
+  assert.match(content, /ambient/i);
+});
+
+test("AGENTS.md §6 defines ambient memory, LEARNINGS, and finalize", () => {
+  const content = readFileSync(
+    join(process.cwd(), "template", "core", "AGENTS.md"),
+    "utf8",
+  );
+  assert.match(content, /### Ambient touch points/);
+  assert.match(content, /### Finalize/);
+  assert.match(content, /LEARNINGS\.md/);
+  assert.match(content, /leanagentkit-end-session/);
+  assert.match(content, /Self-improvement/);
+});
+
+test("LEARNINGS.md allows capture when rule already in AGENTS.md", () => {
+  const content = readFileSync(
+    join(process.cwd(), "template", "core", "docs", "memory", "LEARNINGS.md"),
+    "utf8",
+  );
+  assert.match(content, /already in `AGENTS\.md`/i);
+  assert.match(content, /## Schema/);
+  assert.match(content, /\*\*Avoid:\*\*/);
 });
 
 test("babysit-pr honors explicit user ask without config flag", () => {

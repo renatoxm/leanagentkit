@@ -89,7 +89,10 @@ test("Express and FastAPI recipes define a name question", () => {
 
 test("FastAPI has no python Depends-on in registry or recipe header", () => {
   const registry = readFileSync(SCAFFOLDERS_REGISTRY, "utf8");
-  assert.match(registry, /\| FastAPI \| template \| FastAPI \| `fastapi\.scaffold\.md` \| none \|/);
+  assert.match(
+    registry,
+    /\|\s*FastAPI\s*\|\s*template\s*\|\s*FastAPI\s*\|\s*`fastapi\.scaffold\.md`\s*\|\s*none\s*\|/,
+  );
   const recipe = readFileSync(join(SCAFFOLDERS_DIR, "fastapi.scaffold.md"), "utf8");
   assert.match(recipe, /\*\*Depends-on:\*\* none/);
 });

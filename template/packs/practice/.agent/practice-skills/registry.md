@@ -28,18 +28,18 @@ skip this gate and are auto-discoverable everywhere.
 These ship with the **practice** pack (`--enable-pack practice`). Agents auto-discover them via `invocation: auto`
 when Cursor/Claude is wired. No detection needed.
 
-| Skill | Use when |
-|-------|----------|
-| `leanagentkit-review` | Multi-axis review before merge |
-| `leanagentkit-simplify` | Refactor for clarity without behavior change |
-| `leanagentkit-git-workflow` | Committing, branching, parallel work |
-| `leanagentkit-docs` | Comments, API docs, README, changelog |
-| `leanagentkit-debug` | Tests fail, builds break, unexpected errors |
-| `leanagentkit-tdd` | Adding features, fixing bugs, or changing behavior |
-| `leanagentkit-security` | Auth, input, external integrations, sensitive data |
-| `leanagentkit-performance` | Performance requirements or suspected regressions |
-| `leanagentkit-deprecation` | Removing systems, APIs, or consolidating duplicates |
-| `leanagentkit-api-design` | Designing APIs, module boundaries, public interfaces |
+| Skill                          | Use when                                                         |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `leanagentkit-review`          | Multi-axis review before merge                                   |
+| `leanagentkit-simplify`        | Refactor for clarity without behavior change                     |
+| `leanagentkit-git-workflow`    | Committing, branching, parallel work                             |
+| `leanagentkit-docs`            | Comments, API docs, README, changelog                            |
+| `leanagentkit-debug`           | Tests fail, builds break, unexpected errors                      |
+| `leanagentkit-tdd`             | Adding features, fixing bugs, or changing behavior               |
+| `leanagentkit-security`        | Auth, input, external integrations, sensitive data               |
+| `leanagentkit-performance`     | Performance requirements or suspected regressions                |
+| `leanagentkit-deprecation`     | Removing systems, APIs, or consolidating duplicates              |
+| `leanagentkit-api-design`      | Designing APIs, module boundaries, public interfaces             |
 | `leanagentkit-frontend-design` | Distinctive UI — palette, type, layout; avoid templated defaults |
 
 ---

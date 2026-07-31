@@ -62,15 +62,15 @@ Quick reference for web application security. Use alongside
 
 ## OWASP Top 10 quick reference
 
-| # | Vulnerability | Prevention |
-|---|---------------|------------|
-| 1 | Broken access control | Auth + ownership checks on every endpoint |
-| 2 | Cryptographic failures | HTTPS, strong hashing, no secrets in code |
-| 3 | Injection | Parameterized queries, input validation |
-| 4 | Insecure design | Threat modeling before coding |
-| 5 | Security misconfiguration | Headers, minimal permissions, audit deps |
-| 6 | Vulnerable components | Dependency audit, keep deps updated |
-| 7 | Auth failures | Strong passwords, rate limiting, sessions |
-| 8 | Data integrity failures | Verify updates, signed artifacts |
-| 9 | Logging failures | Log security events, not secrets |
-| 10 | SSRF | Validate/allowlist URLs, restrict outbound |
+| #   | Vulnerability             | Prevention                                 |
+| --- | ------------------------- | ------------------------------------------ |
+| 1   | Broken access control     | Auth + ownership checks on every endpoint  |
+| 2   | Cryptographic failures    | HTTPS, strong hashing, no secrets in code  |
+| 3   | Injection                 | Parameterized queries, input validation    |
+| 4   | Insecure design           | Threat modeling before coding              |
+| 5   | Security misconfiguration | Headers, minimal permissions, audit deps   |
+| 6   | Vulnerable components     | Dependency audit, keep deps updated        |
+| 7   | Auth failures             | Strong passwords, rate limiting, sessions  |
+| 8   | Data integrity failures   | Verify updates, signed artifacts           |
+| 9   | Logging failures          | Log security events, not secrets           |
+| 10  | SSRF                      | Validate/allowlist URLs, restrict outbound |

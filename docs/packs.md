@@ -84,18 +84,18 @@ Dependencies are resolved automatically (`architecture`, `backlog`, and
 
 ## Catalog
 
-| Id | Depends | Docs |
-|----|---------|------|
-| `spec` | — | [Spec](/spec) |
-| `stacks` | — | [Stacks](/stacks) |
-| `practice` | — | [Practice](/practice) |
-| `architecture` | `spec` | [Architecture](/architecture-decomposition) |
-| `backlog` | `spec` | [Backlog.md](/backlog) |
-| `git-lifecycle` | `spec` | [Git lifecycle](/git-lifecycle) |
-| `trevor` | — | [Trevor](/trevor) |
-| `caveman` | — | [Caveman](/caveman) |
-| `authoring` | — | [Create skill](/create-skill) |
-| `imaginary` | — | [Imaginary](/imaginary) |
+| Id              | Depends | Docs                                        |
+| --------------- | ------- | ------------------------------------------- |
+| `spec`          | —       | [Spec](/spec)                               |
+| `stacks`        | —       | [Stacks](/stacks)                           |
+| `practice`      | —       | [Practice](/practice)                       |
+| `architecture`  | `spec`  | [Architecture](/architecture-decomposition) |
+| `backlog`       | `spec`  | [Backlog.md](/backlog)                      |
+| `git-lifecycle` | `spec`  | [Git lifecycle](/git-lifecycle)             |
+| `trevor`        | —       | [Trevor](/trevor)                           |
+| `caveman`       | —       | [Caveman](/caveman)                         |
+| `authoring`     | —       | [Create skill](/create-skill)               |
+| `imaginary`     | —       | [Imaginary](/imaginary)                     |
 
 Installed packs are recorded in `.agent/.leanagentkit-version` → `installedPacks`.
 
@@ -127,7 +127,7 @@ bunx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
 
 Pack files are moved to `.leanagentkit-backup/<timestamp>-prune/`, not deleted
 forever. That can include pack memory such as `PROGRESS.md` / reminders when
-those packs are removed; core `ACTIVE_CONTEXT` stays. User-authored specs under
+those packs are removed; core `ACTIVE_CONTEXT` and `LEARNINGS` stay. User-authored specs under
 `docs/specs/` are left in place. After prune, **review `AGENTS.md` §7** — it is
 preserved and may still list removed packs.
 

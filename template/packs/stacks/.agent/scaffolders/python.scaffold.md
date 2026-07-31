@@ -9,12 +9,12 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| tool | Init tool | uv · venv only | uv | `{{tool}}` | |
-| name | Project name | `<name>` | `myapp` | `{{name}}` | |
-| ruff | Ruff (lint + format)? | yes · no | yes | add `[tool.ruff]` config | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `ruff=yes` |
+| id     | prompt                      | options        | default | → flag / param           | when               |
+| ------ | --------------------------- | -------------- | ------- | ------------------------ | ------------------ |
+| tool   | Init tool                   | uv · venv only | uv      | `{{tool}}`               |                    |
+| name   | Project name                | `<name>`       | `myapp` | `{{name}}`               |                    |
+| ruff   | Ruff (lint + format)?       | yes · no       | yes     | add `[tool.ruff]` config |                    |
+| vscode | VS Code workspace settings? | yes · no       | yes     | write `.vscode/*`        | only if `ruff=yes` |
 
 ## Files (template kind only)
 

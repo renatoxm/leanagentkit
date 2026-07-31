@@ -9,14 +9,14 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| variant | Language | TypeScript · JavaScript | TypeScript | `--template react-ts` / `react` | |
-| eslint | ESLint? | yes · no | yes | post-scaffold install | |
-| prettier | Prettier? | yes · no | yes | post-scaffold install | |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` | |
-| dir | Project directory | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | only if `eslint=yes` or `prettier=yes` |
+| id       | prompt                      | options                   | default                             | → flag / param                  | when                                   |
+| -------- | --------------------------- | ------------------------- | ----------------------------------- | ------------------------------- | -------------------------------------- |
+| variant  | Language                    | TypeScript · JavaScript   | TypeScript                          | `--template react-ts` / `react` |                                        |
+| eslint   | ESLint?                     | yes · no                  | yes                                 | post-scaffold install           |                                        |
+| prettier | Prettier?                   | yes · no                  | yes                                 | post-scaffold install           |                                        |
+| pm       | Package manager             | pnpm · npm · bun          | pnpm                                | `{{pm}}`                        |                                        |
+| dir      | Project directory           | `<name>` · `.` (TTY only) | `web` when kit-only; `.` when empty | `{{dir}}`                       |                                        |
+| vscode   | VS Code workspace settings? | yes · no                  | yes                                 | write `.vscode/*`               | only if `eslint=yes` or `prettier=yes` |
 
 ## Command (cli kind only)
 
@@ -61,9 +61,12 @@ export default tseslint.config(
     plugins: { "react-hooks": reactHooks, "react-refresh": reactRefresh },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
-  }
+  },
 );
 ```
 
@@ -90,7 +93,10 @@ export default [
     plugins: { "react-hooks": reactHooks, "react-refresh": reactRefresh },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
   },
 ];

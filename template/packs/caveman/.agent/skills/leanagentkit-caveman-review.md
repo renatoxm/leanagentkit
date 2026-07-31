@@ -62,7 +62,7 @@ this skill even when the config is off or missing.
 
 - Exact line numbers and symbol names in backticks
 - Concrete fix, not "consider refactoring this"
-- The *why* when the fix is not obvious from the problem
+- The _why_ when the fix is not obvious from the problem
 
 ### Auto-Clarity
 

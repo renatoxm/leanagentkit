@@ -58,12 +58,12 @@ flowchart TD
 
 ## What Imaginary is / is not
 
-| Imaginary pack is | Imaginary pack is not |
-|-------------------|------------------------|
-| A procedure + health check for local image transforms | A bundled Docker daemon or CLI binary |
+| Imaginary pack is                                       | Imaginary pack is not                                  |
+| ------------------------------------------------------- | ------------------------------------------------------ |
+| A procedure + health check for local image transforms   | A bundled Docker daemon or CLI binary                  |
 | An imgproxy-style alternative that writes files to disk | An on-the-fly image CDN / proxy for production traffic |
-| Opt-in via `--enable-pack imaginary` | Always-on; zero impact until you invoke the skill |
-| Config for `base_url` only | Automatic container orchestration |
+| Opt-in via `--enable-pack imaginary`                    | Always-on; zero impact until you invoke the skill      |
+| Config for `base_url` only                              | Automatic container orchestration                      |
 
 ## How it works
 
@@ -139,12 +139,12 @@ multipart file upload for local workflows. Details:
 
 ## Pack contents
 
-| Path | Role |
-|------|------|
-| `.agent/skills/leanagentkit-imaginary.md` | Procedure (health → transform → batch) |
-| `.agent/skills/scripts/check_imaginary.sh` | Deterministic `/health` check |
+| Path                                                  | Role                                    |
+| ----------------------------------------------------- | --------------------------------------- |
+| `.agent/skills/leanagentkit-imaginary.md`             | Procedure (health → transform → batch)  |
+| `.agent/skills/scripts/check_imaginary.sh`            | Deterministic `/health` check           |
 | `.agent/skills/references/imaginary/api-reference.md` | Endpoints, params, docker run / compose |
-| `.leanagentkit/imaginary.yml.example` | Optional `base_url` |
+| `.leanagentkit/imaginary.yml.example`                 | Optional `base_url`                     |
 
 ## Attribution
 

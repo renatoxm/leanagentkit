@@ -26,7 +26,8 @@ that stays within the spec's In/Out boundaries.
 
 ### 1. Prime
 
-- Run `leanagentkit-start-session`, or read `ACTIVE_CONTEXT` + the active
+- Follow `AGENTS.md` §6 ambient start (read `ACTIVE_CONTEXT` + map + LEARNINGS), or
+  optional `leanagentkit-start-session` for pack hooks; also read the active
   `docs/specs/NNN-*.md` + Approach files named in `docs/CODEBASE_MAP.md`.
 - If the parent spec links a slices file (`> Slices: docs/specs/NNN-*-slices.md`),
   read it.
@@ -42,10 +43,10 @@ that stays within the spec's In/Out boundaries.
   - **Implementation order** (dependency-safe steps)
   - **Test plan** (maps verification to ACs)
   - **Done when** (or equivalent quality gate)
-  If any are empty, fill them from the Approach / slices / CODEBASE_MAP and show
-  the user a short summary for approval. Do **not** start coding until the user
-  accepts the plan (or explicitly says to skip planning). Trivial specs may skip
-  this gate.
+    If any are empty, fill them from the Approach / slices / CODEBASE_MAP and show
+    the user a short summary for approval. Do **not** start coding until the user
+    accepts the plan (or explicitly says to skip planning). Trivial specs may skip
+    this gate.
 - Update `ACTIVE_CONTEXT` with the spec path and a resume note (e.g. "Resume:
   implementing `<spec>` — route pending") before any host mode switch.
 - **Backlog.md (optional).** If Backlog integration is active and the spec has a
@@ -66,7 +67,7 @@ Use this route when **all** of the following are true:
 
 1. Host is **Cursor**.
 2. Plan mode is **available** — either `SwitchMode` accepts `target_mode_id:
-   "plan"`, **or** the user can open Plan via Shift+Tab / the mode picker.
+"plan"`, **or** the user can open Plan via Shift+Tab / the mode picker.
 3. The user wants Plan/Build — they chose "Plan implementation, then build", the
    spec is **non-trivial**, or they explicitly ask for Plan mode.
 
@@ -129,8 +130,8 @@ When the preferred route applies:
    **not** start §3 sequential/parallel coding here after a successful handoff.
 8. **After Build** (user returns, new message, or asks to wrap up): sync the
    spec — check off completed ACs / Test plan items from what Build changed,
-   run `leanagentkit-check`, set `Status: done` when complete, offer
-   `leanagentkit-end-session`. If Build drifted, follow **When implementation
+   run `leanagentkit-check`, set `Status: done` when complete, offer finalize
+   (`leanagentkit-end-session`). If Build drifted, follow **When implementation
    diverges**.
 
 ### 3. Portable LAK implement (non-Cursor / no Plan / user declined Plan)
@@ -151,11 +152,11 @@ Record branch name(s) in spec frontmatter when created.
 - Choosing **parallel** once is consent to spawn up to `max_parallel` workers for
   eligible slices — **do not** re-ask per slice.
 
-| Mode | When | Work order |
-|------|------|------------|
-| **sequential-by-AC** | No slices file | Parent spec ACs / Implementation order |
-| **sequential-by-slice** | Slices file; parallel declined or unavailable | Slices in DependsOn order, one slice at a time |
-| **parallel** | Slices + consent (or preferred default above) + contracts OK | Phases A → B → C below |
+| Mode                    | When                                                         | Work order                                     |
+| ----------------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| **sequential-by-AC**    | No slices file                                               | Parent spec ACs / Implementation order         |
+| **sequential-by-slice** | Slices file; parallel declined or unavailable                | Slices in DependsOn order, one slice at a time |
+| **parallel**            | Slices + consent (or preferred default above) + contracts OK | Phases A → B → C below                         |
 
 State the first concrete action in 1–2 lines, then begin **without waiting** for
 another confirmation.
@@ -211,7 +212,7 @@ integration active):
      separate chat sessions per worktree and paste the slice row + contract.
    - Update slice Status → `done` when each finishes; do not wait to start the
      next eligible slot while under `max_parallel`.
-   Do **not** check off parent spec ACs during Phase B.
+     Do **not** check off parent spec ACs during Phase B.
 4. **Phase C — integration:** single agent completes the `integration` slice:
    - Merge slice branches per `leanagentkit-git-workflow` Merge slices subsection.
    - Run `leanagentkit-check` on all changed files.
@@ -242,11 +243,12 @@ without re-asking — still finish all eligible slices before Phase C.
 - When all criteria pass and `leanagentkit-check` is clean, set `Status: done`
   and check **Done when** items.
 - **Git lifecycle (optional).** If active and spec is `Status: done`, offer push
-  + PR before persisting. Never push or open a PR without user confirmation.
+  - PR before persisting. Never push or open a PR without user confirmation.
 
 #### 3e. Persist
 
-- Offer `leanagentkit-end-session` to persist state.
+- Offer finalize (`leanagentkit-end-session`) to persist state / pack hooks, or
+  refresh `ACTIVE_CONTEXT` if ambient touches already covered focus/resume.
 - If switching tools mid-implementation, run `leanagentkit-handoff` first.
 
 ### When implementation diverges

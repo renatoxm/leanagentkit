@@ -18,14 +18,15 @@ still drifts from your conventions.
 
 ## The fix (core)
 
-Four files do most of the work:
+Core files do most of the work:
 
-| File | Role |
-|------|------|
-| `AGENTS.md` | Project facts, commands, conventions, never-dos |
-| `docs/CODEBASE_MAP.md` | Navigation index |
-| `docs/memory/ACTIVE_CONTEXT.md` | Current focus + resume note |
-| `.agent/skills/` | Session loop: start → check → end (+ handoff) |
+| File                            | Role                                             |
+| ------------------------------- | ------------------------------------------------ |
+| `AGENTS.md`                     | Project facts, commands, conventions, never-dos  |
+| `docs/CODEBASE_MAP.md`          | Navigation index                                 |
+| `docs/memory/ACTIVE_CONTEXT.md` | Current focus + resume note                      |
+| `docs/memory/LEARNINGS.md`      | Avoidable-mistake inbox → promote to AGENTS.md   |
+| `.agent/skills/`                | Check, handoff, optional session wrappers, packs |
 
 **Map-first, not map-only:** start from the map; use narrow search when needed.
 Do not dump the whole repo to re-orient.
@@ -64,33 +65,33 @@ See [Migration 1.0](https://renatoxm.github.io/leanagentkit/migration-1.0).
 
 ## Workflow sizes
 
-| Size | When | Loop |
-|------|------|------|
-| **Trivial** | Typo, rename, Q&A | Just do it |
-| **Normal** | Typical coding | `start-session` → work → `check` → `end-session` |
-| **Substantial** | New/fuzzy feature | Needs **spec** pack: grill → new-spec → implement-spec → check → end-session |
+| Size            | When              | Loop                                                                      |
+| --------------- | ----------------- | ------------------------------------------------------------------------- |
+| **Trivial**     | Typo, rename, Q&A | Just do it                                                                |
+| **Normal**      | Typical coding    | Ambient work → `check` → finalize                                         |
+| **Substantial** | New/fuzzy feature | Needs **spec** pack: grill → new-spec → implement-spec → check → finalize |
 
 ## Optional packs
 
-| Pack | Purpose |
-|------|---------|
-| `spec` | Grill, specs, implement, ADRs, progress |
-| `stacks` | Stack detect + greenfield scaffolders |
-| `practice` | Review, debug, TDD, security, … |
-| `architecture` | CA/DDD decomposition (needs `spec`) |
-| `backlog` | Backlog.md board sync (needs `spec`) |
-| `git-lifecycle` | Branch/commit/PR offers (needs `spec`) |
-| `trevor` | Reminders / concierge |
-| `caveman` | Terse commits & review comments |
-| `authoring` | Distill / create project skills |
-| `imaginary` | Resize/crop/convert via h2non/imaginary |
+| Pack            | Purpose                                 |
+| --------------- | --------------------------------------- |
+| `spec`          | Grill, specs, implement, ADRs, progress |
+| `stacks`        | Stack detect + greenfield scaffolders   |
+| `practice`      | Review, debug, TDD, security, …         |
+| `architecture`  | CA/DDD decomposition (needs `spec`)     |
+| `backlog`       | Backlog.md board sync (needs `spec`)    |
+| `git-lifecycle` | Branch/commit/PR offers (needs `spec`)  |
+| `trevor`        | Reminders / concierge                   |
+| `caveman`       | Terse commits & review comments         |
+| `authoring`     | Distill / create project skills         |
+| `imaginary`     | Resize/crop/convert via h2non/imaginary |
 
 Full catalog: [Packs](https://renatoxm.github.io/leanagentkit/packs).
 
 ## Honest costs
 
-- Memory stays useful only if `ACTIVE_CONTEXT` and the map are updated at real
-  stopping points — automated, but not free.
+- Memory stays useful only if `ACTIVE_CONTEXT` is refreshed on focus/edit
+  milestones (ambient) and finalize runs when packs need PROGRESS/hooks.
 - Stale maps hurt; narrow search is allowed and expected.
 - More packs → more skills on disk and more ceremony. Prefer core until you feel the gap.
 

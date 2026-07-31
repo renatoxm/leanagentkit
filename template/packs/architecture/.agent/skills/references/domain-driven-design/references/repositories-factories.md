@@ -1,10 +1,11 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # Repositories and Factories
 
 Repositories and Factories are infrastructure-facing patterns in Domain-Driven Design that separate domain logic from persistence and object creation concerns. The Repository provides the illusion of an in-memory collection of aggregates. The Factory encapsulates complex creation logic. Together, they keep the domain model clean and focused on business rules.
 
-
 ## Table of Contents
+
 1. [The Repository Pattern](#the-repository-pattern)
 2. [The Factory Pattern](#the-factory-pattern)
 3. [The Specification Pattern](#the-specification-pattern)
@@ -44,12 +45,14 @@ The second version is readable by a domain expert. The first is not.
 The repository interface belongs in the domain layer. It speaks the ubiquitous language:
 
 **Good repository methods:**
+
 - `find_by_id(order_id)` -- straightforward identity lookup
 - `find_pending_orders()` -- uses domain language ("pending")
 - `find_by_customer(customer_id)` -- domain-meaningful query
 - `find_overdue_invoices(as_of_date)` -- business concept in the method name
 
 **Bad repository methods:**
+
 - `get_by_status_code(3)` -- magic number; what is status 3?
 - `query(sql_string)` -- leaks persistence technology into the domain
 - `find_all_with_joins()` -- technical concern, not domain language
@@ -127,13 +130,13 @@ A repository always returns fully constituted aggregates -- not partial objects,
 
 ### Repository Anti-Patterns
 
-| Anti-Pattern | Problem | Fix |
-|-------------|---------|-----|
-| Generic repository (`Repository<T>`) | All aggregates look the same; domain-specific queries do not fit the generic interface | Create specific repository interfaces per aggregate type |
-| Repository returns DTOs | DTOs are not domain objects; behavior cannot be called on them | Return full aggregates; use separate read models (CQRS) for queries |
-| Repository per entity (not per aggregate) | Bypasses aggregate root; allows direct modification of internal entities | One repository per aggregate root only |
-| Repository with business logic | Repository starts containing validation or transformation logic | Keep repositories as pure storage; domain logic belongs in the aggregate |
-| Repository depends on domain services | Circular dependency between domain services and repositories | Repositories depend only on the domain model (aggregates, value objects) |
+| Anti-Pattern                              | Problem                                                                                | Fix                                                                      |
+| ----------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Generic repository (`Repository<T>`)      | All aggregates look the same; domain-specific queries do not fit the generic interface | Create specific repository interfaces per aggregate type                 |
+| Repository returns DTOs                   | DTOs are not domain objects; behavior cannot be called on them                         | Return full aggregates; use separate read models (CQRS) for queries      |
+| Repository per entity (not per aggregate) | Bypasses aggregate root; allows direct modification of internal entities               | One repository per aggregate root only                                   |
+| Repository with business logic            | Repository starts containing validation or transformation logic                        | Keep repositories as pure storage; domain logic belongs in the aggregate |
+| Repository depends on domain services     | Circular dependency between domain services and repositories                           | Repositories depend only on the domain model (aggregates, value objects) |
 
 ## The Factory Pattern
 
@@ -141,13 +144,13 @@ A Factory encapsulates the logic of creating a domain object, ensuring that the 
 
 ### When to Use a Factory
 
-| Situation | Factory Needed? | Why |
-|-----------|----------------|-----|
-| Creating a Value Object with 2-3 fields | No | A constructor suffices: `Money(100, "USD")` |
-| Creating an aggregate with multiple parts and validation rules | Yes | The assembly logic is complex; a constructor would be enormous |
-| Creating an object from an external representation (API response, file) | Yes | Translation from external format to domain object is a separate concern |
-| Creating an object with conditional logic (different subtypes) | Yes | The decision of which subtype to create should not be in client code |
-| Reconstituting an object from persistence | Maybe | If the repository handles it, a separate factory may not be needed |
+| Situation                                                               | Factory Needed? | Why                                                                     |
+| ----------------------------------------------------------------------- | --------------- | ----------------------------------------------------------------------- |
+| Creating a Value Object with 2-3 fields                                 | No              | A constructor suffices: `Money(100, "USD")`                             |
+| Creating an aggregate with multiple parts and validation rules          | Yes             | The assembly logic is complex; a constructor would be enormous          |
+| Creating an object from an external representation (API response, file) | Yes             | Translation from external format to domain object is a separate concern |
+| Creating an object with conditional logic (different subtypes)          | Yes             | The decision of which subtype to create should not be in client code    |
+| Reconstituting an object from persistence                               | Maybe           | If the repository handles it, a separate factory may not be needed      |
 
 ### Factory Patterns in DDD
 
@@ -240,13 +243,13 @@ class Order:
 
 There is an important distinction between creating a new aggregate and reconstituting one from persistence:
 
-| Aspect | Creation | Reconstitution |
-|--------|---------|----------------|
-| When | A new domain object comes into existence | An existing object is loaded from storage |
-| Validation | Full business rule validation | No validation needed; data was validated on creation |
-| Domain events | May raise creation events (`OrderCreated`) | Should NOT raise events; nothing new happened |
-| Identity | Generate a new ID | Use the stored ID |
-| Invariants | Enforce all invariants | Assume invariants hold (data was valid when stored) |
+| Aspect        | Creation                                   | Reconstitution                                       |
+| ------------- | ------------------------------------------ | ---------------------------------------------------- |
+| When          | A new domain object comes into existence   | An existing object is loaded from storage            |
+| Validation    | Full business rule validation              | No validation needed; data was validated on creation |
+| Domain events | May raise creation events (`OrderCreated`) | Should NOT raise events; nothing new happened        |
+| Identity      | Generate a new ID                          | Use the stored ID                                    |
+| Invariants    | Enforce all invariants                     | Assume invariants hold (data was valid when stored)  |
 
 Reconstitution typically happens inside the repository implementation:
 
@@ -297,11 +300,11 @@ very_risky_orders = order_repository.find_matching(very_risky)
 
 Specifications compose using logical operators:
 
-| Operator | Meaning | Example |
-|----------|---------|---------|
-| `and_` | Both must be true | `HighValue.and_(HighRisk)` |
-| `or_` | Either must be true | `HighValue.or_(HighRisk)` |
-| `not_` | Must not be true | `not_(Cancelled)` |
+| Operator | Meaning             | Example                    |
+| -------- | ------------------- | -------------------------- |
+| `and_`   | Both must be true   | `HighValue.and_(HighRisk)` |
+| `or_`    | Either must be true | `HighValue.or_(HighRisk)`  |
+| `not_`   | Must not be true    | `not_(Cancelled)`          |
 
 ### Specifications in the Domain Layer
 
@@ -348,6 +351,7 @@ Repositories and Factories fit naturally into the Ports and Adapters (Hexagonal)
 **The key principle:** The domain defines what it needs (ports). Infrastructure provides it (adapters). Dependencies point inward -- infrastructure depends on domain, never the reverse.
 
 This means:
+
 - The domain layer has zero imports from infrastructure packages
 - Repository interfaces use domain types (`Order`, `OrderId`), not infrastructure types (`Row`, `Document`)
 - The application can swap persistence technologies by providing a new adapter without touching domain code

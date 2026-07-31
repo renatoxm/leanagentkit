@@ -7,12 +7,12 @@ Always document with `@latest`.
 
 ## Pages
 
-| Page | Source |
-|------|--------|
-| Guide | Generated from `template/core/LEAN_AGENT_KIT_GUIDE.md` |
-| Stacks | Intro from `docs/.partials/stacks-intro.md` + registry from `template/packs/stacks/.agent/stacks/registry.md` |
-| Packs / Migration | Hand-authored `packs.md`, `migration-1.0.md` |
-| Pack deep-dives | `spec.md`, `practice.md`, `backlog.md`, `trevor.md`, `caveman.md`, `imaginary.md`, … |
+| Page              | Source                                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------------------------- |
+| Guide             | Generated from `template/core/LEAN_AGENT_KIT_GUIDE.md` (ambient memory + LEARNINGS)                           |
+| Stacks            | Intro from `docs/.partials/stacks-intro.md` + registry from `template/packs/stacks/.agent/stacks/registry.md` |
+| Packs / Migration | Hand-authored `packs.md`, `migration-1.0.md`                                                                  |
+| Pack deep-dives   | `spec.md`, `practice.md`, `backlog.md`, `trevor.md`, `caveman.md`, `imaginary.md`, …                          |
 
 ## Running locally
 

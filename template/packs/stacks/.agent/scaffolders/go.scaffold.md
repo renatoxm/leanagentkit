@@ -9,12 +9,12 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param | when |
-|----|--------|---------|---------|----------------|------|
-| layout | Layout | standard (cmd/internal) · flat | standard | `{{layout}}` | |
-| module | Module path | `github.com/user/{{name}}` | `example.com/{{name}}` | `{{module}}` | |
-| golangci | golangci-lint? | yes · no | yes | add `.golangci.yml` | |
-| vscode | VS Code workspace settings? | yes · no | yes | write `.vscode/*` | |
+| id       | prompt                      | options                        | default                | → flag / param      | when |
+| -------- | --------------------------- | ------------------------------ | ---------------------- | ------------------- | ---- |
+| layout   | Layout                      | standard (cmd/internal) · flat | standard               | `{{layout}}`        |      |
+| module   | Module path                 | `github.com/user/{{name}}`     | `example.com/{{name}}` | `{{module}}`        |      |
+| golangci | golangci-lint?              | yes · no                       | yes                    | add `.golangci.yml` |      |
+| vscode   | VS Code workspace settings? | yes · no                       | yes                    | write `.vscode/*`   |      |
 
 ## Files (template kind only)
 

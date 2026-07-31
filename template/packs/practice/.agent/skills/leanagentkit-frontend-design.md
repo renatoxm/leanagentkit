@@ -42,13 +42,13 @@ At task start (memory protocol — `AGENTS.md` §6):
 
 ## Quick Reference
 
-| Need | Go to |
-|------|--------|
-| Anti-default looks, copy, quality floor | `references/frontend-design-checklist.md` |
-| Bundle / CWV / image CLS | `leanagentkit-performance` + `references/performance-checklist.md` |
-| Component recipes (shadcn, etc.) | Stack skill via `AGENTS.md` §7 / match-stack |
-| Fuzzy product brief before UI | `leanagentkit-grill` then this skill |
-| Guardrail after code lands | `leanagentkit-check` |
+| Need                                    | Go to                                                              |
+| --------------------------------------- | ------------------------------------------------------------------ |
+| Anti-default looks, copy, quality floor | `references/frontend-design-checklist.md`                          |
+| Bundle / CWV / image CLS                | `leanagentkit-performance` + `references/performance-checklist.md` |
+| Component recipes (shadcn, etc.)        | Stack skill via `AGENTS.md` §7 / match-stack                       |
+| Fuzzy product brief before UI           | `leanagentkit-grill` then this skill                               |
+| Guardrail after code lands              | `leanagentkit-check`                                               |
 
 ## Procedure
 
@@ -65,12 +65,12 @@ reset.
 
 Produce a compact token plan:
 
-| Axis | Required |
-|------|----------|
-| Color | 4–6 named hex roles |
-| Type | Display + body (+ utility if needed); scale intent |
-| Layout | One-sentence concept + ASCII first-viewport wireframe |
-| Signature | One memorable element that embodies the brief |
+| Axis      | Required                                              |
+| --------- | ----------------------------------------------------- |
+| Color     | 4–6 named hex roles                                   |
+| Type      | Display + body (+ utility if needed); scale intent    |
+| Layout    | One-sentence concept + ASCII first-viewport wireframe |
+| Signature | One memorable element that embodies the brief         |
 
 Load `references/frontend-design-checklist.md` and reject plans that land on an
 **anti-default** look when the brief left that axis free. Brief wording always
@@ -93,7 +93,7 @@ when the brief is ambiguous and a choice needs consent.
 - Derive every color/type decision from the plan; map onto existing `@theme` /
   CSS variables / design-system files — do not fork a second token source.
 - Hero is a thesis: open with the most characteristic content (headline, image,
-  live demo, interaction) — not a stats strip + gradient unless that *is* the brief.
+  live demo, interaction) — not a stats strip + gradient unless that _is_ the brief.
 - Structure encodes information (numbered markers only when order is real).
 - Motion: one orchestrated moment beats scattered effects; respect
   `prefers-reduced-motion`.

@@ -59,18 +59,19 @@ flowchart TD
 - **Team standup** — open `backlog board` or the browser UI; cards mirror To Do /
   In Progress / Done without leaving Markdown.
 - **Spec ↔ card link** — `new-spec` creates a card with `--ref` to the spec;
-  implement/end-session move status only when the work is real.
-- **Session priming** — `start-session` lists open Backlog cards so you resume the
+  implement/finalize move status only when the work is real.
+- **Session priming** — ambient start / optional `start-session` lists open Backlog
+  cards so you resume the
   right feature.
 - **Trevor UX** — optional [Trevor](/trevor) wrapper for board commands without
   changing Done rules.
 
 ## Why integrate?
 
-| Without Backlog.md | With Backlog.md |
-|--------------------|-----------------|
-| Specs + memory files only | Same specs + visual Kanban |
-| Progress in `PROGRESS.md` | Cards move on the board as work advances |
+| Without Backlog.md           | With Backlog.md                                  |
+| ---------------------------- | ------------------------------------------------ |
+| Specs + memory files only    | Same specs + visual Kanban                       |
+| Progress in `PROGRESS.md`    | Cards move on the board as work advances         |
 | Agent reads `ACTIVE_CONTEXT` | You see open tasks at a glance (`backlog board`) |
 
 ## Install
@@ -131,11 +132,11 @@ Otherwise lifecycle skills skip Backlog steps silently — zero impact.
 ## How it maps to the daily loop
 
 ```
-leanagentkit-start-session  →  lists open Backlog cards (To Do / In Progress)
+leanagentkit-start-session / ambient start  →  lists open Backlog cards (To Do / In Progress)
 leanagentkit-new-spec       →  creates card linked to spec (--ref docs/specs/…)
 leanagentkit-implement-spec →  moves card to In Progress; checks ACs as you go
 leanagentkit-check          →  reports linked Backlog card id (non-blocking)
-leanagentkit-end-session    →  Done only when spec Status: done
+leanagentkit-end-session / finalize    →  Done only when spec Status: done
 ```
 
 ```mermaid
@@ -154,7 +155,7 @@ When `new-spec` creates a Backlog card, the returned task id is stored in the
 spec frontmatter:
 
 ```markdown
-> Backlog: BACK-12   ·   Status: active   ·   Updated: 2026-07-02
+> Backlog: BACK-12 · Status: active · Updated: 2026-07-02
 ```
 
 The card references the spec via `--ref docs/specs/NNN-feature.md`.

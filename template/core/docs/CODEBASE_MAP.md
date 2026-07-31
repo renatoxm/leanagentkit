@@ -19,9 +19,9 @@
 
 ## Key modules (the 20% you touch 80% of the time)
 
-| Module / file | Responsibility | Notes |
-|---------------|----------------|-------|
-| `<path>` | <what it owns> | <gotchas, source-of-truth flags> |
+| Module / file | Responsibility | Notes                            |
+| ------------- | -------------- | -------------------------------- |
+| `<path>`      | <what it owns> | <gotchas, source-of-truth flags> |
 
 ## Data & schema
 
@@ -32,8 +32,8 @@
 ## External integrations
 
 | Service | Where it's wired | Config / secret name |
-|---------|------------------|----------------------|
-| `<svc>` | `<path>` | `<ENV_VAR>` |
+| ------- | ---------------- | -------------------- |
+| `<svc>` | `<path>`         | `<ENV_VAR>`          |
 
 ## Cross-cutting concerns
 

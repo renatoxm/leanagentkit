@@ -15,12 +15,14 @@ tests the right thing.
 ## When to use
 
 **Always:**
+
 - New features
 - Bug fixes
 - Refactoring
 - Behavior changes
 
 **Exceptions (ask the user first):**
+
 - Throwaway prototypes (use `leanagentkit-spike` instead)
 - Generated code
 - Configuration files
@@ -36,6 +38,7 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 Write code before the test? Delete it. Start over.
 
 **No exceptions:**
+
 - Don't keep it as "reference"
 - Don't "adapt" it while writing tests
 - Don't look at it
@@ -50,6 +53,7 @@ Implement fresh from tests. Period.
 Write one minimal test showing what should happen.
 
 **Good test:**
+
 ```python
 def test_retries_failed_operations_3_times():
     attempts = 0
@@ -65,9 +69,11 @@ def test_retries_failed_operations_3_times():
     assert result == 'success'
     assert attempts == 3
 ```
+
 Clear name, tests real behavior, one thing.
 
 **Bad test:**
+
 ```python
 def test_retry_works():
     mock = MagicMock()
@@ -75,9 +81,11 @@ def test_retry_works():
     result = retry_operation(mock)
     assert result == 'success'  # What about retry count? Timing?
 ```
+
 Vague name, tests mock not real code.
 
 **Requirements:**
+
 - One behavior per test
 - Clear descriptive name ("and" in name? Split it)
 - Real code, not mocks (unless truly unavoidable)
@@ -91,6 +99,7 @@ Run the specific test via the host agent's shell/terminal tool (use the
 project's test command from `AGENTS.md` §3).
 
 Confirm:
+
 - Test fails (not errors from typos)
 - Failure message is expected
 - Fails because the feature is missing
@@ -106,6 +115,7 @@ Write the simplest code to pass the test. Nothing more.
 Don't add features, refactor other code, or "improve" beyond the test.
 
 **Cheating is OK in GREEN:**
+
 - Hardcode return values
 - Copy-paste
 - Duplicate code
@@ -120,6 +130,7 @@ We'll fix it in REFACTOR.
 Run the specific test, then the full suite via the host's terminal tool.
 
 Confirm:
+
 - Test passes
 - Other tests still pass
 - Output pristine (no errors, warnings)
@@ -131,6 +142,7 @@ Confirm:
 ### REFACTOR — Clean up
 
 After green only:
+
 - Remove duplication
 - Improve names
 - Extract helpers
@@ -165,27 +177,27 @@ RIGHT:
 
 ## Common rationalizations
 
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
-| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
-| "Test hard = design unclear" | Listen to the test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
-| "Existing code has no tests" | You're improving it. Add tests for the code you touch. |
+| Excuse                                 | Reality                                                                 |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| "Too simple to test"                   | Simple code breaks. Test takes 30 seconds.                              |
+| "I'll test after"                      | Tests passing immediately prove nothing.                                |
+| "Tests after achieve same goals"       | Tests-after = "what does this do?" Tests-first = "what should this do?" |
+| "Already manually tested"              | Ad-hoc ≠ systematic. No record, can't re-run.                           |
+| "Deleting X hours is wasteful"         | Sunk cost fallacy. Keeping unverified code is technical debt.           |
+| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete.             |
+| "Need to explore first"                | Fine. Throw away exploration, start with TDD.                           |
+| "Test hard = design unclear"           | Listen to the test. Hard to test = hard to use.                         |
+| "TDD will slow me down"                | TDD faster than debugging. Pragmatic = test-first.                      |
+| "Existing code has no tests"           | You're improving it. Add tests for the code you touch.                  |
 
 ## When stuck
 
-| Problem | Solution |
-|---------|----------|
+| Problem                | Solution                                                           |
+| ---------------------- | ------------------------------------------------------------------ |
 | Don't know how to test | Write the wished-for API. Write the assertion first. Ask the user. |
-| Test too complicated | Design too complicated. Simplify the interface. |
-| Must mock everything | Code too coupled. Use dependency injection. |
-| Test setup huge | Extract helpers. Still complex? Simplify the design. |
+| Test too complicated   | Design too complicated. Simplify the interface.                    |
+| Must mock everything   | Code too coupled. Use dependency injection.                        |
+| Test setup huge        | Extract helpers. Still complex? Simplify the design.               |
 
 ## Testing anti-patterns
 

@@ -1,19 +1,30 @@
 ---
 name: leanagentkit-end-session
-description: End a coding session — persist active context and light map updates.
+description: Optional finalize checklist — persist context, PROGRESS, and pack hooks when the user stops.
 ---
 
 # Skill: leanagentkit-end-session
 
-**Goal:** Persist what changed so the next session resumes without re-deriving state.
+**Goal:** Finalize when the user stops so the next session resumes without
+re-deriving state. This is the **finalize** checklist in `AGENTS.md` §6.
+
+**Required** when the `spec` pack is installed (PROGRESS/SCRATCH) or
+`installedPacks` includes `backlog`, `git-lifecycle`, or `trevor` — ambient
+ACTIVE_CONTEXT refresh alone does **not** run pack hooks or PROGRESS updates.
+
+**Optional** on core-only installs if ambient touches already left ACTIVE_CONTEXT
+accurate.
+
 For **trivial** work, skip unless focus shifted.
 
 ## Procedure
 
 1. **Guardrail check** (if code changed): run `leanagentkit-check` on changed files.
-   Address violations or note acknowledged exceptions.
-2. **`docs/memory/ACTIVE_CONTEXT.md`** — overwrite: Current focus, Files in play,
-   Decisions this session, Open questions, concrete **Resume from here**, timestamp.
+   Address violations or note acknowledged exceptions. If check (or a hook) exposed
+   an avoidable failure that was fixed, append or bump `docs/memory/LEARNINGS.md`.
+2. **`docs/memory/ACTIVE_CONTEXT.md`** — overwrite if stale: Current focus, Files in
+   play, Decisions this session, Open questions, concrete **Resume from here**,
+   timestamp. Skip rewrite if ambient touches already left it accurate.
 3. **`docs/CODEBASE_MAP.md`** — update only if modules were added/moved/removed.
 4. **Spec pack only** (files exist):
    - Prepend a dated entry to `PROGRESS.md` (never edit past entries).
@@ -23,7 +34,7 @@ For **trivial** work, skip unless focus shifted.
      in ACTIVE_CONTEXT.
 5. **ADR** — if an architectural decision was made and `docs/adr/` exists, add an ADR.
 6. **Pack hooks** (only if pack installed — see stamp / skill files):
-   - **git-lifecycle** — if dirty tree and config offers commit at end-session, offer
+   - **git-lifecycle** — if dirty tree and config offers commit at finalize, offer
      save-point commit (never without confirmation).
    - **backlog** — sync card status/notes per `leanagentkit-backlog` (never auto-Done
      unless spec is done).

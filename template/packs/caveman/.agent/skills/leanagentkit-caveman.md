@@ -57,10 +57,10 @@ Code blocks unchanged.
 
 ### Intensity
 
-| Level | What changes |
-|-------|--------------|
-| **lite** | No filler/hedging. Keep articles + full sentences. Professional but tight |
-| **full** | Drop articles, fragments OK, short synonyms. Classic terse mode |
+| Level     | What changes                                                                |
+| --------- | --------------------------------------------------------------------------- |
+| **lite**  | No filler/hedging. Keep articles + full sentences. Professional but tight   |
+| **full**  | Drop articles, fragments OK, short synonyms. Classic terse mode             |
 | **ultra** | Strip conjunctions when cause-then-effect stays clear. One word when enough |
 
 ### Auto-Clarity — drop terse mode when
@@ -75,7 +75,8 @@ Resume terse after the clear part is done.
 
 ### LAK boundaries
 
-- **Memory files** (`ACTIVE_CONTEXT.md`, `PROGRESS.md`, specs): write normal readable prose
+- **Memory files** (`ACTIVE_CONTEXT.md`, `LEARNINGS.md`, `PROGRESS.md`, specs): write normal readable prose
+  — do not rewrite ambient memory protocol or LEARNINGS capture rules in terse form
 - **Code, commits, PR bodies in artifacts:** write normal
 - **Agent chat replies:** terse
 

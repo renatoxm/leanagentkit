@@ -9,11 +9,11 @@
 
 ## Questions
 
-| id | prompt | options | default | → flag / param |
-|----|--------|---------|---------|----------------|
-| provider | Database provider | postgresql · mysql · sqlite | postgresql | `{{provider}}` |
-| schema_dir | Schema location | `src/db/schema.ts` · `db/schema.ts` | `src/db/schema.ts` | `{{schema_path}}` |
-| pm | Package manager | pnpm · npm · bun | pnpm | `{{pm}}` |
+| id         | prompt            | options                             | default            | → flag / param    |
+| ---------- | ----------------- | ----------------------------------- | ------------------ | ----------------- |
+| provider   | Database provider | postgresql · mysql · sqlite         | postgresql         | `{{provider}}`    |
+| schema_dir | Schema location   | `src/db/schema.ts` · `db/schema.ts` | `src/db/schema.ts` | `{{schema_path}}` |
+| pm         | Package manager   | pnpm · npm · bun                    | pnpm               | `{{pm}}`          |
 
 ## Files (template kind only)
 

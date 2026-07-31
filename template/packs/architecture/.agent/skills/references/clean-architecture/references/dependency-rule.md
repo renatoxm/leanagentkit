@@ -1,4 +1,5 @@
 <!-- Adapted from wondelai/skills v1.4.0 (MIT) — https://github.com/wondelai/skills -->
+
 # The Dependency Rule and Concentric Circles
 
 The Dependency Rule is the single most important concept in Clean Architecture. It states that source code dependencies can only point inward. Nothing in an inner circle can know anything at all about something in an outer circle. This includes names -- functions, classes, variables, data formats, or any other named software entity declared in an outer circle must not be mentioned by code in an inner circle.
@@ -14,6 +15,7 @@ Clean Architecture organizes code into concentric circles, each representing a d
 Entities encapsulate enterprise-wide business rules. These are the most general, most stable rules in the system. They are the least likely to change when something external changes -- a page navigation change, a security policy change, or a database migration should not affect entities.
 
 **Characteristics of well-designed entities:**
+
 - They can be simple objects with methods, or they can be a set of data structures and functions
 - They encapsulate the most critical business rules
 - They have no dependency on anything in the outer circles
@@ -43,6 +45,7 @@ This entity knows nothing about databases, HTTP, or frameworks. It encapsulates 
 Use Cases contain application-specific business rules. They orchestrate the flow of data to and from entities and direct those entities to use their enterprise-wide business rules to achieve the goals of the use case.
 
 **Characteristics:**
+
 - They define and implement input and output port interfaces
 - They manipulate entities to achieve application goals
 - Changes to use cases do not affect entities
@@ -53,6 +56,7 @@ Use Cases contain application-specific business rules. They orchestrate the flow
 This circle contains adapters that convert data between the format most convenient for the use cases and entities and the format most convenient for some external agency such as the database or the web.
 
 **Contains:**
+
 - Controllers (translate inbound requests to use case input)
 - Presenters (translate use case output to external format)
 - Gateways (implement repository interfaces using specific technologies)
@@ -62,6 +66,7 @@ This circle contains adapters that convert data between the format most convenie
 The outermost layer is composed of frameworks and tools -- the database, the web framework, the messaging system. This is where all the details go. The web is a detail. The database is a detail. We keep these things on the outside where they can do little harm.
 
 **Contains:**
+
 - Web framework (Express, Spring, Django, Rails)
 - Database engine and ORM
 - External service clients
@@ -150,12 +155,12 @@ The Controller in the outer circle is responsible for translating the HTTP reque
 
 ### Crossing Data Patterns
 
-| Pattern | When to Use | Example |
-|---------|-------------|---------|
-| **Request/Response DTOs** | Standard use case boundaries | `CreateOrderRequest` and `CreateOrderResponse` as plain data classes |
-| **Primitives** | Simple boundaries with few parameters | `get_user(user_id: str) -> UserResponse` |
-| **Domain events** | Communicating between bounded contexts | `OrderPlaced(order_id, timestamp)` emitted by inner circle |
-| **Data maps (dicts)** | Crossing boundaries where type safety is less critical | Acceptable in dynamic languages; prefer typed DTOs in static ones |
+| Pattern                   | When to Use                                            | Example                                                              |
+| ------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------- |
+| **Request/Response DTOs** | Standard use case boundaries                           | `CreateOrderRequest` and `CreateOrderResponse` as plain data classes |
+| **Primitives**            | Simple boundaries with few parameters                  | `get_user(user_id: str) -> UserResponse`                             |
+| **Domain events**         | Communicating between bounded contexts                 | `OrderPlaced(order_id, timestamp)` emitted by inner circle           |
+| **Data maps (dicts)**     | Crossing boundaries where type safety is less critical | Acceptable in dynamic languages; prefer typed DTOs in static ones    |
 
 ### What Must Not Cross Boundaries
 
@@ -169,13 +174,13 @@ Frameworks want to be the center of your universe. They ask you to subclass thei
 
 ### Common Framework Violations
 
-| Framework Pattern | Violation | Fix |
-|-------------------|-----------|-----|
-| **ORM annotations on entities** | Entity depends on database framework | Separate domain entity from ORM model; map between them |
-| **Controller base classes** | Business logic inherits framework code | Use composition: controller holds a reference to the interactor |
-| **Framework-specific return types** | Use Case returns `ResponseEntity` or `JsonResponse` | Return plain DTOs; let the adapter format the response |
-| **Dependency injection via framework** | Inner circle annotated with `@Inject`, `@Autowired` | Use constructor injection with plain interfaces; wire in Main |
-| **Validation annotations** | Business validation tied to framework | Validate in the use case using plain code or a domain validator |
+| Framework Pattern                      | Violation                                           | Fix                                                             |
+| -------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------- |
+| **ORM annotations on entities**        | Entity depends on database framework                | Separate domain entity from ORM model; map between them         |
+| **Controller base classes**            | Business logic inherits framework code              | Use composition: controller holds a reference to the interactor |
+| **Framework-specific return types**    | Use Case returns `ResponseEntity` or `JsonResponse` | Return plain DTOs; let the adapter format the response          |
+| **Dependency injection via framework** | Inner circle annotated with `@Inject`, `@Autowired` | Use constructor injection with plain interfaces; wire in Main   |
+| **Validation annotations**             | Business validation tied to framework               | Validate in the use case using plain code or a domain validator |
 
 ### Keeping Frameworks at Arm's Length
 
@@ -201,12 +206,12 @@ The inner circle is the most valuable part of the system because it contains the
 
 ### Enforcement Strategies
 
-| Strategy | How It Works | Tools |
-|----------|-------------|-------|
-| **Architecture tests** | Automated tests that verify import rules | ArchUnit (Java), Dependency Cruiser (JS/TS), import-linter (Python) |
-| **Module boundaries** | Language-level visibility (packages, modules) | Java modules, Go internal packages, Rust `pub(crate)` |
-| **Build system separation** | Inner and outer circles are separate build targets | Separate Gradle modules, npm packages, or Python packages |
-| **Code review rules** | Manual review for dependency direction violations | PR checklist: "Do any new imports in the domain cross outward?" |
+| Strategy                    | How It Works                                       | Tools                                                               |
+| --------------------------- | -------------------------------------------------- | ------------------------------------------------------------------- |
+| **Architecture tests**      | Automated tests that verify import rules           | ArchUnit (Java), Dependency Cruiser (JS/TS), import-linter (Python) |
+| **Module boundaries**       | Language-level visibility (packages, modules)      | Java modules, Go internal packages, Rust `pub(crate)`               |
+| **Build system separation** | Inner and outer circles are separate build targets | Separate Gradle modules, npm packages, or Python packages           |
+| **Code review rules**       | Manual review for dependency direction violations  | PR checklist: "Do any new imports in the domain cross outward?"     |
 
 ### The Four-Step Inversion Process
 
@@ -236,6 +241,7 @@ PostgresOrderRepository (implements OrderRepository)
 ```
 
 Dependencies:
+
 - Express Route Handler depends on PlaceOrderInteractor (inward) -- correct
 - PlaceOrderInteractor depends on Order (inward) -- correct
 - PlaceOrderInteractor depends on OrderRepository interface (same circle) -- correct

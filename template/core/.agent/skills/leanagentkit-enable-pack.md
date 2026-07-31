@@ -9,18 +9,18 @@ description: Install one or more Lean Agent Kit packs into an existing project (
 
 ## Packs
 
-| Id | Depends on | What you get |
-|----|------------|--------------|
-| `spec` | — | Grill, specs, implement-spec, spikes, ADRs, PROGRESS/SCRATCH |
-| `stacks` | — | Stack registry, match-stack, scaffolders |
-| `practice` | — | Engineering guardrail skills |
-| `architecture` | `spec` | CA/DDD decomposition, slices |
-| `backlog` | `spec` | Backlog.md sync |
-| `git-lifecycle` | `spec` | Branch/commit/PR offers, babysit-pr |
-| `trevor` | — | Concierge, reminders, checklists |
-| `caveman` | — | Terse commits/reviews (optional terse chat) |
-| `authoring` | — | create/distill/curate skills, generators |
-| `imaginary` | — | Resize/crop/convert images via h2non/imaginary |
+| Id              | Depends on | What you get                                                 |
+| --------------- | ---------- | ------------------------------------------------------------ |
+| `spec`          | —          | Grill, specs, implement-spec, spikes, ADRs, PROGRESS/SCRATCH |
+| `stacks`        | —          | Stack registry, match-stack, scaffolders                     |
+| `practice`      | —          | Engineering guardrail skills                                 |
+| `architecture`  | `spec`     | CA/DDD decomposition, slices                                 |
+| `backlog`       | `spec`     | Backlog.md sync                                              |
+| `git-lifecycle` | `spec`     | Branch/commit/PR offers, babysit-pr                          |
+| `trevor`        | —          | Concierge, reminders, checklists                             |
+| `caveman`       | —          | Terse commits/reviews (optional terse chat)                  |
+| `authoring`     | —          | create/distill/curate skills, generators                     |
+| `imaginary`     | —          | Resize/crop/convert images via h2non/imaginary               |
 
 ## Procedure
 
@@ -38,6 +38,7 @@ description: Install one or more Lean Agent Kit packs into an existing project (
    ```
 
    Pin `@latest`. Use `--force` only to overwrite differing pack files.
+
 5. Confirm stamp `installedPacks` updated.
 6. Update `AGENTS.md` §7 with a short line per new pack.
 7. If Cursor/Claude: run `leanagentkit-wire-agent` so wrappers include new skills.

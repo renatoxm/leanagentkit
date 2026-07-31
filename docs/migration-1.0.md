@@ -5,13 +5,13 @@ Lean Agent Kit **1.0** changes the default from “everything ships dormant” t
 
 ## What changed
 
-| Before (0.x) | After (1.0) |
-|--------------|-------------|
-| Full skill set copied on scaffold | Core only by default |
-| Optional features dormant on disk | Packs installed via `--enable-pack` / `--with` |
-| “Do not glob the repo” | Map-first; narrow search allowed |
-| One heavy daily loop | Workflow sizes: trivial / normal / substantial |
-| Upgrade never deletes | Still additive; new `--prune-to-core` archives pack files |
+| Before (0.x)                      | After (1.0)                                               |
+| --------------------------------- | --------------------------------------------------------- |
+| Full skill set copied on scaffold | Core only by default                                      |
+| Optional features dormant on disk | Packs installed via `--enable-pack` / `--with`            |
+| “Do not glob the repo”            | Map-first; narrow search allowed                          |
+| One heavy daily loop              | Workflow sizes: trivial / normal / substantial            |
+| Upgrade never deletes             | Still additive; new `--prune-to-core` archives pack files |
 
 ## Recommended path
 
@@ -66,15 +66,21 @@ bunx create-lean-agent-kit@latest . --enable-pack spec,stacks
 
 :::
 
-   Prune archives pack overlays (including PROGRESS/SCRATCH if the spec pack is
-   removed) under `.leanagentkit-backup/`. Core `ACTIVE_CONTEXT` is preserved.
-   User-authored `docs/specs/<feature>.md` files are left in place.
+Prune archives pack overlays (including PROGRESS/SCRATCH if the spec pack is
+removed) under `.leanagentkit-backup/`. Core `ACTIVE_CONTEXT` and `LEARNINGS`
+are preserved.
+User-authored `docs/specs/<feature>.md` files are left in place.
 
-3. Merge **1.0 protocol** into `AGENTS.md` §6 if upgrade preserved your old file
-   (it does). Keep §1–5; adopt map-first + workflow sizes from the core template.
-   **Clear §7** lines for packs you no longer have (prune does not rewrite AGENTS.md).
+3. Merge **current protocol** into `AGENTS.md` §6 if upgrade preserved your old file
+   (it does). Keep §1–5; adopt ambient memory + LEARNINGS + **Finalize** rules from the
+   core template. Upgrade installs `docs/memory/LEARNINGS.md` when missing — it does
+   **not** rewrite your `AGENTS.md`, so old ceremony-only §6 will coexist with the new
+   LEARNINGS file until you merge. **Clear §7** lines for packs you no longer have
+   (prune does not rewrite AGENTS.md).
 
-4. Re-run `leanagentkit-wire-agent` (Cursor / Claude).
+4. Re-run `leanagentkit-wire-agent` (Cursor / Claude). `--upgrade` does **not** refresh
+   `.cursor/hooks.json` or `CLAUDE.md`; re-wire (and opt in to refresh LAK hook entries)
+   so ambient / LEARNINGS session prompts replace older start/end ceremony nudges.
 
 Or ask the agent: **Read `.agent/skills/leanagentkit-migrate-1.md` and follow it.**
 

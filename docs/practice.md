@@ -47,8 +47,8 @@ flowchart TD
 
 - **Enable if** you want `leanagentkit-review`, `debug`, `tdd`, `security`,
   `performance`, `git-workflow`, and related skills available in the project.
-- **Skip if** you only need map + session memory + convention check — core already
-  includes `leanagentkit-check`.
+- **Skip if** you only need map + ambient memory + LEARNINGS + convention check —
+  core already includes `leanagentkit-check`.
 
 ## Use cases
 
@@ -80,23 +80,23 @@ flowchart TD
 
 ### Skills in this pack
 
-| Skill | Typical use |
-|-------|-------------|
-| `leanagentkit-review` | Multi-axis review before merge |
-| `leanagentkit-simplify` | Reduce complexity after a feature lands |
-| `leanagentkit-git-workflow` | Branch / commit discipline |
-| `leanagentkit-docs` | Documentation updates |
-| `leanagentkit-debug` | Evidence-first debugging |
-| `leanagentkit-tdd` | Test-driven implementation |
-| `leanagentkit-security` | Security checklist pass |
-| `leanagentkit-performance` | Performance checklist pass |
-| `leanagentkit-deprecation` | Safe deprecation plans |
-| `leanagentkit-api-design` | API shape review |
-| `leanagentkit-frontend-design` | UI/frontend craft checklist |
-| `leanagentkit-ci-cd` | Conditional — when CI config exists |
-| `leanagentkit-observability` | Conditional — when observability evidence matches |
+| Skill                          | Typical use                                       |
+| ------------------------------ | ------------------------------------------------- |
+| `leanagentkit-review`          | Multi-axis review before merge                    |
+| `leanagentkit-simplify`        | Reduce complexity after a feature lands           |
+| `leanagentkit-git-workflow`    | Branch / commit discipline                        |
+| `leanagentkit-docs`            | Documentation updates                             |
+| `leanagentkit-debug`           | Evidence-first debugging                          |
+| `leanagentkit-tdd`             | Test-driven implementation                        |
+| `leanagentkit-security`        | Security checklist pass                           |
+| `leanagentkit-performance`     | Performance checklist pass                        |
+| `leanagentkit-deprecation`     | Safe deprecation plans                            |
+| `leanagentkit-api-design`      | API shape review                                  |
+| `leanagentkit-frontend-design` | UI/frontend craft checklist                       |
+| `leanagentkit-ci-cd`           | Conditional — when CI config exists               |
+| `leanagentkit-observability`   | Conditional — when observability evidence matches |
 
-Registry of practice skills (always-on vs conditional): 
+Registry of practice skills (always-on vs conditional):
 `.agent/practice-skills/registry.md` after the pack is installed.
 
 Invoke any skill explicitly:

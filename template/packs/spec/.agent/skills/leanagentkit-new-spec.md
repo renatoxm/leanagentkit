@@ -77,7 +77,7 @@ When the spec is written:
 
    **Both paths** — when architecture integration is active (see
    `leanagentkit-architecture` detection contract), `offer_decompose_after_spec:
-   true` in `.leanagentkit/architecture.yml`, and the spec is non-trivial:
+true` in `.leanagentkit/architecture.yml`, and the spec is non-trivial:
 
    - Recommended: "Plan implementation, then build"
    - Also: "Decompose into parallel-safe slices" (e.g. API vs web)

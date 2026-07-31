@@ -45,11 +45,13 @@ Adapt steps to project's stack and `AGENTS.md` §3 commands.
 ## CI failure feedback loop
 
 When CI fails:
+
 1. Copy specific error output (not entire log)
 2. Fix locally; verify with same commands CI runs
 3. Push; confirm CI green
 
 Map failure type:
+
 - Lint → run project lint fix command
 - Type error → fix at cited location
 - Test failure → `leanagentkit-debug`

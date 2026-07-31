@@ -31,8 +31,8 @@ coding from a vague chat request, the agent grills unclear requirements, writes 
 Markdown spec with acceptance criteria, then implements against that spec and
 checks the result.
 
-Core Lean Agent Kit already handles map + session memory. Spec is the pack you
-enable when “just start coding” is too risky.
+Core Lean Agent Kit already handles map + ambient session memory + LEARNINGS.
+Spec is the pack you enable when “just start coding” is too risky.
 
 ## Do I need this pack?
 
@@ -68,27 +68,27 @@ flowchart LR
   grill[grill] --> newSpec[new-spec]
   newSpec --> impl[implement-spec]
   impl --> check[check]
-  check --> endSession[end-session]
+  check --> finalize[finalize]
 ```
 
-| Skill | Role |
-|-------|------|
-| `leanagentkit-grill` | Ask clarifying questions until the problem is sharp |
-| `leanagentkit-new-spec` | Create `docs/specs/NNN-feature.md` from the template |
-| `leanagentkit-implement-spec` | Implement acceptance criteria; update progress |
-| `leanagentkit-spike` | Time-boxed exploration when the approach is unknown |
-| `leanagentkit-seed-adrs` | Capture architecture decisions into `docs/adr/` |
+| Skill                         | Role                                                 |
+| ----------------------------- | ---------------------------------------------------- |
+| `leanagentkit-grill`          | Ask clarifying questions until the problem is sharp  |
+| `leanagentkit-new-spec`       | Create `docs/specs/NNN-feature.md` from the template |
+| `leanagentkit-implement-spec` | Implement acceptance criteria; update progress       |
+| `leanagentkit-spike`          | Time-boxed exploration when the approach is unknown  |
+| `leanagentkit-seed-adrs`      | Capture architecture decisions into `docs/adr/`      |
 
 Also ships memory files used by the substantial loop: `docs/memory/PROGRESS.md`,
 `docs/memory/SCRATCH.md`, and templates under `docs/specs/` / `docs/adr/`.
 
 ### Workflow size reminder
 
-| Size | When | Loop |
-|------|------|------|
-| Trivial | Typo, rename, Q&A | Just do it (no spec pack needed) |
-| Normal | Typical coding | `start-session` → work → `check` → `end-session` |
-| Substantial | Fuzzy/new feature | **This pack:** grill → new-spec → implement-spec → check → end-session |
+| Size        | When              | Loop                                                                |
+| ----------- | ----------------- | ------------------------------------------------------------------- |
+| Trivial     | Typo, rename, Q&A | Just do it (no spec pack needed)                                    |
+| Normal      | Typical coding    | Ambient work → `check` → finalize                                   |
+| Substantial | Fuzzy/new feature | **This pack:** grill → new-spec → implement-spec → check → finalize |
 
 ## Further reading
 
