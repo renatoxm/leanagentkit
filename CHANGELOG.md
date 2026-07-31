@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/renatoxm/leanagentkit/compare/v1.4.1...v1.5.0) (2026-07-31)
+
+
+### Features
+
+* **memory:** add ambient protocol and LEARNINGS self-improvement ([7485f15](https://github.com/renatoxm/leanagentkit/commit/7485f15037cdfd5197e88ae5a934948739a0a073))
+
 ## [1.4.1](https://github.com/renatoxm/leanagentkit/compare/v1.4.0...v1.4.1) (2026-07-27)
 
 
