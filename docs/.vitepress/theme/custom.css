@@ -12,30 +12,68 @@
   --vp-c-brand-soft: rgba(96, 165, 250, 0.16);
 }
 
-.guide-hero {
+.VPHero .text {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+@media (min-width: 640px) {
+  .VPHero .text {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .text {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+.VPHero .tagline {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+@media (min-width: 640px) {
+  .VPHero .tagline {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .tagline {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+.page-hero {
   display: grid;
   grid-template-columns: 1fr min(300px, 38%);
   gap: 1.25rem 2rem;
-  align-items: center;
+  align-items: start;
   margin: 0.25rem 0 1rem;
 }
 
-.guide-hero-text > blockquote {
+.page-hero-text > blockquote {
   margin: 0;
 }
 
-.guide-hero-image img {
+.page-hero-image img {
   display: block;
   width: 100%;
   height: auto;
 }
 
 @media (max-width: 768px) {
-  .guide-hero {
+  .page-hero {
     grid-template-columns: 1fr;
   }
 
-  .guide-hero-image {
+  .page-hero-image {
     max-width: 280px;
     margin: 0 auto;
   }

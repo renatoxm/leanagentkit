@@ -9,6 +9,7 @@ Always document with `@latest`.
 
 | Page              | Source                                                                                                        |
 | ----------------- | ------------------------------------------------------------------------------------------------------------- |
+| Home / About      | Hand-authored `index.md`, `about.md`                                                                          |
 | Guide             | Generated from `template/core/LEAN_AGENT_KIT_GUIDE.md` (ambient memory + LEARNINGS)                           |
 | Stacks            | Intro from `docs/.partials/stacks-intro.md` + registry from `template/packs/stacks/.agent/stacks/registry.md` |
 | Packs / Migration | Hand-authored `packs.md`, `migration-1.0.md`                                                                  |
@@ -50,4 +51,5 @@ bun run docs:build    # runs sync first, then builds
 
 ## Deployment
 
-Push to main → GitHub Actions Pages workflow → https://renatoxm.github.io/leanagentkit/
+Push to main → GitHub Actions Pages workflow →
+[renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/)

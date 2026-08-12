@@ -1,11 +1,20 @@
 # Packs
 
+<div class="page-hero">
+<div class="page-hero-text">
+
 Optional overlays shipped in the same npm package. **Not** copied on a default
 core install.
 
 Not sure which packs you need? Each pack page starts with a **Do I need this
 pack?** flowchart — start with [Spec](/spec) and [Stacks](/stacks) if you are
 new, then add integrations only when you feel the gap.
+
+</div>
+<div class="page-hero-image">
+<img src="/assets/images/TrevorPackage.png" alt="Trevor — Lean Agent Kit concierge" />
+</div>
+</div>
 
 ```mermaid
 flowchart TD

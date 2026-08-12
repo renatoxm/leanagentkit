@@ -7,6 +7,8 @@ with every install as `LEAN_AGENT_KIT_GUIDE.md`.
 
 Lean Agent Kit is **context economics**:
 
+<!-- @docs-hero-image /assets/images/TrevorHelp.png -->
+
 1. **Lean context** — sessions start from `ACTIVE_CONTEXT` + `CODEBASE_MAP` +
    recent `LEARNINGS`, then open named files. Narrow search is allowed when the
    map is wrong or incomplete.

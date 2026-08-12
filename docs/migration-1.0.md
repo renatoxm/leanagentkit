@@ -1,7 +1,16 @@
 # Migration to 1.0
 
+<div class="page-hero">
+<div class="page-hero-text">
+
 Lean Agent Kit **1.0** changes the default from “everything ships dormant” to a
 **lean core** plus **opt-in packs**.
+
+</div>
+<div class="page-hero-image">
+<img src="/assets/images/TrevorLeanAgentKit.png" alt="Trevor — Lean Agent Kit concierge" />
+</div>
+</div>
 
 ## What changed
 

@@ -1,8 +1,17 @@
 # Getting Started
 
+<div class="page-hero">
+<div class="page-hero-text">
+
 Lean Agent Kit 1.0 installs a **lean core**: Markdown memory so your agent
 resumes from a map and active context, plus a convention check. Optional
 **packs** add specs, stacks, and integrations.
+
+</div>
+<div class="page-hero-image">
+<img src="/assets/images/TrevorTablet.png" alt="Trevor — Lean Agent Kit concierge" />
+</div>
+</div>
 
 ## Install
 

@@ -1,31 +1,36 @@
 # Lean Agent Kit
 
-> Give your AI coding agent a small, trustworthy memory — not another operating system.
+> Persistent context & skills for AI coding agents.
 
-A **tool-agnostic lean core**: Markdown memory so the agent navigates by a map and
-opens what each task needs, plus a convention check. Optional **packs** add specs,
-stacks, guardrails, and integrations — only when you enable them.
+Give your coding agent the context, memory, and skills it needs to be an expert
+in your codebase, conventions, current work, and hard-won lessons — so it gets
+productive faster and stays on track. **Free and open source forever** (MIT).
 
-Works with Cursor, Claude Code, Copilot, ChatGPT, Aider, Cline — anything that can
-read files.
+A small Markdown core plus optional **packs** for specs, stacks, guardrails, and
+integrations — only when you enable them. Works with Cursor, Claude Code,
+Copilot, ChatGPT, Aider, Cline, and other file-reading agents. No account,
+subscription, or lock-in.
 
-**Docs:** [renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/)
+**Docs:** [renatoxm.github.io/leanagentkit](https://renatoxm.github.io/leanagentkit/) ·
+[Why Lean Agent Kit?](https://renatoxm.github.io/leanagentkit/about)
 
 ## The problem
 
-Every new session starts cold. The agent re-scans the repo, burns context, and
-still drifts from your conventions.
+Every new session starts cold. The agent does not know your codebase,
+conventions, what you are working on, or what the last session discovered. It
+re-searches familiar files, burns context, and can repeat mistakes your team has
+already solved.
 
 ## The fix (core)
 
-Core files do most of the work:
+Lean Agent Kit installs a small, persistent project memory:
 
-| File                            | Role                                             |
-| ------------------------------- | ------------------------------------------------ |
-| `AGENTS.md`                     | Project facts, commands, conventions, never-dos  |
-| `docs/CODEBASE_MAP.md`          | Navigation index                                 |
-| `docs/memory/ACTIVE_CONTEXT.md` | Current focus + resume note                      |
-| `docs/memory/LEARNINGS.md`      | Avoidable-mistake inbox → promote to AGENTS.md   |
+| File                            | Role                                           |
+| ------------------------------- | ---------------------------------------------- |
+| `AGENTS.md`                     | Project facts, commands, conventions, never-dos |
+| `docs/CODEBASE_MAP.md`          | Navigation index                               |
+| `docs/memory/ACTIVE_CONTEXT.md` | Current focus + resume note                    |
+| `docs/memory/LEARNINGS.md`      | Discoveries & avoidable mistakes → promote to AGENTS.md |
 | `.agent/skills/`                | Check, handoff, optional session wrappers, packs |
 
 **Map-first, not map-only:** start from the map; use narrow search when needed.
@@ -120,4 +125,5 @@ npm test
 
 ## License
 
-MIT
+MIT — free and open source forever. Use it, inspect it, adapt it, and share it
+without paying for access.

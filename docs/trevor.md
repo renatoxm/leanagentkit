@@ -22,8 +22,8 @@ bunx create-lean-agent-kit@latest . --enable-pack trevor
 
 :::
 
-<div class="guide-hero">
-<div class="guide-hero-text">
+<div class="page-hero">
+<div class="page-hero-text">
 
 Trevor is Lean Agent Kit's optional **concierge assistant**: teach how to use the
 kit, answer from memory, manage personal reminders and checklists, wrap Backlog UX,
@@ -33,7 +33,7 @@ Trevor is a **thin orchestrator** — it routes to existing skills; it does not
 replace ambient start / `start-session`, specs, or the Backlog integration rules.
 
 </div>
-<div class="guide-hero-image">
+<div class="page-hero-image">
 <img src="/assets/images/TrevorLeanAgentKit.png" alt="Trevor — Lean Agent Kit concierge" />
 </div>
 </div>
