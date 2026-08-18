@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.5](https://github.com/renatoxm/leanagentkit/compare/v1.5.4...v1.5.5) (2026-08-18)
+
+
+### Bug Fixes
+
+* **docs:** place guide hero marker after section 1 ([9f307b3](https://github.com/renatoxm/leanagentkit/commit/9f307b3ea01c89abf3f73428156909e7f75aea5f))
+
 ## [1.5.4](https://github.com/renatoxm/leanagentkit/compare/v1.5.3...v1.5.4) (2026-08-18)
 
 
