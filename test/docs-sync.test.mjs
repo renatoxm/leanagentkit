@@ -42,6 +42,8 @@ test("docs sync runs and writes guide.md from core guide", () => {
   assert.ok(heroText, "page-hero-text block present");
   assert.match(heroText[1], /## 1\. Mental model/);
   assert.match(heroText[1], /context economics/);
+  assert.match(heroText[1], /Lean context/);
+  assert.match(heroText[1], /work resumes accurately/);
   assert.doesNotMatch(heroText[1], /## 2\. Core files/);
   assert.match(guide, /<\/div>\s*\n\n## 2\. Core files/);
 
