@@ -8,6 +8,8 @@ import {
   classifyTarget,
   createFakePrompts,
   formatNextSteps,
+  formatWireAgentNextStep,
+  WIRE_AGENT_PROMPT,
   performCleanInstall,
   performScaffold,
   performUpgrade,
@@ -65,6 +67,13 @@ test("formatNextSteps reflects framework / stacks / core-only", () => {
   const core = formatNextSteps({ installedPacks: [], targetDir: "/tmp/x" });
   assert.match(core, /leanagentkit-bootstrap/);
   assert.doesNotMatch(core, /match-stack/);
+});
+
+test("formatWireAgentNextStep includes the full pasteable prompt", () => {
+  const block = formatWireAgentNextStep();
+  assert.match(block, /open your AI agent in this project and say/i);
+  assert.match(block, /Cursor or Claude Code/);
+  assert.ok(block.includes(`    ${WIRE_AGENT_PROMPT}`));
 });
 
 test("wizard empty: framework intent installs stacks and prints scaffold prompt", async () => {

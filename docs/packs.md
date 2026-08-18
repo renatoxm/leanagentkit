@@ -136,7 +136,10 @@ bunx create-lean-agent-kit@latest . --prune-to-core --keep-pack spec,stacks
 
 Pack files are moved to `.leanagentkit-backup/<timestamp>-prune/`, not deleted
 forever. That can include pack memory such as `PROGRESS.md` / reminders when
-those packs are removed; core `ACTIVE_CONTEXT` and `LEARNINGS` stay. User-authored specs under
+those packs are removed; core `ACTIVE_CONTEXT` and `LEARNINGS` stay. User copies of
+pack config (`.leanagentkit/<pack>.yml`, derived from each pack's `.yml.example`)
+are archived with the removed pack — `--keep-pack` leaves that pack's config in
+place; `--upgrade` still preserves all user YAML. User-authored specs under
 `docs/specs/` are left in place. After prune, **review `AGENTS.md` §7** — it is
 preserved and may still list removed packs.
 

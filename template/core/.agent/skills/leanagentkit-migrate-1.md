@@ -44,6 +44,9 @@ prune, then re-enable only what you need.
 
 6. Show backup path under `.leanagentkit-backup/*-prune/` if prune ran.
    Warn if PROGRESS/SCRATCH/reminders were moved — those are recoverable from backup.
+   Pack user configs (`.leanagentkit/*.yml` for removed packs) are archived the same
+   way; `--keep-pack` leaves those packs' YAML in place. `--upgrade` does not
+   touch user YAML.
    User-authored `docs/specs/<feature>.md` files are left in place.
 7. Rewrite `AGENTS.md` §6–§7 to match current protocol if still on older wording
    (upgrade refreshes kit-owned `AGENTS.md` only when not preserved — **AGENTS.md

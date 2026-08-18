@@ -34,6 +34,8 @@ test("upgrade preserves user-owned files and refreshes kit-owned files", () => {
     const out = runCli(dir, "--upgrade");
     assert.match(out, /upgraded/i);
     assert.match(out, new RegExp(`${PKG_VERSION}`));
+    assert.match(out, /open your AI agent in this project and say/i);
+    assert.match(out, /Read \.agent\/skills\/leanagentkit-wire-agent\.md and follow it/);
 
     assert.equal(readFileSync(join(dir, "AGENTS.md"), "utf8"), userAgents, "AGENTS.md preserved");
     assert.equal(

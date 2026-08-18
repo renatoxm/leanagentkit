@@ -134,6 +134,42 @@ function destRelFromTemplate(templateRel) {
   return templateRel;
 }
 
+/**
+ * User pack config derived from a shipped example.
+ * `.leanagentkit/architecture.yml.example` → `.leanagentkit/architecture.yml`
+ * @param {string} destRel
+ * @returns {string|null}
+ */
+export function userConfigRelFromExample(destRel) {
+  if (!destRel.startsWith(".leanagentkit/") || !destRel.endsWith(".yml.example")) {
+    return null;
+  }
+  return destRel.slice(0, -".example".length);
+}
+
+/**
+ * Overlay paths a prune of this pack should archive, including user YAML
+ * derived from `.leanagentkit/*.yml.example`.
+ * @param {{ files?: string[] }} pack
+ * @returns {string[]}
+ */
+export function pruneDestRelsForPack(pack) {
+  const destRels = [];
+  const seen = new Set();
+  const add = (rel) => {
+    if (!rel || seen.has(rel)) return;
+    seen.add(rel);
+    destRels.push(rel);
+  };
+  for (const fileRel of pack.files ?? []) {
+    if (fileRel === "pack.json") continue;
+    const destRel = destRelFromTemplate(fileRel);
+    add(destRel);
+    add(userConfigRelFromExample(destRel));
+  }
+  return destRels;
+}
+
 async function* walkFiles(dir, rel = "") {
   const entries = await readdir(dir, { withFileTypes: true });
   for (const entry of entries) {
@@ -409,9 +445,7 @@ To reclaim a lean footprint:
     npx create-lean-agent-kit@latest . --prune-to-core
     npx create-lean-agent-kit@latest . --enable-pack <packs-you-want>
 
-Re-run wire-agent if you use Cursor or Claude Code:
-
-    Read .agent/skills/leanagentkit-wire-agent.md and follow it.
+${formatWireAgentNextStep()}
 `);
   }
 
@@ -583,6 +617,19 @@ const NEXT_STEPS_ACTION_LINES = {
   reinstalled: "reinstalled (clean install) in",
   ready: "ready in",
 };
+
+/** Pasteable prompt for Cursor / Claude Code after pack or core changes. */
+export const WIRE_AGENT_PROMPT =
+  "Read .agent/skills/leanagentkit-wire-agent.md and follow it.";
+
+/**
+ * Explicit next-step block: what to paste into the agent to re-run wire-agent.
+ */
+export function formatWireAgentNextStep() {
+  return `If you use Cursor or Claude Code, open your AI agent in this project and say:
+
+    ${WIRE_AGENT_PROMPT}`;
+}
 
 /**
  * Build the final "what to tell your agent" block from wizard choices.
@@ -1262,9 +1309,9 @@ async function runEnablePack(targetDir, enablePackRaw, forceFlag) {
     process.exit(1);
   }
 
-  console.log(`Update AGENTS.md §7 to list installed packs. Re-run wire-agent if you use Cursor or Claude Code:
+  console.log(`Update AGENTS.md §7 to list installed packs.
 
-    Read .agent/skills/leanagentkit-wire-agent.md and follow it.
+${formatWireAgentNextStep()}
 `);
 }
 
@@ -1312,9 +1359,7 @@ async function runPrune(targetDir, keepPackRaw) {
 
   for (const id of toRemove) {
     const pack = await loadPack(id);
-    for (const fileRel of pack.files ?? []) {
-      if (fileRel === "pack.json") continue;
-      const destRel = destRelFromTemplate(fileRel);
+    for (const destRel of pruneDestRelsForPack(pack)) {
       const to = join(targetDir, destRel);
       if (!(await exists(to))) continue;
       const backupDest = join(backupRoot, destRel);
@@ -1366,7 +1411,7 @@ Review AGENTS.md §7 and clear stale pack/skill lines. Core ACTIVE_CONTEXT and L
 Re-enable packs with:
     npx create-lean-agent-kit@latest . --enable-pack <packs>
 
-Re-run wire-agent if you use Cursor or Claude Code.
+${formatWireAgentNextStep()}
 `);
 }
 

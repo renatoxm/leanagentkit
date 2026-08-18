@@ -1,9 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { mkdtempSync, existsSync, rmSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdtempSync, existsSync, rmSync, writeFileSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pruneDestRelsForPack, userConfigRelFromExample } from "../bin/lak.mjs";
 
 const CLI = "bin/cli.mjs";
 
@@ -126,6 +127,35 @@ test("--prune-to-core archives pack files", () => {
   }
 });
 
+test("userConfigRelFromExample maps pack example configs to user copies", () => {
+  assert.equal(
+    userConfigRelFromExample(".leanagentkit/architecture.yml.example"),
+    ".leanagentkit/architecture.yml",
+  );
+  assert.equal(
+    userConfigRelFromExample(".leanagentkit/git-lifecycle.yml.example"),
+    ".leanagentkit/git-lifecycle.yml",
+  );
+  assert.equal(userConfigRelFromExample(".agent/skills/leanagentkit-grill.md"), null);
+  assert.equal(userConfigRelFromExample(".leanagentkit/caveman.yml"), null);
+  assert.equal(userConfigRelFromExample("docs/memory/REMINDERS.md"), null);
+});
+
+test("pruneDestRelsForPack includes user YAML derived from yml.example", () => {
+  const destRels = pruneDestRelsForPack({
+    files: [
+      ".agent/skills/leanagentkit-caveman.md",
+      ".leanagentkit/caveman.yml.example",
+      "pack.json",
+    ],
+  });
+  assert.deepEqual(destRels, [
+    ".agent/skills/leanagentkit-caveman.md",
+    ".leanagentkit/caveman.yml.example",
+    ".leanagentkit/caveman.yml",
+  ]);
+});
+
 test("--prune-to-core --keep-pack retains listed packs", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-keep-"));
   try {
@@ -168,6 +198,8 @@ test("--prune-to-core preserves core ACTIVE_CONTEXT and LEARNINGS and warns abou
     assert.match(out, /§7|section 7/i);
     assert.match(out, /PROGRESS|memory file/i);
     assert.match(out, /LEARNINGS/i);
+    assert.match(out, /open your AI agent in this project and say/i);
+    assert.match(out, /Read \.agent\/skills\/leanagentkit-wire-agent\.md and follow it/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -216,6 +248,62 @@ test("--prune-to-core removes imaginary pack files including scripts/", () => {
   }
 });
 
+test("--prune-to-core archives user .leanagentkit/*.yml for removed packs", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-prune-yml-"));
+  try {
+    runCli(dir, "--with", "caveman,architecture");
+    const cavemanYml = "enabled: true\nterse_commits: true\n";
+    const architectureYml = "enabled: true\nmax_parallel: 3\n";
+    writeFileSync(join(dir, ".leanagentkit/caveman.yml"), cavemanYml);
+    writeFileSync(join(dir, ".leanagentkit/architecture.yml"), architectureYml);
+
+    const out = runCli(dir, "--prune-to-core");
+    assert.match(out, /prune\s+\.leanagentkit\/caveman\.yml/);
+    assert.match(out, /prune\s+\.leanagentkit\/architecture\.yml/);
+    assert.ok(!existsSync(join(dir, ".leanagentkit/caveman.yml")));
+    assert.ok(!existsSync(join(dir, ".leanagentkit/architecture.yml")));
+    assert.ok(!existsSync(join(dir, ".leanagentkit/caveman.yml.example")));
+
+    const pruneStamp = readdirSync(join(dir, ".leanagentkit-backup")).find((n) =>
+      n.endsWith("-prune"),
+    );
+    assert.ok(pruneStamp, "prune backup dir exists");
+    const backupRoot = join(dir, ".leanagentkit-backup", pruneStamp);
+    assert.equal(
+      readFileSync(join(backupRoot, ".leanagentkit/caveman.yml"), "utf8"),
+      cavemanYml,
+    );
+    assert.equal(
+      readFileSync(join(backupRoot, ".leanagentkit/architecture.yml"), "utf8"),
+      architectureYml,
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("--prune-to-core --keep-pack keeps that pack's user YAML", () => {
+  const dir = mkdtempSync(join(tmpdir(), "lak-prune-keep-yml-"));
+  try {
+    runCli(dir, "--with", "caveman,architecture");
+    const cavemanYml = "enabled: true\nterse_reviews: true\n";
+    const architectureYml = "enabled: true\nrequire_contracts: true\n";
+    writeFileSync(join(dir, ".leanagentkit/caveman.yml"), cavemanYml);
+    writeFileSync(join(dir, ".leanagentkit/architecture.yml"), architectureYml);
+
+    const out = runCli(dir, "--prune-to-core", "--keep-pack", "caveman");
+    assert.equal(readFileSync(join(dir, ".leanagentkit/caveman.yml"), "utf8"), cavemanYml);
+    assert.ok(existsSync(join(dir, ".leanagentkit/caveman.yml.example")));
+    assert.ok(!existsSync(join(dir, ".leanagentkit/architecture.yml")));
+    assert.match(out, /prune\s+\.leanagentkit\/architecture\.yml/);
+    assert.doesNotMatch(out, /prune\s+\.leanagentkit\/caveman\.yml/);
+    const stamp = JSON.parse(readFileSync(join(dir, ".agent/.leanagentkit-version"), "utf8"));
+    assert.deepEqual(stamp.installedPacks, ["caveman"]);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("--enable-pack backlog auto-installs spec dependency", () => {
   const dir = mkdtempSync(join(tmpdir(), "lak-dep-backlog-"));
   try {
@@ -227,6 +315,8 @@ test("--enable-pack backlog auto-installs spec dependency", () => {
     assert.ok(stamp.installedPacks.includes("backlog"));
     assert.ok(stamp.installedPacks.includes("spec"));
     assert.match(out, /dependencies/i);
+    assert.match(out, /open your AI agent in this project and say/i);
+    assert.match(out, /Read \.agent\/skills\/leanagentkit-wire-agent\.md and follow it/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

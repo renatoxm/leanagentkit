@@ -96,6 +96,9 @@ Or ask the agent: **Read `.agent/skills/leanagentkit-migrate-1.md` and follow it
 ## Prune details
 
 - Moves pack-owned files to `.leanagentkit-backup/<timestamp>-prune/`.
+- Also archives user `.leanagentkit/*.yml` for removed packs (derived from each
+  pack's `.yml.example`). `--keep-pack` keeps that pack's config; `--upgrade`
+  still preserves user YAML.
 - Refreshes core files (respecting preserve rules).
 - Sets `installedPacks` to `[]` or to `--keep-pack` list.
 - Does not delete your project code or user memory content that is not pack-owned.
