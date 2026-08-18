@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.4](https://github.com/renatoxm/leanagentkit/compare/v1.5.3...v1.5.4) (2026-08-18)
+
+
+### Bug Fixes
+
+* **cli:** archive pack YAML on prune and print pasteable wire-agent prompt ([b4bb576](https://github.com/renatoxm/leanagentkit/commit/b4bb576f65239242adc62e2145319f999e0d44fa))
+
 ## [1.5.3](https://github.com/renatoxm/leanagentkit/compare/v1.5.2...v1.5.3) (2026-08-12)
 
 ## [1.5.2](https://github.com/renatoxm/leanagentkit/compare/v1.5.1...v1.5.2) (2026-08-12)
